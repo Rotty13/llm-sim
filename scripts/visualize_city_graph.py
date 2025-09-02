@@ -11,16 +11,11 @@ def load_city(city_path):
 
 def build_graph(city_data):
     G = nx.Graph()
-    # Add central node for city connectivity
-    central_node = city_data.get("central_node", city_data.get("city", "City Center"))
-    G.add_node(central_node, type="center")
-    # Add places as nodes
+    # Only add places and streets, no central node
     for place in city_data.get("places", []):
         G.add_node(place["name"], type="place", category=place.get("category", "unknown"))
-    # Add streets as nodes and connect to central node
     for street in city_data.get("streets", []):
         G.add_node(street, type="street")
-        G.add_edge(street, central_node)
     # Add houses as nodes, connect to street and start_place
     for house in city_data.get("houses", []):
         addr = house["address"]
@@ -35,6 +30,11 @@ def build_graph(city_data):
         for street in city_data.get("streets", []):
             if street.lower() in place["name"].lower():
                 G.add_edge(place["name"], street)
+
+    # Add edges from connections field (ensure city graph connectivity)
+    for conn in city_data.get("connections", []):
+        if len(conn) == 2 and conn[0] in G and conn[1] in G:
+            G.add_edge(conn[0], conn[1])
     return G
 
 def visualize_graph(G, city_name):
@@ -48,8 +48,6 @@ def visualize_graph(G, city_name):
             node_colors.append("orange")
         elif t == "house":
             node_colors.append("lightgreen")
-        elif t == "center":
-            node_colors.append("red")
         else:
             node_colors.append("gray")
     plt.figure(figsize=(12,8))

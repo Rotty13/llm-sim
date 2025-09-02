@@ -1,261 +1,261 @@
 people:
-- name: Jaxson Lee
+- name: Colette Rousseau
   age: 22
-  job: software engineer
-  bio: Coding whiz with a passion for gaming.
+  job: seamstress
+  bio: Sews clothes; young and talented.
   values:
-  - innovation
-  - collaboration
-  - fun
-  goals:
-  - launch app
-  - get promoted
-  - travel
-  start_place: The Loft
-- name: Ava Morales
-  age: 35
-  job: school teacher
-  bio: Patient educator with a love for reading.
-  values:
-  - patience
-  - kindness
-  - knowledge
-  goals:
-  - improve student outcomes
-  - get published
-  - start family
-  start_place: The Oakwood
-- name: Ethan Kim
-  age: 29
-  job: restaurant owner
-  bio: Foodie entrepreneur with a flair for design.
-  values:
-  - quality
-  - community
   - creativity
+  - hard work
+  - family
   goals:
-  - expand restaurant
-  - host events
-  - hire staff
-  start_place: The Bistro
-- name: Lily Tran
-  age: 48
-  job: retired nurse
-  bio: Compassionate caregiver with a love for gardening.
-  values:
-  - caring
-  - stability
-  - nature
-  goals:
-  - volunteer
-  - travel
-  - spend time with grandkids
-  start_place: The Garden Cottage
-- name: Cameron Brooks
-  age: 62
-  job: retired mechanic
-  bio: Hands-on handyman with a love for woodworking.
+  - open own dress shop
+  - travel to Paris
+  - marry a musician
+  start_place: Laundry Row
+- name: "\xC9mile LaFleur"
+  age: 32
+  job: milliner
+  bio: Creates elegant hats for ladies; modest and precise.
   values:
   - hard work
-  - practicality
-  - creativity
+  - attention to detail
+  - family
   goals:
-  - restore old cars
-  - build furniture
-  - spend time with grandkids
-  start_place: The Workshop
-- name: Jaxson Lee
+  - open own shop
+  - improve hat designs
+  - save for children's education
+  start_place: "H\xF4tel de la Paix"
+- name: "L\xE9onie Dupont"
   age: 25
-  job: software engineer
-  bio: Works from home, loves coding and coffee.
+  job: mill worker
+  bio: Earns a steady income; strong and independent.
   values:
-  - productivity
-  - independence
-  - innovation
-  goals:
-  - launch app
-  - get promoted
-  - buy a house
-  start_place: The Redwood Inn
-- name: Lena Grant
-  age: 32
-  job: nurse practitioner
-  bio: Works at the local clinic, loves helping others.
-  values:
-  - compassion
-  - community
-  - health
-  goals:
-  - open own practice
-  - travel
-  - pay off student loans
-  start_place: The Redwood Clinic
-- name: Cameron Reed
-  age: 41
-  job: high school teacher
-  bio: Teaches at the local high school, loves inspiring students.
-  values:
-  - education
-  - mentorship
-  - fairness
-  goals:
-  - become department head
-  - write a book
-  - retire early
-  start_place: Redwood High School
-- name: Zara Patel
-  age: 29
-  job: event planner
-  bio: Plans weddings and parties, loves making people happy.
-  values:
-  - joy
-  - connection
-  - creativity
-  goals:
-  - launch own business
-  - get married
-  - travel the world
-  start_place: The Redwood Event Space
-- name: Ethan Kim
-  age: 55
-  job: retired police officer
-  bio: Serves on the town council, loves giving back.
-  values:
-  - service
-  - justice
+  - fair pay
+  - equality
   - community
   goals:
-  - run for mayor
-  - travel with wife
-  - stay active
-  start_place: The Redwood Town Hall
-- name: Elijah Thompson
-  age: 32
-  job: park ranger
-  bio: Loves hiking; works with nature.
+  - improve working conditions
+  - save for own home
+  - travel to Paris
+  start_place: Clos de la Fontaine
+- name: "F\xE9lix Marchand"
+  age: 40
+  job: blacksmith
+  bio: Forges tools and horseshoes; rugged and practical.
   values:
-  - conservation
-  - community service
-  - outdoor adventure
-  goals:
-  - protect wildlife habitats
-  - learn new outdoor skills
-  - mentor young rangers
-  start_place: The Preserve
-- name: Lena Lee
-  age: 25
-  job: coffee shop owner
-  bio: Passionate entrepreneur; fuels small town dreams.
-  values:
-  - small business
-  - community support
-  - quality coffee
-  goals:
-  - expand shop offerings
-  - host local events
-  - hire more staff
-  start_place: The Daily Grind
-- name: Cameron Brown
-  age: 41
-  job: high school principal
-  bio: Guides students; fosters growth.
-  values:
-  - education
-  - youth development
-  - school spirit
-  goals:
-  - improve graduation rates
-  - increase community engagement
-  - mentor new teachers
-  start_place: Redwood Elementary School
-- name: Sofia Patel
-  age: 29
-  job: yoga instructor
-  bio: Teaches mindfulness; promotes wellness.
-  values:
-  - wellness
-  - self-care
-  - community connection
-  goals:
-  - expand yoga offerings
-  - host workshops
-  - partner with local businesses
-  start_place: The Yoga Loft
-- name: Julian Sanchez
-  age: 48
-  job: city council member
-  bio: Serves community; builds consensus.
-  values:
-  - public service
-  - community engagement
-  - collaboration
-  goals:
-  - pass new legislation
-  - improve infrastructure
-  - build stronger relationships
-  start_place: City Hall
-- name: Ethan Patel
-  age: 35
-  job: high school teacher
-  bio: Young father; loves teaching science to his kids.
-  values:
-  - patience
-  - fairness
-  - community
-  goals:
-  - get tenure
-  - pay off student loans
-  - start a family garden
-  start_place: Redwood City Hall
-- name: Luna Garcia
-  age: 22
-  job: waitress at diner
-  bio: Free-spirited artist; loves serving coffee to locals.
-  values:
-  - creativity
-  - spontaneity
-  - connection
-  goals:
-  - save up for art supplies
-  - take a road trip
-  - get her own apartment
-  start_place: The Sunny Side Diner
-- name: Cameron Lee
-  age: 45
-  job: small business owner (bookstore)
-  bio: Middle-aged entrepreneur; loves recommending new authors.
-  values:
-  - integrity
-  - knowledge
-  - support
-  goals:
-  - expand his bookstore
-  - start a book club
-  - travel to Europe
-  start_place: The Cozy Book Nook
-- name: Maya Ramos
-  age: 25
-  job: nurse at local hospital
-  bio: Compassionate nurse; loves caring for her patients.
-  values:
-  - empathy
-  - healing
-  - community
-  goals:
-  - become a charge nurse
-  - pursue a master's degree
-  - volunteer abroad
-  start_place: The Redwood General Hospital
-- name: Julian Sanchez
-  age: 50
-  job: retired police officer (now works at the local hardware store)
-  bio: Experienced lawman; loves helping folks with home repairs.
-  values:
-  - safety
   - honesty
-  - practicality
+  - hard work
+  - loyalty
   goals:
-  - start a small garden
-  - travel to the Pacific Northwest
-  - mentor young officers
-  start_place: The Hardware Haven
+  - expand business
+  - hire more workers
+  - build a stable family life
+  start_place: "Rue de la R\xE9publique"
+- name: Colette Rousseau
+  age: 28
+  job: dressmaker
+  bio: Creates beautiful clothes for ladies; creative and ambitious.
+  values:
+  - artistry
+  - innovation
+  - success
+  goals:
+  - open own shop
+  - travel to fashion capitals
+  - marry a wealthy husband
+  start_place: "Place de la Libert\xE9"
+- name: Gustave Lefebvre
+  age: 50
+  job: baker
+  bio: Bakes bread and pastries; kind and generous.
+  values:
+  - generosity
+  - community
+  - fairness
+  goals:
+  - improve bakery
+  - help less fortunate neighbors
+  - visit his children in Paris
+  start_place: Rue de la Bourse
+- name: Eugene LaFleur
+  age: 32
+  job: blacksmith
+  bio: Hammers out a living; strong, steady hands.
+  values:
+  - honesty
+  - hard work
+  - community
+  goals:
+  - expand shop
+  - hire apprentice
+  - build family home
+  start_place: The Forge
+- name: "L\xE9a Dupr\xE9"
+  age: 25
+  job: dressmaker
+  bio: Stitches together dreams; fashionable, free spirit.
+  values:
+  - beauty
+  - independence
+  - artistry
+  goals:
+  - open own shop
+  - travel to Paris
+  - meet a suitor
+  start_place: "Madame Dupr\xE9's Dress Salon"
+- name: Gustave Bergeron
+  age: 45
+  job: notary public
+  bio: Draws up documents; wise, witty lawyer.
+  values:
+  - justice
+  - honesty
+  - family
+  goals:
+  - become judge
+  - expand practice
+  - raise a family
+  start_place: The Notary's Office
+- name: "C\xE9lestine Thibodeau"
+  age: 38
+  job: schoolteacher
+  bio: Teaches young minds; patient, kind educator.
+  values:
+  - education
+  - nurturing
+  - community service
+  goals:
+  - become principal
+  - open own school
+  - travel to Europe
+  start_place: "Lumi\xE8re Schoolhouse"
+- name: "F\xE9lix Moreau"
+  age: 29
+  job: postmaster
+  bio: Delivers mail; reliable, cheerful postman.
+  values:
+  - reliability
+  - honesty
+  - neighborliness
+  goals:
+  - become post office manager
+  - expand service
+  - build a home
+  start_place: The Post Office
+- name: Eugene LaFleur
+  age: 42
+  job: blacksmith
+  bio: Forges iron, provides for family.
+  values:
+  - hard work
+  - honesty
+  - community
+  goals:
+  - expand business
+  - pay off debts
+  - build a new forge
+  start_place: LaFleur Forge
+- name: Sophia Patel
+  age: 25
+  job: milliner
+  bio: Creates hats, supports women's independence.
+  values:
+  - independence
+  - creativity
+  - equality
+  goals:
+  - open own shop
+  - travel to Europe
+  - learn new millinery techniques
+  start_place: Patel Millinery
+- name: James Reed
+  age: 50
+  job: lawyer
+  bio: Advocates for justice, supports local businesses.
+  values:
+  - justice
+  - community service
+  - fairness
+  goals:
+  - become mayor
+  - improve city infrastructure
+  - help local farmers
+  start_place: Reed Law Office
+- name: Lena Kim
+  age: 32
+  job: teacart owner
+  bio: Serves tea, offers a taste of Asia.
+  values:
+  - hospitality
+  - tradition
+  - cultural exchange
+  goals:
+  - expand teacart business
+  - learn new recipes
+  - host cultural events
+  start_place: Kim's Teacart
+- name: Cecile Dupre
+  age: 38
+  job: schoolteacher
+  bio: Educates children, inspires young minds.
+  values:
+  - education
+  - patience
+  - nurturing
+  goals:
+  - become principal
+  - develop new curriculum
+  - help students succeed
+  start_place: Dupre School
+- name: "\xC9mile Dupont"
+  age: 42
+  job: clockmaker
+  bio: Respects tradition; precise in his craft.
+  values:
+  - precision
+  - patience
+  - respect
+  goals:
+  - fix the town clock
+  - teach apprentices
+  - improve timekeeping
+  start_place: Dupont's Clocks
+- name: Sophie LaFleur
+  age: 25
+  job: milliner
+  bio: Young and fashionable; loves hats.
+  values:
+  - beauty
+  - innovation
+  - community
+  goals:
+  - start own shop
+  - create new styles
+  - help local women
+  start_place: LaFleur's Millinery
+- name: Gaston LeCoeur
+  age: 58
+  job: vintner
+  bio: Gruff but fair; knows good wine.
+  values:
+  - quality
+  - hospitality
+  - generosity
+  goals:
+  - expand vineyard
+  - improve winemaking
+  - host wine tastings
+  start_place: LeCoeur's Vintner
+- name: "F\xE9lix Moreau"
+  age: 32
+  job: chemist
+  bio: Inquisitive and experimental; loves science.
+  values:
+  - curiosity
+  - innovation
+  - progress
+  goals:
+  - invent new products
+  - improve medicine
+  - teach chemistry
+  start_place: Moreau's Apothecary
