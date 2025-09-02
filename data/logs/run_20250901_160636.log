@@ -1,0 +1,53 @@
+--- Public log (last 30 events) ---
+[2025-08-31 10:10 @ Apartment] Lily Tran EAT()
+[2025-08-31 10:15 @ Cafe] Ethan Kim EAT()
+[2025-08-31 10:20 @ Apartment] Lily Tran EAT()
+[2025-08-31 10:25 @ Cafe] Ethan Kim EAT()
+[2025-08-31 10:30 @ Apartment] Lily Tran EAT()
+[2025-08-31 10:35 @ Cafe] Ethan Kim EAT()
+[2025-08-31 10:40 @ Apartment] Lily Tran EAT()
+[2025-08-31 10:45 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 10:50 @ Apartment] Lily Tran EAT()
+[2025-08-31 10:50 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 10:55 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 11:00 @ Apartment] Lily Tran EAT()
+[2025-08-31 11:00 @ Cafe] Ethan Kim EAT()
+[2025-08-31 11:10 @ Apartment] Lily Tran EAT()
+[2025-08-31 11:10 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 11:15 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 11:20 @ Apartment] Lily Tran EAT()
+[2025-08-31 11:20 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 11:25 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 11:30 @ Apartment] Lily Tran EAT()
+[2025-08-31 11:30 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 11:35 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 11:40 @ Apartment] Lily Tran EAT()
+[2025-08-31 11:40 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 11:45 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 11:50 @ Apartment] Lily Tran EAT()
+[2025-08-31 11:50 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 11:55 @ Cafe] Ethan Kim INTERACT()
+[2025-08-31 12:00 @ Apartment] Lily Tran EAT()
+[2025-08-31 12:00 @ Cafe] Ethan Kim INTERACT()
+
+--- Memory summaries ---
+
+### Lily Tran – Memory summary
+Counts  | autobio=6  episodic=0  semantic=0  tom=0
+  - [2025-08-31 11:50] autobio: Maybe some toast is still good from yesterday.
+  - [2025-08-31 11:10] autobio: Maybe there's still some leftover toast from yesterday.
+  - [2025-08-31 10:40] autobio: Hope I didn't miss breakfast entirely.
+  - [2025-08-31 10:10] autobio: Maybe I'll find some leftover toast in the kitchen.
+  - [2025-08-31 09:40] autobio: Hope there's some leftover toast in the kitchen.
+
+### Ethan Kim – Memory summary
+Counts  | autobio=6  episodic=0  semantic=0  tom=0
+  - [2025-08-31 11:40] autobio: Finally a break from those annoying autobio reminders.
+  - [2025-08-31 11:10] autobio: Need that caffeine boost ASAP.
+  - [2025-08-31 10:35] autobio: Hope they still have those chocolate-filled croissants.
+  - [2025-08-31 10:05] autobio: Maybe the croissants are still warm from this morning.
+  - [2025-08-31 09:35] autobio: Time for a caffeine boost!
+
+--- Run summary ---
+Lily Tran — place=Apartment, energy=0.28, hunger=0.92, stress=0.56, memories=6
+Ethan Kim — place=Cafe, energy=0.28, hunger=0.92, stress=0.56, memories=6
