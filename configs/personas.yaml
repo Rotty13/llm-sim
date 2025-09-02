@@ -1,238 +1,261 @@
 people:
-- name: Ethan Patel
-  age: 32
-  job: software engineer
-  bio: Codes all day; loves hiking on weekends.
-  values:
-  - integrity
-  - innovation
-  - community
-  goals:
-  - launch own startup
-  - improve coding skills
-  - hike to the top of Redwood's highest peak
-  start_place: The Redwood Inn
-- name: Lena Kim
-  age: 25
-  job: nurse
-  bio: Cares for patients; enjoys yoga in her free time.
-  values:
-  - compassion
-  - empathy
-  - self-care
-  goals:
-  - become a specialist
-  - start a wellness blog
-  - attend a yoga retreat
-  start_place: Redwood General Hospital
-- name: Jaden Lee
-  age: 41
-  job: restaurant owner
-  bio: Serves up burgers; loves playing guitar.
-  values:
-  - hospitality
-  - family
-  - music
-  goals:
-  - expand the restaurant
-  - learn to play jazz
-  - start a music school
-  start_place: Jaden's Eats
-- name: Sofia Rodriguez
-  age: 29
-  job: teacher
-  bio: Educates students; enjoys reading in her free time.
-  values:
-  - education
-  - equality
-  - literacy
-  goals:
-  - become a department head
-  - start a book club
-  - travel to teach abroad
-  start_place: Redwood Elementary School
-- name: Cameron Brown
-  age: 58
-  job: retired police officer
-  bio: Serves the community; loves gardening.
-  values:
-  - service
-  - justice
-  - nature
-  goals:
-  - start a community garden
-  - become a mentor
-  - travel to visit grandkids
-  start_place: The Redwood Police Department
-- name: Emily Patel
-  age: 32
-  job: nurse
-  bio: Caring nurse with a love for helping others.
-  values:
-  - compassion
-  - integrity
-  goals:
-  - get promoted
-  - find a long-term partner
-  start_place: The Redwood Inn
-- name: Liam Chen
-  age: 25
-  job: software engineer
-  bio: Tech-savvy young professional with a passion for gaming.
-  values:
-  - innovation
-  - community
-  goals:
-  - launch own startup
-  - attend music festivals
-  start_place: The Cozy Cupboard
-- name: Sophia Rodriguez
-  age: 41
-  job: small business owner (bakery)
-  bio: Warm-hearted bakery owner with a love for sweet treats.
-  values:
-  - family
-  - generosity
-  goals:
-  - expand the bakery
-  - start a family
-  start_place: The Sweet Spot Bakery
-- name: Julian Lee
-  age: 50
-  job: retired teacher
-  bio: Witty retired teacher with a love for gardening.
-  values:
-  - knowledge
-  - nature
-  goals:
-  - travel the world
-  - write a book
-  start_place: The Redwood Retirement Home
-- name: Ava Morales
+- name: Jaxson Lee
   age: 22
-  job: student (psychology)
-  bio: Aspiring psychologist with a love for social justice.
-  values:
-  - equality
-  - empathy
-  goals:
-  - graduate with honors
-  - land an internship
-  start_place: The Redwood University Dorms
-- name: Ethan Kim
-  age: 32
   job: software engineer
-  bio: Co-founder of a startup; loves coding marathons.
+  bio: Coding whiz with a passion for gaming.
   values:
   - innovation
   - collaboration
-  - work-life balance
-  goals:
-  - launch new product
-  - hire team members
-  - improve company culture
-  start_place: The Redwood Hub
-- name: Luna Patel
-  age: 25
-  job: nurse practitioner
-  bio: Recent grad; passionate about community health.
-  values:
-  - compassion
-  - education
-  - social justice
-  goals:
-  - complete residency
-  - launch non-profit
-  - improve healthcare access
-  start_place: Redwood Medical Center
-- name: Julian Sanchez
-  age: 41
-  job: small business owner
-  bio: Owner of a local bakery; loves experimenting with recipes.
-  values:
-  - quality
-  - customer service
-  - community involvement
-  goals:
-  - expand product line
-  - hire staff
-  - increase online presence
-  start_place: Sanchez's Sweet Treats
-- name: Ava Lee
-  age: 29
-  job: artist and art teacher
-  bio: Freelance artist; loves teaching kids to paint.
-  values:
-  - creativity
-  - self-expression
-  - inspiration
-  goals:
-  - launch online course
-  - exhibit work in gallery
-  - improve teaching skills
-  start_place: The Artisan's Studio
-- name: Cameron Reed
-  age: 55
-  job: retired teacher and coach
-  bio: Former high school football coach; loves mentoring young athletes.
-  values:
-  - sportsmanship
-  - teamwork
-  - personal growth
-  goals:
-  - start coaching clinic
-  - mentor student-athletes
-  - stay active in community
-  start_place: Redwood High School
-- name: Jaxson Reed
-  age: 35
-  job: IT Specialist
-  bio: Works from home; loves video games.
-  values:
-  - integrity
-  - productivity
   - fun
   goals:
-  - launch a gaming channel
-  - improve coding skills
-  - buy a new PC
-  start_place: The Redwood Inn
-- name: Luna Torres
-  age: 22
-  job: Baker
-  bio: Works at the local bakery; loves baking.
-  values:
-  - creativity
-  - kindness
-  - fresh air
-  goals:
-  - open her own bakery
-  - learn to make croissants
-  - start a garden
-  start_place: The Cozy Cupcake Cafe
-- name: Ethan Patel
-  age: 29
-  job: Doctor
-  bio: Works at the local hospital; loves medicine.
-  values:
-  - compassion
-  - knowledge
-  - helping others
-  goals:
-  - become a specialist
-  - start a medical non-profit
-  - read more books
-  start_place: The Redwood Medical Center
-- name: Maya Ramos
-  age: 41
-  job: Teacher
-  bio: Teaches at the local elementary school; loves kids.
+  - launch app
+  - get promoted
+  - travel
+  start_place: The Loft
+- name: Ava Morales
+  age: 35
+  job: school teacher
+  bio: Patient educator with a love for reading.
   values:
   - patience
+  - kindness
+  - knowledge
+  goals:
+  - improve student outcomes
+  - get published
+  - start family
+  start_place: The Oakwood
+- name: Ethan Kim
+  age: 29
+  job: restaurant owner
+  bio: Foodie entrepreneur with a flair for design.
+  values:
+  - quality
+  - community
+  - creativity
+  goals:
+  - expand restaurant
+  - host events
+  - hire staff
+  start_place: The Bistro
+- name: Lily Tran
+  age: 48
+  job: retired nurse
+  bio: Compassionate caregiver with a love for gardening.
+  values:
+  - caring
+  - stability
+  - nature
+  goals:
+  - volunteer
+  - travel
+  - spend time with grandkids
+  start_place: The Garden Cottage
+- name: Cameron Brooks
+  age: 62
+  job: retired mechanic
+  bio: Hands-on handyman with a love for woodworking.
+  values:
+  - hard work
+  - practicality
+  - creativity
+  goals:
+  - restore old cars
+  - build furniture
+  - spend time with grandkids
+  start_place: The Workshop
+- name: Jaxson Lee
+  age: 25
+  job: software engineer
+  bio: Works from home, loves coding and coffee.
+  values:
+  - productivity
+  - independence
+  - innovation
+  goals:
+  - launch app
+  - get promoted
+  - buy a house
+  start_place: The Redwood Inn
+- name: Lena Grant
+  age: 32
+  job: nurse practitioner
+  bio: Works at the local clinic, loves helping others.
+  values:
+  - compassion
+  - community
+  - health
+  goals:
+  - open own practice
+  - travel
+  - pay off student loans
+  start_place: The Redwood Clinic
+- name: Cameron Reed
+  age: 41
+  job: high school teacher
+  bio: Teaches at the local high school, loves inspiring students.
+  values:
   - education
+  - mentorship
+  - fairness
+  goals:
+  - become department head
+  - write a book
+  - retire early
+  start_place: Redwood High School
+- name: Zara Patel
+  age: 29
+  job: event planner
+  bio: Plans weddings and parties, loves making people happy.
+  values:
+  - joy
+  - connection
+  - creativity
+  goals:
+  - launch own business
+  - get married
+  - travel the world
+  start_place: The Redwood Event Space
+- name: Ethan Kim
+  age: 55
+  job: retired police officer
+  bio: Serves on the town council, loves giving back.
+  values:
+  - service
+  - justice
   - community
   goals:
-  - become a principal
-  - start a literacy program
-  - travel more
-  start_place: The Redwood Elementary School
+  - run for mayor
+  - travel with wife
+  - stay active
+  start_place: The Redwood Town Hall
+- name: Elijah Thompson
+  age: 32
+  job: park ranger
+  bio: Loves hiking; works with nature.
+  values:
+  - conservation
+  - community service
+  - outdoor adventure
+  goals:
+  - protect wildlife habitats
+  - learn new outdoor skills
+  - mentor young rangers
+  start_place: The Preserve
+- name: Lena Lee
+  age: 25
+  job: coffee shop owner
+  bio: Passionate entrepreneur; fuels small town dreams.
+  values:
+  - small business
+  - community support
+  - quality coffee
+  goals:
+  - expand shop offerings
+  - host local events
+  - hire more staff
+  start_place: The Daily Grind
+- name: Cameron Brown
+  age: 41
+  job: high school principal
+  bio: Guides students; fosters growth.
+  values:
+  - education
+  - youth development
+  - school spirit
+  goals:
+  - improve graduation rates
+  - increase community engagement
+  - mentor new teachers
+  start_place: Redwood Elementary School
+- name: Sofia Patel
+  age: 29
+  job: yoga instructor
+  bio: Teaches mindfulness; promotes wellness.
+  values:
+  - wellness
+  - self-care
+  - community connection
+  goals:
+  - expand yoga offerings
+  - host workshops
+  - partner with local businesses
+  start_place: The Yoga Loft
+- name: Julian Sanchez
+  age: 48
+  job: city council member
+  bio: Serves community; builds consensus.
+  values:
+  - public service
+  - community engagement
+  - collaboration
+  goals:
+  - pass new legislation
+  - improve infrastructure
+  - build stronger relationships
+  start_place: City Hall
+- name: Ethan Patel
+  age: 35
+  job: high school teacher
+  bio: Young father; loves teaching science to his kids.
+  values:
+  - patience
+  - fairness
+  - community
+  goals:
+  - get tenure
+  - pay off student loans
+  - start a family garden
+  start_place: Redwood City Hall
+- name: Luna Garcia
+  age: 22
+  job: waitress at diner
+  bio: Free-spirited artist; loves serving coffee to locals.
+  values:
+  - creativity
+  - spontaneity
+  - connection
+  goals:
+  - save up for art supplies
+  - take a road trip
+  - get her own apartment
+  start_place: The Sunny Side Diner
+- name: Cameron Lee
+  age: 45
+  job: small business owner (bookstore)
+  bio: Middle-aged entrepreneur; loves recommending new authors.
+  values:
+  - integrity
+  - knowledge
+  - support
+  goals:
+  - expand his bookstore
+  - start a book club
+  - travel to Europe
+  start_place: The Cozy Book Nook
+- name: Maya Ramos
+  age: 25
+  job: nurse at local hospital
+  bio: Compassionate nurse; loves caring for her patients.
+  values:
+  - empathy
+  - healing
+  - community
+  goals:
+  - become a charge nurse
+  - pursue a master's degree
+  - volunteer abroad
+  start_place: The Redwood General Hospital
+- name: Julian Sanchez
+  age: 50
+  job: retired police officer (now works at the local hardware store)
+  bio: Experienced lawman; loves helping folks with home repairs.
+  values:
+  - safety
+  - honesty
+  - practicality
+  goals:
+  - start a small garden
+  - travel to the Pacific Northwest
+  - mentor young officers
+  start_place: The Hardware Haven

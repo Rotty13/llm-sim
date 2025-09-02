@@ -1,0 +1,415 @@
+city: Redwood
+overview: Nestled in the heart of a lush valley, Redwood is a charming city that seamlessly
+  blends historic charm with modern convenience. Its residents and visitors alike
+  can enjoy a wide range of amenities, from excellent educational institutions to
+  world-class medical facilities.
+places:
+- name: The Redwood Inn
+  category: Hotel/Motel
+  description: A beautifully restored Victorian-era hotel that offers cozy rooms and
+    a warm welcome to its guests.
+- name: Redwood General Hospital
+  category: Hospital
+  description: A state-of-the-art medical facility that provides top-notch care to
+    the community, with a team of dedicated doctors and nurses always ready to help.
+- name: Jaden's Eats
+  category: Restaurant
+  description: A popular eatery serving up delicious burgers, crispy fries, and creamy
+    milkshakes in a fun, casual atmosphere.
+- name: Redwood Elementary School
+  category: School
+  description: A vibrant learning community where young minds grow and flourish, with
+    dedicated teachers and staff who nurture each child's unique potential.
+- name: The Redwood Police Department
+  category: Government/Public Safety
+  description: A trusted guardian of the city, keeping its residents safe and secure
+    through diligent patrols and swift response to emergencies.
+- name: The Cozy Cupboard
+  category: Store/Retail
+  description: A charming boutique that stocks an eclectic selection of unique gifts,
+    artisanal crafts, and handmade treasures for the home and heart.
+- name: The Sweet Spot Bakery
+  category: Restaurant/Bakery
+  description: "A delightful bakery and caf\xE9 where sweet treats and savory pastries\
+    \ are crafted with love and care, perfect for a quick breakfast or snack on-the-go."
+- name: The Redwood Retirement Home
+  category: Senior Living Facility
+  description: A warm and welcoming community that provides comfortable living arrangements,
+    nutritious meals, and engaging activities for its residents, ensuring their golden
+    years are filled with joy and purpose.
+- name: The Redwood University Dorms
+  category: Education/Residential
+  description: A modern dormitory complex where students can live, learn, and thrive
+    in a supportive community that fosters academic growth and personal development.
+- name: The Redwood Hub
+  category: Community Center
+  description: A vibrant hub of activity that offers a wide range of programs, services,
+    and events for people of all ages, from fitness classes to art exhibits and concerts.
+- name: Redwood Medical Center
+  category: Hospital
+  description: A comprehensive medical facility that provides a full spectrum of healthcare
+    services, from primary care to specialty treatments, in a caring and compassionate
+    environment.
+- name: Sanchez's Sweet Treats
+  category: Restaurant/Bakery
+  description: "A popular bakery and caf\xE9 where delicious pastries, cakes, and\
+    \ other sweet treats are crafted with love and care, perfect for special occasions\
+    \ or everyday indulgence."
+- name: The Artisan's Studio
+  category: Store/Retail
+  description: A unique studio and gallery that showcases the creative talents of
+    local artisans, offering handmade crafts, artwork, and unique gifts for the home
+    and heart.
+- name: Redwood High School
+  category: School
+  description: A thriving learning community where students can grow and develop their
+    passions, with dedicated teachers and staff who nurture each child's unique potential
+    and prepare them for success in college and beyond.
+- name: The Cozy Cupcake Cafe
+  category: Restaurant/Cafe
+  description: "A delightful caf\xE9 that serves up delicious cupcakes, coffee drinks,\
+    \ and other tasty treats in a cozy atmosphere perfect for meeting friends or enjoying\
+    \ a quiet moment to yourself."
+- name: The Redwood Medical Center
+  category: Hospital
+  description: A comprehensive medical facility that provides a full spectrum of healthcare
+    services, from primary care to specialty treatments, in a caring and compassionate
+    environment.
+- name: Redwood Elementary School
+  category: School
+  description: A vibrant learning community where young minds grow and flourish, with
+    dedicated teachers and staff who nurture each child's unique potential.
+- name: The Redwood Park
+  category: Park/Recreation
+  description: A beautiful green space that offers walking trails, picnic areas, playgrounds,
+    and plenty of opportunities for outdoor recreation and relaxation.
+- name: The City Hall
+  category: Government/Public Safety
+  description: The seat of local government, where city officials work tirelessly
+    to ensure the well-being and prosperity of Redwood's residents.
+- notebook store: Notebooks & Stationery Shop
+  category: Store/Retail
+  description: A charming shop that stocks a wide selection of notebooks, journals,
+    pens, pencils, and other stationery items for students and writers alike.
+houses:
+- owner: Ethan Patel
+  address: 100 Sagebrush Trail
+  street: Sagebrush Trail
+  person_ref:
+    name: Ethan Patel
+    age: 32
+    job: software engineer
+    bio: Codes all day; loves hiking on weekends.
+    values:
+    - integrity
+    - innovation
+    - community
+    goals:
+    - launch own startup
+    - improve coding skills
+    - hike to the top of Redwood's highest peak
+    start_place: The Redwood Inn
+- owner: Lena Kim
+  address: 101 Riverbend Way
+  street: Riverbend Way
+  person_ref:
+    name: Lena Kim
+    age: 25
+    job: nurse
+    bio: Cares for patients; enjoys yoga in her free time.
+    values:
+    - compassion
+    - empathy
+    - self-care
+    goals:
+    - become a specialist
+    - start a wellness blog
+    - attend a yoga retreat
+    start_place: Redwood General Hospital
+- owner: Jaden Lee
+  address: 102 Lumberjack Lane
+  street: Lumberjack Lane
+  person_ref:
+    name: Jaden Lee
+    age: 41
+    job: restaurant owner
+    bio: Serves up burgers; loves playing guitar.
+    values:
+    - hospitality
+    - family
+    - music
+    goals:
+    - expand the restaurant
+    - learn to play jazz
+    - start a music school
+    start_place: Jaden's Eats
+- owner: Sofia Rodriguez
+  address: 103 Wildflower Walk
+  street: Wildflower Walk
+  person_ref:
+    name: Sofia Rodriguez
+    age: 29
+    job: teacher
+    bio: Educates students; enjoys reading in her free time.
+    values:
+    - education
+    - equality
+    - literacy
+    goals:
+    - become a department head
+    - start a book club
+    - travel to teach abroad
+    start_place: Redwood Elementary School
+- owner: Cameron Brown
+  address: 104 Pioneer Plaza
+  street: Pioneer Plaza
+  person_ref:
+    name: Cameron Brown
+    age: 58
+    job: retired police officer
+    bio: Serves the community; loves gardening.
+    values:
+    - service
+    - justice
+    - nature
+    goals:
+    - start a community garden
+    - become a mentor
+    - travel to visit grandkids
+    start_place: The Redwood Police Department
+- owner: Emily Patel
+  address: 105 Creekstone Court
+  street: Creekstone Court
+  person_ref:
+    name: Emily Patel
+    age: 32
+    job: nurse
+    bio: Caring nurse with a love for helping others.
+    values:
+    - compassion
+    - integrity
+    goals:
+    - get promoted
+    - find a long-term partner
+    start_place: The Redwood Inn
+- owner: Liam Chen
+  address: 106 Sagebrush Trail
+  street: Sagebrush Trail
+  person_ref:
+    name: Liam Chen
+    age: 25
+    job: software engineer
+    bio: Tech-savvy young professional with a passion for gaming.
+    values:
+    - innovation
+    - community
+    goals:
+    - launch own startup
+    - attend music festivals
+    start_place: The Cozy Cupboard
+- owner: Sophia Rodriguez
+  address: 107 Riverbend Way
+  street: Riverbend Way
+  person_ref:
+    name: Sophia Rodriguez
+    age: 41
+    job: small business owner (bakery)
+    bio: Warm-hearted bakery owner with a love for sweet treats.
+    values:
+    - family
+    - generosity
+    goals:
+    - expand the bakery
+    - start a family
+    start_place: The Sweet Spot Bakery
+- owner: Julian Lee
+  address: 108 Lumberjack Lane
+  street: Lumberjack Lane
+  person_ref:
+    name: Julian Lee
+    age: 50
+    job: retired teacher
+    bio: Witty retired teacher with a love for gardening.
+    values:
+    - knowledge
+    - nature
+    goals:
+    - travel the world
+    - write a book
+    start_place: The Redwood Retirement Home
+- owner: Ava Morales
+  address: 109 Wildflower Walk
+  street: Wildflower Walk
+  person_ref:
+    name: Ava Morales
+    age: 22
+    job: student (psychology)
+    bio: Aspiring psychologist with a love for social justice.
+    values:
+    - equality
+    - empathy
+    goals:
+    - graduate with honors
+    - land an internship
+    start_place: The Redwood University Dorms
+- owner: Ethan Kim
+  address: 110 Pioneer Plaza
+  street: Pioneer Plaza
+  person_ref:
+    name: Ethan Kim
+    age: 32
+    job: software engineer
+    bio: Co-founder of a startup; loves coding marathons.
+    values:
+    - innovation
+    - collaboration
+    - work-life balance
+    goals:
+    - launch new product
+    - hire team members
+    - improve company culture
+    start_place: The Redwood Hub
+- owner: Luna Patel
+  address: 111 Creekstone Court
+  street: Creekstone Court
+  person_ref:
+    name: Luna Patel
+    age: 25
+    job: nurse practitioner
+    bio: Recent grad; passionate about community health.
+    values:
+    - compassion
+    - education
+    - social justice
+    goals:
+    - complete residency
+    - launch non-profit
+    - improve healthcare access
+    start_place: Redwood Medical Center
+- owner: Julian Sanchez
+  address: 112 Sagebrush Trail
+  street: Sagebrush Trail
+  person_ref:
+    name: Julian Sanchez
+    age: 41
+    job: small business owner
+    bio: Owner of a local bakery; loves experimenting with recipes.
+    values:
+    - quality
+    - customer service
+    - community involvement
+    goals:
+    - expand product line
+    - hire staff
+    - increase online presence
+    start_place: Sanchez's Sweet Treats
+- owner: Ava Lee
+  address: 113 Riverbend Way
+  street: Riverbend Way
+  person_ref:
+    name: Ava Lee
+    age: 29
+    job: artist and art teacher
+    bio: Freelance artist; loves teaching kids to paint.
+    values:
+    - creativity
+    - self-expression
+    - inspiration
+    goals:
+    - launch online course
+    - exhibit work in gallery
+    - improve teaching skills
+    start_place: The Artisan's Studio
+- owner: Cameron Reed
+  address: 114 Lumberjack Lane
+  street: Lumberjack Lane
+  person_ref:
+    name: Cameron Reed
+    age: 55
+    job: retired teacher and coach
+    bio: Former high school football coach; loves mentoring young athletes.
+    values:
+    - sportsmanship
+    - teamwork
+    - personal growth
+    goals:
+    - start coaching clinic
+    - mentor student-athletes
+    - stay active in community
+    start_place: Redwood High School
+- owner: Jaxson Reed
+  address: 115 Wildflower Walk
+  street: Wildflower Walk
+  person_ref:
+    name: Jaxson Reed
+    age: 35
+    job: IT Specialist
+    bio: Works from home; loves video games.
+    values:
+    - integrity
+    - productivity
+    - fun
+    goals:
+    - launch a gaming channel
+    - improve coding skills
+    - buy a new PC
+    start_place: The Redwood Inn
+- owner: Luna Torres
+  address: 116 Pioneer Plaza
+  street: Pioneer Plaza
+  person_ref:
+    name: Luna Torres
+    age: 22
+    job: Baker
+    bio: Works at the local bakery; loves baking.
+    values:
+    - creativity
+    - kindness
+    - fresh air
+    goals:
+    - open her own bakery
+    - learn to make croissants
+    - start a garden
+    start_place: The Cozy Cupcake Cafe
+- owner: Ethan Patel
+  address: 117 Creekstone Court
+  street: Creekstone Court
+  person_ref:
+    name: Ethan Patel
+    age: 29
+    job: Doctor
+    bio: Works at the local hospital; loves medicine.
+    values:
+    - compassion
+    - knowledge
+    - helping others
+    goals:
+    - become a specialist
+    - start a medical non-profit
+    - read more books
+    start_place: The Redwood Medical Center
+- owner: Maya Ramos
+  address: 118 Sagebrush Trail
+  street: Sagebrush Trail
+  person_ref:
+    name: Maya Ramos
+    age: 41
+    job: Teacher
+    bio: Teaches at the local elementary school; loves kids.
+    values:
+    - patience
+    - education
+    - community
+    goals:
+    - become a principal
+    - start a literacy program
+    - travel more
+    start_place: The Redwood Elementary School
+streets:
+- Sagebrush Trail
+- Riverbend Way
+- Lumberjack Lane
+- Wildflower Walk
+- Pioneer Plaza
+- Creekstone Court
+central_node: Redwood Center

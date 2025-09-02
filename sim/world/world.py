@@ -2,8 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any
 from collections import deque
-
-from sim.agents.agents import Agent
+ # Remove top-level import of Agent to avoid circular import
 
 @dataclass
 class Vendor:
@@ -31,7 +30,7 @@ class Place:
 class World:
     places: Dict[str, Place]
     events: deque = field(default_factory=deque)
-    _agents:list[Agent] = field(default_factory=list)
+    _agents: list = field(default_factory=list)  # type: ignore
 
     def broadcast(self, place: str, payload: Dict[str, Any]):
         self.events.append({"place": place, **payload})

@@ -27,24 +27,25 @@ Rules:
 """
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--city", default="Redwood")
-    ap.add_argument("-n", type=int, default=20)
-    ap.add_argument("--out", default="configs/personas.yaml")
-    args = ap.parse_args()
-    runs:int=math.ceil(args.n / 5.0)
-    people:list=list()
-    runs = 0
-    while len(people)<args.n or runs>args.n+100:
-      prompt = TEMPLATE2.format(city=args.city)
-      data = llm.chat_json(prompt, system="Return strict JSON only.", seed=random.randint(-5000,5000))
-      newpeople=data.get("people", [])
-      people.extend(newpeople)
-      runs+=1
-    
-    yaml.safe_dump({"people": people[:args.n-1]}, open(args.out, "w"), sort_keys=False)
-    print(f"Wrote {len(people)} personas to {args.out}")
-
-if __name__ == "__main__":
-    main()
+def make_personas(city="Redwood", n=20, out="configs/personas.yaml"):
+  runs:int=math.ceil(n / 5.0)
+  people:list=list()
+  runs = 0
+  # Sensible default locations
+  default_locations = [
+    f"{city} City Hall", f"{city} Central Park", f"{city} Library", f"{city} General Hospital", f"{city} Elementary School",
+    f"{city} Police Station", f"{city} Community Center", f"{city} Main Bakery", f"{city} Popular Restaurant", f"{city} Public Pool"
+  ]
+  while len(people)<n and runs<n+100:
+    prompt = TEMPLATE2.format(city=city)
+    data = llm.chat_json(prompt, system="Return strict JSON only.", seed=random.randint(-5000,5000))
+    newpeople=data.get("people", [])
+    # Assign start_place from default_locations if missing or not unique
+    for person in newpeople:
+      if not person.get("start_place") or person["start_place"] in [p["start_place"] for p in people]:
+        person["start_place"] = random.choice(default_locations)
+    people.extend(newpeople)
+    runs+=1
+  # Truncate to requested number
+  yaml.safe_dump({"people": people[:n]}, open(out, "w"), sort_keys=False)
+  print(f"Wrote {len(people[:n])} personas to {out}")
