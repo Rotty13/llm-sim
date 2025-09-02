@@ -5,8 +5,30 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 
+
 from sim.world import World, Place, Vendor
 from sim.agents import Agent, Persona, Appointment, now_str
+
+def _parse_say_payload(text: str) -> dict:
+    raw = text[text.find("(")+1: text.rfind(")")]
+    try:
+        return json.loads(raw)
+    except Exception:
+        try:
+            return json.loads(raw.replace("'", '"'))
+        except Exception:
+            return {}
+
+def print_memory_summary(agent: Agent, start: datetime, max_snips: int = 5):
+    items = agent.memory.items
+    by_kind = {"autobio":0, "episodic":0, "semantic":0, "tom":0}
+    for m in items:
+        by_kind[m.kind] = by_kind.get(m.kind, 0) + 1
+    print(f"\n### {agent.persona.name} – Memory summary")
+    print(f"Counts  | autobio={by_kind.get('autobio',0)}  episodic={by_kind.get('episodic',0)}  semantic={by_kind.get('semantic',0)}  tom={by_kind.get('tom',0)}")
+    recent = sorted(items, key=lambda m: m.t, reverse=True)[:max_snips]
+    for m in recent:
+        print(f"  - [{now_str(m.t,start)}] {m.kind}: {m.text}")
 
 def load_world(world_yaml: Path) -> World:
     data = yaml.safe_load(world_yaml.read_text())
