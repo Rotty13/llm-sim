@@ -1,6 +1,6 @@
 from __future__ import annotations
 import argparse, yaml, json
-from sim.llm import llm
+from sim.llm.llm import llm
 import random
 import math
 

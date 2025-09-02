@@ -1,4 +1,4 @@
-from sim.memory import MemoryStore, MemoryItem
+from sim.memory.memory import MemoryStore, MemoryItem
 
 def test_recall_basic():
     testword = "thirsty"

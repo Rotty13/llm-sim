@@ -1,6 +1,11 @@
 # LLM client and related constants
+from __future__ import annotations
 import requests
 import json
+from typing import Optional
+import os, json, requests, random
+from typing import Any, Dict, List
+import requests, json
 
 OLLAMA_URL = "http://localhost:11434"
 GEN_MODEL = "llama3.1:8b-instruct-q8_0"
@@ -13,7 +18,7 @@ class OllamaClient:
         self.emb_model = emb_model
         self.temperature = temperature
 
-    def generate(self, prompt: str, system: str = "", max_tokens: int = None) -> str:
+    def generate(self, prompt: str, system: str = "", max_tokens: Optional[int] = None) -> str:
         body = {
             "model": self.gen_model,
             "messages": [
@@ -34,7 +39,7 @@ class OllamaClient:
         r.raise_for_status()
         return r.json()["message"]["content"].strip()
 
-    def generateJSON(self, prompt: str, system: str = "", max_tokens: int = None, force_json: bool = True) -> str:
+    def generateJSON(self, prompt: str, system: str = "", max_tokens: Optional[int] = None, force_json: bool = True) -> str:
         body = {
             "model": self.gen_model,
             "messages": [
@@ -61,10 +66,7 @@ class OllamaClient:
         r = requests.post(f"{self.base}/api/embeddings", json={"model": self.emb_model, "prompt": text}, timeout=120)
         r.raise_for_status()
         return r.json()["embedding"]
-from __future__ import annotations
-import os, json, requests, random
-from typing import Any, Dict, List
-import requests, json
+
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 GEN_MODEL  = os.environ.get("GEN_MODEL", "llama3.1:8b-instruct-q8_0")

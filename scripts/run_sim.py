@@ -6,8 +6,8 @@ from pathlib import Path
 
 
 
-from sim.world import World, Place, Vendor
-from sim.agents import Agent, Persona, Appointment, now_str
+from sim.world.world import World, Place, Vendor
+from sim.agents.agents import Agent, Persona, Appointment, now_str
 
 def _parse_say_payload(text: str) -> dict:
     raw = text[text.find("(")+1: text.rfind(")")]

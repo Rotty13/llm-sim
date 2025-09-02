@@ -4,11 +4,12 @@ from typing import List, Dict, Any, Optional
 from difflib import SequenceMatcher
 import json, string
 
-from .llm import llm, BELIEF_LOCK_SYSTEM
-from .memory import MemoryStore, MemoryItem
-from .actions import normalize_action
-from .world import World
-from .scheduler import Appointment, enforce_schedule
+from ..llm.llm import llm, BELIEF_LOCK_SYSTEM
+from ..memory.memory import MemoryStore, MemoryItem
+from ..actions.actions import normalize_action
+from ..world.world import World
+from ..scheduler.scheduler import Appointment, enforce_schedule
+from ..inventory.inventory import Inventory
 
 def now_str(tick:int, start_dt) -> str:
     from datetime import timedelta
@@ -41,6 +42,7 @@ class Agent:
     physio: Physio = field(default_factory=Physio)
     plan: List[str] = field(default_factory=list)
     calendar: List[Appointment] = field(default_factory=list)
+    inventory: Inventory = field(default_factory=lambda: Inventory(capacity_weight=5.0))
 
     # runtime
     busy_until: int = -1

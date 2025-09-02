@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Optional
 import math
-from .llm import llm
+from ..llm.llm import llm
 
 TICK_MINUTES = 5
 RECENCY_DECAY = 0.85  # per hour

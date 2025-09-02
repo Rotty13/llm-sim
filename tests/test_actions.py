@@ -1,4 +1,4 @@
-from sim.actions import normalize_action
+from sim.actions.actions import normalize_action
 
 def test_normalize_string_ok():
     s=normalize_action("WORK({\"steps\": [\"INTERACT:CoffeeMachine\"]})")

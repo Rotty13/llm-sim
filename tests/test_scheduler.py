@@ -1,4 +1,4 @@
-from sim.scheduler import enforce_schedule, Appointment
+from sim.scheduler.scheduler import enforce_schedule, Appointment
 
 def test_enforce_schedule_move():
     appts = [Appointment(at_min=60, place="Office", label="standup")]

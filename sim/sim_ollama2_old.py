@@ -100,7 +100,7 @@ class Item:
     name: str
     tags: set[str]            # {"edible","drink","caffeine"} etc.
     weight: float = 0.0
-    effects: Dict[str, float] = None  # {"hunger": -0.4, "energy": +0.1}
+    effects: Optional[Dict[str, float]] = None  # {"hunger": -0.4, "energy": +0.1}
 
 @dataclass
 class ItemStack:
@@ -271,7 +271,7 @@ class Appointment:
     place:str
     label:str  # e.g., "standup"
 
-CURRENT_AGENTS_LIST:list[Agent] = None
+CURRENT_AGENTS_LIST:list[Agent]
 @dataclass
 class Agent:
     persona:Persona

@@ -3,6 +3,8 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any
 from collections import deque
 
+from sim.agents.agents import Agent
+
 @dataclass
 class Vendor:
     prices: Dict[str, float] = field(default_factory=dict)   # item_id -> price
@@ -29,6 +31,7 @@ class Place:
 class World:
     places: Dict[str, Place]
     events: deque = field(default_factory=deque)
+    _agents:list[Agent] = field(default_factory=list)
 
     def broadcast(self, place: str, payload: Dict[str, Any]):
         self.events.append({"place": place, **payload})
