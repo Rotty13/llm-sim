@@ -1,261 +1,221 @@
 people:
-- name: Colette Rousseau
-  age: 22
-  job: seamstress
-  bio: Sews clothes; young and talented.
-  values:
-  - creativity
-  - hard work
-  - family
-  goals:
-  - open own dress shop
-  - travel to Paris
-  - marry a musician
-  start_place: Laundry Row
-- name: "\xC9mile LaFleur"
-  age: 32
-  job: milliner
-  bio: Creates elegant hats for ladies; modest and precise.
-  values:
-  - hard work
-  - attention to detail
-  - family
-  goals:
-  - open own shop
-  - improve hat designs
-  - save for children's education
-  start_place: "H\xF4tel de la Paix"
-- name: "L\xE9onie Dupont"
+- name: Emilie LaFleur
   age: 25
-  job: mill worker
-  bio: Earns a steady income; strong and independent.
+  job: milliner
+  bio: Young hat maker with flair for design.
   values:
-  - fair pay
-  - equality
-  - community
-  goals:
-  - improve working conditions
-  - save for own home
-  - travel to Paris
-  start_place: Clos de la Fontaine
-- name: "F\xE9lix Marchand"
-  age: 40
-  job: blacksmith
-  bio: Forges tools and horseshoes; rugged and practical.
-  values:
-  - honesty
-  - hard work
-  - loyalty
-  goals:
-  - expand business
-  - hire more workers
-  - build a stable family life
-  start_place: "Rue de la R\xE9publique"
-- name: Colette Rousseau
-  age: 28
-  job: dressmaker
-  bio: Creates beautiful clothes for ladies; creative and ambitious.
-  values:
-  - artistry
+  - beauty
   - innovation
-  - success
   goals:
   - open own shop
-  - travel to fashion capitals
-  - marry a wealthy husband
-  start_place: "Place de la Libert\xE9"
-- name: Gustave Lefebvre
-  age: 50
-  job: baker
-  bio: Bakes bread and pastries; kind and generous.
-  values:
-  - generosity
-  - community
-  - fairness
-  goals:
-  - improve bakery
-  - help less fortunate neighbors
-  - visit his children in Paris
-  start_place: Rue de la Bourse
-- name: Eugene LaFleur
-  age: 32
+  - create perfect hat style
+  start_place: The Hat Shop
+- name: Auguste Dumont
+  age: 42
   job: blacksmith
-  bio: Hammers out a living; strong, steady hands.
+  bio: Experienced iron worker with strong hands.
   values:
-  - honesty
   - hard work
-  - community
+  - family
   goals:
-  - expand shop
-  - hire apprentice
-  - build family home
+  - buy own forge
+  - give children a good life
   start_place: The Forge
-- name: "L\xE9a Dupr\xE9"
-  age: 25
-  job: dressmaker
-  bio: Stitches together dreams; fashionable, free spirit.
-  values:
-  - beauty
-  - independence
-  - artistry
-  goals:
-  - open own shop
-  - travel to Paris
-  - meet a suitor
-  start_place: "Madame Dupr\xE9's Dress Salon"
-- name: Gustave Bergeron
-  age: 45
-  job: notary public
-  bio: Draws up documents; wise, witty lawyer.
-  values:
-  - justice
-  - honesty
-  - family
-  goals:
-  - become judge
-  - expand practice
-  - raise a family
-  start_place: The Notary's Office
-- name: "C\xE9lestine Thibodeau"
-  age: 38
-  job: schoolteacher
-  bio: Teaches young minds; patient, kind educator.
-  values:
-  - education
-  - nurturing
-  - community service
-  goals:
-  - become principal
-  - open own school
-  - travel to Europe
-  start_place: "Lumi\xE8re Schoolhouse"
-- name: "F\xE9lix Moreau"
-  age: 29
-  job: postmaster
-  bio: Delivers mail; reliable, cheerful postman.
-  values:
-  - reliability
-  - honesty
-  - neighborliness
-  goals:
-  - become post office manager
-  - expand service
-  - build a home
-  start_place: The Post Office
-- name: Eugene LaFleur
-  age: 42
-  job: blacksmith
-  bio: Forges iron, provides for family.
-  values:
-  - hard work
-  - honesty
-  - community
-  goals:
-  - expand business
-  - pay off debts
-  - build a new forge
-  start_place: LaFleur Forge
-- name: Sophia Patel
-  age: 25
-  job: milliner
-  bio: Creates hats, supports women's independence.
-  values:
-  - independence
-  - creativity
-  - equality
-  goals:
-  - open own shop
-  - travel to Europe
-  - learn new millinery techniques
-  start_place: Patel Millinery
-- name: James Reed
-  age: 50
-  job: lawyer
-  bio: Advocates for justice, supports local businesses.
-  values:
-  - justice
-  - community service
-  - fairness
-  goals:
-  - become mayor
-  - improve city infrastructure
-  - help local farmers
-  start_place: Reed Law Office
-- name: Lena Kim
+- name: Sophie Dupont
   age: 32
-  job: teacart owner
-  bio: Serves tea, offers a taste of Asia.
-  values:
-  - hospitality
-  - tradition
-  - cultural exchange
-  goals:
-  - expand teacart business
-  - learn new recipes
-  - host cultural events
-  start_place: Kim's Teacart
-- name: Cecile Dupre
-  age: 38
-  job: schoolteacher
-  bio: Educates children, inspires young minds.
-  values:
-  - education
-  - patience
-  - nurturing
-  goals:
-  - become principal
-  - develop new curriculum
-  - help students succeed
-  start_place: Dupre School
-- name: "\xC9mile Dupont"
-  age: 42
-  job: clockmaker
-  bio: Respects tradition; precise in his craft.
-  values:
-  - precision
-  - patience
-  - respect
-  goals:
-  - fix the town clock
-  - teach apprentices
-  - improve timekeeping
-  start_place: Dupont's Clocks
-- name: Sophie LaFleur
-  age: 25
-  job: milliner
-  bio: Young and fashionable; loves hats.
-  values:
-  - beauty
-  - innovation
-  - community
-  goals:
-  - start own shop
-  - create new styles
-  - help local women
-  start_place: LaFleur's Millinery
-- name: Gaston LeCoeur
-  age: 58
-  job: vintner
-  bio: Gruff but fair; knows good wine.
+  job: dressmaker
+  bio: Talented seamstress with eye for detail.
   values:
   - quality
+  - community
+  goals:
+  - expand business
+  - help those in need
+  start_place: The Dress Shop
+- name: Félix Moreau
+  age: 29
+  job: chemist
+  bio: Curious scientist with passion for discovery.
+  values:
+  - knowledge
+  - progress
+  goals:
+  - find cure for disease
+  - publish scientific paper
+  start_place: The Laboratory
+- name: Colette Rousseau
+  age: 50
+  job: cook and innkeeper
+  bio: Warm hostess with hearty cooking skills.
+  values:
   - hospitality
   - generosity
   goals:
-  - expand vineyard
-  - improve winemaking
-  - host wine tastings
-  start_place: LeCoeur's Vintner
-- name: "F\xE9lix Moreau"
-  age: 32
-  job: chemist
-  bio: Inquisitive and experimental; loves science.
+  - improve recipes
+  - host famous guests
+  start_place: The Inn
+- name: Eugene Dubois
+  age: 42
+  job: blacksmith
+  bio: Hammers hot metal for a living; tough but fair.
   values:
-  - curiosity
-  - innovation
-  - progress
+  - honesty
+  - hard work
   goals:
-  - invent new products
-  - improve medicine
-  - teach chemistry
-  start_place: Moreau's Apothecary
+  - make quality tools
+  - pay off debts
+  start_place: house2
+- name: Léonie LaFleur
+  age: 25
+  job: milliner
+  bio: Creates hats for the fashionable ladies; whimsical.
+  values:
+  - beauty
+  - independence
+  goals:
+  - open own shop
+  - travel to Paris
+  start_place: La Maison de Modes
+- name: Gustave Moreau
+  age: 58
+  job: notary public
+  bio: Draws up documents; wise and experienced.
+  values:
+  - justice
+  - respect
+  goals:
+  - help young families
+  - write a book
+  start_place: The Notary's Office
+- name: Cécile Dumont
+  age: 32
+  job: teacher
+  bio: Teaches children; patient and kind.
+  values:
+  - education
+  - family
+  goals:
+  - improve school conditions
+  - start a family
+  start_place: The École
+- name: Pierre Dupont
+  age: 29
+  job: grocer
+  bio: Sells fresh produce; optimistic and friendly.
+  values:
+  - community
+  - health
+  goals:
+  - expand his shop
+  - help the poor
+  start_place: The Market
+- name: Eugene Dubois
+  age: 42
+  job: blacksmith
+  bio: Hammers hot metal for a living; tough but fair.
+  values:
+  - honesty
+  - hard work
+  goals:
+  - make quality tools
+  - pay off debts
+  start_place: house1
+- name: Léonie LaFleur
+  age: 25
+  job: milliner
+  bio: Creates hats for the fashionable ladies; whimsical.
+  values:
+  - beauty
+  - independence
+  goals:
+  - open own shop
+  - travel to Paris
+  start_place: Lumière General Hospital
+- name: Gustave Moreau
+  age: 58
+  job: notary public
+  bio: Draws up documents; wise and experienced.
+  values:
+  - justice
+  - respect
+  goals:
+  - help young families
+  - write a book
+  start_place: Lumière Public Pool
+- name: Cécile Dumont
+  age: 32
+  job: teacher
+  bio: Teaches children; patient and kind.
+  values:
+  - education
+  - family
+  goals:
+  - improve school conditions
+  - start a family
+  start_place: Lumière Public Pool
+- name: Pierre Dupont
+  age: 29
+  job: grocer
+  bio: Sells fresh produce; optimistic and friendly.
+  values:
+  - community
+  - health
+  goals:
+  - expand his shop
+  - help the poor
+  start_place: Lumière Community Center
+- name: Eugene Dubois
+  age: 42
+  job: blacksmith
+  bio: Hammers hot metal for a living; tough but fair.
+  values:
+  - honesty
+  - hard work
+  goals:
+  - make quality tools
+  - pay off debts
+  start_place: Lumière Community Center
+- name: Léonie LaFleur
+  age: 25
+  job: milliner
+  bio: Creates hats for the fashionable ladies; whimsical.
+  values:
+  - beauty
+  - independence
+  goals:
+  - open own shop
+  - travel to Paris
+  start_place: Lumière City Hall
+- name: Gustave Moreau
+  age: 58
+  job: notary public
+  bio: Draws up documents; wise and experienced.
+  values:
+  - justice
+  - respect
+  goals:
+  - help young families
+  - write a book
+  start_place: Lumière General Hospital
+- name: Cécile Dumont
+  age: 32
+  job: teacher
+  bio: Teaches children; patient and kind.
+  values:
+  - education
+  - family
+  goals:
+  - improve school conditions
+  - start a family
+  start_place: Lumière City Hall
+- name: Pierre Dupont
+  age: 29
+  job: grocer
+  bio: Sells fresh produce; optimistic and friendly.
+  values:
+  - community
+  - health
+  goals:
+  - expand his shop
+  - help the poor
+  start_place: Lumière Police Station

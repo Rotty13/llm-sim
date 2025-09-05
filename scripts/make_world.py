@@ -1,8 +1,7 @@
-
-
 import argparse
 import sys
 import os
+
 
 # Dynamically adjust import path if running as a script
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -30,31 +29,30 @@ def main():
     parser.add_argument('--start_year', type=int, default=1900)
     args = parser.parse_args()
 
-    # Step 1: Generate default city places based on time period
-    city_places = []
-    if args.start_year < 1850:
-        city_places = [
-            f"{args.city} Town Hall", f"{args.city} Market Square", f"{args.city} Church", f"{args.city} Blacksmith Shop", f"{args.city} Schoolhouse",
-            f"{args.city} General Store", f"{args.city} Bakery", f"{args.city} Tavern", f"{args.city} Stables", f"{args.city} Apothecary"
-        ]
-    elif args.start_year < 1920:
-        city_places = [
-            f"{args.city} City Hall", f"{args.city} Central Park", f"{args.city} Library", f"{args.city} General Hospital", f"{args.city} Elementary School",
-            f"{args.city} Police Station", f"{args.city} Community Center", f"{args.city} Main Bakery", f"{args.city} Restaurant", f"{args.city} Public Bath"
-        ]
-    else:
-        city_places = [
-            f"{args.city} City Hall", f"{args.city} Central Park", f"{args.city} Library", f"{args.city} General Hospital", f"{args.city} Elementary School",
-            f"{args.city} Police Station", f"{args.city} Community Center", f"{args.city} Main Bakery", f"{args.city} Popular Restaurant", f"{args.city} Public Pool"
-        ]
+    # Step 1: Pre-stage: Generate government places and people, then their houses
+    print("[make_world] Pre-stage: Generating government places, people, and houses...")
+    from scripts import make_city
+    make_city.pre_stage(city=args.city, start_year=args.start_year, personas_out=args.personas)
+
+    # Step 2: Main-stage: Generate businesses, people for businesses, and their houses
+    print("[make_world] Main-stage: Generating businesses, people, and houses...")
+    make_city.main_stage(city=args.city, start_year=args.start_year, personas_out=args.personas)
+
+    # Step 3: Post-stage: Finalize city and write output
+    print("[make_world] Post-stage: Finalizing city...")
+    make_city.post_stage(personas_path=args.personas, city=args.city, out=args.city_out)
 
     # Step 2: Generate personas using city places
     print("[make_world] Generating personas...")
+    import yaml
+    with open(args.city_out, 'r') as f:
+        city_data = yaml.safe_load(f)
+    city_places = city_data['places']
     make_personas(city=args.city, n=args.num_personas, out=args.personas, seed=args.seed, places=city_places)
 
     # Step 3: Generate city using personas
     print("[make_world] Generating city...")
-    make_city(personas_path=args.personas, city=args.city, out=args.city_out)
+    make_city.make_city(personas_path=args.personas, city=args.city, out=args.city_out)
 
     # Step 4: Write world.yaml with start_year and comment
     world_yaml_path = os.path.join(project_root, "configs", "world.yaml")
@@ -64,7 +62,7 @@ def main():
     world_data = {"city": args.city, "start_year": args.start_year}
     with open(world_yaml_path, "w", encoding="utf-8") as f:
         f.write(comment)
-        yaml.safe_dump(world_data, f, sort_keys=False)
+        yaml.safe_dump(world_data, f, allow_unicode=True, sort_keys=False)
     print(f"[make_world] Set start_year to {args.start_year} in {world_yaml_path}")
 
     # Step 5: Output summary report

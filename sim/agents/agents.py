@@ -4,6 +4,8 @@ from typing import List, Dict, Any, Optional
 from difflib import SequenceMatcher
 import json, string
 
+from matplotlib.pylab import f
+
 from ..llm.llm import llm, BELIEF_LOCK_SYSTEM
 from ..memory.memory import MemoryStore, MemoryItem
 from ..actions.actions import normalize_action
@@ -73,23 +75,26 @@ class Agent:
         if tick < self.busy_until:
             return {"action": "CONTINUE()", "private_thought": None, "memory_write": None}
 
-        forced = enforce_schedule(self.calendar, self.place, tick)
-        if forced:
-            return {"action": forced, "private_thought": f"gotta get to appointment", "memory_write": None}
+        #forced = enforce_schedule(self.calendar, self.place, tick)
+        #if forced:
+        #    return {"action": forced, "private_thought": f"gotta get to appointment", "memory_write": None}
 
         # light memory retrieval (queries could also come from LLM)
         rel = []
-        for q in ("today","schedule","rent","lunch","work"):
+        for q in ("today","schedule","rent","meal","work"):
             for m in self.memory.recall(q, k=1):
                 rel.append(f"[{now_str(m.t,start_dt)}] {m.kind}: {m.text}")
 
         roster = ", ".join(sorted(a.persona.name for a in world._agents)) if hasattr(world, "_agents") else "NEARBY"
         prompt = (
-            f"You are {self.persona.name} (job: {self.persona.job}, city: {self.persona.city}).\n"
+            f"You are {self.persona.name} (job: {self.persona.job}, city: {self.persona.city}) Bio: {self.persona.bio}.\n"
             f"Time {now_str(tick,start_dt)}. Location {self.place}. Mood {self.physio.mood}.\n"
             f"Needs: energy={self.physio.energy:.2f}, hunger={self.physio.hunger:.2f}, stress={self.physio.stress:.2f}.\n"
             "Recent memories:\n" + ("\n".join(rel) if rel else "(none)") + "\n"
             f"Known people: {roster}\n\n"
+            f"Observation: {obs_text}\n\n"
+            f"My values: {', '.join(self.persona.values)}.\n"
+            f"My goals: {', '.join(self.persona.goals)}.\n\n"
             "Choose ONE action and a private thought ≤20 words.\n"
             "DSL examples:\n"
             '  SAY({"to":"NEARBY","text":"..."})\n'
@@ -99,6 +104,7 @@ class Agent:
             '  PLAN({"steps":["MOVE:Office","WORK:focus","EAT:Cafe"]})\n'
             '  SLEEP()\n  EAT()\n  WORK()\n\n'
             "Return ONLY JSON with keys: action, private_thought, memory_write (nullable).\n"
+            "example: {\"action\":\"SAY({'to':'NEARBY','text':'hello'})\",\"private_thought\":\"I feel happy.\",\"memory_write\":\"I said hello to someone.\"}\n"
             "Rules:\n"
             "- MOVE.to must be an existing PLACE, not an object.\n"
             "- Prefer EAT only if hunger > 0.45 and at most once per 45 minutes.\n"

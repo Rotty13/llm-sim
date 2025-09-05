@@ -8,7 +8,8 @@ from typing import Any, Dict, List
 import requests, json
 
 OLLAMA_URL = "http://localhost:11434"
-GEN_MODEL = "llama3.1:8b-instruct-q8_0"
+#GEN_MODEL = "llama3.1:8b-instruct-q8_0"
+GEN_MODEL = "llama3.2:latest"
 EMB_MODEL = "nomic-embed-text"
 
 class OllamaClient:

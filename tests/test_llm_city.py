@@ -29,9 +29,18 @@ Return ONLY JSON in the following format:
 }}
 """
 
-print("Testing LLM city generation prompt...")
-result = llm.chat_json(prompt, system="Return strict JSON only.")
-print("Raw LLM response:", result)
-with open("llm_city_test_output.yaml", "w") as f:
+
+import pytest
+
+def test_llm_city_generation():
+  print("Testing LLM city generation prompt...")
+  result = llm.chat_json(prompt, system="Return strict JSON only.")
+  print("Raw LLM response:", result)
+  with open("llm_city_test_output.yaml", "w") as f:
     yaml.safe_dump(result, f)
-print("LLM city response saved to llm_city_test_output.yaml")
+  print("LLM city response saved to llm_city_test_output.yaml")
+  # Basic assertions to ensure stub returns expected structure
+  assert isinstance(result, dict)
+  assert "city" in result
+  assert "overview" in result
+  assert "places" in result
