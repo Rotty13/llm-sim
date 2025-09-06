@@ -1,0 +1,42 @@
+----- Conversation between James and Julie -----
+
+from: James, to: Julie
+private_thought: 'This can't be real, she died... didn't she?'
+memory_write: 'None'
+text: 'Julie, is this some sort of trick? You're standing right in front of me, but I know you've been gone for five years. What's happening here?'
+
+from: Julie, to: James
+private_thought: ''
+memory_write: ''
+text: 'I don't understand what's going on either, James. One moment we were riding through the countryside, and the next... this. I feel as though I've been gone for five years too, but my memories say otherwise. What do you mean by 'gone'?'
+
+from: James, to: Julie
+private_thought: 'Is this some kind of miracle? Am I dreaming?'
+memory_write: 'Julie is standing in front of me, and she seems to be as confused as I am.'
+text: 'My dear, I'm just as bewildered as you are. I remember the accident that took your life five years ago, but... but it feels like just yesterday we were together. I don't know what's happening or how you're here, but I'm grateful for this moment with you, even if it doesn't make sense.'
+
+from: Julie, to: James
+private_thought: 'This is too much to comprehend.'
+memory_write: 'James mentioned an accident that took my life five years ago.'
+text: 'Oh, James... your words are like a lifeline to me. I feel the same way - as though no time has passed at all. But what you said about the accident that took my life... how can that be? Am I truly here, or am I just a memory come to life?'
+
+from: James, to: Julie
+private_thought: 'Is she a ghost or just a figment of my imagination?'
+memory_write: 'None'
+text: 'Ah, Julie, my love, this is all so confusing. But if you're asking whether you're truly here with me now, I'd say... I don't know how else to explain it. You feel as real as ever, and the memories we shared are still vivid in my mind. If this isn't real, then what is?'
+
+from: Julie, to: James
+private_thought: 'The questions just keep piling up.'
+memory_write: 'James mentioned the reality of my presence and our shared memories.'
+text: 'I see your point, James. If I'm not truly here with you now, then where am I? And if our memories are still vivid in your mind, does that mean they're real even if we can't explain this... whatever this is?'
+
+from: James, to: Julie
+private_thought: 'I want to believe this is real, but a part of me is scared to let myself feel hope again.'
+memory_write: 'Julie asked if our memories are still real even if we can't explain what's happening.'
+text: 'Those are the questions that have been swirling in my head since you appeared here. I think what's most important to me, though, is that you're here with me now. Whether this is some kind of miracle or a product of my own mind, it feels real to me, and that's all that matters.'
+
+from: Julie, to: James
+private_thought: 'I'm not sure I want to think about the implications of this.'
+memory_write: 'James said being here with me is what matters.'
+text: 'Oh, James... your words are like music to my ears. I feel the same way - that being here with you is what truly matters, no matter how or why it's happening. But I have to ask, if this feels real to you, then does that mean our memories of the past five years don't count for anything?'
+

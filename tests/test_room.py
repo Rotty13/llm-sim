@@ -1,5 +1,7 @@
 import pytest
 from datetime import datetime
+from typing import Optional, Dict, Any
+from sim.memory.memory import MemoryItem
 from sim.world.world import World, Place, Vendor
 from sim.agents.agents import Agent, Persona, Appointment
 from sim.llm.llm import llm
@@ -18,7 +20,7 @@ def make_llm_agent(name="James", place="White Room"):
         city="breham",
         bio="A curious writer.",
         values=["curiosity", "truth"],
-        goals=["explore", "understand"]
+        goals=["understand what is happening"]
     )
     return Agent(persona=persona, place=place)
 
@@ -49,47 +51,108 @@ def test_agent_llm_chat():
     assert "action" in decision
     assert isinstance(decision["action"], str) and len(decision["action"]) > 0
 
-def test_agent_talks_and_observes_silence():
-    world = make_test_world()
-    agent = make_llm_agent()
-    deadwife: Agent = make_llm_agent(name="Julie(wife, deceased)", place="Unknown")
-    world._agents = [agent, deadwife]
-    agent.physio.mood = "stressed"
-    start = datetime(1900, 9, 4, 9, 0, 0)
-    obs = "You are in test room, a pure white featureless room. Your late wife Julie is standing in front of you smiling."
-    for tick in range(1, 6):
-        decision = agent.decide(world, obs, tick=tick, start_dt=start)
-        agent.act(world, decision, tick=tick)
-    # After 5 steps, check if agent tried to talk
-    said_something = any(e.get("kind") == "say" and e.get("actor") == agent.persona.name for e in world.events)
-    assert said_something, "Agent did not attempt to talk during simulation."
-    # Check that agent observed silence from deadwife
-    observed_silence = any("silent" in obs.lower() for obs in ["You are in test room with your deadwife. She is silent."])
-    assert observed_silence, "Agent did not observe silence from deadwife."
 
 def test_agent_converses_with_deadwife():
     world = make_test_world()
     agent = make_llm_agent()
-    deadwife = make_llm_agent(name="Julie(wife, deceased)", place="Room")
+    deadwife = make_llm_agent(name="Julie", place="Room")
     world._agents = [agent, deadwife]
-    agent.physio.mood = "stressed"
-    deadwife.physio.mood = "calm"
     start = datetime(1900, 9, 4, 9, 0, 0)
-    obs_agent = "You are in test room, a pure white featureless room. Your late wife Julie is standing in front of you smiling."
-    obs_deadwife = "You are in test room, a pure white featureless room. Your husband James is here, looking at you sadly. You don't know how but you feel you are dead."
-    for tick in range(1, 6):
-        decision_agent = agent.decide(world, obs_agent, tick=tick, start_dt=start)
-        agent.act(world, decision_agent, tick=tick)
-        decision_deadwife = deadwife.decide(world, obs_deadwife, tick=tick, start_dt=start)
-        deadwife.act(world, decision_deadwife, tick=tick)
-    # Check if both agents tried to talk
-    said_by_agent = [e for e in world.events if e.get("kind") == "say" and e.get("actor") == agent.persona.name]
-    said_by_deadwife = [e for e in world.events if e.get("kind") == "say" and e.get("actor") == deadwife.persona.name]
-    assert said_by_agent, "Agent did not attempt to talk during simulation."
-    assert said_by_deadwife, "Deadwife did not attempt to talk during simulation."
-    # Optionally, check if any message was directed to the other
-    agent_to_deadwife = any("Julie" in (e.get("text") or "") for e in said_by_agent)
-    deadwife_to_agent = any("James" in (e.get("text") or "") for e in said_by_deadwife)
+    base_environment = "You are in test room, a pure white featureless room with no border."
+
+    #main agent
+    agent.physio.mood = "stressed"
+    agent.physio.stress = 0.6
+    agent.memory.write(MemoryItem(t=0, kind="autobio", text="My wife Julie died 5 years ago(1895) in a carriage accident.", importance=1.0))
+    agent.memory.write(MemoryItem(t=1, kind="autobio", text="I miss my wife Julie dearly.", importance=1.0))
+    agent.memory.write(MemoryItem(t=2, kind="autobio", text="I last remembered being at the office", importance=1.0))
+    obs_agent = base_environment + "Your late wife Julie is standing in front of you. you want to talk to her."
+
+
+    #deadwife agent
+    deadwife.physio.mood = "confused"
+    deadwife.physio.stress = 0.7
+    deadwife.persona.job = "seamstress"
+    deadwife.memory.write(MemoryItem(t=0, kind="autobio", text="james is my husband", importance=1.0))
+    deadwife.memory.write(MemoryItem(t=0, kind="autobio", text="I'm a seamstress", importance=1.0))
+    deadwife.memory.write(MemoryItem(t=1, kind="autobio", text="My most recent memory is a carriage ride.", importance=1.0))
+    obs_deadwife = base_environment + "Your husband James is here. You don't know how but you feel you are dead."
+
+
+    loglist: Optional[list[Dict[str, Any]]] = []
+    last_decision_deadwife: Optional[Dict[str, Any]] = None
+    for tick in range(1, 30):
+        # Use decide_conversation for both agents
+        participants = [agent, deadwife]
+        incoming_message_agent = None
+        if last_decision_deadwife:
+            incoming_message_agent = {
+                'to': agent.persona.name,
+                'from': deadwife.persona.name,
+                'text': last_decision_deadwife.get("reply", None)
+            }
+        decision_agent = agent.decide_conversation(
+            world, obs_agent, participants=participants,
+            incoming_message=incoming_message_agent, tick=tick, start_dt=start,loglist=loglist
+        )
+        if decision_agent and "new_mood" in decision_agent:
+            agent.physio.mood = decision_agent["new_mood"]
+        if decision_agent and "memory_write" in decision_agent and decision_agent["memory_write"]:
+            agent.memory.write(MemoryItem(t=tick, kind="episodic", text=decision_agent["memory_write"], importance=0.5))
+
+        incoming_message_deadwife = None
+        if decision_agent:
+            incoming_message_deadwife = {
+                'to': deadwife.persona.name,
+                'from': agent.persona.name,
+                'text': decision_agent.get("reply", None)
+            }
+        decision_deadwife = deadwife.decide_conversation(
+            world, obs_deadwife, participants=participants,
+            incoming_message=incoming_message_deadwife, tick=tick, start_dt=start,loglist=loglist
+        )
+        last_decision_deadwife = decision_deadwife
+        if decision_deadwife and "new_mood" in decision_deadwife:
+            deadwife.physio.mood = decision_deadwife["new_mood"]
+        if decision_deadwife and "memory_write" in decision_deadwife and decision_deadwife["memory_write"]:
+            deadwife.memory.write(MemoryItem(t=tick, kind="episodic", text=decision_deadwife["memory_write"], importance=0.5))
+        pass
+
+
+        
+    
+    # Combine conversation histories and output to a file
+    import json
+    def extract_message(entry):
+        # Try to parse content as JSON to extract 'from' and 'to'
+        content = entry#json.loads(entry["content"])
+        msg_from = content.get("from", None)
+        msg_to = content.get("to", None)
+        msg_text = content.get("reply", content.get("text", entry))
+        content_private_thought = content.get("private_thought", "")
+        content_memory_write = content.get("memory_write", "")
+        return f"""
+from: {msg_from}, to: {msg_to}
+private_thought: '{content_private_thought}'
+memory_write: '{content_memory_write}'
+text: '{msg_text}'
+""".strip()
+
+
+    messages = [extract_message(entry) for entry in loglist]
+    with open("conversation_decisions_output.txt",'w', encoding="utf-8") as f:
+        f.write("----- Conversation between James and Julie -----\n\n")
+        for msg in messages:
+            f.write(msg + "\n\n") 
+
+    # Check if both agents have conversation history
+    assert any(entry["role"] == "agent" for entry in agent.conversation_history), "Agent did not reply during conversation."
+    assert any(entry["role"] == "agent" for entry in deadwife.conversation_history), "Deadwife did not reply during conversation."
+    # Optionally, check if any reply mentions the other
+    agent_replies = [entry["content"] for entry in agent.conversation_history if entry["role"] == "agent"]
+    deadwife_replies = [entry["content"] for entry in deadwife.conversation_history if entry["role"] == "agent"]
+    agent_to_deadwife = any("Julie" in reply for reply in agent_replies)
+    deadwife_to_agent = any("James" in reply for reply in deadwife_replies)
     assert agent_to_deadwife or deadwife_to_agent, "No direct conversation detected."
 
 if __name__ == "__main__":

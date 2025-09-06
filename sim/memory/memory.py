@@ -25,8 +25,11 @@ def _cos(u: List[float], v: List[float]) -> float:
 @dataclass
 class MemoryStore:
     items: List[MemoryItem] = field(default_factory=list)
+    _single_word_cache: dict = field(default_factory=dict, init=False, repr=False)
 
     def write(self, item: MemoryItem):
+        # Normalize text to lowercase for embedding and caching
+        item.text = item.text.lower()
         if item.vec is None:
             try:
                 item.vec = llm.embed(item.text)
@@ -35,9 +38,16 @@ class MemoryStore:
         self.items.append(item)
 
     def recall(self, q: str, k: int = 5) -> List[MemoryItem]:
-        if not self.items: return []
+        if not self.items:
+            return []
+        # Normalize query to lowercase
+        q_norm = q.lower()
+        # Caching for single-word queries
+        if ' ' not in q_norm:
+            if q_norm in self._single_word_cache:
+                return self._single_word_cache[q_norm][:k]
         try:
-            qv = llm.embed(q)
+            qv = llm.embed(q_norm)
         except Exception:
             qv = []
         latest_t = max(m.t for m in self.items) if self.items else 0
@@ -49,7 +59,11 @@ class MemoryStore:
             score = 0.6 * sim + 0.3 * rec + 0.1 * m.importance
             scored.append((score, m))
         scored.sort(key=lambda x: x[0], reverse=True)
-        return [m for _, m in scored[:k]]
+        result = [m for _, m in scored[:k]]
+        # Store in cache for single-word queries
+        if ' ' not in q_norm:
+            self._single_word_cache[q_norm] = result
+        return result
 
     def compress_nightly(self):
         """Sketch: keep top-N semantics and prune very old low-importance episodics."""
