@@ -15,5 +15,5 @@ def normalize_action(action: Any) -> str:
         if s in ("SAY","MOVE","INTERACT","THINK","PLAN","SLEEP","EAT","WORK","CONTINUE"):
             return f"{s}()"
         m = ACTION_RE.match(s)
-        return f"{m.group(1)}{m.group(2) or '()'}" if m else 'THINK({"note":"breathe and reconsider"})'
-    return 'THINK({"note":"invalid action format"})'
+        #return f"{m.group(1)}{m.group(2) or '()'}" if m else 'THINK({"note":"nothing"})'
+    return f'invalid action format: {action}'

@@ -45,12 +45,19 @@ class Agent:
     plan: List[str] = field(default_factory=list)
     calendar: List[Appointment] = field(default_factory=list)
     inventory: Inventory = field(default_factory=lambda: Inventory(capacity_weight=5.0))
+    obs_list: List[str] = field(default_factory=list)
 
     # runtime
     busy_until: int = -1
     _last_say_tick: int = -999
     _last_diary_tick: int = -999
     _last_diary: str = ""
+
+    def add_observation(self, text:str):
+        if text and text not in self.obs_list:
+            self.obs_list.append(text)
+            if len(self.obs_list) > 20:
+                self.obs_list.pop(0)
 
     def _norm_text(self, s:str) -> str:
         return "".join(ch for ch in (s or "").lower().strip() if ch not in string.punctuation)
@@ -85,6 +92,7 @@ class Agent:
             for m in self.memory.recall(q, k=1):
                 rel.append(f"[{now_str(m.t,start_dt)}] {m.kind}: {m.text}")
 
+        env_obs = json.dumps(self.obs_list)
         roster = ", ".join(sorted(a.persona.name for a in world._agents)) if hasattr(world, "_agents") else "NEARBY"
         prompt = (
             f"You are {self.persona.name} (job: {self.persona.job}, city: {self.persona.city}) Bio: {self.persona.bio}.\n"
@@ -92,24 +100,27 @@ class Agent:
             f"Needs: energy={self.physio.energy:.2f}, hunger={self.physio.hunger:.2f}, stress={self.physio.stress:.2f}.\n"
             "Recent memories:\n" + ("\n".join(rel) if rel else "(none)") + "\n"
             f"Known people: {roster}\n\n"
-            f"Observation: {obs_text}\n\n"
+            f"Observation: {obs_text}, {env_obs}\n\n"
             f"My values: {', '.join(self.persona.values)}.\n"
             f"My goals: {', '.join(self.persona.goals)}.\n\n"
             "Choose ONE action and a private thought ≤20 words.\n"
             "DSL examples:\n"
-            '  SAY({"to":"NEARBY","text":"..."})\n'
-            '  MOVE({"to":"Cafe"})\n'
-            '  INTERACT({"verb":"buy","item":"coffee"})\n'
-            '  THINK({"note":"private"})\n'
-            '  PLAN({"steps":["MOVE:Office","WORK:focus","EAT:Cafe"]})\n'
-            '  SLEEP()\n  EAT()\n  WORK()\n\n'
+            '  MOVE({"to":"Cafe"}) \n'
+            '  INTERACT({"verb":"buy","item":"coffee"}) \n'
+            '  THINK({"note":"private"}) \n'
+            '  PLAN({"steps":["MOVE:Office","WORK:focus","EAT:Cafe"]}) \n'
+            '  SAY({"to":"NEARBY","text":"..."}) \n'
+            '  SLEEP()\n  EAT()\n  WORK() \n\n'
             "Return ONLY JSON with keys: action, private_thought, memory_write (nullable).\n"
             "example: {\"action\":\"SAY({'to':'NEARBY','text':'hello'})\",\"private_thought\":\"I feel happy.\",\"memory_write\":\"I said hello to someone.\"}\n"
             "Rules:\n"
+            '- ALL speech or verbal communication MUST use SAY({"to":...,"text":...}) \n'
+            "- INTERACT is ONLY for non-verbal actions (e.g., buy, hug, give, take, etc.), NOT for speech. \n"
             "- MOVE.to must be an existing PLACE, not an object.\n"
             "- Prefer EAT only if hunger > 0.45 and at most once per 45 minutes.\n"
             "- If unsure who to address, use SAY to NEARBY or ALL.\n"
         )
+        self.obs_list = []
         out = llm.chat_json(prompt, system=BELIEF_LOCK_SYSTEM, max_tokens=256)
         # sanity carve
         if not isinstance(out, dict):
@@ -118,8 +129,18 @@ class Agent:
 
     def act(self, world: World, decision: Dict[str,Any], tick:int):
         action = normalize_action(decision.get("action",""))
+        if action.startswith("invalid action format"):
+            retries = 0
+            while retries < 3 and action.startswith("invalid action format"):
+                fixedaction = llm.chat(f"Please correct this action call it acceptions json. \n {decision.get('action','')}", system=BELIEF_LOCK_SYSTEM, max_tokens=64)
+                action = normalize_action(decision.get("action",""))
+                if not action.startswith("invalid action format"):
+                    break
+                retries += 1
+
         priv   = decision.get("private_thought")
         memw   = decision.get("memory_write")
+
 
         # busy silence
         if action.startswith("CONTINUE"):
@@ -142,6 +163,10 @@ class Agent:
         if action.startswith("SAY"):
             if (tick - self._last_say_tick) >= 6:
                 world.broadcast(self.place, {"actor":self.persona.name, "kind":"say", "text":action, "t":tick})
+                for agent in world._agents:
+                    if agent != self:
+                        out = {"agentsay": {"name": self.persona.name, "to":action, "text":action}}
+                        agent.add_observation(json.dumps(out))
                 self._last_say_tick = tick
 
         elif action.startswith("MOVE"):
@@ -151,6 +176,7 @@ class Agent:
                 if dest and world.valid_place(dest) and dest != self.place:
                     self.busy_until = tick + 2
                     world.broadcast(self.place, {"actor":self.persona.name, "kind":"move", "text":action, "t":tick})
+
                     self.place = dest
             except Exception:
                 pass
