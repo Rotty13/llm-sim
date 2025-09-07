@@ -46,7 +46,10 @@ def generate_default_places(cityname, start_year):
     places = GetCityDefaultPlaces(start_year)
     import random
     result = {"places": []}
-    for place in places:
+    total_places = len(places)
+    added_places = 0
+    for idx, place in enumerate(places):
+        print(f"[place_gen] Considering place {idx+1}/{total_places}: {place['name']} (prob={place['prob']})")
         if random.random() <= place["prob"]:
             result["places"].append({
                 "name": f"{cityname} {place['name']}",
@@ -54,4 +57,8 @@ def generate_default_places(cityname, start_year):
                 "role": place["role"],
                 "description": f"A notable location in {cityname}."
             })
+            added_places += 1
+            percent = int(added_places/total_places*100) if total_places else 100
+            print(f"[place_gen] Added place {added_places}/{total_places}: {place['name']} | Progress: {percent}% of places")
+    print(f"[place_gen] Finished place generation. Total added: {added_places}/{total_places}")
     return result

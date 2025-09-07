@@ -1,0 +1,298 @@
+places:
+- name: Lumière City Hall
+  category: government
+  role: City Hall
+  description: A notable location in Lumière.
+- name: Lumière Market Square
+  category: public_space
+  role: Market Square
+  description: A notable location in Lumière.
+- name: Lumière Church
+  category: religious
+  role: Church
+  description: A notable location in Lumière.
+- name: Lumière Central Park
+  category: public_space
+  role: Central Park
+  description: A notable location in Lumière.
+- name: Lumière Elementary School
+  category: education
+  role: Elementary School
+  description: A notable location in Lumière.
+people:
+- name: Susanna Chance
+  age: 42
+  sex: male
+  job: City Clerk
+  bio: Respectful administrator; upholds civic duty.
+  values:
+  - integrity
+  - efficiency
+  - public service
+  goals:
+  - improve record-keeping
+  - support local businesses
+  - ensure fair taxation
+  start_place: Lumière City Hall
+- name: Agnette Goodere
+  age: 42
+  sex: male
+  job: City Clerk
+  bio: Respected administrator; values efficiency.
+  values:
+  - integrity
+  - organization
+  - public service
+  goals:
+  - improve record-keeping
+  - support city growth
+  - mentor junior clerks
+  start_place: Lumière City Hall
+- name: Désirée Farquharson
+  age: 42
+  sex: male
+  job: City Hall Clerk
+  bio: Dedicated public servant; values order.
+  values:
+  - efficiency
+  - respect
+  - fairness
+  goals:
+  - improve record-keeping
+  - support local businesses
+  - protect citizens' rights
+  start_place: Lumière City Hall
+- name: Beatrix Carteret
+  age: 35
+  sex: male
+  job: Market Stallholder
+  bio: Experienced merchant; supports local economy.
+  values:
+  - fairness
+  - quality goods
+  - family
+  goals:
+  - increase customer base
+  - improve stall design
+  - save for retirement
+  start_place: Lumière Market Square
+- name: Violet Staples
+  age: 32
+  sex: male
+  job: blacksmith
+  bio: Respected craftsman; values tradition, family.
+  values:
+  - honesty
+  - hard work
+  - community
+  goals:
+  - establish a reputation as Lumière's finest blacksmith
+  - increase income to support wife and three children
+  - become a respected member of the community
+  start_place: Lumière Market Square
+- name: Archibald Turner
+  age: 35
+  sex: male
+  job: market stall vendor
+  bio: Experienced merchant; provides for family.
+  values:
+  - fairness
+  - providing for loved ones
+  - respect
+  goals:
+  - increase sales
+  - improve market standing
+  - send children to school
+  start_place: Lumière Market Square
+- name: Katharina Bennett
+  age: 42
+  sex: male
+  job: Church Sexton
+  bio: Devout servant; cares for community.
+  values:
+  - faith
+  - family
+  - service
+  goals:
+  - improve church facilities
+  - support local families
+  - find a suitable successor
+  start_place: Lumière Church
+- name: Alfred Caldwell
+  age: 32
+  sex: male
+  job: Church Sexton
+  bio: Devout caretaker; values tradition, family.
+  values:
+  - faith
+  - family
+  - hard work
+  goals:
+  - restore church's pipe organ
+  - improve community outreach
+  - support wife's midwifery practice
+  start_place: Lumière Church
+- name: Daisy Filby
+  age: 42
+  sex: male
+  job: Church Sexton
+  bio: Devout caretaker; values tradition, family.
+  values:
+  - faith
+  - family
+  - hard work
+  goals:
+  - ensure church's financial stability
+  - improve community outreach
+  - support his wife's charity work
+  start_place: Lumière Church
+- name: Maurice Walsham
+  age: 32
+  sex: male
+  job: park gardener
+  bio: Dedicated caretaker; nurtures green spaces.
+  values:
+  - stewardship
+  - beauty
+  - growth
+  goals:
+  - restore park fountain
+  - improve garden layout
+  - host community events
+  start_place: Lumière Central Park
+- name: Agnès Taplin
+  age: 35
+  sex: male
+  job: Park Gardener
+  bio: Dedicated caretaker; nurtures nature.
+  values:
+  - conservation
+  - stewardship
+  - beauty
+  goals:
+  - create a thriving garden ecosystem
+  - develop educational programs
+  - host community events
+  start_place: Lumière Central Park
+- name: Clayton Yorkshire
+  age: 35
+  sex: male
+  job: park gardener
+  bio: Green-thumbed caretaker; nurtures nature.
+  values:
+  - conservation
+  - stewardship
+  - beauty
+  goals:
+  - restore park to former glory
+  - introduce new plant species
+  - educate community about environmentalism
+  start_place: Lumière Central Park
+- name: Willie Staples
+  age: 35
+  sex: female
+  job: Elementary School Teacher
+  bio: Devoted educator; nurturing spirit.
+  values:
+  - education
+  - nurturing children
+  - community service
+  goals:
+  - improve teaching methods
+  - establish a school garden
+  - support local families
+  start_place: Lumière Elementary School
+- name: Justine Falconer
+  age: 42
+  sex: male
+  job: elementary school teacher
+  bio: Respected educator; values knowledge, family.
+  values:
+  - education
+  - family
+  - hard work
+  goals:
+  - improve teaching methods
+  - increase student enrollment
+  - save for retirement
+  start_place: Lumière Elementary School
+- name: Leonard Tryon
+  age: 35
+  sex: female
+  job: Elementary School Teacher
+  bio: Patient educator; guides young minds.
+  values:
+  - education
+  - nurturing
+  - patience
+  goals:
+  - improve teaching methods
+  - establish a school garden
+  - support local children's health
+  start_place: Lumière Elementary School
+streets:
+- Rivière Royale
+- L'Étoile de la Rivière
+- Le Jardin des Lilas
+- La Rue de l'Oiseau Bleu
+- Place du Vieux Château
+- Chemin de la Fontaine de Lumière
+- Allée des Quatre Saisons
+- Rue de la Maison de Mère Élise
+- Cours de la Rivière Éternelle
+- Boulevard des Marchands de Lumière
+houses:
+- id: house_1
+  address: 2 Place du Vieux Château
+  resident: Susanna Chance
+- id: house_2
+  address: 179 Le Jardin des Lilas
+  resident: Agnette Goodere
+- id: house_3
+  address: 88 Allée des Quatre Saisons
+  resident: Désirée Farquharson
+- id: house_4
+  address: 40 Place du Vieux Château
+  resident: Beatrix Carteret
+- id: house_5
+  address: 196 La Rue de l'Oiseau Bleu
+  resident: Violet Staples
+- id: house_6
+  address: 27 Chemin de la Fontaine de Lumière
+  resident: Archibald Turner
+- id: house_7
+  address: 98 L'Étoile de la Rivière
+  resident: Katharina Bennett
+- id: house_8
+  address: 92 L'Étoile de la Rivière
+  resident: Alfred Caldwell
+- id: house_9
+  address: 155 Chemin de la Fontaine de Lumière
+  resident: Daisy Filby
+- id: house_10
+  address: 12 Place du Vieux Château
+  resident: Maurice Walsham
+- id: house_11
+  address: 138 Rue de la Maison de Mère Élise
+  resident: Agnès Taplin
+- id: house_12
+  address: 97 L'Étoile de la Rivière
+  resident: Clayton Yorkshire
+- id: house_13
+  address: 142 L'Étoile de la Rivière
+  resident: Willie Staples
+- id: house_14
+  address: 161 Place du Vieux Château
+  resident: Justine Falconer
+- id: house_15
+  address: 93 Boulevard des Marchands de Lumière
+  resident: Leonard Tryon
+connections:
+- - Lumière City Hall
+  - Lumière Central Park
+- - Lumière Church
+  - Lumière Central Park
+- - Lumière Market Square
+  - Lumière City Hall
+- - Lumière Elementary School
+  - Lumière Central Park

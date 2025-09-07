@@ -53,8 +53,13 @@ def GetRolesForPlace(place_role, year=1900):
     # Check if the place name exists in the dictionary
     #print(f"[DEBUG] GetRolesForPlace called with place_role='{place_role}', year={year}")
     if place_role in placeRole_employees:
-        #print(f"[DEBUG] Found '{place_role}' in placeRole_employees, returning: {placeRole_employees[place_role]}")
-     #   return placeRole_employees[place_role]
+        roles = placeRole_employees[place_role]
+        print(f"[role_gen] Static roles for '{place_role}': {roles}")
+        total_roles = len(roles)
+        for idx, role in enumerate(roles):
+            percent = int((idx+1)/total_roles*100) if total_roles else 100
+            print(f"[role_gen] Generated role {idx+1}/{total_roles}: {role} | Progress: {percent}% of roles for {place_role}")
+        return roles
     #else:
         from sim.llm.llm import llm
         prompt = f"You are an expert in historical occupations. Your task is to provide a list of realistic job roles for a place called '{place_role}' in the year {year}. The roles should be appropriate for the time period and location. Names should be words only. exclude slang. Return ONLY a JSON array of job titles. {{ 'roles': [{{'role1':[{{'description':'description of role duties'}},{{'role2':[{{'description':'description of role duties'}}]}}]}}]}}"
@@ -67,18 +72,17 @@ def GetRolesForPlace(place_role, year=1900):
         valid_responses = []
         for attempt in range(num_attempts):
             llm_seed = random.randint(-5000, 5000)
-            #print(f"[DEBUG] Attempt {attempt+1}/{num_attempts}: LLM seed: {llm_seed}")
+            print(f"[role_gen] LLM attempt {attempt+1}/{num_attempts} for '{place_role}'")
             roles = llm.chat_json(prompt, system="Return strict JSON only.", seed=llm_seed)
             roles = roles.get("roles", []) if roles else []
-            #print(f"[DEBUG] LLM response on attempt {attempt+1}: {roles}")
             if roles and isinstance(roles, list):
                 valid_responses.append(roles)
-                for role in roles:
+                total_roles = len(roles)
+                for idx, role in enumerate(roles):
                     if isinstance(role, dict):
                         for k, v in role.items():
                             normalized = k.strip().lower()
                             role_counts[normalized] = role_counts.get(normalized, 0) + 1
-                            # v is expected to be a list of dicts with 'description' keys
                             desc = ""
                             if isinstance(v, list):
                                 for item in v:
@@ -87,9 +91,8 @@ def GetRolesForPlace(place_role, year=1900):
                                         break
                             if desc != "":
                                 role_descriptions[normalized] = desc
-            else:
-                #print(f"[DEBUG] Invalid response on attempt {attempt+1}: {roles}")
-                pass
+                            percent = int((idx+1)/total_roles*100) if total_roles else 100
+                            print(f"[role_gen] Generated role {idx+1}/{total_roles}: {k} | Progress: {percent}% of roles for {place_role} (LLM attempt {attempt+1})")
         if role_counts:
             # Sort roles by frequency (descending) and keep top 5
             sorted_roles = sorted(role_counts.items(), key=lambda x: x[1], reverse=True)

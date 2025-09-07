@@ -5,24 +5,30 @@ from sim.llm.llm import llm
 from sim.world import city
 from sim.world.place import GetRolesForPlace
 import random
-from scripts.make_names import generate_first_names, generate_last_names
 
 
 
 
-def pre_stage(cityname: str = "Lumière", start_year: int = 1900, seed: int = 42, rng=None) -> dict:
+def pre_stage(cityname: str = "Lumière", start_year: int = 1900, seed: int = 42, rng=None, total_steps=3, current_step=1) -> dict:
     if rng is None:
         rng = random
     city_data = city.generate_default_places(cityname, start_year)
     protopersonas = []
     used_names = set()
 
-    # Generate name pools for uniqueness
-    num_people = max(30, 500)
-    first_names = generate_first_names(cityname, start_year, num_people, seed, rng)
-    last_names = generate_last_names(cityname, start_year, num_people, seed, rng)
+    # Load name pools from configs/names.yaml
+    with open("configs/names.yaml", "r", encoding="utf-8") as f:
+        names_data = yaml.safe_load(f)
+        first_names = names_data.get("first_names", [])
+        last_names = names_data.get("last_names", [])
 
-    def add_personas_for_places(places, role_key):
+    def add_personas_for_places(places, role_key, stage_name="pre_stage", progress_tracker=None):
+        total_roles = 0
+        for place in places:
+            roles = GetRolesForPlace(place[role_key])
+            if roles:
+                total_roles += len(roles)
+        persona_count = 0
         for place in places:
             roles = GetRolesForPlace(place[role_key])
             if not roles:
@@ -33,34 +39,69 @@ def pre_stage(cityname: str = "Lumière", start_year: int = 1900, seed: int = 42
                 if proto and 'name' in proto:
                     used_names.add(proto['name'])
                     protopersonas.append(proto)
+                persona_count += 1
+                if progress_tracker is not None:
+                    progress_tracker['done'] += 1
+                    percent = int(progress_tracker['done']/progress_tracker['total']*100) if progress_tracker['total'] else 100
+                    print(f"[AGG_PROGRESS] {progress_tracker['done']}/{progress_tracker['total']} sub-tasks complete | Aggregated Progress: {percent}%")
 
     # Add personas for default places
-    add_personas_for_places(city_data.get("places", []), 'role')
+    # Aggregate progress: places, roles, protopersonas
+    places = city_data.get("places", [])
+    total_places = len(places)
+    total_roles = 0
+    for place in places:
+        roles = GetRolesForPlace(place['role'])
+        if roles:
+            total_roles += len(roles)
+    # We'll count protopersonas as the same as total_roles
+    # For businesses, we add after
+    progress_tracker = {'done': 0, 'total': total_places + total_roles}
+    # Place generation progress
+    for idx, place in enumerate(places):
+        progress_tracker['done'] += 1
+        percent = int(progress_tracker['done']/progress_tracker['total']*100) if progress_tracker['total'] else 100
+        print(f"[AGG_PROGRESS] Place {idx+1}/{total_places} generated | Aggregated Progress: {percent}%")
+    # Protopersona generation progress
+    add_personas_for_places(places, 'role', stage_name="pre_stage", progress_tracker=progress_tracker)
     city_data['people'] = protopersonas
-    print(f"[pre_stage] Generated default places and personas for {cityname}. Total places: {len(city_data.get('places',[]))} Total personas: {len(protopersonas)}")
+    print(f"[pre_stage] Generated default places and personas for {cityname}. Total places: {len(city_data.get('places',[]))} Total personas: {len(protopersonas)} | Aggregated Progress: {int(progress_tracker['done']/progress_tracker['total']*100) if progress_tracker['total'] else 100}%")
 
     # Generate businesses and add personas for them
     businesses = GenerateBusinessesForCity(cityname, start_year, city_data.get("places", []), list(used_names), seed, num_businesses=10, rng=rng)
     city_data['places'].extend(businesses)
-    add_personas_for_places(businesses, 'category')
+    # Add business places and personas to progress
+    total_business_places = len(businesses)
+    total_business_roles = 0
+    for biz in businesses:
+        roles = GetRolesForPlace(biz['category'])
+        if roles:
+            total_business_roles += len(roles)
+    progress_tracker['total'] += total_business_places + total_business_roles
+    for idx, biz in enumerate(businesses):
+        progress_tracker['done'] += 1
+        percent = int(progress_tracker['done']/progress_tracker['total']*100) if progress_tracker['total'] else 100
+        print(f"[AGG_PROGRESS] Business Place {idx+1}/{total_business_places} generated | Aggregated Progress: {percent}%")
+    add_personas_for_places(businesses, 'category', stage_name="business_personas", progress_tracker=progress_tracker)
     city_data['people'] = protopersonas
-    print(f"[pre_stage] Added businesses and personas for {cityname}. Total places: {len(city_data.get('places',[]))} Total personas: {len(protopersonas)}")
+    print(f"[pre_stage] Added businesses and personas for {cityname}. Total places: {len(city_data.get('places',[]))} Total personas: {len(protopersonas)} | Aggregated Progress: {int(progress_tracker['done']/progress_tracker['total']*100) if progress_tracker['total'] else 100}%")
     return city_data
 
-def main_stage(city_data: dict, cityname: str = "Lumière", start_year: int = 1900, seed: int = 42, rng=None) -> None:
+def main_stage(city_data: dict, cityname: str = "Lumière", start_year: int = 1900, seed: int = 42, rng=None, total_steps=3, current_step=2) -> None:
     if rng is None:
         rng = random
+
     # generate streets and houses for the protopeople in citydata
     street_names = get_street_names(num_streets=10, city=cityname, start_year=start_year, seed=seed, rng=rng)
-    print(f"[main_stage] Generated street names for {cityname}: {street_names}")
+    print(f"[main_stage] Generated street names for {cityname}: {street_names} | Progress: {int((current_step-0.5)/total_steps*100)}%")
     city_data['streets'] = street_names
 
     # Generate houses for the protopeople in city_data
     city_data['houses'] = generate_houses(city_data.get('people', []), city_data.get('streets', []), rng)
-    print(f"[main_stage] Generated houses for personas in {cityname}. Total houses: {len(city_data.get('houses',[]))}")
+    print(f"[main_stage] Generated houses for personas in {cityname}. Total houses: {len(city_data.get('houses',[]))} | Progress: {int(current_step/total_steps*100)}%")
    
 
-def post_stage(city_data: dict, out: str = "configs/city.yaml", rng=None) -> None:
+def post_stage(city_data: dict, out: str = "configs/city.yaml", rng=None, total_steps=3, current_step=3) -> None:
     if rng is None:
         rng = random
     # Finalize city using personas and write output
@@ -99,8 +140,8 @@ def post_stage(city_data: dict, out: str = "configs/city.yaml", rng=None) -> Non
     try:
         with open(out, "w", encoding="utf-8") as f:
             yaml.safe_dump(city_data, f, allow_unicode=True, sort_keys=False)
-        print(f"Wrote {len(city_data.get('places',[]))} places, {len(city_data.get('houses',[]))} houses, {len(city_data.get('streets',[]))} streets, and {len(city_data.get('connections',[]))} connections to {out}")
-        print(f"[post_stage] Finalized city and wrote to {out}.")
+        print(f"Wrote {len(city_data.get('places',[]))} places, {len(city_data.get('houses',[]))} houses, {len(city_data.get('streets',[]))} streets, and {len(city_data.get('connections',[]))} connections to {out} | Progress: {int((current_step-0.5)/total_steps*100)}%")
+        print(f"[post_stage] Finalized city and wrote to {out}. | Progress: {int(current_step/total_steps*100)}%")
     except Exception as e:
         print(f"[ERROR] Failed to write city data to {out}: {e}")
 
@@ -155,20 +196,38 @@ def GenerateProtoPersonaForPlace(city: str, year: int, place: str, role:str, res
 def GenerateProtoPersona(city: str, year: int, extraguidance:str, restricted_names:list, seed: int, first_names=None, last_names=None, rng=None) -> dict:
     if rng is None:
         rng = random
-    # Draw a unique name from the provided first and last name lists
+    # Draw a unique name from the provided first and last name lists, matching sex
     name = None
-    available_first = [n for n in first_names if n not in restricted_names] if first_names else []
+    sex = rng.choice(["male", "female"])
+    # Ensure first_names is a list
+    if not first_names:
+        first_names = []
+    # Try to load gendered first names if available
+    if first_names and isinstance(first_names[0], dict):
+        first_names_male = [n for n in first_names if isinstance(n, dict) and n.get("sex") == "male" and n["name"] not in restricted_names]
+        first_names_female = [n for n in first_names if isinstance(n, dict) and n.get("sex") == "female" and n["name"] not in restricted_names]
+    else:
+        first_names_male = [n for n in first_names if n not in restricted_names]
+        first_names_female = [n for n in first_names if n not in restricted_names]
     available_last = [n for n in last_names if n not in restricted_names] if last_names else []
+    if sex == "male":
+        available_first = first_names_male
+    else:
+        available_first = first_names_female
     if available_first and available_last:
         first = rng.choice(available_first)
+        if isinstance(first, dict):
+            first_name = first["name"]
+        else:
+            first_name = first
         last = rng.choice(available_last)
-        name = f"{first} {last}"
-        restricted_names.append(first)
+        name = f"{first_name} {last}"
+        print(f"[DEBUG] Selected name: {name} (sex: {sex})")
+        restricted_names.append(first_name)
         restricted_names.append(last)
     prompt = f"""You are an expert personality and character designer. Your task is to create a detailed persona for a resident of the city of {city} in the year {year}. The persona must include:
-    - Name: {name if name else '[LLM to generate]'
-    },
     - An age between 5 and 70.
+    - Sex: {sex}
     - A realistic job for a small city in that time period.
     - A short bio (5-10 words) reflecting their job, age, and personality.
     - A list of 3 values that are important to them.
@@ -177,8 +236,8 @@ def GenerateProtoPersona(city: str, year: int, extraguidance:str, restricted_nam
     exclude names: {json.dumps(restricted_names)}
     The persona should be believable and fit within the historical context of the specified year. Return ONLY a JSON object in the following format:
     {{
-      "name": "{name if name else 'John Doe'}",
        "age": 30,
+       "sex": "{sex}",
        "job": "blacksmith",
        "bio": "Skilled craftsman; values tradition.",
        "values": ["honesty", "hard work", "community"],
@@ -187,9 +246,12 @@ def GenerateProtoPersona(city: str, year: int, extraguidance:str, restricted_nam
     }}
     Make sure the details are consistent and appropriate for the year {year}.
     """
-    persona = llm.chat_json(prompt, system="Return strict JSON only.", seed=seed)
-    if name:
-        persona["name"] = name
+    persona = {}
+    personaupdate = llm.chat_json(prompt, system="Return strict JSON only.", seed=seed)
+    persona["name"] = name
+    persona["sex"] = sex
+    persona.update(personaupdate if personaupdate else {})
+    print(f"[DEBUG] Generated persona: {persona}")
     return persona
 
 
@@ -243,24 +305,26 @@ if __name__ == "__main__":
     parser.add_argument('--city_out', default='configs/city.yaml')
     args = parser.parse_args()
 
-    print(f"[make_city] Starting city generation for {args.city} in year {args.start_year} with seed {args.seed}.")
+
+    print(f"[make_city] Starting city generation for {args.city} in year {args.start_year} with seed {args.seed}. | Progress: 0%")
 
     rng = random.Random(args.seed)
+    total_steps = 3
 
     # Step 1: Pre-stage: Generate government places and people, then their houses
-    print("[make_city] Pre-stage...")
-    city_data = pre_stage(cityname=args.city, start_year=args.start_year, seed=args.seed, rng=rng)
+    print(f"[make_city] Pre-stage... | Progress: {int(1/total_steps*100)}%")
+    city_data = pre_stage(cityname=args.city, start_year=args.start_year, seed=args.seed, rng=rng, total_steps=total_steps, current_step=1)
 
     # Step 2: Main-stage: Generate businesses, people for businesses, and their houses
-    print("[make_city] Main-stage...")
+    print(f"[make_city] Main-stage... | Progress: {int(2/total_steps*100)}%")
     try:
-        main_stage(city_data, cityname=args.city, start_year=args.start_year, seed=args.seed, rng=rng)
+        main_stage(city_data, cityname=args.city, start_year=args.start_year, seed=args.seed, rng=rng, total_steps=total_steps, current_step=2)
     except NotImplementedError as nie:
         print(f"[make_city] {nie}")
 
     # Step 3: Post-stage: Finalize city and write output
-    print("[make_city] Post-stage...")
-    post_stage(city_data, out=args.city_out, rng=rng)
+    print(f"[make_city] Post-stage... | Progress: {int(3/total_steps*100)}%")
+    post_stage(city_data, out=args.city_out, rng=rng, total_steps=total_steps, current_step=3)
 
-    print("[make_city] City generation complete.")
+    print("[make_city] City generation complete. | Progress: 100%")
 
