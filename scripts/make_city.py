@@ -22,24 +22,36 @@ def pre_stage(cityname: str = "Lumière", start_year: int = 1900, seed: int = 42
         first_names = names_data.get("first_names", [])
         last_names = names_data.get("last_names", [])
 
-    def add_personas_for_places(places, role_key, stage_name="pre_stage", progress_tracker=None):
+    def add_personas_for_places(places,  stage_name="pre_stage", progress_tracker=None):
         total_roles = 0
         for place in places:
-            roles = GetRolesForPlace(place[role_key])
+            roles = GetRolesForPlace(place.get('purpose',place['category']))
             if roles:
                 total_roles += len(roles)
-        persona_count = 0
+       
         for place in places:
-            roles = GetRolesForPlace(place[role_key])
+            roles = GetRolesForPlace(place.get('purpose',place['category']))
             if not roles:
                 continue
+            role_count = len(roles)
+            place_persona_count = 0
             for role in roles:
-                role_name = role[0] if isinstance(role, tuple) else role
-                proto = GenerateProtoPersona(cityname, start_year, f"- The person's details should align with their role at the place '{place['name']}'", list(used_names), seed, first_names=first_names, last_names=last_names, rng=rng)
-                if proto and 'name' in proto:
-                    used_names.add(proto['name'])
-                    protopersonas.append(proto)
-                persona_count += 1
+                retries:int =0
+                while retries < 5 and place_persona_count < role_count:
+                    role_name = role[0] if isinstance(role, tuple) else role
+                    proto = GenerateProtoPersona(cityname, start_year, f"- The person's details should align with their role at the place '{place['name']}'", list(used_names), seed, first_names=first_names, last_names=last_names, rng=rng)
+                    if proto and 'name' in proto:
+                        used_names.add(proto['name'])
+                        protopersonas.append(proto)
+                        place_persona_count += 1
+                        retries = 0
+                        print(f"[DEBUG] Generated persona: {proto['name']} - {proto.get('job','N/A')}, age {proto.get('age','N/A')} | Progress: {place_persona_count}/{role_count}")
+                    else:
+                        retries += 1
+                        print(f"[WARNING] Failed to generate persona for role '{role_name}' at place '{place['name']}' (retry {retries}/5)")
+                if place_persona_count < role_count:
+                    print(f"[WARNING] Not all personas generated for place '{place['name']}' (generated {place_persona_count}/{role_count})")
+
                 if progress_tracker is not None:
                     progress_tracker['done'] += 1
                     percent = int(progress_tracker['done']/progress_tracker['total']*100) if progress_tracker['total'] else 100
@@ -51,9 +63,9 @@ def pre_stage(cityname: str = "Lumière", start_year: int = 1900, seed: int = 42
     total_places = len(places)
     total_roles = 0
     for place in places:
-        roles = GetRolesForPlace(place['role'])
-        if roles:
-            total_roles += len(roles)
+        placeroles = GetRolesForPlace(place.get('purpose',place['category']))
+        if placeroles:
+            total_roles += len(placeroles)
     # We'll count protopersonas as the same as total_roles
     # For businesses, we add after
     progress_tracker = {'done': 0, 'total': total_places + total_roles}
@@ -63,26 +75,26 @@ def pre_stage(cityname: str = "Lumière", start_year: int = 1900, seed: int = 42
         percent = int(progress_tracker['done']/progress_tracker['total']*100) if progress_tracker['total'] else 100
         print(f"[AGG_PROGRESS] Place {idx+1}/{total_places} generated | Aggregated Progress: {percent}%")
     # Protopersona generation progress
-    add_personas_for_places(places, 'role', stage_name="pre_stage", progress_tracker=progress_tracker)
+    add_personas_for_places(places, stage_name="pre_stage", progress_tracker=progress_tracker)
     city_data['people'] = protopersonas
     print(f"[pre_stage] Generated default places and personas for {cityname}. Total places: {len(city_data.get('places',[]))} Total personas: {len(protopersonas)} | Aggregated Progress: {int(progress_tracker['done']/progress_tracker['total']*100) if progress_tracker['total'] else 100}%")
 
     # Generate businesses and add personas for them
-    businesses = GenerateBusinessesForCity(cityname, start_year, city_data.get("places", []), list(used_names), seed, num_businesses=10, rng=rng)
+    businesses = GenerateBusinessesForCity(cityname, start_year, city_data.get("places", []), list(used_names), seed, num_businesses=30, rng=rng)
     city_data['places'].extend(businesses)
     # Add business places and personas to progress
     total_business_places = len(businesses)
     total_business_roles = 0
     for biz in businesses:
-        roles = GetRolesForPlace(biz['category'])
-        if roles:
-            total_business_roles += len(roles)
+        placeroles = GetRolesForPlace(biz['category'])
+        if placeroles:
+            total_business_roles += len(placeroles)
     progress_tracker['total'] += total_business_places + total_business_roles
     for idx, biz in enumerate(businesses):
         progress_tracker['done'] += 1
         percent = int(progress_tracker['done']/progress_tracker['total']*100) if progress_tracker['total'] else 100
         print(f"[AGG_PROGRESS] Business Place {idx+1}/{total_business_places} generated | Aggregated Progress: {percent}%")
-    add_personas_for_places(businesses, 'category', stage_name="business_personas", progress_tracker=progress_tracker)
+    add_personas_for_places(businesses, stage_name="business_personas", progress_tracker=progress_tracker)
     city_data['people'] = protopersonas
     print(f"[pre_stage] Added businesses and personas for {cityname}. Total places: {len(city_data.get('places',[]))} Total personas: {len(protopersonas)} | Aggregated Progress: {int(progress_tracker['done']/progress_tracker['total']*100) if progress_tracker['total'] else 100}%")
     return city_data
@@ -97,8 +109,22 @@ def main_stage(city_data: dict, cityname: str = "Lumière", start_year: int = 19
     city_data['streets'] = street_names
 
     # Generate houses for the protopeople in city_data
-    city_data['houses'] = generate_houses(city_data.get('people', []), city_data.get('streets', []), rng)
+    #city_data['houses'] = generate_houses(city_data.get('people', []), city_data.get('streets', []), rng)
+    houses, street_house_counts = generate_houses(city_data.get('people', []), city_data.get('streets', []), rng)
+    city_data['houses'] = houses
+    city_data['street_house_counts'] = street_house_counts
     print(f"[main_stage] Generated houses for personas in {cityname}. Total houses: {len(city_data.get('houses',[]))} | Progress: {int(current_step/total_steps*100)}%")
+
+    # Add workplace, job_title, and residence_address to each persona
+    # Build lookup for houses by resident name
+    house_lookup = {h['resident']: h['address'] for h in city_data['houses']}
+    for person in city_data.get('people', []):
+        # Workplace: use start_place if present, else None
+        person['workplace'] = person.get('start_place')
+        # Job title: use job if present, else None
+        person['job_title'] = person.get('job')
+        # Residence address: lookup by name
+        person['residence_address'] = house_lookup.get(person.get('name'))
    
 
 def post_stage(city_data: dict, out: str = "configs/city.yaml", rng=None, total_steps=3, current_step=3) -> None:
@@ -119,28 +145,48 @@ def post_stage(city_data: dict, out: str = "configs/city.yaml", rng=None, total_
             print(f"[WARNING] Skipping malformed place entry: {place}")
     city_data['places'] = valid_places
 
-    # --- Add realistic, always-connected city graph ---
-    place_names = [p['name'] for p in city_data['places'] if 'name' in p]
-    n = len(place_names)
+    # --- Add realistic city graph: streets connect to streets, places/houses connect to their street ---
+    streets = city_data.get('streets', [])
+    places = city_data.get('places', [])
+    houses = city_data.get('houses', [])
     connections = []
-    if n > 1:
-        nodes = place_names.copy()
-        rng.shuffle(nodes)
-        for i in range(1, n):
-            a = nodes[i]
-            b = rng.choice(nodes[:i])
-            connections.append([a, b])
-        extra_edges = max(1, n // 3)
-        for _ in range(extra_edges):
-            a, b = rng.sample(place_names, 2)
-            if [a, b] not in connections and [b, a] not in connections:
-                connections.append([a, b])
+    # Connect each street to 1-2 other streets
+    for i, street in enumerate(streets):
+        others = [s for j, s in enumerate(streets) if j != i]
+        connected = rng.sample(others, min(2, len(others))) if others else []
+        for s2 in connected:
+            if [street, s2] not in connections and [s2, street] not in connections:
+                connections.append([street, s2])
+    # Connect each house to its street
+    for house in houses:
+        address = house.get('address', '')
+        parts = address.split(' ', 1)
+        if len(parts) == 2:
+            street = parts[1]
+            if street in streets:
+                connections.append([house['id'], street])
+    # Connect each place to a street (if possible)
+    for place in places:
+        place_name = place.get('name')
+        # Find a person who works at this place
+        person = next((p for p in city_data.get('people', []) if p.get('workplace') == place_name), None)
+        street = None
+        if person:
+            addr = person.get('residence_address', '')
+            parts = addr.split(' ', 1)
+            if len(parts) == 2 and parts[1] in streets:
+                street = parts[1]
+        if not street:
+            street = rng.choice(streets) if streets else None
+        if street:
+            connections.append([place_name, street])
     city_data['connections'] = connections
+    city_data['street_lengths'] = {street: count * 10 for street, count in city_data.get('street_house_counts', {}).items()}
 
     try:
         with open(out, "w", encoding="utf-8") as f:
             yaml.safe_dump(city_data, f, allow_unicode=True, sort_keys=False)
-        print(f"Wrote {len(city_data.get('places',[]))} places, {len(city_data.get('houses',[]))} houses, {len(city_data.get('streets',[]))} streets, and {len(city_data.get('connections',[]))} connections to {out} | Progress: {int((current_step-0.5)/total_steps*100)}%")
+        print(f"Wrote {len(city_data.get('places',[]))} places, {len(city_data.get('houses',[]))} houses, {len(city_data.get('streets',[]))} streets, {len(city_data.get('connections',[]))} connections, and {len(city_data.get('people',[]))} protopersonas to {out} | Progress: {int((current_step-0.5)/total_steps*100)}%")
         print(f"[post_stage] Finalized city and wrote to {out}. | Progress: {int(current_step/total_steps*100)}%")
     except Exception as e:
         print(f"[ERROR] Failed to write city data to {out}: {e}")
@@ -162,15 +208,21 @@ def get_street_names(num_streets: int, city: str, start_year: int, seed: Optiona
 def GenerateBusinessesForCity(city: str, year: int, existing_places: list, restricted_names: list[str], seed: int, num_businesses: int = 10, rng=None) -> list:
     if rng is None:
         rng = random
-    prompt = f"""
-    You are an expert city planner for the city of {city} in the year {year}. Your task is to generate a list of {num_businesses} unique and realistic business places that would fit well within the historical context of the city. Each business should have a name, category (e.g., restaurant, shop, service), and a brief description (1-2 sentences). Avoid duplicating any existing place names or categories already present in the city. Exclude names: {json.dumps(restricted_names)}. Return ONLY a JSON array in the following format:
-    [
-      {{"name": "Business Name", "category": "Category", "description": "Brief description."}},
-      ...
-    ]
-    """
+    system_prompt = (
+        "You are an expert city planner. You always return valid JSON and never any extra text. "
+        "Your job is to generate lists of unique, realistic business places for a city and year. "
+        "Each business must have a name, category (e.g., restaurant, shop, service), and a brief description (1-2 sentences). "
+        "Avoid duplicating any existing place names already present in the city. "
+        "Exclude any names provided."
+    )
+    user_prompt = (
+        f"Generate a list of {num_businesses} unique and realistic business places for the city of {city} in the year {year}. "
+        f"Exclude these names: {json.dumps(restricted_names)}. "
+        "Return ONLY a JSON array in the following format: "
+        "[\n  {\"name\": \"Business Name\", \"category\": \"Category\", \"description\": \"Brief description.\"}, ...\n]"
+    )
     llm_seed = seed if seed is not None else rng.randint(-5000,5000)
-    businesses = llm.chat_json(prompt, system="Return strict JSON only.", seed=llm_seed)
+    businesses = llm.chat_json(user_prompt, system=system_prompt, seed=llm_seed,max_tokens=2000, timeout=120).get("businesses", [])
     if not businesses or not isinstance(businesses, list):
         businesses = []
     # Filter out duplicates based on existing places
@@ -222,11 +274,13 @@ def GenerateProtoPersona(city: str, year: int, extraguidance:str, restricted_nam
             first_name = first
         last = rng.choice(available_last)
         name = f"{first_name} {last}"
-        print(f"[DEBUG] Selected name: {name} (sex: {sex})")
+        #print(f"[DEBUG] Selected name: {name} (sex: {sex})")
         restricted_names.append(first_name)
         restricted_names.append(last)
+    # Choose age from a normal distribution with mean 32, stddev 12, clipped to 5-70
+    age = int(max(5, min(70, rng.normalvariate(32, 12))))
     prompt = f"""You are an expert personality and character designer. Your task is to create a detailed persona for a resident of the city of {city} in the year {year}. The persona must include:
-    - An age between 5 and 70.
+    - Age: {age}
     - Sex: {sex}
     - A realistic job for a small city in that time period.
     - A short bio (5-10 words) reflecting their job, age, and personality.
@@ -251,25 +305,27 @@ def GenerateProtoPersona(city: str, year: int, extraguidance:str, restricted_nam
     persona["name"] = name
     persona["sex"] = sex
     persona.update(personaupdate if personaupdate else {})
-    print(f"[DEBUG] Generated persona: {persona}")
     return persona
 
 
-
-def generate_houses(people: list, street_names: list, rng=None) -> list:
+def generate_houses(people: list, street_names: list, rng=None):
     if rng is None:
         rng = random
     houses = []
+    street_house_counts = {street: 0 for street in street_names}
     for idx, person in enumerate(people):
         street = rng.choice(street_names)
-        house_number = rng.randint(1, 200)
+        street_house_counts[street] += 1
+        house_number = street_house_counts[street] * 10
+        full_name = person.get("name", f"Person {idx+1}")
+        last_name = full_name.split()[-1] if " " in full_name else full_name
         house = {
-            "id": f"house_{idx+1}",
+            "id": f"{last_name} residence",
             "address": f"{house_number} {street}",
-            "resident": person.get("name", f"Person {idx+1}")
+            "resident": full_name
         }
         houses.append(house)
-    return houses
+    return houses, street_house_counts
 
 # Query LLM for city details and place descriptions
 def get_city_details(city: str, places: list, people: list) -> Optional[dict]:

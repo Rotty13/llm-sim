@@ -11,288 +11,716 @@ places:
   category: religious
   role: Church
   description: A notable location in Lumière.
-- name: Lumière Central Park
-  category: public_space
-  role: Central Park
+- name: Lumière Library
+  category: education
+  role: Library
   description: A notable location in Lumière.
 - name: Lumière Elementary School
   category: education
   role: Elementary School
   description: A notable location in Lumière.
+- name: Lumière Community Center
+  category: public_space
+  role: Community Center
+  description: A notable location in Lumière.
+- name: Lumière Restaurant
+  category: business
+  role: Restaurant
+  description: A notable location in Lumière.
+- name: Madame Dupont's Bakery
+  category: bakery
+  description: A quaint bakery on the corner, famous for its freshly baked baguettes
+    and croissants.
+- name: Lumière's Library
+  category: library
+  description: The city's premier library, housing a vast collection of books and
+    manuscripts from around the world.
+- name: Le Coq Rouge Restaurant
+  category: restaurant
+  description: A cozy eatery serving traditional French cuisine in a warm and inviting
+    atmosphere.
+- name: Maison de la Mode
+  category: fashion store
+  description: An upscale boutique offering the latest fashion trends from Paris and
+    beyond.
+- name: La Maison du Livre
+  category: bookstore
+  description: A charming bookstore specializing in rare and out-of-print volumes.
+- name: Le Jardin de Lumière
+  category: garden store
+  description: A picturesque garden store offering a wide selection of plants, flowers,
+    and gardening supplies.
+- name: La Pharmacie de la Ville
+  category: pharmacy
+  description: The city's trusted apothecary, providing a range of medicinal herbs
+    and remedies.
+- name: Le Café des Arts
+  category: cafe
+  description: A vibrant café serving coffee, pastries, and lively conversation amidst
+    an eclectic art gallery.
+- name: La Maison de la Musique
+  category: music store
+  description: A cozy music shop offering a variety of instruments, sheet music, and
+    lessons from local musicians.
+- name: Le Bazar Oriental
+  category: market
+  description: A bustling marketplace featuring exotic spices, teas, and other international
+    goods.
+- name: La Maison de la Mode Féminine
+  category: fashion store
+  description: An elegant boutique specializing in high-end women's fashion and accessories.
+- name: Le Cercle des Écrivains
+  category: writers' club
+  description: A prestigious writers' club hosting literary salons, readings, and
+    workshops for aspiring authors.
+- name: La Maison de la Santé
+  category: health spa
+  description: A serene health spa offering a range of treatments, including massages,
+    facials, and aromatherapy.
+- name: Le Musée des Arts et Métiers
+  category: museum
+  description: A fascinating museum showcasing the latest scientific discoveries and
+    innovations from around the world.
+- name: La Maison de la Famille
+  category: family store
+  description: A charming shop offering a wide selection of toys, games, and educational
+    materials for children.
+- name: Le Jardin d'Enfants
+  category: nursery school
+  description: A picturesque nursery school providing a nurturing environment for
+    young children to learn and grow.
+- name: La Maison de la Beauté
+  category: beauty salon
+  description: A stylish beauty salon offering a range of services, including hair
+    styling, manicures, and makeup applications.
+- name: Le Cercle des Artistes
+  category: artists' club
+  description: A vibrant artists' club hosting exhibitions, workshops, and critiques
+    for local painters and sculptors.
+- name: La Maison de la Cuisine
+  category: cookware store
+  description: A charming shop offering a wide selection of cookware, kitchen utensils,
+    and gourmet food products.
+- name: Le Musée des Sciences Naturelles
+  category: natural history museum
+  description: A fascinating natural history museum showcasing the wonders of the
+    natural world through exhibits and specimens.
+- name: La Maison de la Vieillissement
+  category: senior care facility
+  description: A compassionate senior care facility providing a warm and supportive
+    environment for elderly residents.
+- name: Le Jardin Botanique
+  category: botanical garden
+  description: A serene botanical garden featuring a stunning collection of plants,
+    flowers, and trees from around the world.
+- name: La Maison de la Médecine Vétérinaire
+  category: veterinary clinic
+  description: A reputable veterinary clinic providing expert care for the city's
+    animals and pets.
+- name: Le Musée des Arts et Traditions Populaires
+  category: folk museum
+  description: A charming folk museum showcasing the traditional crafts, music, and
+    customs of rural France.
+- name: La Maison de la Mode Homme
+  category: men's fashion store
+  description: An elegant boutique specializing in high-end men's fashion and accessories.
+- name: Le Cercle des Étudiants
+  category: students' club
+  description: A lively students' club hosting debates, lectures, and social events
+    for young scholars and intellectuals.
+- name: La Maison de la Musique Classique
+  category: classical music store
+  description: A sophisticated shop offering a wide selection of classical music records,
+    sheet music, and musical instruments.
+- name: Le Jardin de la Réflexion
+  category: garden
+  description: A peaceful garden providing a serene environment for contemplation,
+    reflection, and relaxation.
+- name: La Maison de la Santé Mentale
+  category: mental health clinic
+  description: A compassionate mental health clinic offering expert care and support
+    for individuals struggling with mental health issues.
 people:
-- name: Susanna Chance
-  age: 42
+- name: Abraham Massingberd
   sex: male
+  age: 32
   job: City Clerk
-  bio: Respectful administrator; upholds civic duty.
+  bio: Diligent administrator; respects tradition, values order.
   values:
   - integrity
-  - efficiency
+  - responsibility
   - public service
   goals:
   - improve record-keeping
-  - support local businesses
-  - ensure fair taxation
+  - support local economy
+  - protect citizens' rights
   start_place: Lumière City Hall
-- name: Agnette Goodere
-  age: 42
-  sex: male
+  workplace: Lumière City Hall
+  job_title: City Clerk
+  residence_address: 10 Côte des Lumières
+- name: Christine Cowles
+  sex: female
+  age: 32
   job: City Clerk
-  bio: Respected administrator; values efficiency.
-  values:
-  - integrity
-  - organization
-  - public service
-  goals:
-  - improve record-keeping
-  - support city growth
-  - mentor junior clerks
-  start_place: Lumière City Hall
-- name: Désirée Farquharson
-  age: 42
-  sex: male
-  job: City Hall Clerk
-  bio: Dedicated public servant; values order.
+  bio: Diligent administrator; values order, precision.
   values:
   - efficiency
   - respect
-  - fairness
+  - public service
   goals:
-  - improve record-keeping
+  - improve record-keeping systems
   - support local businesses
-  - protect citizens' rights
+  - help community growth
   start_place: Lumière City Hall
-- name: Beatrix Carteret
+  workplace: Lumière City Hall
+  job_title: City Clerk
+  residence_address: 10 La Rue du Marchand
+- name: Alphoncin Lightfoot
+  sex: male
   age: 35
-  sex: male
-  job: Market Stallholder
-  bio: Experienced merchant; supports local economy.
+  job: City Clerk
+  bio: Diligent administrator; upholds civic duty.
   values:
-  - fairness
-  - quality goods
-  - family
+  - integrity
+  - efficiency
+  - public service
   goals:
-  - increase customer base
-  - improve stall design
-  - save for retirement
-  start_place: Lumière Market Square
-- name: Violet Staples
-  age: 32
+  - improve record-keeping systems
+  - support local economic growth
+  - ensure fair taxation
+  start_place: Lumière City Hall
+  workplace: Lumière City Hall
+  job_title: City Clerk
+  residence_address: 10 L'Étoile de la Rivière
+- name: Rachidin Gordon
   sex: male
-  job: blacksmith
-  bio: Respected craftsman; values tradition, family.
+  age: 32
+  job: blacksmith's apprentice
+  bio: Young craftsman learning trade; values tradition.
   values:
   - honesty
   - hard work
-  - community
+  - loyalty
   goals:
-  - establish a reputation as Lumière's finest blacksmith
-  - increase income to support wife and three children
-  - become a respected member of the community
+  - become master blacksmith
+  - improve family's financial stability
+  - help establish a community fund
   start_place: Lumière Market Square
-- name: Archibald Turner
-  age: 35
+  workplace: Lumière Market Square
+  job_title: blacksmith's apprentice
+  residence_address: 20 Côte des Lumières
+- name: Achille Brecknock
   sex: male
-  job: market stall vendor
-  bio: Experienced merchant; provides for family.
+  age: 32
+  job: blacksmith's apprentice
+  bio: Young craftsman learning trade; values tradition.
   values:
-  - fairness
-  - providing for loved ones
-  - respect
+  - honesty
+  - hard work
+  - respect for elders
   goals:
-  - increase sales
-  - improve market standing
-  - send children to school
-  start_place: Lumière Market Square
-- name: Katharina Bennett
-  age: 42
+  - become master blacksmith
+  - improve family's financial stability
+  - give back to community through charity
+  start_place: Blacksmith Shop
+  workplace: Blacksmith Shop
+  job_title: blacksmith's apprentice
+  residence_address: 20 L'Étoile de la Rivière
+- name: Baudouin Henderson
   sex: male
+  age: 32
+  job: blacksmith's apprentice
+  bio: Young craftsman learning trade; values tradition.
+  values:
+  - honesty
+  - hard work
+  - respect for elders
+  goals:
+  - become master blacksmith
+  - improve family's financial stability
+  - make a name for himself in the community
+  start_place: Lumière Market Square
+  workplace: Lumière Market Square
+  job_title: blacksmith's apprentice
+  residence_address: 10 La Place de la Liberté
+- name: Nestor Compton
+  sex: male
+  age: 35
   job: Church Sexton
-  bio: Devout servant; cares for community.
+  bio: Devout caretaker; values tradition, family.
   values:
   - faith
   - family
   - service
   goals:
   - improve church facilities
-  - support local families
-  - find a suitable successor
+  - help local youth
+  - support parishioners
   start_place: Lumière Church
-- name: Alfred Caldwell
-  age: 32
-  sex: male
-  job: Church Sexton
-  bio: Devout caretaker; values tradition, family.
-  values:
-  - faith
-  - family
-  - hard work
-  goals:
-  - restore church's pipe organ
-  - improve community outreach
-  - support wife's midwifery practice
-  start_place: Lumière Church
-- name: Daisy Filby
-  age: 42
-  sex: male
-  job: Church Sexton
-  bio: Devout caretaker; values tradition, family.
-  values:
-  - faith
-  - family
-  - hard work
-  goals:
-  - ensure church's financial stability
-  - improve community outreach
-  - support his wife's charity work
-  start_place: Lumière Church
-- name: Maurice Walsham
-  age: 32
-  sex: male
-  job: park gardener
-  bio: Dedicated caretaker; nurtures green spaces.
-  values:
-  - stewardship
-  - beauty
-  - growth
-  goals:
-  - restore park fountain
-  - improve garden layout
-  - host community events
-  start_place: Lumière Central Park
-- name: Agnès Taplin
-  age: 35
-  sex: male
-  job: Park Gardener
-  bio: Dedicated caretaker; nurtures nature.
-  values:
-  - conservation
-  - stewardship
-  - beauty
-  goals:
-  - create a thriving garden ecosystem
-  - develop educational programs
-  - host community events
-  start_place: Lumière Central Park
-- name: Clayton Yorkshire
-  age: 35
-  sex: male
-  job: park gardener
-  bio: Green-thumbed caretaker; nurtures nature.
-  values:
-  - conservation
-  - stewardship
-  - beauty
-  goals:
-  - restore park to former glory
-  - introduce new plant species
-  - educate community about environmentalism
-  start_place: Lumière Central Park
-- name: Willie Staples
-  age: 35
+  workplace: Lumière Church
+  job_title: Church Sexton
+  residence_address: 20 La Rue du Marchand
+- name: Carmen Groves
   sex: female
+  age: 35
+  job: Church Organist
+  bio: Devout musician; guides community through song.
+  values:
+  - faith
+  - music
+  - family
+  goals:
+  - improve playing skills
+  - compose new hymns
+  - support church growth
+  start_place: Lumière Church
+  workplace: Lumière Church
+  job_title: Church Organist
+  residence_address: 10 Les Îles de la Paix
+- name: Sabinne Powell
+  sex: female
+  age: 35
+  job: Church Organist
+  bio: Devout musician; fosters harmony in community.
+  values:
+  - faith
+  - music
+  - compassion
+  goals:
+  - compose new hymns
+  - improve playing skills
+  - help those in need
+  start_place: Lumière Church
+  workplace: Lumière Church
+  job_title: Church Organist
+  residence_address: 10 Le Jardin de l'Hiver
+- name: Anthelme Lovelace
+  sex: male
+  age: 32
+  job: librarian assistant
+  bio: Respectful scholar; values knowledge, family.
+  values:
+  - knowledge
+  - family
+  - education
+  goals:
+  - become head librarian
+  - publish research on local history
+  - support wife's teaching career
+  start_place: Lumière Library
+  workplace: Lumière Library
+  job_title: librarian assistant
+  residence_address: 10 Forêt d'Amour
+- name: Eloïse Derbyshire
+  sex: female
+  age: 32
+  job: Librarian Assistant
+  bio: Knowledgeable assistant; loves books, values order.
+  values:
+  - knowledge
+  - organization
+  - helping others
+  goals:
+  - improve cataloging system
+  - learn to play piano
+  - support local education
+  start_place: Lumière Library
+  workplace: Lumière Library
+  job_title: Librarian Assistant
+  residence_address: 20 Le Jardin de l'Hiver
+- name: Balthazarin Shorter
+  sex: male
+  age: 35
+  job: elementary school teacher
+  bio: Respected educator; values discipline.
+  values:
+  - education
+  - responsibility
+  - respect
+  goals:
+  - improve student outcomes
+  - become headmaster
+  - give back to community
+  start_place: Lumière Elementary School
+  workplace: Lumière Elementary School
+  job_title: elementary school teacher
+  residence_address: 30 Le Jardin de l'Hiver
+- name: Aquilina Brecknock
+  sex: female
+  age: 32
+  job: Elementary School Teacher
+  bio: Patient educator; loves children, values discipline.
+  values:
+  - education
+  - family
+  - loyalty
+  goals:
+  - improve teaching methods
+  - establish a school garden
+  - support local community development
+  start_place: Lumière Elementary School
+  workplace: Lumière Elementary School
+  job_title: Elementary School Teacher
+  residence_address: 30 Côte des Lumières
+- name: Antoninette Faughan
+  sex: female
+  age: 35
   job: Elementary School Teacher
   bio: Devoted educator; nurturing spirit.
   values:
   - education
-  - nurturing children
-  - community service
-  goals:
-  - improve teaching methods
-  - establish a school garden
-  - support local families
-  start_place: Lumière Elementary School
-- name: Justine Falconer
-  age: 42
-  sex: male
-  job: elementary school teacher
-  bio: Respected educator; values knowledge, family.
-  values:
-  - education
   - family
-  - hard work
+  - discipline
   goals:
-  - improve teaching methods
-  - increase student enrollment
-  - save for retirement
+  - improve student literacy rates
+  - expand school curriculum
+  - establish a community library
   start_place: Lumière Elementary School
-- name: Leonard Tryon
-  age: 35
+  workplace: Lumière Elementary School
+  job_title: Elementary School Teacher
+  residence_address: 30 La Rue du Marchand
+- name: Léonette Deacon
   sex: female
-  job: Elementary School Teacher
-  bio: Patient educator; guides young minds.
+  age: 32
+  job: Community Center Nurse
+  bio: Compassionate caregiver; values family, tradition.
   values:
-  - education
-  - nurturing
-  - patience
+  - family
+  - tradition
+  - helping others
   goals:
-  - improve teaching methods
-  - establish a school garden
-  - support local children's health
-  start_place: Lumière Elementary School
+  - improve healthcare services
+  - establish a local nursing school
+  - support women's rights
+  start_place: Lumière Community Center
+  workplace: Lumière Community Center
+  job_title: Community Center Nurse
+  residence_address: 30 L'Étoile de la Rivière
+- name: Hugues Hodson
+  sex: male
+  age: 35
+  job: blacksmith shop owner
+  bio: Experienced craftsman; values tradition, family.
+  values:
+  - honesty
+  - hard work
+  - community
+  goals:
+  - increase business through local trade
+  - improve working conditions for apprentices
+  - provide a stable income for his wife and two children
+  start_place: Blacksmith Shop
+  workplace: Blacksmith Shop
+  job_title: blacksmith shop owner
+  residence_address: 10 Boulevard de la Révolution
+- name: Félixinette Brabazon
+  sex: male
+  age: 35
+  job: blacksmith shop owner
+  bio: Experienced craftsman; values tradition, family.
+  values:
+  - honesty
+  - hard work
+  - community
+  goals:
+  - expand business
+  - learn new techniques
+  - support family
+  start_place: Lumière Community Center
+  workplace: Lumière Community Center
+  job_title: blacksmith shop owner
+  residence_address: 20 Forêt d'Amour
+- name: Sylviee Kennedy
+  sex: female
+  age: 32
+  job: Head Chef at Lumière Restaurant
+  bio: Experienced chef; values culinary tradition.
+  values:
+  - quality ingredients
+  - innovation in cooking
+  - hospitality
+  goals:
+  - win a Michelin star
+  - create new recipes
+  - mentor young chefs
+  start_place: Lumière Restaurant
+  workplace: Lumière Restaurant
+  job_title: Head Chef at Lumière Restaurant
+  residence_address: 10 Rue des Mille Étoiles
+- name: Leontina Coleman
+  sex: female
+  age: 32
+  job: Head Chef at Lumière Restaurant
+  bio: Experienced chef; values culinary tradition.
+  values:
+  - quality ingredients
+  - innovation in cooking
+  - hospitality
+  goals:
+  - win a Michelin star
+  - create new recipes
+  - mentor young chefs
+  start_place: Lumière Restaurant
+  workplace: Lumière Restaurant
+  job_title: Head Chef at Lumière Restaurant
+  residence_address: 40 Côte des Lumières
+- name: Aghdam Leech
+  sex: male
+  age: 32
+  job: Head Chef at Lumière Restaurant
+  bio: Experienced chef; values culinary innovation.
+  values:
+  - quality
+  - creativity
+  - hospitality
+  goals:
+  - improve menu offerings
+  - host a successful dinner party for the city's elite
+  - train an apprentice to take over his position
+  start_place: Lumière Restaurant
+  workplace: Lumière Restaurant
+  job_title: Head Chef at Lumière Restaurant
+  residence_address: 30 Forêt d'Amour
 streets:
 - Rivière Royale
 - L'Étoile de la Rivière
-- Le Jardin des Lilas
-- La Rue de l'Oiseau Bleu
-- Place du Vieux Château
-- Chemin de la Fontaine de Lumière
-- Allée des Quatre Saisons
-- Rue de la Maison de Mère Élise
-- Cours de la Rivière Éternelle
-- Boulevard des Marchands de Lumière
+- Forêt d'Amour
+- Côte des Lumières
+- La Rue du Marchand
+- Le Jardin de l'Hiver
+- La Place de la Liberté
+- Les Îles de la Paix
+- Rue des Mille Étoiles
+- Boulevard de la Révolution
 houses:
-- id: house_1
-  address: 2 Place du Vieux Château
-  resident: Susanna Chance
-- id: house_2
-  address: 179 Le Jardin des Lilas
-  resident: Agnette Goodere
-- id: house_3
-  address: 88 Allée des Quatre Saisons
-  resident: Désirée Farquharson
-- id: house_4
-  address: 40 Place du Vieux Château
-  resident: Beatrix Carteret
-- id: house_5
-  address: 196 La Rue de l'Oiseau Bleu
-  resident: Violet Staples
-- id: house_6
-  address: 27 Chemin de la Fontaine de Lumière
-  resident: Archibald Turner
-- id: house_7
-  address: 98 L'Étoile de la Rivière
-  resident: Katharina Bennett
-- id: house_8
-  address: 92 L'Étoile de la Rivière
-  resident: Alfred Caldwell
-- id: house_9
-  address: 155 Chemin de la Fontaine de Lumière
-  resident: Daisy Filby
-- id: house_10
-  address: 12 Place du Vieux Château
-  resident: Maurice Walsham
-- id: house_11
-  address: 138 Rue de la Maison de Mère Élise
-  resident: Agnès Taplin
-- id: house_12
-  address: 97 L'Étoile de la Rivière
-  resident: Clayton Yorkshire
-- id: house_13
-  address: 142 L'Étoile de la Rivière
-  resident: Willie Staples
-- id: house_14
-  address: 161 Place du Vieux Château
-  resident: Justine Falconer
-- id: house_15
-  address: 93 Boulevard des Marchands de Lumière
-  resident: Leonard Tryon
+- id: Massingberd residence
+  address: 10 Côte des Lumières
+  resident: Abraham Massingberd
+- id: Cowles residence
+  address: 10 La Rue du Marchand
+  resident: Christine Cowles
+- id: Lightfoot residence
+  address: 10 L'Étoile de la Rivière
+  resident: Alphoncin Lightfoot
+- id: Gordon residence
+  address: 20 Côte des Lumières
+  resident: Rachidin Gordon
+- id: Brecknock residence
+  address: 20 L'Étoile de la Rivière
+  resident: Achille Brecknock
+- id: Henderson residence
+  address: 10 La Place de la Liberté
+  resident: Baudouin Henderson
+- id: Compton residence
+  address: 20 La Rue du Marchand
+  resident: Nestor Compton
+- id: Groves residence
+  address: 10 Les Îles de la Paix
+  resident: Carmen Groves
+- id: Powell residence
+  address: 10 Le Jardin de l'Hiver
+  resident: Sabinne Powell
+- id: Lovelace residence
+  address: 10 Forêt d'Amour
+  resident: Anthelme Lovelace
+- id: Derbyshire residence
+  address: 20 Le Jardin de l'Hiver
+  resident: Eloïse Derbyshire
+- id: Shorter residence
+  address: 30 Le Jardin de l'Hiver
+  resident: Balthazarin Shorter
+- id: Brecknock residence
+  address: 30 Côte des Lumières
+  resident: Aquilina Brecknock
+- id: Faughan residence
+  address: 30 La Rue du Marchand
+  resident: Antoninette Faughan
+- id: Deacon residence
+  address: 30 L'Étoile de la Rivière
+  resident: Léonette Deacon
+- id: Hodson residence
+  address: 10 Boulevard de la Révolution
+  resident: Hugues Hodson
+- id: Brabazon residence
+  address: 20 Forêt d'Amour
+  resident: Félixinette Brabazon
+- id: Kennedy residence
+  address: 10 Rue des Mille Étoiles
+  resident: Sylviee Kennedy
+- id: Coleman residence
+  address: 40 Côte des Lumières
+  resident: Leontina Coleman
+- id: Leech residence
+  address: 30 Forêt d'Amour
+  resident: Aghdam Leech
+street_house_counts:
+  Rivière Royale: 0
+  L'Étoile de la Rivière: 3
+  Forêt d'Amour: 3
+  Côte des Lumières: 4
+  La Rue du Marchand: 3
+  Le Jardin de l'Hiver: 3
+  La Place de la Liberté: 1
+  Les Îles de la Paix: 1
+  Rue des Mille Étoiles: 1
+  Boulevard de la Révolution: 1
 connections:
+- - Rivière Royale
+  - Rue des Mille Étoiles
+- - Rivière Royale
+  - Les Îles de la Paix
+- - L'Étoile de la Rivière
+  - Le Jardin de l'Hiver
+- - L'Étoile de la Rivière
+  - La Rue du Marchand
+- - Forêt d'Amour
+  - La Place de la Liberté
+- - Forêt d'Amour
+  - Rivière Royale
+- - Côte des Lumières
+  - La Rue du Marchand
+- - Côte des Lumières
+  - Rivière Royale
+- - La Rue du Marchand
+  - La Place de la Liberté
+- - La Rue du Marchand
+  - Les Îles de la Paix
+- - Le Jardin de l'Hiver
+  - La Rue du Marchand
+- - La Place de la Liberté
+  - Côte des Lumières
+- - La Place de la Liberté
+  - Le Jardin de l'Hiver
+- - Les Îles de la Paix
+  - Côte des Lumières
+- - Les Îles de la Paix
+  - Rue des Mille Étoiles
+- - Rue des Mille Étoiles
+  - La Place de la Liberté
+- - Boulevard de la Révolution
+  - Forêt d'Amour
+- - Boulevard de la Révolution
+  - La Rue du Marchand
+- - Massingberd residence
+  - Côte des Lumières
+- - Cowles residence
+  - La Rue du Marchand
+- - Lightfoot residence
+  - L'Étoile de la Rivière
+- - Gordon residence
+  - Côte des Lumières
+- - Brecknock residence
+  - L'Étoile de la Rivière
+- - Henderson residence
+  - La Place de la Liberté
+- - Compton residence
+  - La Rue du Marchand
+- - Groves residence
+  - Les Îles de la Paix
+- - Powell residence
+  - Le Jardin de l'Hiver
+- - Lovelace residence
+  - Forêt d'Amour
+- - Derbyshire residence
+  - Le Jardin de l'Hiver
+- - Shorter residence
+  - Le Jardin de l'Hiver
+- - Brecknock residence
+  - Côte des Lumières
+- - Faughan residence
+  - La Rue du Marchand
+- - Deacon residence
+  - L'Étoile de la Rivière
+- - Hodson residence
+  - Boulevard de la Révolution
+- - Brabazon residence
+  - Forêt d'Amour
+- - Kennedy residence
+  - Rue des Mille Étoiles
+- - Coleman residence
+  - Côte des Lumières
+- - Leech residence
+  - Forêt d'Amour
 - - Lumière City Hall
-  - Lumière Central Park
-- - Lumière Church
-  - Lumière Central Park
+  - Côte des Lumières
 - - Lumière Market Square
-  - Lumière City Hall
+  - Côte des Lumières
+- - Lumière Church
+  - La Rue du Marchand
+- - Lumière Library
+  - Forêt d'Amour
 - - Lumière Elementary School
-  - Lumière Central Park
+  - Le Jardin de l'Hiver
+- - Lumière Community Center
+  - L'Étoile de la Rivière
+- - Lumière Restaurant
+  - Rue des Mille Étoiles
+- - Madame Dupont's Bakery
+  - Forêt d'Amour
+- - Lumière's Library
+  - Côte des Lumières
+- - Le Coq Rouge Restaurant
+  - Rue des Mille Étoiles
+- - Maison de la Mode
+  - Rue des Mille Étoiles
+- - La Maison du Livre
+  - La Rue du Marchand
+- - Le Jardin de Lumière
+  - Boulevard de la Révolution
+- - La Pharmacie de la Ville
+  - La Place de la Liberté
+- - Le Café des Arts
+  - Boulevard de la Révolution
+- - La Maison de la Musique
+  - La Place de la Liberté
+- - Le Bazar Oriental
+  - Le Jardin de l'Hiver
+- - La Maison de la Mode Féminine
+  - Côte des Lumières
+- - Le Cercle des Écrivains
+  - Forêt d'Amour
+- - La Maison de la Santé
+  - Rue des Mille Étoiles
+- - Le Musée des Arts et Métiers
+  - Les Îles de la Paix
+- - La Maison de la Famille
+  - L'Étoile de la Rivière
+- - Le Jardin d'Enfants
+  - Rivière Royale
+- - La Maison de la Beauté
+  - L'Étoile de la Rivière
+- - Le Cercle des Artistes
+  - Forêt d'Amour
+- - La Maison de la Cuisine
+  - Forêt d'Amour
+- - Le Musée des Sciences Naturelles
+  - La Place de la Liberté
+- - La Maison de la Vieillissement
+  - Boulevard de la Révolution
+- - Le Jardin Botanique
+  - L'Étoile de la Rivière
+- - La Maison de la Médecine Vétérinaire
+  - La Place de la Liberté
+- - Le Musée des Arts et Traditions Populaires
+  - La Place de la Liberté
+- - La Maison de la Mode Homme
+  - Boulevard de la Révolution
+- - Le Cercle des Étudiants
+  - Les Îles de la Paix
+- - La Maison de la Musique Classique
+  - Rue des Mille Étoiles
+- - Le Jardin de la Réflexion
+  - La Rue du Marchand
+- - La Maison de la Santé Mentale
+  - Rue des Mille Étoiles
+street_lengths:
+  Rivière Royale: 0
+  L'Étoile de la Rivière: 30
+  Forêt d'Amour: 30
+  Côte des Lumières: 40
+  La Rue du Marchand: 30
+  Le Jardin de l'Hiver: 30
+  La Place de la Liberté: 10
+  Les Îles de la Paix: 10
+  Rue des Mille Étoiles: 10
+  Boulevard de la Révolution: 10

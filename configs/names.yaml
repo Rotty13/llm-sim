@@ -1,1043 +1,1502 @@
 first_names:
-- Abelard
-- Abram
-- Achille
-- Adelaide
-- Adelard
-- Adolph
-- Adolphe
-- Adrien
-- Adrienne
-- Adèle
-- Agnata
-- Agnes
-- Agnette
-- Agnès
-- Aimé
-- Alfred
-- Alicea
-- Aline
-- Alixandre
-- Alphons
-- Alphonse
-- Alphonsine
-- Amabel
-- Amabelle
-- Amande
-- Amelia
-- Amédée
-- Amélie
-- Anastasia
-- Anastasie
-- Andrews
-- Andréanne
-- Andrée
-- Angelique
-- Angèle
-- Anicette
-- Annabelle
-- Annie
-- Anselm
-- Antoine
-- Antoinette
-- Antoinnette
-- Antonie
-- Archange
-- Archibald
-- Aristide
-- Armande
-- Arnold
-- Arsène
-- Arthur
-- Astrid
-- Astridde
-- Athos
-- Augustin
-- Augustinette
-- Aurelie
-- Aurelius
-- Aurore
-- Aurélien
-- Autelina
-- Avis
-- Balthazar
-- Balthazarine
-- Balthilda
-- Barbara
-- Barnaby
-- Bartholomée
-- Barthélemy
-- Baudouin
-- Baudouinette
-- Beatrice
-- Beatrix
-- Benedict
-- Benjamin
-- Benjaminne
-- Bernadette
-- Bernadine
-- Bertha
-- Berthe
-- Berton
-- Bessie
-- Blanch
-- Blanche
-- Blandina
-- Blandine
-- Brunhilde
-- Bruno
-- Brunolette
-- Calantha
-- Calista
-- Calixte
-- Calixtie
-- Catharine
-- Cecila
-- Cecilia
-- Cedric
-- Cedrine
-- Charlotte
-- Circe
-- Clarence
-- Claude
-- Clayton
-- Clemente
-- Clémence
-- Constance
-- Cornelius
-- Cornélie
-- Cyprien
-- Cyprienne
-- Célestine
-- Césarine
-- Daisy
-- Damien
-- Daphne
-- Daphné
-- Delia
-- Delphine
-- Denisette
-- Diamante
-- Dominic
-- Dominique
-- Donovan
-- Dorinne
-- Dorothie
-- Dorothy
-- Désirée
-- Edith
-- Eleanor
-- Elgiva
-- Eliza
-- Elizabeth
-- Ellen
-- Elodie
-- Eloise
-- Eloïse
-- Elsie
-- Elspeth
-- Elvina
-- Emily
-- Emmeline
-- Estelle
-- Esther
-- Ethel
-- Euclide
-- Eugene
-- Eugenie
-- Eulalia
-- Eulalie
-- Eulalina
-- Euphémie
-- Evander
-- Ezechiel
-- Fanny
-- Felice
-- Felicita
-- Ferdinand
-- Fidèle
-- Fleur
-- Flora
-- Florence
-- Florentine
-- Frances
-- Francis
-- Françoise
-- Fulgencie
-- Félicie
-- Félix
-- Gabrielle
-- Gabriot
-- Gaspard
-- Gaspardina
-- Gaspardine
-- Gauthier
-- Georgeanna
-- Georgette
-- Gertrude
-- Gideon
-- Gladys
-- Godfrey
-- Gracia
-- Gracie
-- Griselda
-- Hannah
-- Harriet
-- Hattie
-- Hedwiga
-- Helena
-- Helene
-- Henrietta
-- Herbert
-- Hester
-- Hildegarde
-- Hippolyte
-- Hortense
-- Hortensia
-- Hortensienne
-- Hughes
-- Ida
-- Idonea
-- Irene
-- Irma
-- Irvine
-- Irénée
-- Isabel
-- Ita
-- Ivoine
-- Ivone
-- Ivonne
-- Jemima
-- Jemimah
-- Jennie
-- Johanna
-- Josephine
-- Jourdaine
-- Justine
-- Jérôme
-- Katharina
-- Katharine
-- Katherine
-- Keroual
-- Kerstin
-- Lambert
-- Lamberte
-- Lancelot
-- Lancelote
-- Laura
-- Lavinia
-- Lavynia
-- Leona
-- Leonard
-- Leonora
-- Leontine
-- Lewis
-- Lillian
-- Louisa
-- Louise
-- Lucetta
-- Lucy
-- Lydia
-- Lysander
-- Mabel
-- Mabelle
-- Madeleine
-- Magdalena
-- Malvina
-- Marcelline
-- Margaret
-- Margarita
-- Marguerite
-- Mariah
-- Marie
-- Marion
-- Martha
-- Mary
-- Maryanne
-- Marye
-- Matilda
-- Maude
-- Maurice
-- Mauricette
-- Mauricienne
-- Maybelle
-- Melinda
-- Minnie
-- Nadine
-- Nadège
-- Narcisse
-- Nathalie
-- Nathaniel
-- Nathanielle
-- Nativida
-- Nedra
-- Nellie
-- Norma
-- Odette
-- Olive
-- Oliver
-- Olivette
-- Olympe
-- Omer
-- Ondinea
-- Ophelia
-- Oscar
-- Pamela
-- Parke
-- Pascal
-- Pascaline
-- Pauline
-- Paxina
-- Pearl
-- Penelope
-- Perceval
-- Percine
-- Philomena
-- Philomène
-- Pierre
-- Pierrelette
-- Pétronille
-- Quentin
-- Quintilienne
-- Quintin
-- Quintine
-- Rachel
-- Rachilde
-- Raphaël
-- Roderica
-- Roderick
-- Roderique
-- Ronald
-- Rosalie
-- Rowena
-- Ruth
-- Sabin
-- Sabina
-- Sabinette
-- Sabinne
-- Salome
-- Samuel
-- Sara
-- Sarah
-- Selma
-- Sibylle
-- Silas
-- Simone
-- Sophia
-- Stanley
-- Stella
-- Susanna
-- Sylviane
-- Thaddeus
-- Theodora
-- Theodore
-- Theodoric
-- Therese
-- Thibaut
-- Thibautte
-- Thomasine
-- Thérèse
-- Tibaulde
-- Tibault
-- Tibautte
-- Ursula
-- Ursulene
-- Ursulina
-- Ursuline
-- Valentine
-- Violet
-- Vital
-- Vitaline
-- Vivian
-- Vivianne
-- Vivienne
-- Walter
-- Weldon
-- Wenceslade
-- Wenceslas
-- Wenceslasine
-- Wilhelmina
-- Willard
-- Willie
-- Winifred
-- Winston
-- Xanthe
-- Xaviera
-- Xavierine
-- Xenophonie
-- Xénophon
-- Xénophonie
-- Yolande
-- Yseulte
-- Zelda
-- Zephirin
-- Zephirine
-- Zéphirine
-- Étienne
+- name: Abdelkader
+  sex: male
+- name: Abdirahman
+  sex: male
+- name: Abdon
+  sex: male
+- name: Abdul
+  sex: male
+- name: Abdulah
+  sex: male
+- name: Abdulqadir
+  sex: male
+- name: Abraham
+  sex: male
+- name: Achille
+  sex: male
+- name: Achmet
+  sex: male
+- name: Adele
+  sex: female
+- name: Adelina
+  sex: female
+- name: Adolphe
+  sex: male
+- name: Adèlema
+  sex: female
+- name: Afif
+  sex: male
+- name: Agathe
+  sex: female
+- name: Aghdam
+  sex: male
+- name: Agnès
+  sex: female
+- name: Agostino
+  sex: male
+- name: Ahasuerus
+  sex: male
+- name: Ahmed
+  sex: male
+- name: Ahmeda
+  sex: female
+- name: Ahmedine
+  sex: female
+- name: Aimé
+  sex: male
+- name: Akakio
+  sex: male
+- name: Aki
+  sex: unisex
+- name: Akira
+  sex: unisex
+- name: Akiyama
+  sex: male
+- name: Akiyamino
+  sex: male
+- name: Alban
+  sex: male
+- name: Albina
+  sex: female
+- name: Alcibiades
+  sex: male
+- name: Alcide
+  sex: male
+- name: Aldona
+  sex: female
+- name: Aldéric
+  sex: male
+- name: Alexandrine
+  sex: female
+- name: Alfonso
+  sex: male
+- name: Alfred
+  sex: male
+- name: Alphon
+  sex: male
+- name: Alphoncin
+  sex: male
+- name: Alphoncine
+  sex: female
+- name: Alphonse
+  sex: male
+- name: Alphonzo
+  sex: male
+- name: Alvaro
+  sex: male
+- name: Amabel
+  sex: female
+- name: Amabelle
+  sex: female
+- name: Amadou
+  sex: male
+- name: Amal
+  sex: male
+- name: Amand
+  sex: male
+- name: Amande
+  sex: female
+- name: Amandine
+  sex: female
+- name: Amelia
+  sex: female
+- name: Ammar
+  sex: male
+- name: Ammourine
+  sex: female
+- name: Amédée
+  sex: male
+- name: Anastas
+  sex: male
+- name: Anastasia
+  sex: female
+- name: Anastasie
+  sex: female
+- name: Anastasiya
+  sex: female
+- name: Anatole
+  sex: male
+- name: Andrzej
+  sex: male
+- name: André
+  sex: male
+- name: Andréa
+  sex: unisex
+- name: Andrée
+  sex: female
+- name: Angèle
+  sex: female
+- name: Angélique
+  sex: female
+- name: Anselme
+  sex: male
+- name: Anthelme
+  sex: male
+- name: Antoinette
+  sex: female
+- name: Antonin
+  sex: male
+- name: Antoninette
+  sex: female
+- name: Apolonia
+  sex: female
+- name: Apolonie
+  sex: unisex
+- name: Aquilina
+  sex: female
+- name: Aquiline
+  sex: unisex
+- name: Aquilino
+  sex: male
+- name: Archange
+  sex: female
+- name: Arianna
+  sex: female
+- name: Aristide
+  sex: male
+- name: Armande
+  sex: female
+- name: Arnold
+  sex: male
+- name: Arsène
+  sex: male
+- name: Astrid
+  sex: unisex
+- name: Athéna
+  sex: female
+- name: Aubin
+  sex: male
+- name: Audacie
+  sex: female
+- name: Audiface
+  sex: male
+- name: Auguste
+  sex: male
+- name: Augustina
+  sex: female
+- name: Aurelie
+  sex: female
+- name: Aurore
+  sex: female
+- name: Auroreine
+  sex: female
+- name: Azor
+  sex: male
+- name: Azorine
+  sex: female
+- name: Aïcha
+  sex: female
+- name: Babette
+  sex: female
+- name: Bahati
+  sex: unisex
+- name: Baltasar
+  sex: male
+- name: Baltazar
+  sex: male
+- name: Baltazarin
+  sex: male
+- name: Balthasar
+  sex: male
+- name: Balthazar
+  sex: male
+- name: Balthazarin
+  sex: male
+- name: Baozheng
+  sex: male
+- name: Barbara
+  sex: female
+- name: Barbe
+  sex: female
+- name: Barbelette
+  sex: female
+- name: Barbro
+  sex: female
+- name: Bartolomeo
+  sex: male
+- name: Basile
+  sex: male
+- name: Basilea
+  sex: female
+- name: Baudouin
+  sex: male
+- name: Beatrice
+  sex: female
+- name: Beatrixe
+  sex: female
+- name: Benedetto
+  sex: male
+- name: Benito
+  sex: unisex
+- name: Benjamin
+  sex: male
+- name: Benoît
+  sex: male
+- name: Bernadette
+  sex: female
+- name: Bernarde
+  sex: female
+- name: Bienvenue
+  sex: unisex
+- name: Blaise
+  sex: male
+- name: Blandine
+  sex: female
+- name: Blandinette
+  sex: female
+- name: Bruno
+  sex: male
+- name: Béatrice
+  sex: female
+- name: Bénigne
+  sex: unisex
+- name: Bénédicte
+  sex: female
+- name: Calandrino
+  sex: male
+- name: Calixta
+  sex: female
+- name: Calixte
+  sex: male
+- name: Calixteine
+  sex: unisex
+- name: Camille
+  sex: unisex
+- name: Camillea
+  sex: unisex
+- name: Candelaria
+  sex: female
+- name: Candélaria
+  sex: female
+- name: Caridad
+  sex: female
+- name: Carmen
+  sex: female
+- name: Carmencita
+  sex: female
+- name: Catalina
+  sex: female
+- name: Cecilia
+  sex: female
+- name: Cecília
+  sex: female
+- name: Chabrier
+  sex: male
+- name: Chloé
+  sex: female
+- name: Christine
+  sex: female
+- name: Claude
+  sex: male
+- name: Clémence
+  sex: female
+- name: Clémencine
+  sex: unisex
+- name: Colette
+  sex: female
+- name: Constance
+  sex: female
+- name: Cordélia
+  sex: female
+- name: Corinne
+  sex: female
+- name: Cristoforo
+  sex: male
+- name: Cyprien
+  sex: male
+- name: Cyprienne
+  sex: female
+- name: Cypriennee
+  sex: female
+- name: Cyrille
+  sex: male
+- name: Cécile
+  sex: female
+- name: Cécilie
+  sex: female
+- name: Céciliene
+  sex: unisex
+- name: Cécilienee
+  sex: unisex
+- name: Célestienne
+  sex: female
+- name: Célestine
+  sex: female
+- name: César
+  sex: male
+- name: Césarine
+  sex: female
+- name: Césarinee
+  sex: female
+- name: Damasin
+  sex: male
+- name: Damazin
+  sex: male
+- name: Damazo
+  sex: unisex
+- name: Damian
+  sex: male
+- name: Damiano
+  sex: male
+- name: Damien
+  sex: male
+- name: Damienin
+  sex: male
+- name: Damienne
+  sex: female
+- name: Danièle
+  sex: female
+- name: Delphine
+  sex: female
+- name: Denis
+  sex: male
+- name: Domingo
+  sex: unisex
+- name: Dominique
+  sex: unisex
+- name: Dorothea
+  sex: female
+- name: Dorothée
+  sex: female
+- name: Dulcie
+  sex: female
+- name: Désirat
+  sex: unisex
+- name: Désiratine
+  sex: unisex
+- name: Désiré
+  sex: male
+- name: Désirée
+  sex: female
+- name: Edgar
+  sex: male
+- name: Edgard
+  sex: male
+- name: Edmée
+  sex: female
+- name: Eduardo
+  sex: male
+- name: Elara
+  sex: female
+- name: Elisabeta
+  sex: female
+- name: Elisabetta
+  sex: female
+- name: Elisée
+  sex: male
+- name: Eloïse
+  sex: female
+- name: Elspeth
+  sex: female
+- name: Elvire
+  sex: female
+- name: Eléonore
+  sex: female
+- name: Eléonoree
+  sex: female
+- name: Eléonoreeine
+  sex: female
+- name: Eléopoldinet
+  sex: female
+- name: Eléopoldinette
+  sex: female
+- name: Emilia
+  sex: female
+- name: Emmeline
+  sex: unisex
+- name: Ennourine
+  sex: female
+- name: Esther
+  sex: female
+- name: Eugène
+  sex: male
+- name: Eugénette
+  sex: female
+- name: Eugénie
+  sex: female
+- name: Eulalie
+  sex: female
+- name: Euphrosin
+  sex: unisex
+- name: Euphrosine
+  sex: female
+- name: Euphémie
+  sex: female
+- name: Ferdinand
+  sex: male
+- name: Ferdinande
+  sex: female
+- name: Ferdinandine
+  sex: female
+- name: Ferdinando
+  sex: male
+- name: Fernand
+  sex: male
+- name: Fernande
+  sex: female
+- name: Florimond
+  sex: male
+- name: Florimondin
+  sex: male
+- name: François
+  sex: male
+- name: Félicie
+  sex: female
+- name: Félicien
+  sex: male
+- name: Félicite
+  sex: female
+- name: Félix
+  sex: male
+- name: Félixia
+  sex: unisex
+- name: Félixien
+  sex: male
+- name: Félixin
+  sex: male
+- name: Félixine
+  sex: female
+- name: Félixinette
+  sex: male
+- name: Félixinettee
+  sex: male
+- name: Gabriel
+  sex: male
+- name: Gabrielle
+  sex: female
+- name: Gabriellea
+  sex: female
+- name: Gabrielline
+  sex: unisex
+- name: Gaspard
+  sex: male
+- name: Gaspardin
+  sex: male
+- name: Gaspardina
+  sex: female
+- name: Gaspardine
+  sex: female
+- name: Gaspardinet
+  sex: female
+- name: Gaspardinette
+  sex: female
+- name: Gauthier
+  sex: male
+- name: Georges
+  sex: male
+- name: Georgette
+  sex: female
+- name: Georgetteine
+  sex: female
+- name: Germaine
+  sex: female
+- name: Gilbert
+  sex: male
+- name: Ginevra
+  sex: female
+- name: Giovanna
+  sex: female
+- name: Giovanni
+  sex: male
+- name: Giovannino
+  sex: male
+- name: Godefroy
+  sex: male
+- name: Godfrey
+  sex: unisex
+- name: Godiva
+  sex: unisex
+- name: Graciana
+  sex: female
+- name: Grégoire
+  sex: male
+- name: Grégoirene
+  sex: male
+- name: Guillaume
+  sex: male
+- name: Guillermina
+  sex: female
+- name: Gérard
+  sex: male
+- name: Gérardine
+  sex: female
+- name: Gérardinet
+  sex: male
+- name: Gérardinette
+  sex: female
+- name: Henri
+  sex: male
+- name: Hippolyte
+  sex: male
+- name: Hippolytin
+  sex: male
+- name: Hortense
+  sex: female
+- name: Hortensia
+  sex: female
+- name: Hortensine
+  sex: unisex
+- name: Hortensinee
+  sex: female
+- name: Hubert
+  sex: male
+- name: Hubertin
+  sex: male
+- name: Hubertina
+  sex: female
+- name: Hubertine
+  sex: female
+- name: Hubertinette
+  sex: female
+- name: Hugues
+  sex: male
+- name: Hélène
+  sex: female
+- name: Ida
+  sex: female
+- name: Idoline
+  sex: female
+- name: Idolinee
+  sex: female
+- name: Ignace
+  sex: male
+- name: Ignacine
+  sex: female
+- name: Iphigénie
+  sex: female
+- name: Iphigéniee
+  sex: unisex
+- name: Ivane
+  sex: unisex
+- name: Iveta
+  sex: female
+- name: Ivoire
+  sex: unisex
+- name: Ivory
+  sex: unisex
+- name: Jadwiga
+  sex: female
+- name: Jasper
+  sex: unisex
+- name: Jasperin
+  sex: male
+- name: Jehan
+  sex: male
+- name: Jehanne
+  sex: female
+- name: Jehannein
+  sex: female
+- name: Johanna
+  sex: female
+- name: Jules
+  sex: male
+- name: Juliette
+  sex: female
+- name: Justine
+  sex: female
+- name: Justiniene
+  sex: unisex
+- name: Jérôme
+  sex: male
+- name: Kalindi
+  sex: unisex
+- name: Kalixte
+  sex: unisex
+- name: Kalixtein
+  sex: male
+- name: Kalixteine
+  sex: male
+- name: Kalixteinne
+  sex: male
+- name: Kalixtine
+  sex: unisex
+- name: Kazimierz
+  sex: male
+- name: Klara
+  sex: female
+- name: Kléber
+  sex: male
+- name: Kléberin
+  sex: male
+- name: Kléberine
+  sex: male
+- name: Kléberinee
+  sex: unisex
+- name: Kléberinet
+  sex: unisex
+- name: Kléberinette
+  sex: unisex
+- name: Klémentine
+  sex: female
+- name: Kléopharne
+  sex: unisex
+- name: Kléophile
+  sex: female
+- name: Kléophilene
+  sex: unisex
+- name: Klépharne
+  sex: male
+- name: Lavínia
+  sex: female
+- name: Leontina
+  sex: female
+- name: Liubov
+  sex: female
+- name: Louis
+  sex: male
+- name: Lucía
+  sex: female
+- name: Ludmila
+  sex: female
+- name: Léa
+  sex: female
+- name: Léocadie
+  sex: female
+- name: Léocadiee
+  sex: female
+- name: Léocadion
+  sex: male
+- name: Léon
+  sex: male
+- name: Léonette
+  sex: female
+- name: Léonie
+  sex: female
+- name: Léonore
+  sex: female
+- name: Léonoree
+  sex: female
+- name: Léontin
+  sex: unisex
+- name: Léontine
+  sex: female
+- name: Léontinin
+  sex: unisex
+- name: Léopold
+  sex: male
+- name: Léopoldin
+  sex: male
+- name: Léopoldine
+  sex: female
+- name: Léopoldinet
+  sex: unisex
+- name: Léopoldinette
+  sex: male
+- name: Léovigile
+  sex: male
+- name: Madeleine
+  sex: female
+- name: Madeleyn
+  sex: female
+- name: Madeleynette
+  sex: female
+- name: Madeleynine
+  sex: female
+- name: Magdalena
+  sex: female
+- name: Marcella
+  sex: female
+- name: Marcelle
+  sex: female
+- name: Marcellina
+  sex: female
+- name: Marcelline
+  sex: female
+- name: Marcellinet
+  sex: female
+- name: Marcellinette
+  sex: female
+- name: Marcellus
+  sex: male
+- name: Margarita
+  sex: female
+- name: Marguerite
+  sex: female
+- name: Marie
+  sex: female
+- name: Martina
+  sex: female
+- name: Maurice
+  sex: male
+- name: Mauricette
+  sex: female
+- name: Mauricettee
+  sex: female
+- name: Maurus
+  sex: unisex
+- name: Melchiora
+  sex: unisex
+- name: Michel
+  sex: male
+- name: Napoleonin
+  sex: unisex
+- name: Napoléon
+  sex: male
+- name: Napoléonin
+  sex: male
+- name: Natalia
+  sex: female
+- name: Nestor
+  sex: male
+- name: Nestorin
+  sex: male
+- name: Nestorine
+  sex: female
+- name: Nestorinee
+  sex: unisex
+- name: Nina
+  sex: female
+- name: Odeta
+  sex: female
+- name: Odette
+  sex: female
+- name: Odina
+  sex: female
+- name: Odon
+  sex: male
+- name: Odonne
+  sex: male
+- name: Odylie
+  sex: female
+- name: Olympe
+  sex: unisex
+- name: Olympeine
+  sex: female
+- name: Ondina
+  sex: female
+- name: Pascal
+  sex: male
+- name: Pascalin
+  sex: male
+- name: Pascaline
+  sex: female
+- name: Pascalinet
+  sex: unisex
+- name: Pascalinette
+  sex: female
+- name: Pavla
+  sex: female
+- name: Philomène
+  sex: female
+- name: Philomènee
+  sex: female
+- name: Pierre
+  sex: male
+- name: Pierrette
+  sex: female
+- name: Quintille
+  sex: unisex
+- name: Quintillette
+  sex: unisex
+- name: Quintin
+  sex: male
+- name: Racheline
+  sex: female
+- name: Rachid
+  sex: unisex
+- name: Rachidin
+  sex: male
+- name: Rachidine
+  sex: female
+- name: Rachidinee
+  sex: female
+- name: Rachidinet
+  sex: female
+- name: Rachidinette
+  sex: male
+- name: Rachidinettee
+  sex: female
+- name: Rachèle
+  sex: female
+- name: Raffaela
+  sex: female
+- name: Raimondo
+  sex: male
+- name: Raphaël
+  sex: male
+- name: Raphaëlle
+  sex: female
+- name: Raymond
+  sex: male
+- name: Raymonde
+  sex: female
+- name: Raymondeine
+  sex: female
+- name: René
+  sex: male
+- name: Renée
+  sex: female
+- name: Renéeine
+  sex: female
+- name: Riccardo
+  sex: male
+- name: Robert
+  sex: male
+- name: Rose
+  sex: female
+- name: Sabin
+  sex: male
+- name: Sabinette
+  sex: female
+- name: Sabinia
+  sex: female
+- name: Sabinne
+  sex: female
+- name: Salomea
+  sex: female
+- name: Sante
+  sex: male
+- name: Sebastien
+  sex: male
+- name: Serafina
+  sex: female
+- name: Sorcha
+  sex: unisex
+- name: Suzanne
+  sex: female
+- name: Sylvain
+  sex: male
+- name: Sylvester
+  sex: male
+- name: Sylvie
+  sex: female
+- name: Sylviee
+  sex: female
+- name: Sylvieeine
+  sex: female
+- name: Séraphin
+  sex: male
+- name: Séraphine
+  sex: female
+- name: Thekla
+  sex: female
+- name: Theklina
+  sex: female
+- name: Thibault
+  sex: male
+- name: Thibaut
+  sex: male
+- name: Thibautine
+  sex: female
+- name: Thibautinee
+  sex: male
+- name: Thibautinette
+  sex: female
+- name: Thérèse
+  sex: female
+- name: Urbain
+  sex: male
+- name: Ursule
+  sex: unisex
+- name: Ursuline
+  sex: female
+- name: Ursulinet
+  sex: female
+- name: Urszula
+  sex: female
+- name: Urszuline
+  sex: female
+- name: Valentin
+  sex: male
+- name: Valentine
+  sex: female
+- name: Valentinee
+  sex: female
+- name: Vasiliki
+  sex: female
+- name: Victorine
+  sex: female
+- name: Victorinet
+  sex: unisex
+- name: Viktoria
+  sex: female
+- name: Viktorine
+  sex: female
+- name: Violette
+  sex: female
+- name: Vital
+  sex: male
+- name: Vitaliano
+  sex: male
+- name: Vitaline
+  sex: female
+- name: Vitalinee
+  sex: female
+- name: Vitalinette
+  sex: female
+- name: Viviane
+  sex: female
+- name: Wanda
+  sex: female
+- name: Wenceslas
+  sex: male
+- name: Wenceslasin
+  sex: male
+- name: Wenceslasine
+  sex: female
+- name: Wilfrid
+  sex: male
+- name: Xavier
+  sex: male
+- name: Xavierine
+  sex: female
+- name: Xavierne
+  sex: unisex
+- name: Xavière
+  sex: female
+- name: Xavièrene
+  sex: unisex
+- name: Xenia
+  sex: unisex
+- name: Xeniene
+  sex: female
+- name: Yolanda
+  sex: female
+- name: Yves
+  sex: male
+- name: Yvonne
+  sex: female
+- name: Yvorne
+  sex: female
+- name: Yvornette
+  sex: female
+- name: Yvornettine
+  sex: female
+- name: Zdenka
+  sex: female
+- name: Zinaida
+  sex: female
+- name: Zofia
+  sex: female
+- name: Zofienne
+  sex: unisex
+- name: Zoé
+  sex: female
+- name: Zurzula
+  sex: female
+- name: Zélie
+  sex: female
+- name: Zélinée
+  sex: female
+- name: Zénobe
+  sex: male
+- name: Zénobeine
+  sex: female
+- name: Zénobette
+  sex: unisex
+- name: Zénobine
+  sex: unisex
+- name: Zénobinette
+  sex: unisex
+- name: Édouard
+  sex: male
+- name: Élise
+  sex: female
+- name: Élodie
+  sex: female
+- name: Émile
+  sex: male
+- name: Étienne
+  sex: male
 last_names:
 - Abrahams
-- Adair
-- Akerman
-- Alcock
+- Adcock
+- Ainsworth
+- Albright
 - Aldridge
 - Allenby
-- Alsop
 - Althorpe
-- Ambler
+- Ames
 - Amesbury
-- Amory
-- Anderson
-- Arden
-- Argent
-- Ashton
-- Ashurst
-- Astley
-- Atkin
-- Bacon
+- Austen
 - Baldwin
 - Bancroft
-- Bardwell
 - Barnard
+- Barrett
 - Barrington
 - Bartlett
 - Bateman
-- Bateson
-- Baynes
-- Beadle
+- Bayley
+- Bayliss
 - Beaumont
-- Beddowes
-- Bellamy
+- Bellasis
 - Bennett
-- Berkeley
-- Berry
+- Beresford
 - Bickerton
 - Bickford
-- Biddle
-- Biddlecomb
-- Biggs
-- Bilbie
-- Birch
-- Birdsell
+- Biddlecombe
+- Birchall
+- Birket
 - Birtwhistle
-- Bissell
 - Bissett
-- Bissey
 - Bland
 - Blandy
-- Blore
-- Blount
+- Bligh
+- Bliss
 - Bloxham
-- Blythe
-- Boddy
-- Bondfield
 - Boothby
-- Booton
-- Bostock
-- Bostocke
-- Bowden
-- Bowker
-- Bownes
+- Bottomley
+- Bourne
+- Bower
+- Bowes
 - Brabazon
-- Brabyn
-- Bradley
-- Bradwell
-- Bramwell
-- Brearton
-- Brentnall
-- Brett
-- Brewer
+- Bradshaw
+- Bradshawe
+- Brailsford
+- Brampton
+- Brand
+- Brandram
+- Brecknock
+- Brenton
 - Bridgeman
-- Bridges
+- Bridgwood
 - Bristowe
-- Brittain
-- Brocklebank
+- Britton
+- Brockhurst
+- Bromfield
 - Bromley
-- Brooke
-- Brookesby
-- Broughton
+- Browett
 - Browne
-- Bryden
-- Buckingham
+- Bruen
+- Buckle
+- Buckmaster
+- Bucknall
 - Buller
-- Bullocke
-- Burbidge
+- Bullock
+- Bunting
+- Burden
 - Burgess
-- Burgesse
-- Burland
-- Burnaby
-- Burroughes
-- Butler
-- Butterworth
-- Byng
+- Butterfield
+- Butteridge
 - Cadogan
+- Cahusac
 - Caldwell
-- Callander
-- Calvert
-- Camden
-- Campion
-- Carden
-- Carlisle
-- Carroll
-- Carruthers
+- Cameron
+- Carnegie
+- Carrington
 - Carteret
 - Cartwright
-- Cary
-- Casey
-- Caswall
+- Castleman
+- Cavenagh
 - Cavendish
-- Cawdrey
 - Chadwick
 - Chamberlayne
-- Chambers
-- Chance
 - Chaplin
-- Charke
-- Charlesworth
-- Charnock
-- Chartres
+- Chapman
 - Chatfield
-- Cheek
-- Cheesman
-- Cheney
-- Chetwynd
-- Child
-- Chipchase
+- Chester
+- Childs
+- Chipperfield
 - Churchill
-- Cicely
-- Clare
+- Clack
+- Clapham
 - Claridge
-- Clarke
-- Claydon
-- Clement
-- Cleveland
-- Clinch
-- Cliney
-- Cobham
-- Cockburne
-- Coghill
-- Colby
-- Colebatch
-- Collett
+- Clarkson
+- Clements
+- Clifford
+- Cockayne
+- Cockerell
+- Colebrook
+- Coleman
+- Collier
 - Collins
-- Commins
 - Compton
-- Coningham
-- Constable
-- Conyers
+- Conolly
+- Conway
+- Cooke
+- Cooksey
+- Cookson
 - Cooper
-- Copeley
-- Coppin
-- Corbet
-- Cordell
-- Cornwall
-- Cosgrave
-- Cotesworth
-- Cotterill
+- Cornish
+- Cornwell
+- Corran
 - Cotton
-- Coulsdon
+- Cottrell
 - Courtenay
-- Couthurst
-- Coxall
+- Cowles
 - Coxe
-- Coxwell
-- Cranston
-- Craythorne
-- Cressy
-- Criddle
-- Cripps
-- Crombie
+- Coxley
+- Cradock
+- Crawford
+- Cresswell
+- Crichton
+- Crocker
 - Crompton
-- Crookshank
+- Crosby
 - Crowther
-- Crymble
-- Culpeper
-- Cumming
-- Cunningham
-- Dale
+- Dalrymple
 - Dalton
 - Davenport
 - Davey
-- Dawson
-- Dawtrey
+- Davidson
+- Davies
+- Dawe
+- Dawes
+- Dawkins
 - Dayrell
 - Deacon
 - Dean
-- Dearing
-- Dench
-- Denman
+- Delaney
+- Delves
+- Denison
+- Dent
+- Denton
 - Derbyshire
-- Dickensoe
 - Dickenson
+- Digby
+- Dillwyn
+- Dimmock
+- Dodd
 - Doddridge
-- Dodsworth
-- Doig
-- Dolben
-- Donkin
+- Dodds
 - Dorsett
+- Dorsey
 - Doughty
-- Dowding
-- Dowsing
-- Drewe
-- Drewry
-- Drury
-- Dufton
+- Douglas
+- Doyley
+- Duddington
+- Dudley
+- Dumaresq
 - Dunbar
 - Duncan
 - Dundas
+- Dungate
+- Dunham
 - Dunn
-- Dunton
+- Dunstan
 - Eaton
 - Edwards
 - Egerton
-- Eggleston
-- Elcock
-- Elliot
+- Elliotson
 - Ellis
-- Elverson
+- Elmes
+- Elphick
+- Elwes
 - Emmott
-- Estcourt
 - Evans
 - Everard
 - Eyre
 - Faber
-- Falconer
-- Fallowes
-- Farley
-- Farquharson
-- Farrow
+- Fairweather
+- Fanshawe
+- Farquhar
+- Farrar
 - Farthing
-- Feilding
+- Faughan
+- Featherstone
 - Fellows
-- Feltham
-- Fetherstone
+- Fenwick
 - Fetherstonhaugh
-- Fielding
-- Figgis
-- Filby
-- Finch
-- Finlayson
-- Fishbourne
 - Fisher
-- Fitton
 - Fitzgerald
-- Fitzherbert
-- Fitzwilliam
-- Flintoft
-- Flynn
-- Forde
+- Flint
+- Flintoff
+- Fordham
+- Forster
 - Fortescue
-- Gadby
+- Foster
+- Fothergill
+- Foxe
 - Gage
-- Gale
-- Gallagher
-- Galloway
-- Gardiner
+- Galton
 - Garland
-- Garnett
-- Garth
+- Garrett
 - Gascoigne
-- Gaskell
-- Gatley
-- Gault
-- Gawthrop
+- Gatty
+- Gauntlett
 - Gaydon
-- Geoffrey
+- Geary
 - George
+- Gerard
 - Gibbings
 - Gibbons
-- Gibson
 - Gilbertson
-- Gillespie
-- Gilliland
-- Gillingwater
-- Gilmore
-- Gilmour
-- Gilpin
-- Glover
-- Goddard
-- Goffe
-- Goodere
-- Goodspeed
-- Goodwin
+- Godfrey
+- Goldsmith
+- Goodrich
+- Goodsir
 - Gordon
-- Gough
-- Govan
-- Gower
-- Granger
-- Grantley
+- Goring
+- Gosling
+- Goulding
+- Graham
+- Graves
 - Gray
-- Grayston
-- Greaves
-- Greenway
+- Greenhill
 - Gregory
-- Grey
-- Griffiths
-- Gritten
-- Hadfield
+- Grenville
+- Griffin
+- Grimes
+- Groombridge
+- Groves
+- Hackney
 - Hallam
-- Harland
-- Harman
+- Halliday
+- Hallworth
+- Halsey
+- Halstead
+- Hammond
+- Hampson
+- Hanbury
+- Handcock
+- Hardcastle
+- Harding
+- Hargreaves
 - Harrison
-- Haselden
-- Hastings
+- Hartley
+- Hartwell
+- Harvey
+- Haslam
+- Haughton
 - Hawes
 - Haydon
+- Hayward
 - Heathcote
 - Heaton
+- Heigham
+- Helmore
+- Hemming
 - Hemsworth
+- Henderson
+- Henley
+- Henson
+- Hepburn
 - Herbertson
+- Heriot
 - Heywood
-- Hickling
-- Hildyard
+- Hickman
+- Higham
 - Hillier
+- Hilton
+- Hobart
+- Hobhouse
 - Hobson
 - Hodges
-- Hoggan
-- Holden
+- Hodgkinson
+- Hodson
+- Hoffman
+- Holdsworth
+- Holland
+- Hollis
 - Holmes
 - Hopkins
-- Hornby
+- Hopkyns
+- Hopper
+- Hopton
+- Horne
+- Horsfall
+- Hosking
 - Houghton
-- Howard
-- Howes
-- Hubbard
+- House
+- Howell
+- Huddleston
 - Hughes
 - Hull
-- Hume
+- Hulme
 - Humphries
-- Huntley
 - Hurst
-- Hyde
-- Inglesfield
-- Ingleton
+- Hutcheson
+- Ince
+- Inglesant
+- Inglethorpe
+- Ingoldby
+- Insley
 - Irving
 - Isaacson
-- Jagger
-- Jarvis
 - Jebb
-- Jefford
-- Jenkins
-- Jerome
-- Jobson
+- Jenkinson
+- Jephson
+- Jersey
+- Jessop
 - Johnson
-- Joiner
+- Johnston
 - Jones
+- Jordan
+- Joseph
 - Keast
-- Kempthorne
-- Kempton
-- Kenning
+- Keats
+- Keeling
+- Keir
+- Kelsey
+- Kemble
+- Kemmis
+- Kennedy
+- Kennington
+- Kenrick
 - Kentish
-- Kerridge
-- Keyworth
-- Kidston
-- Kimberley
+- Keyte
+- Kidderminster
+- Killigrew
 - Kingdon
 - Kinnersley
-- Knighton
-- Lambert
 - Lambourn
-- Lancaster
+- Lambourne
 - Langdale
-- Langford
-- Langton
+- Langley
 - Lascelles
-- Lathom
-- Lauder
-- Lavender
-- Laycock
+- Lawrence
+- Leakey
+- Ledger
 - Leech
+- Leeke
 - Leggatt
+- Legh
 - Leigh
-- Leveson
+- Leonard
+- Lettsom
+- Levett
 - Lightfoot
-- Lingwood
+- Lilly
+- Linton
 - Lisle
-- Litchfield
-- Littlejohns
-- Locke
-- Lockerby
+- Littlehales
+- Littleton
+- Llewellyn
 - Lockhart
+- Lockwood
+- Longfield
 - Longley
-- Looker
-- Lord
-- Lorne
-- Lowther
-- Luard
-- Lushington
-- Luttrell
-- Lyttelton
+- Lovelace
+- Lowe
+- Lowndes
+- Lucas
+- Lumley
+- Lydekker
+- Lyons
 - Mackenzie
-- Macpherson
+- Mackrell
 - Maddock
-- Maddocks
-- Maiden
-- Majoribanks
-- Mallinson
+- Mallett
+- Malvern
+- Mansell
 - Mansfield
-- Marchbank
 - Marden
-- Margetts
-- Marmaduke
-- Marshall
+- Markham
+- Marlowe
+- Marsham
+- Marston
 - Martin
+- Martyn
 - Mason
 - Massingberd
-- Mather
 - Mattinson
-- Mawson
 - Maxwell
-- Mayo
+- Maycock
 - Meade
-- Medhurst
 - Melville
-- Merriman
-- Miers
-- Milburne
+- Meredith
+- Merewether
+- Micklethwaite
+- Miles
+- Miller
 - Millington
 - Mills
 - Milne
+- Milner
 - Milton
 - Minchin
+- Minty
+- Mitchell
 - Mitford
-- Monkton
-- Montague
-- Moody
-- Moorcroft
-- Morewood
+- Molesworth
+- Monk
+- Monkhouse
+- Moore
 - Morley
-- Morrissey
+- Morris
 - Morton
 - Mossop
-- Mottershead
-- Mowbray
-- Mulock
-- Munday
-- Murdoch
-- Myres
-- Naylor
-- Neilson
-- Newbery
-- Newton
+- Nash
+- Needham
+- Netherwood
 - Nicolson
 - Nightingale
-- Noel
-- Nokes
+- Noakes
+- Noble
+- Norbury
+- Norden
+- Norton
+- Notcutt
 - Nuttall
 - Nutting
+- Oakeley
 - Oates
-- Odding
-- Offley
-- Oldfield
-- Oliver
-- Ormond
+- Oliphant
 - Osborne
-- Overbury
 - Packer
-- Paget
-- Palmerston
+- Palliser
 - Parker
-- Parrington
+- Parkhurst
+- Parratt
 - Parry
-- Passingham
 - Paterson
-- Payler
-- Peake
-- Pearson
-- Pedder
+- Payne
 - Pemberton
-- Penman
-- Perceval
-- Petrie
-- Pettigrew
-- Phelps
-- Phillips
+- Pendleton
+- Pennington
+- Pepperell
+- Percival
+- Petchey
 - Pickering
+- Piggott
+- Pilkington
 - Plumer
-- Plympton
-- Pocock
-- Polhill
+- Plumtree
 - Pollard
 - Porter
-- Potter
-- Poulton
-- Powney
-- Preece
-- Preston
+- Powell
+- Poynder
+- Poynter
+- Prior
 - Pritchard
-- Proctor
-- Pullen
 - Pym
-- Quicke
-- Quinlan
+- Quarrell
+- Quilter
 - Ramsay
-- Rankin
+- Ravenswood
+- Rayner
 - Reade
-- Redfern
 - Redmond
 - Reed
-- Reeves
-- Repton
+- Renouf
 - Rhodes
 - Richards
-- Richardson
-- Rickard
+- Rickards
+- Rickardson
 - Ridgeway
-- Ringwood
+- Rivers
+- Roberts
 - Robinson
-- Robson
-- Rockefeller
-- Rogers
+- Roche
+- Rodgers
 - Rolfe
-- Romilly
-- Roper
-- Roscow
-- Rosebery
-- Rossiter
-- Rowe
+- Rosamund
+- Rose
+- Rouse
 - Rowland
-- Rowley
-- Royds
-- Rumbold
+- Royce
 - Sanderson
 - Sandon
+- Sands
 - Savage
-- Sayce
+- Saywell
 - Scudamore
-- Seabrook
-- Selwyn
-- Seton
+- Sedgwick
+- Selby
 - Shadwell
+- Sharp
 - Sharpe
-- Sharples
-- Shawe
 - Shephard
-- Shipley
+- Sheppard
+- Shipman
 - Shorter
-- Shrewsbury
-- Silvester
-- Simpson
-- Skelton
+- Simmons
+- Singleton
+- Skynner
+- Slade
+- Slaughter
 - Sleight
-- Slingsby
-- Smithers
-- Snellgrove
-- Southey
-- Spalding
-- Sparkes
-- Sparrow
-- Spearing
-- Spearman
-- Spencer
-- Spenlow
-- Sprattling
-- Stafford
-- Stanbury
-- Stanhope
-- Staples
-- Starkie
-- Steere
-- Stephens
-- Stockdale
-- Stonehouse
-- Storey
-- Stratton
-- Streete
-- Strong
-- Sullivan
-- Summers
-- Surtees
-- Sutton
-- Talbot
-- Talbott
-- Taplin
-- Tarleton
-- Tatham
-- Tattersall
-- Tayler
-- Tennent
-- Terrington
-- Thistlethwayte
-- Thomas
-- Thompson
-- Thornton
-- Thorp
-- Tickell
-- Timbrell
-- Tindal
-- Titchmarsh
-- Toft
-- Tomkins
-- Tonkin
-- Torrens
-- Townsend
-- Trafford
-- Tranter
-- Tregear
-- Trevanion
-- Trevelyan
-- Trewartha
-- Trippett
-- Trowbridge
-- Tryon
-- Turner
-- Twistleton
-- Tyler
-- Tyrell
-- Udall
-- Underhill
-- Upcher
-- Vaux
-- Vizard
-- Wadham
-- Wakefield
-- Walker
-- Walsham
-- Wardell
-- Wareing
-- Waring
-- Warrington
-- Warwick
-- Waterman
-- Weaver
-- Weir
-- Wellington
-- Welsh
-- Wentworth
-- Westbrook
-- Whalley
-- Whatley
-- Wheelhouse
-- Whitehead
-- Whitfield
-- Whitley
-- Whitmore
-- Whyte
-- Wickham
-- Wiffin
-- Wilbraham
-- Wilkins
-- Williamson
-- Wills
-- Wilmot
-- Wiltshire
-- Wimborne
-- Wingate
-- Winnall
-- Winstanley
-- Winterbottom
-- Winterton
-- Wise
-- Wiston
-- Witherspoon
-- Wolfenden
-- Wollaston
-- Woolsey
-- Worthington
-- Wrangham
-- Wray
-- Wrightson
-- Wychwood
-- Yarde
-- Yates
-- Yeats
-- Yorkshire
+- Smalley
+- Smethurst
+- Smith

@@ -58,11 +58,12 @@ def GetRolesForPlace(place_role, year=1900):
         total_roles = len(roles)
         for idx, role in enumerate(roles):
             percent = int((idx+1)/total_roles*100) if total_roles else 100
-            print(f"[role_gen] Generated role {idx+1}/{total_roles}: {role} | Progress: {percent}% of roles for {place_role}")
+            #print(f"[role_gen] Generated role {idx+1}/{total_roles}: {role} | Progress: {percent}% of roles for {place_role}")
         return roles
-    #else:
+    else:
         from sim.llm.llm import llm
-        prompt = f"You are an expert in historical occupations. Your task is to provide a list of realistic job roles for a place called '{place_role}' in the year {year}. The roles should be appropriate for the time period and location. Names should be words only. exclude slang. Return ONLY a JSON array of job titles. {{ 'roles': [{{'role1':[{{'description':'description of role duties'}},{{'role2':[{{'description':'description of role duties'}}]}}]}}]}}"
+        system_prompt = "You are an expert in historical occupations. Your task is to provide a list of realistic job roles for a given place in a specific year. The roles should be appropriate for the time period and location. Names should be words only. exclude slang. Return ONLY a JSON array of job titles."
+        prompt = f"Provide a list of realistic job roles for a place called '{place_role}' in the year {year}. example: {{ 'roles': [{{'role1':[{{'description':'description of role duties'}},{{'role2':[{{'description':'description of role duties'}}]}}]}}]}}"
         llm_seed =  random.randint(-5000,5000)
         #print(f"[DEBUG] Prompt for LLM: {prompt}")
         #print(f"[DEBUG] Initial LLM seed: {llm_seed}")
@@ -72,8 +73,8 @@ def GetRolesForPlace(place_role, year=1900):
         valid_responses = []
         for attempt in range(num_attempts):
             llm_seed = random.randint(-5000, 5000)
-            print(f"[role_gen] LLM attempt {attempt+1}/{num_attempts} for '{place_role}'")
-            roles = llm.chat_json(prompt, system="Return strict JSON only.", seed=llm_seed)
+            #print(f"[role_gen] LLM attempt {attempt+1}/{num_attempts} for '{place_role}'")
+            roles = llm.chat_json(prompt, system=system_prompt, seed=llm_seed)
             roles = roles.get("roles", []) if roles else []
             if roles and isinstance(roles, list):
                 valid_responses.append(roles)
@@ -99,5 +100,5 @@ def GetRolesForPlace(place_role, year=1900):
             top_roles = [role for role, count in sorted_roles if role in role_descriptions][:5]
             result = [(role, role_descriptions[role]) for role in top_roles]
             return result
-        #print(f"[DEBUG] Failed to get any valid roles after {num_attempts} attempts. Returning None.")
+        print(f"[DEBUG] Failed to get any valid roles after {num_attempts} attempts. Returning None.")
     return None
