@@ -5,49 +5,65 @@ from sim.llm.llm import llm
 from sim.world import city
 from sim.world.place import GetRolesForPlace
 import random
+from scripts.make_names import generate_first_names, generate_last_names
 
 
 
 
-city_data:dict
-# --- Staged World Generation Functions ---
-def pre_stage(cityname="Lumière", start_year=1900, seed=42):
-    global city_data
-    city_data = {}
-    # Generate default government places based on time period
+def pre_stage(cityname: str = "Lumière", start_year: int = 1900, seed: int = 42, rng=None) -> dict:
+    if rng is None:
+        rng = random
     city_data = city.generate_default_places(cityname, start_year)
-    #Generate protopersonas for default places
     protopersonas = []
     used_names = set()
-    for place in city_data.get("places", []):
-        roles = GetRolesForPlace(place['role'])
-        if not roles:
-            continue
-        for role in roles:
-            import datetime
-            seed = int(datetime.datetime.now().timestamp())
-            # If role is a tuple (role, description), extract the role name
-            if isinstance(role, tuple):
-                role_name = role[0]
-            else:
-                role_name = role
-            proto = GenerateProtoPersonaForPlace(cityname, start_year, place['name'], role_name, list(used_names), seed)
-            if proto and 'name' in proto:
-                used_names.add(proto['name'])
-                protopersonas.append(proto)
-            pass
+
+    # Generate name pools for uniqueness
+    num_people = max(30, 500)
+    first_names = generate_first_names(cityname, start_year, num_people, seed, rng)
+    last_names = generate_last_names(cityname, start_year, num_people, seed, rng)
+
+    def add_personas_for_places(places, role_key):
+        for place in places:
+            roles = GetRolesForPlace(place[role_key])
+            if not roles:
+                continue
+            for role in roles:
+                role_name = role[0] if isinstance(role, tuple) else role
+                proto = GenerateProtoPersona(cityname, start_year, f"- The person's details should align with their role at the place '{place['name']}'", list(used_names), seed, first_names=first_names, last_names=last_names, rng=rng)
+                if proto and 'name' in proto:
+                    used_names.add(proto['name'])
+                    protopersonas.append(proto)
+
+    # Add personas for default places
+    add_personas_for_places(city_data.get("places", []), 'role')
     city_data['people'] = protopersonas
+    print(f"[pre_stage] Generated default places and personas for {cityname}. Total places: {len(city_data.get('places',[]))} Total personas: {len(protopersonas)}")
 
-    print(f"[pre_stage] Generated default places and personas for {cityname}. Total places: {len(city_data.get('places',[]))} Total personas: 0")
+    # Generate businesses and add personas for them
+    businesses = GenerateBusinessesForCity(cityname, start_year, city_data.get("places", []), list(used_names), seed, num_businesses=10, rng=rng)
+    city_data['places'].extend(businesses)
+    add_personas_for_places(businesses, 'category')
+    city_data['people'] = protopersonas
+    print(f"[pre_stage] Added businesses and personas for {cityname}. Total places: {len(city_data.get('places',[]))} Total personas: {len(protopersonas)}")
+    return city_data
 
-def main_stage(cityname="Redwood", start_year=1900, seed=42):
-    # Generate business places and personas (stub for now)
-    # You can expand this to generate businesses and assign people
-    print(f"[main_stage] Business generation for {cityname} not yet implemented.")
+def main_stage(city_data: dict, cityname: str = "Lumière", start_year: int = 1900, seed: int = 42, rng=None) -> None:
+    if rng is None:
+        rng = random
+    # generate streets and houses for the protopeople in citydata
+    street_names = get_street_names(num_streets=10, city=cityname, start_year=start_year, seed=seed, rng=rng)
+    print(f"[main_stage] Generated street names for {cityname}: {street_names}")
+    city_data['streets'] = street_names
 
-def post_stage(out="configs/city.yaml"):
+    # Generate houses for the protopeople in city_data
+    city_data['houses'] = generate_houses(city_data.get('people', []), city_data.get('streets', []), rng)
+    print(f"[main_stage] Generated houses for personas in {cityname}. Total houses: {len(city_data.get('houses',[]))}")
+   
+
+def post_stage(city_data: dict, out: str = "configs/city.yaml", rng=None) -> None:
+    if rng is None:
+        rng = random
     # Finalize city using personas and write output
-    # Filter out malformed place entries (missing 'name') and remove duplicates by name
     valid_places = []
     seen_names = set()
     for place in city_data.get('places', []):
@@ -63,85 +79,128 @@ def post_stage(out="configs/city.yaml"):
     city_data['places'] = valid_places
 
     # --- Add realistic, always-connected city graph ---
-    import random
     place_names = [p['name'] for p in city_data['places'] if 'name' in p]
     n = len(place_names)
     connections = []
     if n > 1:
-        # Create a random spanning tree for connectivity
         nodes = place_names.copy()
-        random.shuffle(nodes)
+        rng.shuffle(nodes)
         for i in range(1, n):
             a = nodes[i]
-            b = random.choice(nodes[:i])
+            b = rng.choice(nodes[:i])
             connections.append([a, b])
-        # Add extra random edges for realism
         extra_edges = max(1, n // 3)
         for _ in range(extra_edges):
-            a, b = random.sample(place_names, 2)
+            a, b = rng.sample(place_names, 2)
             if [a, b] not in connections and [b, a] not in connections:
                 connections.append([a, b])
     city_data['connections'] = connections
 
-    yaml.safe_dump(city_data, open(out, "w", encoding="utf-8"), allow_unicode=True, sort_keys=False)
-    print(f"Wrote {len(city_data.get('places',[]))} places, {len(city_data.get('houses',[]))} houses, {len(city_data.get('streets',[]))} streets, and {len(city_data.get('connections',[]))} connections to {out}")
-    print(f"[post_stage] Finalized city and wrote to {out}.")
+    try:
+        with open(out, "w", encoding="utf-8") as f:
+            yaml.safe_dump(city_data, f, allow_unicode=True, sort_keys=False)
+        print(f"Wrote {len(city_data.get('places',[]))} places, {len(city_data.get('houses',[]))} houses, {len(city_data.get('streets',[]))} streets, and {len(city_data.get('connections',[]))} connections to {out}")
+        print(f"[post_stage] Finalized city and wrote to {out}.")
+    except Exception as e:
+        print(f"[ERROR] Failed to write city data to {out}: {e}")
 
-def get_street_names(num_streets: int, city: str, start_year: int, seed: Optional[int] = None) -> list:
-    if seed is not None:
-        random.seed(seed)
+def get_street_names(num_streets: int, city: str, start_year: int, seed: Optional[int] = None, rng=None) -> list:
+    if rng is None:
+        rng = random
 
     street_prompt = f"""
     Generate {num_streets} unique, creative, and realistic street names for the city of {city} in the year {start_year}.  Use a mix of local nature, history, and culture for names. Return ONLY a JSON object: {{"names": ["...", ...]}}
     """
-    llm_seed = seed if seed is not None else random.randint(-5000,5000)
+    llm_seed = seed if seed is not None else rng.randint(-5000,5000)
     street_names = llm.chat_json(street_prompt, system="Return strict JSON only.", seed=llm_seed).get("names", [])
     #fall back
     if not street_names or not isinstance(street_names, list):
         street_names = [f"Oakwood Lane", "Riverbend Avenue", "Sunset Boulevard", "Maple Grove Road", "Willow Way", "Cedar Court", "Pinecrest Drive", "Elm Street"][:num_streets]
     return street_names
 
+def GenerateBusinessesForCity(city: str, year: int, existing_places: list, restricted_names: list[str], seed: int, num_businesses: int = 10, rng=None) -> list:
+    if rng is None:
+        rng = random
+    prompt = f"""
+    You are an expert city planner for the city of {city} in the year {year}. Your task is to generate a list of {num_businesses} unique and realistic business places that would fit well within the historical context of the city. Each business should have a name, category (e.g., restaurant, shop, service), and a brief description (1-2 sentences). Avoid duplicating any existing place names or categories already present in the city. Exclude names: {json.dumps(restricted_names)}. Return ONLY a JSON array in the following format:
+    [
+      {{"name": "Business Name", "category": "Category", "description": "Brief description."}},
+      ...
+    ]
+    """
+    llm_seed = seed if seed is not None else rng.randint(-5000,5000)
+    businesses = llm.chat_json(prompt, system="Return strict JSON only.", seed=llm_seed)
+    if not businesses or not isinstance(businesses, list):
+        businesses = []
+    # Filter out duplicates based on existing places
+    existing_names = {place['name'].lower() for place in existing_places if 'name' in place}
+    unique_businesses = []
+    for biz in businesses:
+        if isinstance(biz, dict) and 'name' in biz and biz['name'].lower() not in existing_names:
+            unique_businesses.append(biz)
+            existing_names.add(biz['name'].lower())
+        if len(unique_businesses) >= num_businesses:
+            break
+    return unique_businesses
 
-def GenerateProtoPersonaForPlace(city: str, year: int, place: str, role:str, restricted_names:list[str] , seed: int) -> dict:
+def GenerateProtoPersonaForPlace(city: str, year: int, place: str, role:str, restricted_names:list[str] , seed: int, rng=None) -> dict:
+    if rng is None:
+        rng = random
     extraguidance = f"- The person's details should align with their role at the place '{place}'"
-    protoPersona = GenerateProtoPersona(city, year, extraguidance, restricted_names, seed)
+    protoPersona = GenerateProtoPersona(city, year, extraguidance, restricted_names, seed, rng)
     protoPersona['job'] = role
     protoPersona['start_place'] = place
     return protoPersona
 
-def GenerateProtoPersona(city: str, year: int, extraguidance:str, restricted_names:list, seed: int) -> dict:
+def GenerateProtoPersona(city: str, year: int, extraguidance:str, restricted_names:list, seed: int, first_names=None, last_names=None, rng=None) -> dict:
+    if rng is None:
+        rng = random
+    # Draw a unique name from the provided first and last name lists
+    name = None
+    available_first = [n for n in first_names if n not in restricted_names] if first_names else []
+    available_last = [n for n in last_names if n not in restricted_names] if last_names else []
+    if available_first and available_last:
+        first = rng.choice(available_first)
+        last = rng.choice(available_last)
+        name = f"{first} {last}"
+        restricted_names.append(first)
+        restricted_names.append(last)
     prompt = f"""You are an expert personality and character designer. Your task is to create a detailed persona for a resident of the city of {city} in the year {year}. The persona must include:
-- A unique name appropriate for the time period and location.
-- An age between 5 and 70.
-- A realistic job for a small city in that time period.
-- A short bio (5-10 words) reflecting their job, age, and personality.
-- A list of 3 values that are important to them.
-- A list of 3 goals they are striving to achieve.
-{extraguidance}
-exclude names: {json.dumps(restricted_names)}
-The persona should be believable and fit within the historical context of the specified year. Return ONLY a JSON object in the following format:
-{{
-  "name": "John Doe",
-   "age": 30,
-   "job": "blacksmith",
-   "bio": "Skilled craftsman; values tradition.",
-   "values": ["honesty", "hard work", "community"],
-   "goals": ["expand business", "learn new techniques", "support family"],
-   "start_place": "Blacksmith Shop"
-}}
-Make sure the details are consistent and appropriate for the year {year}.
-"""
-    
+    - Name: {name if name else '[LLM to generate]'
+    },
+    - An age between 5 and 70.
+    - A realistic job for a small city in that time period.
+    - A short bio (5-10 words) reflecting their job, age, and personality.
+    - A list of 3 values that are important to them.
+    - A list of 3 goals they are striving to achieve.
+    {extraguidance}
+    exclude names: {json.dumps(restricted_names)}
+    The persona should be believable and fit within the historical context of the specified year. Return ONLY a JSON object in the following format:
+    {{
+      "name": "{name if name else 'John Doe'}",
+       "age": 30,
+       "job": "blacksmith",
+       "bio": "Skilled craftsman; values tradition.",
+       "values": ["honesty", "hard work", "community"],
+       "goals": ["expand business", "learn new techniques", "support family"],
+       "start_place": "Blacksmith Shop"
+    }}
+    Make sure the details are consistent and appropriate for the year {year}.
+    """
     persona = llm.chat_json(prompt, system="Return strict JSON only.", seed=seed)
+    if name:
+        persona["name"] = name
     return persona
 
 
 
-def generate_houses(people: list, street_names: list) -> list:
+def generate_houses(people: list, street_names: list, rng=None) -> list:
+    if rng is None:
+        rng = random
     houses = []
     for idx, person in enumerate(people):
-        street = random.choice(street_names)
-        house_number = random.randint(1, 200)
+        street = rng.choice(street_names)
+        house_number = rng.randint(1, 200)
         house = {
             "id": f"house_{idx+1}",
             "address": f"{house_number} {street}",
@@ -184,20 +243,24 @@ if __name__ == "__main__":
     parser.add_argument('--city_out', default='configs/city.yaml')
     args = parser.parse_args()
 
-
     print(f"[make_city] Starting city generation for {args.city} in year {args.start_year} with seed {args.seed}.")
+
+    rng = random.Random(args.seed)
 
     # Step 1: Pre-stage: Generate government places and people, then their houses
     print("[make_city] Pre-stage...")
-    pre_stage(cityname=args.city, start_year=args.start_year, seed=args.seed)
+    city_data = pre_stage(cityname=args.city, start_year=args.start_year, seed=args.seed, rng=rng)
 
     # Step 2: Main-stage: Generate businesses, people for businesses, and their houses
     print("[make_city] Main-stage...")
-    main_stage(cityname=args.city, start_year=args.start_year, seed=args.seed)
+    try:
+        main_stage(city_data, cityname=args.city, start_year=args.start_year, seed=args.seed, rng=rng)
+    except NotImplementedError as nie:
+        print(f"[make_city] {nie}")
 
     # Step 3: Post-stage: Finalize city and write output
     print("[make_city] Post-stage...")
-    post_stage(out=args.city_out)
+    post_stage(city_data, out=args.city_out, rng=rng)
 
     print("[make_city] City generation complete.")
 

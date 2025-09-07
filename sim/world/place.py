@@ -91,7 +91,10 @@ def GetRolesForPlace(place_role, year=1900):
                 #print(f"[DEBUG] Invalid response on attempt {attempt+1}: {roles}")
                 pass
         if role_counts:
-            result = [(role, role_descriptions[role]) for role, count in role_counts.items() if role in role_descriptions]
+            # Sort roles by frequency (descending) and keep top 5
+            sorted_roles = sorted(role_counts.items(), key=lambda x: x[1], reverse=True)
+            top_roles = [role for role, count in sorted_roles if role in role_descriptions][:5]
+            result = [(role, role_descriptions[role]) for role in top_roles]
             return result
         #print(f"[DEBUG] Failed to get any valid roles after {num_attempts} attempts. Returning None.")
     return None
