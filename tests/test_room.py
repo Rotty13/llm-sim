@@ -44,7 +44,7 @@ def test_agent_llm_chat():
     world._agents = [agent, deadwife]
     agent.physio.mood = "stressed"
     start = datetime(1900, 9, 4, 9, 0, 0)
-    obs = "You are in test room, a pure white featureless room. Julie is standing in front of you."
+    obs = "You are in James' room. Julie is standing in front of you."
     decision = agent.decide(world, obs, tick=1, start_dt=start)
     # The agent's LLM is used internally by decide()
     assert isinstance(decision, dict)
@@ -57,15 +57,23 @@ def test_agent_converses_with_deadwife():
     agent = make_llm_agent()
     deadwife = make_llm_agent(name="Julie", place="Room")
     world._agents = [agent, deadwife]
-    start = datetime(1900, 9, 4, 9, 0, 0)
-    base_environment = "You are in test room, a pure white featureless room with no border."
+    start = datetime(1900, 9, 4, 0, 0, 0)
+    base_environment = (
+        "You are in the kitchen of James' house. "
+        "The room is dimly lit by a single flickering candle on the old wooden table. "
+        "Shadows dance across the cracked tiles and faded wallpaper, "
+        "and the air carries a faint chill, "
+        "Cobwebs hang in the corners, and the silence is broken only by the distant ticking of a grandfather clock. "
+    )
 
     #main agent
     agent.physio.mood = "stressed"
     agent.physio.stress = 0.6
     agent.memory.write(MemoryItem(t=0, kind="autobio", text="My wife Julie died 5 years ago(1895) in a carriage accident.", importance=1.0))
-    agent.memory.write(MemoryItem(t=1, kind="autobio", text="I miss my wife Julie dearly.", importance=1.0))
-    agent.memory.write(MemoryItem(t=2, kind="autobio", text="I last remembered being at the office", importance=1.0))
+    agent.memory.write(MemoryItem(t=0, kind="autobio", text="I miss my wife Julie dearly.", importance=1.0))
+    agent.memory.write(MemoryItem(t=0, kind="autobio", text="I remember everything up and including the current date", importance=1.0))
+    agent.memory.write(MemoryItem(t=0, kind="episodic", text="I've just woken up", importance=.5))
+    agent.memory.write(MemoryItem(t=0, kind="episodic", text="I woke up to get something to drink", importance=0.3))
     obs_agent = base_environment + "Your late wife Julie is standing in front of you. you want to talk to her."
 
 
@@ -75,13 +83,15 @@ def test_agent_converses_with_deadwife():
     deadwife.persona.job = "seamstress"
     deadwife.memory.write(MemoryItem(t=0, kind="autobio", text="james is my husband", importance=1.0))
     deadwife.memory.write(MemoryItem(t=0, kind="autobio", text="I'm a seamstress", importance=1.0))
-    deadwife.memory.write(MemoryItem(t=1, kind="autobio", text="My most recent memory is a carriage ride.", importance=1.0))
+    deadwife.memory.write(MemoryItem(t=0, kind="autobio", text="I remember everything prior to 1895.", importance=1.0))
+    deadwife.memory.write(MemoryItem(t=0, kind="semantic", text="it is the year of 1895.", importance=1.0))
+    deadwife.memory.write(MemoryItem(t=0, kind="episodic", text="I was taking a carriage ride.", importance=1.0))
     obs_deadwife = base_environment + "Your husband James is here. You don't know how but you feel you are dead."
 
 
     loglist: Optional[list[Dict[str, Any]]] = []
     last_decision_deadwife: Optional[Dict[str, Any]] = None
-    for tick in range(1, 30):
+    for tick in range(1, 10):
         # Use decide_conversation for both agents
         participants = [agent, deadwife]
         incoming_message_agent = None
@@ -109,7 +119,7 @@ def test_agent_converses_with_deadwife():
             }
         decision_deadwife = deadwife.decide_conversation(
             world, obs_deadwife, participants=participants,
-            incoming_message=incoming_message_deadwife, tick=tick, start_dt=start,loglist=loglist
+            incoming_message=incoming_message_deadwife, tick=tick,loglist=loglist
         )
         last_decision_deadwife = decision_deadwife
         if decision_deadwife and "new_mood" in decision_deadwife:

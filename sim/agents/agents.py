@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import List, Dict, Any, Optional
 from difflib import SequenceMatcher
 import json, string
@@ -13,9 +14,17 @@ from ..world.world import World
 from ..scheduler.scheduler import Appointment, enforce_schedule
 from ..inventory.inventory import Inventory
 
-def now_str(tick:int, start_dt) -> str:
-    from datetime import timedelta
-    return (start_dt + timedelta(minutes=5*tick)).strftime("%Y-%m-%d %H:%M")
+def now_str(tick:int, start_dt=None) -> str:
+    """
+    Returns a formatted time string for the given tick and start_dt.
+    If start_dt is None, returns local time as HH:MM.
+    """
+    if start_dt is not None:
+        from datetime import timedelta
+        return (start_dt + timedelta(minutes=5*tick)).strftime("%Y-%m-%d %H:%M")
+    else:
+        # fallback: local time as HH:MM
+        return f"{(tick*5)//60:02d}:{(tick*5)%60:02d}"
 
 @dataclass
 class Persona:
@@ -49,13 +58,13 @@ class Agent:
     conversation_history: List[Dict[str, Any]] = field(default_factory=list)
 
     #incoming_message example {'to': 'David', 'from': agent.persona.name, 'text': decision_agent.get("reply",None)}
-    def decide_conversation(self, world: World, obs: str, participants: List[Agent], incoming_message: Optional[dict], tick: int, start_dt, loglist: Optional[List[Dict[str, Any]]] = None) -> Dict[str,Any]:
+    def decide_conversation(self, world: World, obs: str, participants: List[Agent], incoming_message: Optional[dict], tick: int, start_dt: Optional[datetime] = None, loglist: Optional[List[Dict[str, Any]]] = None) -> Dict[str,Any]:
         """
         Decide on a conversational response using LLM, considering conversation history.
         """
         # SYSTEM prompt for conversation
         system_prompt = (
-            "You are a human engaged in a conversation. You are not being simulated or in a simulation. You are yourself.\n"
+            "You are a human engaged in a conversation. You are not being simulated or in a simulation. You are yourself and your memories are real.\n"
             "Respond as naturally as possible, considering your persona, context, and conversation history. 1-3 sentences only.\n"
             "Return ONLY JSON with keys: reply, private_thought, memory_write (nullable).\n"
             "Example: {\"to\":\"David\",\"reply\":\"Hello! How can I help you?\",\"private_thought\":\"I feel helpful.\",\"memory_write\":\"I greeted someone.\",\"new_mood\":\"happy\"}\n"
@@ -68,19 +77,22 @@ class Agent:
 
         # USER prompt for conversation
         user_prompt = (
-            f"You are {self.persona.name} (job: {self.persona.job}, city: {self.persona.city}) Bio: {self.persona.bio}.\n"
-            f"The date is {now_str(tick,start_dt).split()[0]}.\n"
-            f"Participants: {', '.join(p.persona.name for p in participants if p != self)}.\n"
-            f"Observations: {obs}\n\n"
-            f"Time {now_str(tick,start_dt)}. Location {self.place}. Mood {self.physio.mood}.\n"
-            f"Conversation history:\n{history_str}\n"
-            f"My values: {', '.join(self.persona.values)}.\n"
-            f"My goals: {', '.join(self.persona.goals)}.\n"
-            f"I remember: " + ", ".join(f"[{now_str(m.t,start_dt)}] {m.kind}: {m.text}" for m in self.memory.recall("conversation", k=5)) + "\n"
-            f"I remember: " + ", ".join(f"[{now_str(m.t,start_dt)}] {m.kind}: {m.text}" for m in self.memory.recall("life", k=5)) + "\n"
-            f"I remember: " + ", ".join(f"[{now_str(m.t,start_dt)}] {m.kind}: {m.text}" for m in self.memory.recall("recent", k=5)) + "\n"
-            f"Incoming message: {json.dumps(incoming_message)}\n\n"
-            "Craft a thoughtful and context-aware reply.\n"
+                (
+                    f"You are {self.persona.name} (job: {self.persona.job}, city: {self.persona.city}) Bio: {self.persona.bio}.\n" +
+                    (f"The date is {now_str(tick,start_dt).split()[0]}.\n" if start_dt else "") +
+                    f"Participants: {', '.join(p.persona.name for p in participants if p != self)}.\n" +
+                    f"Observations: {obs}\n\n" +
+                    f"Time {now_str(tick,start_dt)}. " +
+                    f"Location {self.place}. Mood {self.physio.mood}.\n" +
+                    f"Conversation history:\n{history_str}\n" +
+                    f"My values: {', '.join(self.persona.values)}.\n" +
+                    f"My goals: {', '.join(self.persona.goals)}.\n" +
+                    f"I remember: " + ", ".join(f"[{now_str(m.t,start_dt)}] {m.kind}: {m.text}" for m in self.memory.recall("conversation", k=5)) + "\n" +
+                    f"I remember: " + ", ".join(f"[{now_str(m.t,start_dt)}] {m.kind}: {m.text}" for m in self.memory.recall("life", k=5)) + "\n" +
+                    f"I remember: " + ", ".join(f"[{now_str(m.t,start_dt)}] {m.kind}: {m.text}" for m in self.memory.recall("recent", k=5)) + "\n" +
+                    f"Incoming message: {json.dumps(incoming_message)}\n\n" +
+                    "Craft a thoughtful and context-aware reply.\n"
+                )
         )
 
         out = llm.chat_json(user_prompt, system=system_prompt, max_tokens=256)
