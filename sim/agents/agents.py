@@ -7,7 +7,7 @@ import json, string
 
 from matplotlib.pylab import f
 
-from ..llm.llm import llm, BELIEF_LOCK_SYSTEM
+from ..llm.llm_ollama import llm, BELIEF_LOCK_SYSTEM
 from ..memory.memory import MemoryStore, MemoryItem
 from ..actions.actions import normalize_action
 from ..world.world import World
@@ -58,7 +58,7 @@ class Agent:
     conversation_history: List[Dict[str, Any]] = field(default_factory=list)
 
     #incoming_message example {'to': 'David', 'from': agent.persona.name, 'text': decision_agent.get("reply",None)}
-    def decide_conversation(self, world: World, obs: str, participants: List[Agent], incoming_message: Optional[dict], tick: int, start_dt: Optional[datetime] = None, loglist: Optional[List[Dict[str, Any]]] = None) -> Dict[str,Any]:
+    def decide_conversation(self, participants: List[Agent],obs: str, tick: int, incoming_message: Optional[dict],start_dt: Optional[datetime] = None,   loglist: Optional[List[Dict[str, Any]]] = None) -> Dict[str,Any]:
         """
         Decide on a conversational response using LLM, considering conversation history.
         """

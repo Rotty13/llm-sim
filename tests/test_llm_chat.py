@@ -1,4 +1,4 @@
-from sim.llm.llm import LLM
+from sim.llm.llm_ollama import LLM
 
 # Initialize the LLM
 llm = LLM()

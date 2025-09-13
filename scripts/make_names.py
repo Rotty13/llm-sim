@@ -2,7 +2,7 @@ import argparse
 import yaml
 import random
 import os
-from sim.llm.llm import llm
+from sim.llm.llm_ollama import llm
 
 def timeout_heuristic(num_names, batch_size=100):
     # Based on observed: 94s for 100 names (worst case)

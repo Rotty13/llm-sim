@@ -1,6 +1,6 @@
 # LLM-based generation functions and helpers
 from typing import List, Dict, Any
-from .llm import OllamaClient
+from .llm_ollama import OllamaClient
 from ..world.world import Place, Vendor, World
 import json
 import random

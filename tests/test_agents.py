@@ -116,7 +116,7 @@ def test_curiosity_explores_new_place():
     # Call decide with a crafted observation that contains our tag the stub looks for.
     # We don't have direct prompt injection, but we can simulate by temporarily monkeypatching
     # Agent.decide to append the tag. To keep this test simple, we call the LLM stub directly:
-    from sim.llm.llm import llm as stub_llm
+    from sim.llm.llm_ollama import llm as stub_llm
     out = stub_llm.chat_json("curiosity:explore\nLocation Street\nNeeds: energy=0.80, hunger=0.20, stress=0.10", system="", max_tokens=128)
     lily.act(world, out, tick=1)
 

@@ -6,7 +6,7 @@ if script_dir not in sys.path:
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-from sim.llm.llm import llm
+from sim.llm.llm_ollama import llm
 
 if __name__ == "__main__":
     import yaml

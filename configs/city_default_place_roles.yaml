@@ -1,0 +1,83 @@
+- name: Lumière City Hall
+  category: government
+  purpose: City Hall
+  description: A notable location in Lumière.
+  roles:
+  - - mayor
+    - Head of the city government, responsible for making important decisions and
+      overseeing city operations
+  - - city clerk
+    - Responsible for maintaining records, preparing documents, and providing administrative
+      support to City Hall officials
+  - - treasurer
+    - Manages the city's finances, collects taxes, and makes financial decisions on
+      behalf of the city government
+  - - police chief
+    - Head of the local police department, responsible for maintaining law and order
+      in the city
+  - - sanitation inspector
+    - Responsible for maintaining public health and sanitation standards
+- name: Lumière Market Square
+  category: public_space
+  purpose: Market Square
+  description: A notable location in Lumière.
+  roles:
+  - - butcher
+    - Cut and sell meat, often from local livestock.
+  - - market porter
+    - Carries goods and supplies to market stalls
+  - - fruit seller
+    - Buy and sell fresh fruits, often from nearby farms or orchards.
+  - - fishmonger
+    - Sells fish, seafood, and other aquatic products
+  - - street performer
+    - Entertaining crowds with music, juggling, or other skills.
+- name: Lumière Church
+  category: religious
+  purpose: Church
+  description: A notable location in Lumière.
+  roles:
+  - - organist
+    - Played the organ during services and other musical events.
+  - - priest
+    - Conducts services, performs sacraments, and provides spiritual guidance to the
+      congregation.
+  - - vicar
+    - Assists the Priest in conducting services and performing administrative tasks.
+  - - chorister
+    - Sings in the church choir, assists with musical performances, and helps with
+      general maintenance of the church.
+  - - sexton
+    - Maintained the physical facilities of the church, including cleaning, repairs,
+      and groundskeeping.
+- name: Lumière General Hospital
+  category: healthcare
+  purpose: General Hospital
+  description: A notable location in Lumière.
+  roles:
+  - - nurse
+    - Assist doctors with patient care, administer medications, and maintain a clean
+      and organized environment.
+  - - doctor
+    - Diagnose and treat patients, perform surgeries, and provide medical consultations.
+  - - orderly
+    - Assist with patient care, deliver messages, and perform various tasks as needed.
+  - - porter
+    - Transport patients and hospital staff between departments, deliver messages
+  - - laundry worker
+    - Wash, dry, and iron hospital linens and uniforms
+- name: Lumière Elementary School
+  category: education
+  purpose: Elementary School
+  description: A notable location in Lumière.
+  roles:
+  - - teacher
+    - Supervise students during lessons and activities
+  - - janitor
+    - Maintain cleanliness and organization of school premises
+  - - principal
+    - Oversee daily operations, budgeting, and student discipline
+  - - school secretary
+    - Manages administrative tasks, such as record-keeping and correspondence.
+  - - pupil monitor
+    - Assists teachers with supervision of students during lessons.

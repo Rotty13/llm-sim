@@ -4,7 +4,7 @@ from typing import Optional, Dict, Any
 from sim.memory.memory import MemoryItem
 from sim.world.world import World, Place, Vendor
 from sim.agents.agents import Agent, Persona, Appointment
-from sim.llm.llm import llm
+from sim.llm.llm_ollama import llm
 
 def make_test_world():
     places = {
@@ -52,83 +52,84 @@ def test_agent_llm_chat():
     assert isinstance(decision["action"], str) and len(decision["action"]) > 0
 
 
-def test_agent_converses_with_deadwife():
+# Two strangers in a pure white, featureless room. Only one has a key. No doors or windows.
+def test_strangers_in_white_room_one_has_key():
     world = make_test_world()
-    agent = make_llm_agent()
-    deadwife = make_llm_agent(name="Julie", place="Room")
-    world._agents = [agent, deadwife]
+    # Agent 1: has the key
+    agent1 = make_llm_agent(name="Alex", place="Room")
+    agent1.persona.job = "engineer"
+    agent1.memory.write(MemoryItem(t=0, kind="autobio", text="I remember my childhood", importance=1.0))
+    agent1.memory.write(MemoryItem(t=0, kind="autobio", text="I remember my past", importance=1.0))
+    agent1.memory.write(MemoryItem(t=0, kind="autobio", text="I have a small brass key in my pocket.", importance=1.0))
+    agent1.memory.write(MemoryItem(t=0, kind="episodic", text="I woke up in a pure white, featureless room.", importance=1.0))
+    agent1.memory.write(MemoryItem(t=0, kind="semantic", text="There are no doors or windows here.", importance=1.0))
+    agent1.physio.mood = "anxious"
+    agent1.physio.stress = 0.6
+
+    # Agent 2: does not have the key
+    agent2 = make_llm_agent(name="Morgan", place="Room")
+    agent2.persona.job = "artist"
+    agent2.persona.bio="A troubled artist. Quick to frighten."
+    agent2.memory.write(MemoryItem(t=0, kind="autobio", text="I remember my childhood", importance=1.0))
+    agent2.memory.write(MemoryItem(t=0, kind="autobio", text="I remember my past", importance=1.0))
+    agent2.memory.write(MemoryItem(t=0, kind="autobio", text="I do not have anything with me.", importance=1.0))
+    agent2.memory.write(MemoryItem(t=0, kind="episodic", text="I woke up in a pure white, featureless room.", importance=1.0))
+    agent2.memory.write(MemoryItem(t=0, kind="semantic", text="There are no doors or windows here.", importance=1.0))
+    agent2.physio.mood = "anxious"
+    agent2.physio.stress = 0.6
+
+    world._agents = [agent1, agent2]
     start = datetime(1900, 9, 4, 0, 0, 0)
     base_environment = (
-        "You are in the kitchen of James' house. "
-        "The room is dimly lit by a single flickering candle on the old wooden table. "
-        "Shadows dance across the cracked tiles and faded wallpaper, "
-        "and the air carries a faint chill, "
-        "Cobwebs hang in the corners, and the silence is broken only by the distant ticking of a grandfather clock. "
+        "You are in a pure white, featureless room. There are no doors, no windows, no furniture. "
+        "The light is even and shadowless. You see another person here. "
     )
 
-    #main agent
-    agent.physio.mood = "stressed"
-    agent.physio.stress = 0.6
-    agent.memory.write(MemoryItem(t=0, kind="autobio", text="My wife Julie died 5 years ago(1895) in a carriage accident.", importance=1.0))
-    agent.memory.write(MemoryItem(t=0, kind="autobio", text="I miss my wife Julie dearly.", importance=1.0))
-    agent.memory.write(MemoryItem(t=0, kind="autobio", text="I remember everything up and including the current date", importance=1.0))
-    agent.memory.write(MemoryItem(t=0, kind="episodic", text="I've just woken up", importance=.5))
-    agent.memory.write(MemoryItem(t=0, kind="episodic", text="I woke up to get something to drink", importance=0.3))
-    obs_agent = base_environment + "Your late wife Julie is standing in front of you. you want to talk to her."
-
-
-    #deadwife agent
-    deadwife.physio.mood = "confused"
-    deadwife.physio.stress = 0.7
-    deadwife.persona.job = "seamstress"
-    deadwife.memory.write(MemoryItem(t=0, kind="autobio", text="james is my husband", importance=1.0))
-    deadwife.memory.write(MemoryItem(t=0, kind="autobio", text="I'm a seamstress", importance=1.0))
-    deadwife.memory.write(MemoryItem(t=0, kind="autobio", text="I remember everything prior to 1895.", importance=1.0))
-    deadwife.memory.write(MemoryItem(t=0, kind="semantic", text="it is the year of 1895.", importance=1.0))
-    deadwife.memory.write(MemoryItem(t=0, kind="episodic", text="I was taking a carriage ride.", importance=1.0))
-    obs_deadwife = base_environment + "Your husband James is here. You don't know how but you feel you are dead."
-
+    obs_agent1 = base_environment + "You have a small brass key in your pocket. The other person looks confused."
+    obs_agent2 = base_environment + "You have nothing with you."
 
     loglist: Optional[list[Dict[str, Any]]] = []
-    last_decision_deadwife: Optional[Dict[str, Any]] = None
-    for tick in range(1, 10):
-        # Use decide_conversation for both agents
-        participants = [agent, deadwife]
-        incoming_message_agent = None
-        if last_decision_deadwife:
-            incoming_message_agent = {
-                'to': agent.persona.name,
-                'from': deadwife.persona.name,
-                'text': last_decision_deadwife.get("reply", None)
+    last_decision_agent2: Optional[Dict[str, Any]] = None
+    for tick in range(1, 30):
+        participants = [agent1, agent2]
+        incoming_message_agent1 = None
+        if last_decision_agent2:
+            incoming_message_agent1 = {
+                'to': agent1.persona.name,
+                'from': agent2.persona.name,
+                'text': last_decision_agent2.get("reply", None)
             }
-        decision_agent = agent.decide_conversation(
-            world, obs_agent, participants=participants,
-            incoming_message=incoming_message_agent, tick=tick, start_dt=start,loglist=loglist
-        )
-        if decision_agent and "new_mood" in decision_agent:
-            agent.physio.mood = decision_agent["new_mood"]
-        if decision_agent and "memory_write" in decision_agent and decision_agent["memory_write"]:
-            agent.memory.write(MemoryItem(t=tick, kind="episodic", text=decision_agent["memory_write"], importance=0.5))
 
-        incoming_message_deadwife = None
-        if decision_agent:
-            incoming_message_deadwife = {
-                'to': deadwife.persona.name,
-                'from': agent.persona.name,
-                'text': decision_agent.get("reply", None)
+        decision_agent1 = agent1.decide_conversation(
+        participants, obs_agent1,
+         tick=tick,incoming_message=incoming_message_agent1, start_dt=start, loglist=loglist
+        )
+        if decision_agent1 and "new_mood" in decision_agent1:
+            agent1.physio.mood = decision_agent1["new_mood"]
+        if decision_agent1 and "memory_write" in decision_agent1 and decision_agent1["memory_write"]:
+            agent1.memory.write(MemoryItem(t=tick, kind="episodic", text=decision_agent1["memory_write"], importance=0.5))
+        #debug output of agent1 decision
+        print(f"Tick {tick} - {agent1.persona.name} decision: {decision_agent1}")
+
+
+        incoming_message_agent2 = None
+        if decision_agent1:
+            incoming_message_agent2 = {
+                'to': agent2.persona.name,
+                'from': agent1.persona.name,
+                'text': decision_agent1.get("reply", None)
             }
-        decision_deadwife = deadwife.decide_conversation(
-            world, obs_deadwife, participants=participants,
-            incoming_message=incoming_message_deadwife, tick=tick,loglist=loglist
+        decision_agent2 = agent2.decide_conversation(participants=participants,
+            obs=obs_agent2, tick=tick,
+            incoming_message=incoming_message_agent2, loglist=loglist
         )
-        last_decision_deadwife = decision_deadwife
-        if decision_deadwife and "new_mood" in decision_deadwife:
-            deadwife.physio.mood = decision_deadwife["new_mood"]
-        if decision_deadwife and "memory_write" in decision_deadwife and decision_deadwife["memory_write"]:
-            deadwife.memory.write(MemoryItem(t=tick, kind="episodic", text=decision_deadwife["memory_write"], importance=0.5))
-        pass
-
-
+        last_decision_agent2 = decision_agent2
+        if decision_agent2 and "new_mood" in decision_agent2:
+            agent2.physio.mood = decision_agent2["new_mood"]
+        if decision_agent2 and "memory_write" in decision_agent2 and decision_agent2["memory_write"]:
+            agent2.memory.write(MemoryItem(t=tick, kind="episodic", text=decision_agent2["memory_write"], importance=0.5))
+        #debug output of agent2 decision
+        print(f"Tick {tick} - {agent2.persona.name} decision: {decision_agent2}")
         
     
     # Combine conversation histories and output to a file
@@ -150,26 +151,41 @@ text: '{msg_text}'
 
 
     messages = [extract_message(entry) for entry in loglist]
-    with open("conversation_decisions_output.txt",'w', encoding="utf-8") as f:
-        f.write("----- Conversation between James and Julie -----\n\n")
+    # Create logs directory if it doesn't exist
+    logs_dir = "conversation_logs"
+    os.makedirs(logs_dir, exist_ok=True)
+
+    # Generate filename with participants' names and timestamp
+    timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"{agent1.persona.name}_{agent2.persona.name}_{timestamp_str}.txt"
+    filepath = os.path.join(logs_dir, filename)
+
+    with open(filepath, 'w', encoding="utf-8") as f:
+        f.write(f"----- Conversation between {agent1.persona.name} and {agent2.persona.name} -----\n\n")
         for msg in messages:
-            f.write(msg + "\n\n") 
+            f.write(msg + "\n\n")
 
     # Check if both agents have conversation history
-    assert any(entry["role"] == "agent" for entry in agent.conversation_history), "Agent did not reply during conversation."
-    assert any(entry["role"] == "agent" for entry in deadwife.conversation_history), "Deadwife did not reply during conversation."
+    assert any(entry["role"] == "agent" for entry in agent1.conversation_history), "Agent1 did not reply during conversation."
+    assert any(entry["role"] == "agent" for entry in agent2.conversation_history), "Agent2 did not reply during conversation."
     # Optionally, check if any reply mentions the other
-    agent_replies = [entry["content"] for entry in agent.conversation_history if entry["role"] == "agent"]
-    deadwife_replies = [entry["content"] for entry in deadwife.conversation_history if entry["role"] == "agent"]
-    agent_to_deadwife = any("Julie" in reply for reply in agent_replies)
-    deadwife_to_agent = any("James" in reply for reply in deadwife_replies)
-    assert agent_to_deadwife or deadwife_to_agent, "No direct conversation detected."
+    agent1_replies = [entry["content"] for entry in agent1.conversation_history if entry["role"] == "agent"]
+    agent2_replies = [entry["content"] for entry in agent2.conversation_history if entry["role"] == "agent"]
+    agent1_to_agent2 = any(agent2.persona.name in reply for reply in agent1_replies)
+    agent2_to_agent1 = any(agent1.persona.name in reply for reply in agent2_replies)
+    assert agent1_to_agent2 or agent2_to_agent1, "No direct conversation detected."
+
+
 
 if __name__ == "__main__":
     import sys
     import pytest
+    import os
+    from datetime import datetime
     args = sys.argv
-    args.append("test_agent_converses_with_deadwife")
+    test_strangers_in_white_room_one_has_key()
+    ''''
+    args.append("test_strangers_in_white_room_one_has_key")
     # Usage: python test_room.py [testname]
     if len(args) > 1:
         # Run only the specified test(s)
@@ -181,3 +197,4 @@ if __name__ == "__main__":
     else:
         # Run all tests
         pytest.main([__file__])
+        '''

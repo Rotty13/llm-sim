@@ -1,423 +1,520 @@
 places:
 - name: Lumière City Hall
   category: government
-  role: City Hall
+  purpose: City Hall
   description: A notable location in Lumière.
+  roles:
+  - - mayor
+    - Head of the city government, responsible for making important decisions and
+      overseeing city operations
+  - - city clerk
+    - Responsible for maintaining records, preparing documents, and providing administrative
+      support to City Hall officials
+  - - treasurer
+    - Manages the city's finances, collects taxes, and makes financial decisions on
+      behalf of the city government
+  - - police chief
+    - Head of the local police department, responsible for maintaining law and order
+      in the city
+  - - sanitation inspector
+    - Responsible for maintaining public health and sanitation standards
 - name: Lumière Market Square
   category: public_space
-  role: Market Square
+  purpose: Market Square
   description: A notable location in Lumière.
+  roles:
+  - - butcher
+    - Cut and sell meat, often from local livestock.
+  - - market porter
+    - Carries goods and supplies to market stalls
+  - - fruit seller
+    - Buy and sell fresh fruits, often from nearby farms or orchards.
+  - - fishmonger
+    - Sells fish, seafood, and other aquatic products
+  - - street performer
+    - Entertaining crowds with music, juggling, or other skills.
 - name: Lumière Church
   category: religious
-  role: Church
+  purpose: Church
   description: A notable location in Lumière.
-- name: Lumière Library
-  category: education
-  role: Library
+  roles:
+  - - organist
+    - Played the organ during services and other musical events.
+  - - priest
+    - Conducts services, performs sacraments, and provides spiritual guidance to the
+      congregation.
+  - - vicar
+    - Assists the Priest in conducting services and performing administrative tasks.
+  - - chorister
+    - Sings in the church choir, assists with musical performances, and helps with
+      general maintenance of the church.
+  - - sexton
+    - Maintained the physical facilities of the church, including cleaning, repairs,
+      and groundskeeping.
+- name: Lumière General Hospital
+  category: healthcare
+  purpose: General Hospital
   description: A notable location in Lumière.
+  roles:
+  - - nurse
+    - Assist doctors with patient care, administer medications, and maintain a clean
+      and organized environment.
+  - - doctor
+    - Diagnose and treat patients, perform surgeries, and provide medical consultations.
+  - - orderly
+    - Assist with patient care, deliver messages, and perform various tasks as needed.
+  - - porter
+    - Transport patients and hospital staff between departments, deliver messages
+  - - laundry worker
+    - Wash, dry, and iron hospital linens and uniforms
 - name: Lumière Elementary School
   category: education
-  role: Elementary School
+  purpose: Elementary School
   description: A notable location in Lumière.
-- name: Lumière Community Center
-  category: public_space
-  role: Community Center
-  description: A notable location in Lumière.
-- name: Lumière Restaurant
-  category: business
-  role: Restaurant
-  description: A notable location in Lumière.
-- name: Madame Dupont's Bakery
-  category: bakery
-  description: A quaint bakery on the corner, famous for its freshly baked baguettes
-    and croissants.
-- name: Lumière's Library
-  category: library
-  description: The city's premier library, housing a vast collection of books and
-    manuscripts from around the world.
-- name: Le Coq Rouge Restaurant
-  category: restaurant
-  description: A cozy eatery serving traditional French cuisine in a warm and inviting
+  roles:
+  - - teacher
+    - Supervise students during lessons and activities
+  - - janitor
+    - Maintain cleanliness and organization of school premises
+  - - principal
+    - Oversee daily operations, budgeting, and student discipline
+  - - school secretary
+    - Manages administrative tasks, such as record-keeping and correspondence.
+  - - pupil monitor
+    - Assists teachers with supervision of students during lessons.
+- name: Maison de la Vie
+  category: Restaurant
+  description: A cozy French bistro serving traditional dishes and fine wines.
+  roles:
+  - - maître d'
+    - Manages the dining area, greets customers, and oversees service
+  - - dishwasher
+    - Washes and cleans dishes, utensils, and equipment
+  - - cook
+    - Prepares and cooks meals for customers
+  - - kitchen porter
+    - Assists cooks with food preparation and cleanup
+  - - waiter/waitress
+    - Takes orders from customers, serves food and drinks
+- name: Le Jardin des Fleurs
+  category: Shop
+  description: A charming flower shop offering a wide variety of blooms and greenery.
+  roles:
+  - - clerk
+    - Assists customers, manages inventory, and performs sales transactions
+  - - shopkeeper
+    - Oversees daily operations, manages stock, and handles customer complaints
+  - - salesman
+    - Interacts with customers, promotes products, and closes sales
+  - - porter
+    - Assists customers, carries goods, and maintains store cleanliness
+  - - messenger
+    - Delivered messages between the shop and other businesses or individuals, often
+      on foot or by bicycle.
+- name: Lumière Laundry
+  category: Service
+  description: A reliable laundry service providing washing, ironing, and cleaning
+    services for the city's residents.
+  roles:
+  - - waiter
+    - Serves food and drinks to customers in a restaurant or inn
+  - - hotel porter
+    - Assists guests with luggage, arranges transportation, and provides general assistance
+  - - laundry worker
+    - Washes, irons, and folds clothing and linens for households or businesses
+  - - bellhop
+    - Carried luggage for guests in hotels and restaurants
+  - - dining room attendant
+    - Clean and set tables, clear dishes, and assist servers
+- name: La Belle Époque Salon
+  category: Shop
+  description: An elegant hair salon offering stylish cuts, coloring, and styling
+    services for men and women.
+  roles:
+  - - shopkeeper
+    - Managed the day-to-day operations of the shop, including ordering supplies and
+      handling finances
+  - - clerk
+    - Assisted customers with purchases and answered questions about products
+  - - salesman
+    - Sold goods to customers, often using persuasive techniques to make sales
+  - - porter
+    - Carried heavy items and assisted with deliveries
+  - - bookkeeper
+    - Managed the shop's financial records, including accounts payable and receivable
+- name: Le Coq d'Or Bakery
+  category: Restaurant
+  description: A popular bakery serving freshly baked bread, pastries, and cakes throughout
+    the day.
+  roles:
+  - - waiter/waitress
+    - Takes orders from customers, serves food and drinks, and handles payments.
+  - - kitchen porter
+    - Assists with cleaning and maintaining the kitchen, as well as helping with food
+      preparation and serving.
+  - - dishwasher
+    - Washes dishes, glasses, and utensils, as well as maintaining a clean kitchen
+      environment.
+  - - bartender
+    - Mixes and serves drinks, handles cash transactions, and maintains a clean bar
+      area.
+  - - cook
+    - Prepares meals, cooks food, and assists with kitchen duties.
+- name: La Maison de la Mode
+  category: Shop
+  description: A fashionable clothing store offering a wide range of stylish garments
+    for men and women.
+  roles:
+  - - shopkeeper
+    - Responsible for managing the day-to-day operations of the shop, including purchasing
+      stock, handling customer transactions, and maintaining inventory.
+  - - clerk
+    - Assists customers with purchases and provides information about products.
+  - - porter
+    - Assists with receiving and storing inventory, as well as helping customers carry
+      their purchases.
+  - - bookkeeper
+    - Responsible for managing the shop's financial records, including keeping track
+      of sales, purchases, and inventory.
+  - - delivery boy
+    - Delivers goods to customers' homes or businesses.
+- name: Le Petit Château Café
+  category: Restaurant
+  description: A charming café serving coffee, tea, and light refreshments in a cozy
     atmosphere.
-- name: Maison de la Mode
-  category: fashion store
-  description: An upscale boutique offering the latest fashion trends from Paris and
-    beyond.
-- name: La Maison du Livre
-  category: bookstore
-  description: A charming bookstore specializing in rare and out-of-print volumes.
-- name: Le Jardin de Lumière
-  category: garden store
-  description: A picturesque garden store offering a wide selection of plants, flowers,
+  roles:
+  - - dishwasher
+    - Washes dishes, utensils, and equipment for the restaurant
+  - - bartender
+    - Mixes drinks, serves food and drinks, and handles customer payments
+  - - head cook
+    - Responsible for the overall kitchen operations, including menu planning and
+      food preparation.
+  - - maître d'
+    - Manages front-of-house staff, takes reservations, and ensures customer satisfaction
+  - - waitress
+    - Takes orders from customers, serves food and drinks, and handles cash transactions.
+- name: Lumière Livery
+  category: Service
+  description: A reliable livery service providing horse-drawn carriage rentals for
+    special occasions and events.
+  roles:
+  - - waiter
+    - Served food and drinks to customers in a restaurant or hotel
+  - - porter
+    - Carried luggage for travelers at train stations, hotels, or other transportation
+      hubs
+  - - chambermaid
+    - Provided personal service to guests in hotels, boarding houses, or private homes
+  - - barber
+    - Cut hair, shaved faces, and provided other grooming services for men
+  - - concierge
+    - Assists guests with travel arrangements, reservations, and other requests.
+- name: Le Jardin de la Réussite
+  category: Shop
+  description: A unique gardening store offering a wide variety of plants, seeds,
     and gardening supplies.
-- name: La Pharmacie de la Ville
-  category: pharmacy
-  description: The city's trusted apothecary, providing a range of medicinal herbs
-    and remedies.
-- name: Le Café des Arts
-  category: cafe
-  description: A vibrant café serving coffee, pastries, and lively conversation amidst
-    an eclectic art gallery.
-- name: La Maison de la Musique
-  category: music store
-  description: A cozy music shop offering a variety of instruments, sheet music, and
-    lessons from local musicians.
-- name: Le Bazar Oriental
-  category: market
-  description: A bustling marketplace featuring exotic spices, teas, and other international
-    goods.
-- name: La Maison de la Mode Féminine
-  category: fashion store
-  description: An elegant boutique specializing in high-end women's fashion and accessories.
-- name: Le Cercle des Écrivains
-  category: writers' club
-  description: A prestigious writers' club hosting literary salons, readings, and
-    workshops for aspiring authors.
-- name: La Maison de la Santé
-  category: health spa
-  description: A serene health spa offering a range of treatments, including massages,
-    facials, and aromatherapy.
-- name: Le Musée des Arts et Métiers
-  category: museum
-  description: A fascinating museum showcasing the latest scientific discoveries and
-    innovations from around the world.
-- name: La Maison de la Famille
-  category: family store
-  description: A charming shop offering a wide selection of toys, games, and educational
-    materials for children.
-- name: Le Jardin d'Enfants
-  category: nursery school
-  description: A picturesque nursery school providing a nurturing environment for
-    young children to learn and grow.
-- name: La Maison de la Beauté
-  category: beauty salon
-  description: A stylish beauty salon offering a range of services, including hair
-    styling, manicures, and makeup applications.
-- name: Le Cercle des Artistes
-  category: artists' club
-  description: A vibrant artists' club hosting exhibitions, workshops, and critiques
-    for local painters and sculptors.
-- name: La Maison de la Cuisine
-  category: cookware store
-  description: A charming shop offering a wide selection of cookware, kitchen utensils,
-    and gourmet food products.
-- name: Le Musée des Sciences Naturelles
-  category: natural history museum
-  description: A fascinating natural history museum showcasing the wonders of the
-    natural world through exhibits and specimens.
-- name: La Maison de la Vieillissement
-  category: senior care facility
-  description: A compassionate senior care facility providing a warm and supportive
-    environment for elderly residents.
-- name: Le Jardin Botanique
-  category: botanical garden
-  description: A serene botanical garden featuring a stunning collection of plants,
-    flowers, and trees from around the world.
-- name: La Maison de la Médecine Vétérinaire
-  category: veterinary clinic
-  description: A reputable veterinary clinic providing expert care for the city's
-    animals and pets.
-- name: Le Musée des Arts et Traditions Populaires
-  category: folk museum
-  description: A charming folk museum showcasing the traditional crafts, music, and
-    customs of rural France.
-- name: La Maison de la Mode Homme
-  category: men's fashion store
-  description: An elegant boutique specializing in high-end men's fashion and accessories.
-- name: Le Cercle des Étudiants
-  category: students' club
-  description: A lively students' club hosting debates, lectures, and social events
-    for young scholars and intellectuals.
-- name: La Maison de la Musique Classique
-  category: classical music store
-  description: A sophisticated shop offering a wide selection of classical music records,
-    sheet music, and musical instruments.
-- name: Le Jardin de la Réflexion
-  category: garden
-  description: A peaceful garden providing a serene environment for contemplation,
-    reflection, and relaxation.
-- name: La Maison de la Santé Mentale
-  category: mental health clinic
-  description: A compassionate mental health clinic offering expert care and support
-    for individuals struggling with mental health issues.
+  roles:
+  - - clerk
+    - Assist customers, manage inventory, and perform administrative tasks.
+  - - shopkeeper
+    - Oversee daily operations, manage staff, and ensure customer satisfaction.
+  - - salesman
+    - Interact with customers, demonstrate products, and facilitate sales transactions.
+  - - bookkeeper
+    - Manage financial records, balance accounts, and perform accounting duties.
+  - - stock clerk
+    - Manage inventory levels, restock shelves, and perform stockroom duties.
+- name: La Maison des Arts
+  category: Service
+  description: An art studio offering painting, drawing, and music lessons for children
+    and adults.
+  roles:
+  - - waiter
+    - Takes orders for food and drink, serves customers, and cleans up after meals.
+  - - housekeeper
+    - Maintains cleanliness of a household or hotel, manages staff, and oversees daily
+      operations.
+  - - hotel clerk
+    - Registers guests, manages room assignments, and handles customer inquiries.
+  - - porter
+    - Carries luggage and assists passengers in and out of trains, ships, or other
+      vehicles.
+  - - stable boy
+    - Cares for horses, mucks out stables, and assists with horse grooming and training.
+- name: Le Coeur de la Vie
+  category: Restaurant
+  description: A lively restaurant serving a wide range of international dishes and
+    cuisines.
+  roles:
+  - - waiter/waitress
+    - Takes orders from customers, serves food and drinks, manages cash transactions
+  - - kitchen porter
+    - Assists cooks and chefs with food preparation, cleans kitchen area
+  - - maître d'
+    - Oversees dining room staff, ensures smooth service for customers
+  - - dishwasher
+    - Washes dishes, utensils, and equipment for the restaurant
+  - - bartender
+    - Serves drinks to customers, manages bar area, mixes cocktails
+- name: La Maison des Rêves
+  category: Shop
+  description: A beautiful home furnishings store offering a wide variety of stylish
+    furniture, bedding, and linens.
+  roles:
+  - - clerk
+    - Assisted customers with purchases and answered questions
+  - - shopkeeper
+    - Managed the daily operations of the shop, including inventory and finances
+  - - salesman
+    - Encouraged customers to make purchases by promoting products and providing information
+      about their features and benefits.
+  - - porter
+    - Carried goods for customers and helped with deliveries
+  - - assistant shopkeeper
+    - Assisted the shopkeeper with tasks such as ordering stock, managing finances,
+      and maintaining store displays.
+- name: Le Jardin de la Vie
+  category: Service
+  description: A serene garden service providing gardening, landscaping, and maintenance
+    services for homes and businesses.
+  roles:
+  - - waiter
+    - Attended to customers in restaurants and cafes, serving food and drink.
+  - - hotel clerk
+    - Checked guests in and out, handled room assignments, and performed other administrative
+      tasks.
+  - - porter
+    - Carried luggage for passengers at train stations and hotels.
+  - - concierge
+    - Managed the front desk of hotels, handling guest requests and providing information.
+  - - laundry maid
+    - Washes, irons, and folds clothes for hotels, restaurants, and private households
+- name: La Maison des Émotions
+  category: Shop
+  description: A unique gift shop offering a wide variety of emotional and sentimental
+    gifts, such as jewelry, candles, and flowers.
+  roles:
+  - - salesman
+    - Focuses on selling products to customers, providing product information, and
+      handling returns or exchanges.
+  - - bookkeeper
+    - Manages the shop's finances, including accounting, invoicing, and record-keeping.
+  - - shopkeeper
+    - Oversees the daily operations of the shop, including managing staff, ordering
+      supplies, and ensuring customer satisfaction.
+  - - clerk
+    - Responsible for serving customers, handling cash transactions, and maintaining
+      shop inventory.
+  - - porter
+    - Assists customers with carrying purchases, stocks shelves, and maintains the
+      shop's physical environment.
+- name: Le Coq d'Argent Bookshop
+  category: Service
+  description: A cozy bookshop offering a wide selection of books, magazines, and
+    periodicals for readers of all ages.
+  roles:
+  - - laundry worker
+    - Wash, iron, and clean clothing and linens for hotels, restaurants, and private
+      households
+  - - hotel clerk
+    - Check in guests, manage reservations, and handle room assignments
+  - - concierge
+    - Provided assistance to guests with tasks such as booking travel arrangements
+      or sending messages.
+  - - porter
+    - Carry luggage and assist guests at hotels, stations, and ports
+  - - waiter/waitress
+    - Serve food and beverages to customers in a restaurant or inn
+- name: La Maison de la Vieillé
+  category: Shop
+  description: An antique store offering a wide variety of vintage furniture, collectibles,
+    and other unique items.
+  roles:
+  - - clerk
+    - Assisted customers with purchases and provided information about products
+  - - shopkeeper
+    - Managed the day-to-day operations of the shop, including inventory and finances
+  - - delivery boy
+    - Delivered goods to customers' homes or businesses, often on a bicycle
+  - - salesman
+    - Sold goods to customers, handled cash transactions, and provided customer service
+  - - bookkeeper
+    - Manages financial records, keeps track of sales, expenses, and inventory levels.
+- name: Le Petit Château Hotel
+  category: Service
+  description: A charming hotel providing comfortable accommodations for travelers
+    and visitors to the city.
+  roles:
+  - - waiter
+    - Serves food and drinks to customers in a restaurant or hotel
+  - - coachman
+    - Drives a horse-drawn carriage or coach for hire.
+  - - hotel porter
+    - Carries luggage and assists guests in hotels
+  - - stable boy
+    - Cares for horses, cleans stables and assists with transportation services
+  - - barber
+    - Provides haircutting and grooming services to men in a barber shop.
+- name: La Maison de la Mode Élégance
+  category: Shop
+  description: An upscale clothing store offering a wide range of stylish garments,
+    accessories, and hats for men and women.
+  roles:
+  - - shopkeeper
+    - Manages the daily operations of the shop, including purchasing, inventory management,
+      and customer service.
+  - - salesman
+    - Sells goods to customers, provides product information, and handles sales transactions.
+  - - clerk
+    - Assists customers, manages inventory, and handles sales transactions.
+  - - delivery boy
+    - Delivers goods to customers, manages delivery schedules, and handles customer
+      complaints.
+  - - porter
+    - Assists customers with carrying purchases, manages stockroom, and performs general
+      maintenance tasks.
+- name: Le Coeur de l'Art
+  category: Service
+  description: A unique art service providing custom framing, restoration, and conservation
+    services for artwork and antiques.
+  roles:
+  - - concierge
+    - Provides information and assistance to guests in hotels, boarding houses, and
+      other establishments.
+  - - waiter
+    - Serves food and drinks to customers in restaurants, cafes, and other eating
+      establishments.
+  - - coachman
+    - Drives carriages or horses-drawn vehicles for private families or livery stables.
+  - - laundry worker
+    - Washes, irons, and folds clothing for households, hotels, and other establishments.
+  - - hotel clerk
+    - Check in and out guests, handle room assignments, and perform administrative
+      tasks
+- name: La Maison des Arts Étouffés
+  category: Shop
+  description: An artistic store offering a wide variety of handmade crafts, pottery,
+    and other creative items.
+  roles:
+  - - shopkeeper
+    - Responsible for running the day-to-day operations of the shop, including purchasing
+      and selling goods.
+  - - clerk
+    - Performs general office tasks, such as bookkeeping, record-keeping, and correspondence.
+  - - assistant shopkeeper
+    - Assists the shopkeeper in managing the shop, including helping with sales and
+      inventory management.
+  - - salesman
+    - Assists customers in finding products, answers questions, and makes sales.
+  - - delivery boy
+    - Responsible for delivering goods to customers' homes or businesses, often using
+      a horse-drawn carriage or bicycle.
+- name: Le Jardin de la Vieillé
+  category: Service
+  description: A unique garden service providing gardening, landscaping, and maintenance
+    services for homes and businesses, with a focus on vintage and antique items.
+  roles:
+  - - waiter
+    - Served food and drink to customers in a dining establishment
+  - - chambermaid
+    - Cleaned and maintained guest rooms in a hotel or boarding house
+  - - porter
+    - Assisted guests with luggage and provided information about the establishment.
+  - - bellhop
+    - Assisted guests with luggage and other needs in a hotel or boarding house
+  - - housekeeper
+    - Managed the cleaning and maintenance of common areas, including hallways and
+      public spaces.
+- name: La Maison des Émotions Élégantes
+  category: Shop
+  description: An elegant gift shop offering a wide variety of emotional and sentimental
+    gifts, such as jewelry, candles, and flowers, with an emphasis on luxury and elegance.
+  roles:
+  - - clerk
+    - Assisted customers with purchases and provided information on products.
+  - - shopkeeper
+    - Managed the daily operations of the shop, including ordering stock and handling
+      finances.
+  - - salesman
+    - Sold goods to customers and provided after-sales service.
+  - - porter
+    - Assisted with the storage and retrieval of stock, as well as general cleaning
+      duties.
+  - - delivery boy
+    - Delivered goods to customers and other shops, often on foot or by bicycle.
+- name: Le Coq d'Argent Café
+  category: Restaurant
+  description: A cozy café serving coffee, tea, and light refreshments in a charming
+    atmosphere.
+  roles:
+  - - kitchen porter
+    - assist with food preparation, cleaning, and storage
+  - - head chef
+    - oversee kitchen staff, plan menus, and ensure food quality
+  - - cook
+    - prepare and cook meals according to recipes and kitchen procedures
+  - - dishwasher
+    - wash dishes, utensils, and equipment after use
+  - - maître d'
+    - manage front-of-house staff, handle customer complaints, and ensure smooth service
+- name: La Maison de la Vieillé Élégance
+  category: Shop
+  description: An upscale antique store offering a wide variety of vintage furniture,
+    collectibles, and other unique items, with an emphasis on luxury and elegance.
+  roles:
+  - - clerk
+    - Assisted customers, managed inventory, and performed basic arithmetic calculations
+  - - salesman
+    - Sold goods to customers, provided product information, and handled customer
+      complaints
+  - - bookkeeper
+    - Managed the shop's financial records, including accounts payable and receivable
+  - - delivery boy
+    - Delivered goods to customers, managed delivery schedules, and handled customer
+      inquiries
+  - - porter
+    - Assisted customers with carrying purchases, managed the shop's storage areas,
+      and performed manual labor
+- name: Le Petit Château Bakery
+  category: Restaurant
+  description: A popular bakery serving freshly baked bread, pastries, and cakes throughout
+    the day.
+  roles:
+  - - head chef
+    - Oversees kitchen staff, plans menus, and ensures quality control
+  - - waitress
+    - Takes orders, serves food and drinks to customers, handles payments
+  - - kitchen porter
+    - Assists with food preparation, cleans kitchen area, and maintains supplies
+  - - maître d'
+    - Manages front-of-house staff, ensures customer satisfaction, and maintains restaurant
+      appearance
+  - - sous chef
+    - Assists Head Chef with kitchen operations, manages inventory, and trains staff
 people:
 - name: Abraham Massingberd
   sex: male
-  age: 32
+  age: 26
   job: City Clerk
-  bio: Diligent administrator; respects tradition, values order.
+  bio: Dedicated public servant; values order, precision.
   values:
   - integrity
-  - responsibility
+  - efficiency
   - public service
   goals:
   - improve record-keeping
+  - increase civic engagement
   - support local economy
-  - protect citizens' rights
   start_place: Lumière City Hall
   workplace: Lumière City Hall
   job_title: City Clerk
-  residence_address: 10 Côte des Lumières
-- name: Christine Cowles
-  sex: female
-  age: 32
-  job: City Clerk
-  bio: Diligent administrator; values order, precision.
-  values:
-  - efficiency
-  - respect
-  - public service
-  goals:
-  - improve record-keeping systems
-  - support local businesses
-  - help community growth
-  start_place: Lumière City Hall
-  workplace: Lumière City Hall
-  job_title: City Clerk
-  residence_address: 10 La Rue du Marchand
-- name: Alphoncin Lightfoot
+  residence_address: 10 La Forêt Street
+- name: Wenceslasin Massingberd
   sex: male
-  age: 35
-  job: City Clerk
-  bio: Diligent administrator; upholds civic duty.
-  values:
-  - integrity
-  - efficiency
-  - public service
-  goals:
-  - improve record-keeping systems
-  - support local economic growth
-  - ensure fair taxation
-  start_place: Lumière City Hall
-  workplace: Lumière City Hall
-  job_title: City Clerk
-  residence_address: 10 L'Étoile de la Rivière
-- name: Rachidin Gordon
-  sex: male
-  age: 32
-  job: blacksmith's apprentice
-  bio: Young craftsman learning trade; values tradition.
-  values:
-  - honesty
-  - hard work
-  - loyalty
-  goals:
-  - become master blacksmith
-  - improve family's financial stability
-  - help establish a community fund
-  start_place: Lumière Market Square
-  workplace: Lumière Market Square
-  job_title: blacksmith's apprentice
-  residence_address: 20 Côte des Lumières
-- name: Achille Brecknock
-  sex: male
-  age: 32
-  job: blacksmith's apprentice
-  bio: Young craftsman learning trade; values tradition.
-  values:
-  - honesty
-  - hard work
-  - respect for elders
-  goals:
-  - become master blacksmith
-  - improve family's financial stability
-  - give back to community through charity
-  start_place: Blacksmith Shop
-  workplace: Blacksmith Shop
-  job_title: blacksmith's apprentice
-  residence_address: 20 L'Étoile de la Rivière
-- name: Baudouin Henderson
-  sex: male
-  age: 32
-  job: blacksmith's apprentice
-  bio: Young craftsman learning trade; values tradition.
-  values:
-  - honesty
-  - hard work
-  - respect for elders
-  goals:
-  - become master blacksmith
-  - improve family's financial stability
-  - make a name for himself in the community
-  start_place: Lumière Market Square
-  workplace: Lumière Market Square
-  job_title: blacksmith's apprentice
-  residence_address: 10 La Place de la Liberté
-- name: Nestor Compton
-  sex: male
-  age: 35
-  job: Church Sexton
-  bio: Devout caretaker; values tradition, family.
-  values:
-  - faith
-  - family
-  - service
-  goals:
-  - improve church facilities
-  - help local youth
-  - support parishioners
-  start_place: Lumière Church
-  workplace: Lumière Church
-  job_title: Church Sexton
-  residence_address: 20 La Rue du Marchand
-- name: Carmen Groves
-  sex: female
-  age: 35
-  job: Church Organist
-  bio: Devout musician; guides community through song.
-  values:
-  - faith
-  - music
-  - family
-  goals:
-  - improve playing skills
-  - compose new hymns
-  - support church growth
-  start_place: Lumière Church
-  workplace: Lumière Church
-  job_title: Church Organist
-  residence_address: 10 Les Îles de la Paix
-- name: Sabinne Powell
-  sex: female
-  age: 35
-  job: Church Organist
-  bio: Devout musician; fosters harmony in community.
-  values:
-  - faith
-  - music
-  - compassion
-  goals:
-  - compose new hymns
-  - improve playing skills
-  - help those in need
-  start_place: Lumière Church
-  workplace: Lumière Church
-  job_title: Church Organist
-  residence_address: 10 Le Jardin de l'Hiver
-- name: Anthelme Lovelace
-  sex: male
-  age: 32
-  job: librarian assistant
-  bio: Respectful scholar; values knowledge, family.
-  values:
-  - knowledge
-  - family
-  - education
-  goals:
-  - become head librarian
-  - publish research on local history
-  - support wife's teaching career
-  start_place: Lumière Library
-  workplace: Lumière Library
-  job_title: librarian assistant
-  residence_address: 10 Forêt d'Amour
-- name: Eloïse Derbyshire
-  sex: female
-  age: 32
-  job: Librarian Assistant
-  bio: Knowledgeable assistant; loves books, values order.
-  values:
-  - knowledge
-  - organization
-  - helping others
-  goals:
-  - improve cataloging system
-  - learn to play piano
-  - support local education
-  start_place: Lumière Library
-  workplace: Lumière Library
-  job_title: Librarian Assistant
-  residence_address: 20 Le Jardin de l'Hiver
-- name: Balthazarin Shorter
-  sex: male
-  age: 35
-  job: elementary school teacher
-  bio: Respected educator; values discipline.
-  values:
-  - education
-  - responsibility
-  - respect
-  goals:
-  - improve student outcomes
-  - become headmaster
-  - give back to community
-  start_place: Lumière Elementary School
-  workplace: Lumière Elementary School
-  job_title: elementary school teacher
-  residence_address: 30 Le Jardin de l'Hiver
-- name: Aquilina Brecknock
-  sex: female
-  age: 32
-  job: Elementary School Teacher
-  bio: Patient educator; loves children, values discipline.
-  values:
-  - education
-  - family
-  - loyalty
-  goals:
-  - improve teaching methods
-  - establish a school garden
-  - support local community development
-  start_place: Lumière Elementary School
-  workplace: Lumière Elementary School
-  job_title: Elementary School Teacher
-  residence_address: 30 Côte des Lumières
-- name: Antoninette Faughan
-  sex: female
-  age: 35
-  job: Elementary School Teacher
-  bio: Devoted educator; nurturing spirit.
-  values:
-  - education
-  - family
-  - discipline
-  goals:
-  - improve student literacy rates
-  - expand school curriculum
-  - establish a community library
-  start_place: Lumière Elementary School
-  workplace: Lumière Elementary School
-  job_title: Elementary School Teacher
-  residence_address: 30 La Rue du Marchand
-- name: Léonette Deacon
-  sex: female
-  age: 32
-  job: Community Center Nurse
-  bio: Compassionate caregiver; values family, tradition.
-  values:
-  - family
-  - tradition
-  - helping others
-  goals:
-  - improve healthcare services
-  - establish a local nursing school
-  - support women's rights
-  start_place: Lumière Community Center
-  workplace: Lumière Community Center
-  job_title: Community Center Nurse
-  residence_address: 30 L'Étoile de la Rivière
-- name: Hugues Hodson
-  sex: male
-  age: 35
-  job: blacksmith shop owner
-  bio: Experienced craftsman; values tradition, family.
-  values:
-  - honesty
-  - hard work
-  - community
-  goals:
-  - increase business through local trade
-  - improve working conditions for apprentices
-  - provide a stable income for his wife and two children
-  start_place: Blacksmith Shop
-  workplace: Blacksmith Shop
-  job_title: blacksmith shop owner
-  residence_address: 10 Boulevard de la Révolution
-- name: Félixinette Brabazon
-  sex: male
-  age: 35
-  job: blacksmith shop owner
-  bio: Experienced craftsman; values tradition, family.
+  age: 30
+  job: blacksmith
+  bio: Responsible craftsman; values tradition.
   values:
   - honesty
   - hard work
@@ -426,301 +523,3408 @@ people:
   - expand business
   - learn new techniques
   - support family
-  start_place: Lumière Community Center
-  workplace: Lumière Community Center
-  job_title: blacksmith shop owner
-  residence_address: 20 Forêt d'Amour
-- name: Sylviee Kennedy
-  sex: female
-  age: 32
-  job: Head Chef at Lumière Restaurant
-  bio: Experienced chef; values culinary tradition.
+  start_place: Lumière City Hall
+  workplace: Lumière City Hall
+  job_title: blacksmith
+  residence_address: 10 Le Jardin des Rêves Place
+- name: Baudouin Henderson
+  sex: male
+  age: 36
+  job: City Clerk at Lumière City Hall
+  bio: Dedicated public servant; values efficiency, fairness.
   values:
-  - quality ingredients
-  - innovation in cooking
-  - hospitality
+  - integrity
+  - public service
+  - order
   goals:
-  - win a Michelin star
-  - create new recipes
-  - mentor young chefs
-  start_place: Lumière Restaurant
-  workplace: Lumière Restaurant
-  job_title: Head Chef at Lumière Restaurant
-  residence_address: 10 Rue des Mille Étoiles
+  - improve record-keeping systems
+  - increase civic engagement
+  - support local economic growth
+  start_place: Lumière City Hall
+  workplace: Lumière City Hall
+  job_title: City Clerk at Lumière City Hall
+  residence_address: 20 Le Jardin des Rêves Place
+- name: Carmen Groves
+  sex: female
+  age: 41
+  job: City Hall Clerk
+  bio: Efficient administrator; values order, precision.
+  values:
+  - order
+  - precision
+  - service
+  goals:
+  - improve record-keeping systems
+  - increase efficiency in office operations
+  - support local economic growth
+  start_place: Lumière City Hall
+  workplace: Lumière City Hall
+  job_title: City Hall Clerk
+  residence_address: 10 Rivière Royale
+- name: Anthelme Lovelace
+  sex: male
+  age: 29
+  job: City Clerk
+  bio: Diligent administrator; upholds civic duty.
+  values:
+  - integrity
+  - public service
+  - education
+  goals:
+  - advocate for city improvements
+  - learn to play the organ
+  - support local artisans
+  start_place: Lumière City Hall
+  workplace: Lumière City Hall
+  job_title: City Clerk
+  residence_address: 10 Côte des Étoiles Way
+- name: Ferdinand Britton
+  sex: male
+  age: 50
+  job: Market Square Master Baker
+  bio: Respected artisan; values tradition, family.
+  values:
+  - honesty
+  - hard work
+  - family
+  goals:
+  - perfect a new pastry recipe
+  - increase market share
+  - provide for grandchildren
+  start_place: Lumière Market Square
+  workplace: Lumière Market Square
+  job_title: Market Square Master Baker
+  residence_address: 30 Le Jardin des Rêves Place
+- name: Hugues Hodson
+  sex: male
+  age: 19
+  job: Market Clerk at Lumière Market Square
+  bio: Young clerk; diligent in duties, curious about world.
+  values:
+  - efficiency
+  - fairness
+  - learning
+  goals:
+  - become market manager
+  - improve customer service
+  - learn to read and write French fluently
+  start_place: Lumière Market Square
+  workplace: Lumière Market Square
+  job_title: Market Clerk at Lumière Market Square
+  residence_address: 20 Rivière Royale
 - name: Leontina Coleman
   sex: female
-  age: 32
-  job: Head Chef at Lumière Restaurant
-  bio: Experienced chef; values culinary tradition.
+  age: 36
+  job: Market Florist
+  bio: Resilient entrepreneur; blooms in community service.
   values:
-  - quality ingredients
-  - innovation in cooking
-  - hospitality
+  - freshness
+  - local commerce
+  - community growth
   goals:
-  - win a Michelin star
-  - create new recipes
-  - mentor young chefs
-  start_place: Lumière Restaurant
-  workplace: Lumière Restaurant
-  job_title: Head Chef at Lumière Restaurant
-  residence_address: 40 Côte des Lumières
-- name: Aghdam Leech
+  - increase market presence
+  - develop new flower arrangements
+  - support local farmers
+  start_place: Lumière Market Square
+  workplace: Lumière Market Square
+  job_title: Market Florist
+  residence_address: 10 Fleur de Lis Alley
+- name: Damazin Brabazon
+  sex: male
+  age: 27
+  job: Market Stall Holder (Fruit and Vegetable)
+  bio: Hardworking vendor; values freshness, tradition.
+  values:
+  - freshness
+  - fair trade
+  - community
+  goals:
+  - increase customer base
+  - improve market stall design
+  - support local farmers
+  start_place: Lumière Market Square
+  workplace: Lumière Market Square
+  job_title: Market Stall Holder (Fruit and Vegetable)
+  residence_address: 10 Maison Rouge Lane
+- name: Barbelette Fitzgerald
+  sex: female
+  age: 22
+  job: Market Apothecary Assistant
+  bio: Compassionate healer; young, ambitious, and kind-hearted.
+  values:
+  - health and wellness
+  - customer satisfaction
+  - innovation
+  goals:
+  - become a certified apothecary
+  - open own market stall
+  - improve community health initiatives
+  start_place: Lumière Market Square
+  workplace: Lumière Market Square
+  job_title: Market Apothecary Assistant
+  residence_address: 10 Le Pont Noir Bridge
+- name: Raymond Keyte
+  sex: male
+  age: 7
+  job: Lumière Church Choirboy
+  bio: Young singer; loves music, God's word.
+  values:
+  - faith
+  - music
+  - family
+  goals:
+  - sing in church choir
+  - learn to play the organ
+  - help at home
+  start_place: Lumière Church
+  workplace: Lumière Church
+  job_title: Lumière Church Choirboy
+  residence_address: 20 Maison Rouge Lane
+- name: Ignace Fortescue
+  sex: male
+  age: 36
+  job: Church Minister
+  bio: Devout leader; serves community with compassion.
+  values:
+  - faith
+  - justice
+  - compassion
+  goals:
+  - increase congregation size
+  - establish education program
+  - build new church wing
+  start_place: Lumière Church
+  workplace: Lumière Church
+  job_title: Church Minister
+  residence_address: 20 Côte des Étoiles Way
+- name: Thekla Milner
+  sex: female
+  age: 39
+  job: Church Organist and Music Teacher
+  bio: Respected musician; nurtures faith, educates youth.
+  values:
+  - devotion to faith
+  - education of the young
+  - community service
+  goals:
+  - improve musical skills
+  - establish a music school
+  - help build a new church organ
+  start_place: Lumière Church
+  workplace: Lumière Church
+  job_title: Church Organist and Music Teacher
+  residence_address: 20 Fleur de Lis Alley
+- name: Désiré Gaydon
+  sex: male
+  age: 25
+  job: Church Sexton
+  bio: Devout servant; values faith, family.
+  values:
+  - faith
+  - family
+  - honesty
+  goals:
+  - become a respected member of the church community
+  - learn to play the organ
+  - find a suitable wife
+  start_place: Lumière Church
+  workplace: Lumière Church
+  job_title: Church Sexton
+  residence_address: 40 Le Jardin des Rêves Place
+- name: Candélaria Lawrence
+  sex: female
+  age: 31
+  job: Church Secretary and Organist
+  bio: Devout woman; supports community through music and service.
+  values:
+  - faith
+  - family
+  - community
+  goals:
+  - improve musical talents
+  - increase church attendance
+  - support local charities
+  start_place: Lumière Church
+  workplace: Lumière Church
+  job_title: Church Secretary and Organist
+  residence_address: 10 Les Jardins Road
+- name: Azorine Deacon
+  sex: female
+  age: 35
+  job: Head Nurse, Lumière General Hospital
+  bio: Compassionate caregiver; values duty, kindness.
+  values:
+  - duty to patients
+  - compassion and empathy
+  - continuing education
+  goals:
+  - improve hospital facilities
+  - enhance patient care services
+  - become a respected leader in the medical community
+  start_place: Lumière General Hospital
+  workplace: Lumière General Hospital
+  job_title: Head Nurse, Lumière General Hospital
+  residence_address: 30 Maison Rouge Lane
+- name: Viktorine Inglesant
+  sex: female
+  age: 29
+  job: Nurse
+  bio: Compassionate caregiver; young, ambitious nurse.
+  values:
+  - compassion
+  - dedication
+  - innovation
+  goals:
+  - become head nurse at Lumière General Hospital
+  - develop new treatments for infectious diseases
+  - improve patient care and outcomes
+  start_place: Lumière General Hospital
+  workplace: Lumière General Hospital
+  job_title: Nurse
+  residence_address: 10 L'Aurore Boulevard
+- name: Klépharne Heathcote
+  sex: male
+  age: 10
+  job: Page Boy at Lumière General Hospital
+  bio: Young apprentice; eager to learn, always helping.
+  values:
+  - helpfulness
+  - respect for elders
+  - punctuality
+  goals:
+  - become a skilled nurse's aide
+  - learn to play the organ in church
+  - get an education beyond elementary school
+  start_place: Lumière General Hospital
+  workplace: Lumière General Hospital
+  job_title: Page Boy at Lumière General Hospital
+  residence_address: 40 Maison Rouge Lane
+- name: Léocadie Bligh
+  sex: female
+  age: 26
+  job: Nurse
+  bio: Compassionate caregiver; supports family, values health.
+  values:
+  - compassion
+  - healthcare
+  - family
+  goals:
+  - improve patient care
+  - learn new medical techniques
+  - support hospital expansion
+  start_place: Lumière General Hospital
+  workplace: Lumière General Hospital
+  job_title: Nurse
+  residence_address: 10 Place du Soleil
+- name: Iphigénie Davey
+  sex: female
+  age: 40
+  job: Head Nurse, Lumière General Hospital
+  bio: Compassionate caregiver; values order, duty.
+  values:
+  - compassion
+  - diligence
+  - respect for authority
+  goals:
+  - improve hospital facilities
+  - increase staff training
+  - advocate for patient welfare
+  start_place: Lumière General Hospital
+  workplace: Lumière General Hospital
+  job_title: Head Nurse, Lumière General Hospital
+  residence_address: 20 Les Jardins Road
+- name: Rachidinettee Kingdon
+  sex: female
+  age: 27
+  job: Elementary School Teacher
+  bio: Devoted educator; nurturing young minds.
+  values:
+  - education
+  - family
+  - community service
+  goals:
+  - improve teaching methods
+  - support students' personal growth
+  - establish a school garden
+  start_place: Lumière Elementary School
+  workplace: Lumière Elementary School
+  job_title: Elementary School Teacher
+  residence_address: 20 Place du Soleil
+- name: Hubertin Adcock
+  sex: male
+  age: 22
+  job: Elementary School Teacher
+  bio: Young educator; fostering young minds.
+  values:
+  - education
+  - patience
+  - discipline
+  goals:
+  - improve teaching methods
+  - build strong relationships with students
+  - become a respected member of the community
+  start_place: Lumière Elementary School
+  workplace: Lumière Elementary School
+  job_title: Elementary School Teacher
+  residence_address: 30 Place du Soleil
+- name: Kléberine Robinson
+  sex: male
+  age: 10
+  job: Scholastic Assistant at Lumière Elementary School
+  bio: Young scholar; eager to learn, loves helping others.
+  values:
+  - knowledge
+  - helpfulness
+  - fairness
+  goals:
+  - master arithmetic calculations
+  - become a top student
+  - make friends with classmates
+  start_place: Lumière Elementary School
+  workplace: Lumière Elementary School
+  job_title: Scholastic Assistant at Lumière Elementary School
+  residence_address: 20 L'Aurore Boulevard
+- name: Anselme Flintoff
+  sex: male
+  age: 43
+  job: Elementary School Teacher
+  bio: Respected educator; values knowledge, discipline.
+  values:
+  - education
+  - responsibility
+  - fairness
+  goals:
+  - improve teaching methods
+  - increase student engagement
+  - establish a school library
+  start_place: Lumière Elementary School
+  workplace: Lumière Elementary School
+  job_title: Elementary School Teacher
+  residence_address: 30 Fleur de Lis Alley
+- name: Raimondo Eaton
+  sex: male
+  age: 31
+  job: Elementary School Teacher
+  bio: Respected educator; values knowledge, discipline.
+  values:
+  - education
+  - responsibility
+  - respect
+  goals:
+  - improve teaching methods
+  - increase student engagement
+  - establish a school library
+  start_place: Lumière Elementary School
+  workplace: Lumière Elementary School
+  job_title: Elementary School Teacher
+  residence_address: 40 Place du Soleil
+- name: Valentine Palliser
+  sex: female
+  age: 40
+  job: Midwife and Maternity Nurse at Maison de la Vie
+  bio: Compassionate caregiver; values family, tradition.
+  values:
+  - family
+  - tradition
+  - healing
+  goals:
+  - improve maternal health services
+  - establish a community nursery
+  - support local women's education
+  start_place: Maison de la Vie
+  workplace: Maison de la Vie
+  job_title: Midwife and Maternity Nurse at Maison de la Vie
+  residence_address: 30 Les Jardins Road
+- name: Odon Shadwell
   sex: male
   age: 32
-  job: Head Chef at Lumière Restaurant
-  bio: Experienced chef; values culinary innovation.
+  job: Maison de la Vie Apothecary Assistant
+  bio: Dedicated caregiver; values compassion, knowledge.
+  values:
+  - compassion
+  - knowledge
+  - respect
+  goals:
+  - become lead apothecary assistant
+  - improve patient care skills
+  - support Maison de la Vie's mission
+  start_place: Maison de la Vie
+  workplace: Maison de la Vie
+  job_title: Maison de la Vie Apothecary Assistant
+  residence_address: 50 Maison Rouge Lane
+- name: Yvorne Hopkyns
+  sex: female
+  age: 17
+  job: Laundress at Maison de la Vie
+  bio: Diligent servant; cares deeply for community.
+  values:
+  - compassion
+  - dedication
+  - simple living
+  goals:
+  - improve laundry skills
+  - earn enough to support family
+  - make a positive impact on residents
+  start_place: Maison de la Vie
+  workplace: Maison de la Vie
+  job_title: Laundress at Maison de la Vie
+  residence_address: 30 Côte des Étoiles Way
+- name: Zinaida Cornish
+  sex: female
+  age: 45
+  job: Midwife and Maternity Nurse at Maison de la Vie
+  bio: Compassionate caregiver; values family, tradition.
+  values:
+  - family
+  - tradition
+  - healing
+  goals:
+  - improve maternal health services
+  - establish a community education program
+  - mentor young nurses
+  start_place: Maison de la Vie
+  workplace: Maison de la Vie
+  job_title: Midwife and Maternity Nurse at Maison de la Vie
+  residence_address: 40 Les Jardins Road
+- name: Élodie Leonard
+  sex: female
+  age: 37
+  job: Midwife at Maison de la Vie
+  bio: Compassionate caregiver; values family, health.
+  values:
+  - family
+  - healthcare
+  - community
+  goals:
+  - improve maternal care
+  - expand services to rural areas
+  - establish a training program for young midwives
+  start_place: Maison de la Vie
+  workplace: Maison de la Vie
+  job_title: Midwife at Maison de la Vie
+  residence_address: 20 Le Pont Noir Bridge
+- name: Athéna Dalton
+  sex: female
+  age: 23
+  job: Florist's Assistant
+  bio: Youthful florist; blooms with enthusiasm.
+  values:
+  - beauty
+  - growth
+  - harmony
+  goals:
+  - master flower arrangements
+  - open own shop
+  - help others find love through flowers
+  start_place: Le Jardin des Fleurs
+  workplace: Le Jardin des Fleurs
+  job_title: Florist's Assistant
+  residence_address: 30 Rivière Royale
+- name: Quintin Cottrell
+  sex: male
+  age: 17
+  job: Florist's Assistant
+  bio: Young apprentice; learns with passion, grows with care.
+  values:
+  - beauty
+  - growth
+  - connection
+  goals:
+  - master flower arrangements
+  - learn business skills
+  - help family garden
+  start_place: Le Jardin des Fleurs
+  workplace: Le Jardin des Fleurs
+  job_title: Florist's Assistant
+  residence_address: 60 Maison Rouge Lane
+- name: Cyrille Leigh
+  sex: male
+  age: 31
+  job: Head Florist at Le Jardin des Fleurs
+  bio: Respected florist; cultivates beauty, honors tradition.
+  values:
+  - artistry
+  - customer satisfaction
+  - environmental stewardship
+  goals:
+  - create the most exquisite floral arrangements in Lumière
+  - expand Le Jardin des Fleurs to include a garden school
+  - host the most talked-about wedding of the season
+  start_place: Le Jardin des Fleurs
+  workplace: Le Jardin des Fleurs
+  job_title: Head Florist at Le Jardin des Fleurs
+  residence_address: 30 L'Aurore Boulevard
+- name: Christine Monkhouse
+  sex: female
+  age: 31
+  job: Florist/Shopkeeper at Le Jardin des Fleurs
+  bio: Vibrant entrepreneur; cultivates beauty.
+  values:
+  - beauty
+  - creativity
+  - community
+  goals:
+  - increase shop's reputation
+  - expand product line to weddings and special occasions
+  - create a community garden for the town
+  start_place: Le Jardin des Fleurs
+  workplace: Le Jardin des Fleurs
+  job_title: Florist/Shopkeeper at Le Jardin des Fleurs
+  residence_address: 50 Place du Soleil
+- name: Alfred Ledger
+  sex: male
+  age: 29
+  job: Head Florist at Le Jardin des Fleurs
+  bio: Respected florist; cultivates beauty.
+  values:
+  - artistry
+  - innovation
+  - harmony with nature
+  goals:
+  - create the most exquisite floral arrangements in Lumière
+  - develop a new line of scented candles using rare flowers
+  - establish Le Jardin des Fleurs as the go-to destination for special occasions
+  start_place: Le Jardin des Fleurs
+  workplace: Le Jardin des Fleurs
+  job_title: Head Florist at Le Jardin des Fleurs
+  residence_address: 40 Côte des Étoiles Way
+- name: Ursulinet Marlowe
+  sex: female
+  age: 35
+  job: Laundry Servant
+  bio: Dedicated servant; values cleanliness, family.
+  values:
+  - cleanliness
+  - family
+  - hard work
+  goals:
+  - improve laundry services
+  - save for a house
+  - support her sister's education
+  start_place: Lumière Laundry
+  workplace: Lumière Laundry
+  job_title: Laundry Servant
+  residence_address: 60 Place du Soleil
+- name: Rose Plumer
+  sex: female
+  age: 22
+  job: Laundry Worker
+  bio: Hardworking laundry maid; values cleanliness.
+  values:
+  - cleanliness
+  - hard work
+  - respect
+  goals:
+  - improve efficiency
+  - increase customer satisfaction
+  - save for a house
+  start_place: Lumière Laundry
+  workplace: Lumière Laundry
+  job_title: Laundry Worker
+  residence_address: 40 L'Aurore Boulevard
+- name: Auroreine Gordon
+  sex: female
+  age: 19
+  job: Laundry Maid
+  bio: Young worker; values cleanliness, family.
+  values:
+  - cleanliness
+  - family
+  - honesty
+  goals:
+  - improve laundry skills
+  - save money for own home
+  - support mother's health
+  start_place: Lumière Laundry
+  workplace: Lumière Laundry
+  job_title: Laundry Maid
+  residence_address: 50 Les Jardins Road
+- name: Hippolyte Noble
+  sex: male
+  age: 48
+  job: Laundry Owner/Operator
+  bio: Responsible owner; values cleanliness, family.
+  values:
+  - cleanliness
+  - family
+  - hard work
+  goals:
+  - increase customer base
+  - improve laundry services
+  - provide for family
+  start_place: Lumière Laundry
+  workplace: Lumière Laundry
+  job_title: Laundry Owner/Operator
+  residence_address: 30 Le Pont Noir Bridge
+- name: Thibaut Holdsworth
+  sex: male
+  age: 18
+  job: Laundry Assistant
+  bio: Young worker; values efficiency, cleanliness.
+  values:
+  - hard work
+  - punctuality
+  - customer satisfaction
+  goals:
+  - become head laundry assistant
+  - improve laundry efficiency
+  - save enough money to start own business
+  start_place: Lumière Laundry
+  workplace: Lumière Laundry
+  job_title: Laundry Assistant
+  residence_address: 40 Rivière Royale
+- name: Georges Rickards
+  sex: male
+  age: 17
+  job: Apprentice Hairdresser at La Belle Époque Salon
+  bio: Young stylist; eager to learn, creative, and charming.
+  values:
+  - artistry
+  - customer satisfaction
+  - professionalism
+  goals:
+  - master the art of hairstyling
+  - become a respected stylist in Lumière
+  - open own salon one day
+  start_place: La Belle Époque Salon
+  workplace: La Belle Époque Salon
+  job_title: Apprentice Hairdresser at La Belle Époque Salon
+  residence_address: 40 Le Pont Noir Bridge
+- name: Corinne Rowland
+  sex: female
+  age: 42
+  job: Salon proprietor and milliner
+  bio: Respectable businesswoman; values elegance, family.
+  values:
+  - family
+  - respectability
+  - innovation
+  goals:
+  - expand salon's customer base
+  - introduce new fashion trends
+  - provide for children's education
+  start_place: La Belle Époque Salon
+  workplace: La Belle Époque Salon
+  job_title: Salon proprietor and milliner
+  residence_address: 70 Maison Rouge Lane
+- name: Nestorine Shorter
+  sex: female
+  age: 53
+  job: Salon Receptionist/Hostess at La Belle Époque Salon
+  bio: Warm hostess; values elegance, family, and discretion.
+  values:
+  - elegance
+  - family
+  - discretion
+  goals:
+  - improve relationships with clients
+  - increase salon's reputation
+  - save enough to retire in style
+  start_place: La Belle Époque Salon
+  workplace: La Belle Époque Salon
+  job_title: Salon Receptionist/Hostess at La Belle Époque Salon
+  residence_address: 60 Les Jardins Road
+- name: Barbara Colebrook
+  sex: female
+  age: 35
+  job: Salon Hairdresser/Beauty Attendant
+  bio: Experienced stylist; values elegance, family.
+  values:
+  - family
+  - elegance
+  - hard work
+  goals:
+  - improve salon reputation
+  - learn new beauty techniques
+  - save for family future
+  start_place: La Belle Époque Salon
+  workplace: La Belle Époque Salon
+  job_title: Salon Hairdresser/Beauty Attendant
+  residence_address: 50 Rivière Royale
+- name: Amandine Biddlecombe
+  sex: female
+  age: 35
+  job: Salon Maid
+  bio: Respectful servant; values elegance, family.
+  values:
+  - respect
+  - family
+  - hard work
+  goals:
+  - secure position at La Belle Époque Salon
+  - improve household income
+  - save for future education
+  start_place: La Belle Époque Salon
+  workplace: La Belle Époque Salon
+  job_title: Salon Maid
+  residence_address: 20 La Forêt Street
+- name: Ahmed Simmons
+  sex: male
+  age: 33
+  job: Bakery Assistant
+  bio: Dedicated artisan; values quality, tradition.
   values:
   - quality
+  - tradition
+  - family
+  goals:
+  - perfect croissant recipe
+  - learn to make bread from scratch
+  - support family's bakery dreams
+  start_place: Le Coq d'Or Bakery
+  workplace: Le Coq d'Or Bakery
+  job_title: Bakery Assistant
+  residence_address: 50 Le Pont Noir Bridge
+- name: Rachidinette Bloxham
+  sex: male
+  age: 36
+  job: Bakery Assistant
+  bio: Experienced baker; values quality, tradition.
+  values:
+  - quality
+  - tradition
+  - family
+  goals:
+  - become head baker
+  - perfect croissant recipe
+  - support family business
+  start_place: Le Coq d'Or Bakery
+  workplace: Le Coq d'Or Bakery
+  job_title: Bakery Assistant
+  residence_address: 70 Place du Soleil
+- name: Odon Dalton
+  sex: male
+  age: 33
+  job: Bakery Assistant
+  bio: Dedicated artisan; values quality, tradition.
+  values:
+  - quality
+  - tradition
+  - family
+  goals:
+  - perfect pastry recipe
+  - increase bakery's reputation
+  - support family's well-being
+  start_place: Le Coq d'Or Bakery
+  workplace: Le Coq d'Or Bakery
+  job_title: Bakery Assistant
+  residence_address: 50 Le Jardin des Rêves Place
+- name: Grégoire Leakey
+  sex: male
+  age: 35
+  job: Bakery Assistant
+  bio: Respected baker's apprentice; values tradition.
+  values:
+  - quality
+  - community
+  - loyalty
+  goals:
+  - become head baker
+  - perfect croissant recipe
+  - support local farmers
+  start_place: Le Coq d'Or Bakery
+  workplace: Le Coq d'Or Bakery
+  job_title: Bakery Assistant
+  residence_address: 80 Maison Rouge Lane
+- name: Calixta Leigh
+  sex: female
+  age: 37
+  job: Bakery Assistant
+  bio: Hardworking baker; values family, tradition.
+  values:
+  - family
+  - tradition
+  - quality
+  goals:
+  - learn advanced baking techniques
+  - improve bakery's reputation
+  - save enough to open own bakery
+  start_place: Le Coq d'Or Bakery
+  workplace: Le Coq d'Or Bakery
+  job_title: Bakery Assistant
+  residence_address: 90 Maison Rouge Lane
+- name: Aurelie Leonard
+  sex: female
+  age: 37
+  job: milliner and dressmaker at La Maison de la Mode
+  bio: Respected milliner; values elegance, precision, and family.
+  values:
+  - elegance
+  - precision
+  - family
+  goals:
+  - improve skills in haute couture
+  - open own shop one day
+  - support her sister's marriage plans
+  start_place: La Maison de la Mode
+  workplace: La Maison de la Mode
+  job_title: milliner and dressmaker at La Maison de la Mode
+  residence_address: 60 Rivière Royale
+- name: Abdon Halsey
+  sex: male
+  age: 37
+  job: Tailor
+  bio: Respected tailor; values elegance, precision.
+  values:
+  - quality
+  - attention to detail
+  - customer satisfaction
+  goals:
+  - establish La Maison de la Mode as the premier fashion destination in Lumière
+  - develop a reputation for innovative and stylish designs
+  - create a loyal customer base
+  start_place: La Maison de la Mode
+  workplace: La Maison de la Mode
+  job_title: Tailor
+  residence_address: 30 La Forêt Street
+- name: Akiyamino Hoffman
+  sex: male
+  age: 23
+  job: Tailor's Assistant at La Maison de la Mode
+  bio: Young tailor; values precision, creativity.
+  values:
+  - precision
   - creativity
+  - customer satisfaction
+  goals:
+  - become a master tailor
+  - open own shop
+  - create stylish garments
+  start_place: La Maison de la Mode
+  workplace: La Maison de la Mode
+  job_title: Tailor's Assistant at La Maison de la Mode
+  residence_address: 50 Côte des Étoiles Way
+- name: Valentinee Boothby
+  sex: female
+  age: 44
+  job: Mantua Maker (Dressmaker)
+  bio: Respected seamstress; values elegance, family.
+  values:
+  - family
+  - honesty
+  - craftsmanship
+  goals:
+  - improve skills in embroidery and lace-making
+  - expand clientele among the city's elite
+  - send her daughter to a respectable boarding school
+  start_place: La Maison de la Mode
+  workplace: La Maison de la Mode
+  job_title: Mantua Maker (Dressmaker)
+  residence_address: 60 Le Pont Noir Bridge
+- name: Henri Parker
+  sex: male
+  age: 33
+  job: Tailor, La Maison de la Mode
+  bio: Respected tailor; values style, quality.
+  values:
+  - excellence
+  - customer satisfaction
+  - innovation
+  goals:
+  - improve tailoring techniques
+  - increase customer base
+  - expand business
+  start_place: La Maison de la Mode
+  workplace: La Maison de la Mode
+  job_title: Tailor, La Maison de la Mode
+  residence_address: 40 Fleur de Lis Alley
+- name: Vital Nuttall
+  sex: male
+  age: 48
+  job: Café Proprietor
+  bio: Experienced restaurateur; values hospitality.
+  values:
+  - hospitality
+  - quality service
+  - community
+  goals:
+  - increase customer base
+  - improve menu offerings
+  - expand business
+  start_place: Le Petit Château Café
+  workplace: Le Petit Château Café
+  job_title: Café Proprietor
+  residence_address: 60 Côte des Étoiles Way
+- name: Amédée Deacon
+  sex: male
+  age: 33
+  job: Café Manager
+  bio: Experienced restaurateur; values hospitality.
+  values:
+  - hospitality
+  - quality service
+  - community
+  goals:
+  - increase customer base
+  - expand menu offerings
+  - create a welcoming atmosphere
+  start_place: Le Petit Château Café
+  workplace: Le Petit Château Café
+  job_title: Café Manager
+  residence_address: 100 Maison Rouge Lane
+- name: Ferdinando Cooke
+  sex: male
+  age: 58
+  job: Café Proprietor and Baker
+  bio: Respected entrepreneur; values tradition, family.
+  values:
+  - honesty
+  - family
+  - community
+  goals:
+  - increase café's reputation
+  - improve baking skills
+  - provide for family
+  start_place: Le Petit Château Café
+  workplace: Le Petit Château Café
+  job_title: Café Proprietor and Baker
+  residence_address: 110 Maison Rouge Lane
+- name: Colette Rickardson
+  sex: female
+  age: 48
+  job: Café Proprietress and Pastry Chef
+  bio: Warm-hearted entrepreneur; nourishes community with sweet treats.
+  values:
+  - family
+  - hospitality
+  - quality
+  goals:
+  - increase café's reputation
+  - improve pastry recipes
+  - save for retirement
+  start_place: Le Petit Château Café
+  workplace: Le Petit Château Café
+  job_title: Café Proprietress and Pastry Chef
+  residence_address: 50 L'Aurore Boulevard
+- name: Abdelkader Elmes
+  sex: male
+  age: 47
+  job: Café Proprietor
+  bio: Experienced restaurateur; values hospitality, tradition.
+  values:
+  - hospitality
+  - tradition
+  - community
+  goals:
+  - increase café's reputation
+  - expand business to nearby towns
+  - hire a loyal staff
+  start_place: Le Petit Château Café
+  workplace: Le Petit Château Café
+  job_title: Café Proprietor
+  residence_address: 70 Rivière Royale
+- name: Barbelette Massingberd
+  sex: female
+  age: 27
+  job: stable hand/messenger at Lumière Livery
+  bio: Dedicated worker; values hard work, loyalty.
+  values:
+  - honesty
+  - hard work
+  - loyalty
+  goals:
+  - improve skills as a horse handler
+  - become more independent financially
+  - help support family through stable work
+  start_place: Lumière Livery
+  workplace: Lumière Livery
+  job_title: stable hand/messenger at Lumière Livery
+  residence_address: 60 Le Jardin des Rêves Place
+- name: Alphonzo Bower
+  sex: male
+  age: 25
+  job: stable hand/stable owner at Lumière Livery
+  bio: Hardworking horseman; values loyalty.
+  values:
+  - loyalty
+  - responsibility
+  - fairness
+  goals:
+  - increase stable capacity
+  - improve horse breeding program
+  - provide for family
+  start_place: Lumière Livery
+  workplace: Lumière Livery
+  job_title: stable hand/stable owner at Lumière Livery
+  residence_address: 40 La Forêt Street
+- name: Augustina Bennett
+  sex: female
+  age: 42
+  job: Livery Stables Manager
+  bio: Experienced horse handler; values efficiency.
+  values:
+  - efficiency
+  - responsibility
+  - customer satisfaction
+  goals:
+  - increase livery business
+  - improve stabling conditions
+  - hire more staff
+  start_place: Lumière Livery
+  workplace: Lumière Livery
+  job_title: Livery Stables Manager
+  residence_address: 50 Fleur de Lis Alley
+- name: Vital Britton
+  sex: male
+  age: 25
+  job: stable hand/groom at Lumière Livery
+  bio: Hardworking young man; values reliability.
+  values:
+  - reliability
+  - dedication
+  - fairness
+  goals:
+  - become lead groom
+  - learn horse breeding
+  - provide for family
+  start_place: Lumière Livery
+  workplace: Lumière Livery
+  job_title: stable hand/groom at Lumière Livery
+  residence_address: 70 Côte des Étoiles Way
+- name: Zurzula Keir
+  sex: female
+  age: 25
+  job: stable hand and horse groom at Lumière Livery
+  bio: Dedicated equestrian; loves horses, values hard work.
+  values:
+  - honesty
+  - hard work
+  - animal welfare
+  goals:
+  - become lead stable hand
+  - learn advanced horse care techniques
+  - save enough to buy a small farm
+  start_place: Lumière Livery
+  workplace: Lumière Livery
+  job_title: stable hand and horse groom at Lumière Livery
+  residence_address: 70 Le Pont Noir Bridge
+- name: Giovannino Barnard
+  sex: male
+  age: 41
+  job: Head Gardener at Le Jardin de la Réussite
+  bio: Experienced gardener; cultivates beauty, values harmony.
+  values:
+  - harmony with nature
+  - beauty and order
+  - community service
+  goals:
+  - improve garden's reputation
+  - learn new horticultural techniques
+  - mentor young gardeners
+  start_place: Le Jardin de la Réussite
+  workplace: Le Jardin de la Réussite
+  job_title: Head Gardener at Le Jardin de la Réussite
+  residence_address: 80 Rivière Royale
+- name: Claude Chamberlayne
+  sex: male
+  age: 38
+  job: Head Gardener at Le Jardin de la Réussite
+  bio: Experienced horticulturist; cultivates success.
+  values:
+  - growth
+  - beauty
+  - legacy
+  goals:
+  - perfect a new rose variety
+  - improve garden's reputation
+  - pass on knowledge to apprentices
+  start_place: Le Jardin de la Réussite
+  workplace: Le Jardin de la Réussite
+  job_title: Head Gardener at Le Jardin de la Réussite
+  residence_address: 80 Le Pont Noir Bridge
+- name: Jehan Courtenay
+  sex: male
+  age: 14
+  job: Apprentice Gardener at Le Jardin de la Réussite
+  bio: Young gardener; eager to learn, loves nature.
+  values:
+  - hard work
+  - dedication
+  - growth
+  goals:
+  - master gardening skills
+  - help maintain the garden's beauty
+  - become a respected member of the community
+  start_place: Le Jardin de la Réussite
+  workplace: Le Jardin de la Réussite
+  job_title: Apprentice Gardener at Le Jardin de la Réussite
+  residence_address: 70 Les Jardins Road
+- name: Bartolomeo Barnard
+  sex: male
+  age: 37
+  job: Head Gardener at Le Jardin de la Réussite
+  bio: Experienced horticulturist; cultivates success.
+  values:
+  - stewardship of the land
+  - innovation in gardening techniques
+  - community service
+  goals:
+  - develop a new greenhouse design
+  - increase crop yields for local families
+  - establish Le Jardin de la Réussite as a model for sustainable gardening practices
+  start_place: Le Jardin de la Réussite
+  workplace: Le Jardin de la Réussite
+  job_title: Head Gardener at Le Jardin de la Réussite
+  residence_address: 60 L'Aurore Boulevard
+- name: Ursulinet Boothby
+  sex: female
+  age: 45
+  job: Head Gardener at Le Jardin de la Réussite
+  bio: Experienced gardener; nurturing growth, beauty.
+  values:
+  - harmony with nature
+  - creativity
+  - preservation of tradition
+  goals:
+  - perfect the art of floral arrangement
+  - create a community garden program
+  - pass on knowledge to apprentices
+  start_place: Le Jardin de la Réussite
+  workplace: Le Jardin de la Réussite
+  job_title: Head Gardener at Le Jardin de la Réussite
+  residence_address: 50 La Forêt Street
+- name: Marie Payne
+  sex: female
+  age: 44
+  job: Museum Curator at La Maison des Arts
+  bio: Respected educator; values knowledge, family.
+  values:
+  - education
+  - family
+  - preservation of culture
+  goals:
+  - establish a children's education program
+  - acquire rare artifacts for the museum
+  - publish a book on local history
+  start_place: La Maison des Arts
+  workplace: La Maison des Arts
+  job_title: Museum Curator at La Maison des Arts
+  residence_address: 70 L'Aurore Boulevard
+- name: Calixte Claridge
+  sex: male
+  age: 17
+  job: Apprentice Painter at La Maison des Arts
+  bio: Young artist; eager to learn; passionate about beauty.
+  values:
+  - creativity
+  - innovation
+  - self-expression
+  goals:
+  - master painting techniques
+  - create a famous work of art
+  - become a respected member of the artistic community
+  start_place: La Maison des Arts
+  workplace: La Maison des Arts
+  job_title: Apprentice Painter at La Maison des Arts
+  residence_address: 120 Maison Rouge Lane
+- name: Léonie Hepburn
+  sex: female
+  age: 29
+  job: Artistic Illustrator at La Maison des Arts
+  bio: Talented artist; nurtures creativity, age wisely.
+  values:
+  - artistic expression
+  - innovation
+  - collaboration
+  goals:
+  - create a new art movement
+  - establish a reputation in the city
+  - teach others her craft
+  start_place: La Maison des Arts
+  workplace: La Maison des Arts
+  job_title: Artistic Illustrator at La Maison des Arts
+  residence_address: 80 L'Aurore Boulevard
+- name: Félix Graham
+  sex: male
+  age: 26
+  job: Artistic Printmaker at La Maison des Arts
+  bio: Talented printmaker; seeks beauty in art, age, and wisdom.
+  values:
+  - artistry
+  - patience
+  - innovation
+  goals:
+  - master new techniques
+  - create a solo exhibition
+  - establish a mentorship program for young artists
+  start_place: La Maison des Arts
+  workplace: La Maison des Arts
+  job_title: Artistic Printmaker at La Maison des Arts
+  residence_address: 60 Fleur de Lis Alley
+- name: Damiano Henley
+  sex: male
+  age: 25
+  job: Artistic Printmaker at La Maison des Arts
+  bio: Talented printmaker; strives for artistic perfection.
+  values:
+  - creativity
+  - innovation
+  - beauty
+  goals:
+  - create a renowned art studio
+  - develop new printing techniques
+  - become a respected artist in the community
+  start_place: La Maison des Arts
+  workplace: La Maison des Arts
+  job_title: Artistic Printmaker at La Maison des Arts
+  residence_address: 130 Maison Rouge Lane
+- name: Nestorine Dorsey
+  sex: female
+  age: 33
+  job: Midwife/Healer at Le Coeur de la Vie
+  bio: Compassionate healer; values life, family.
+  values:
+  - life
+  - family
+  - helping others
+  goals:
+  - improve healthcare services
+  - increase community trust
+  - become respected leader
+  start_place: Le Coeur de la Vie
+  workplace: Le Coeur de la Vie
+  job_title: Midwife/Healer at Le Coeur de la Vie
+  residence_address: 80 Côte des Étoiles Way
+- name: Marie Meade
+  sex: female
+  age: 53
+  job: Midwife
+  bio: Experienced caregiver; values family, tradition.
+  values:
+  - family
+  - tradition
+  - compassion
+  goals:
+  - improve care for expectant mothers
+  - expand services to rural areas
+  - pass on knowledge to apprentice
+  start_place: Le Coeur de la Vie
+  workplace: Le Coeur de la Vie
+  job_title: Midwife
+  residence_address: 90 Le Pont Noir Bridge
+- name: Ferdinande Hopkins
+  sex: female
+  age: 41
+  job: Midwife/Obstetrician at Le Coeur de la Vie
+  bio: Compassionate caregiver; values life, family, and tradition.
+  values:
+  - respect for life
+  - family unity
+  - community support
+  goals:
+  - improve prenatal care services
+  - expand education programs
+  - establish a local hospital
+  start_place: Le Coeur de la Vie
+  workplace: Le Coeur de la Vie
+  job_title: Midwife/Obstetrician at Le Coeur de la Vie
+  residence_address: 90 Côte des Étoiles Way
+- name: Gérard Moore
+  sex: male
+  age: 36
+  job: Apothecary Assistant at Le Coeur de la Vie
+  bio: Knowledgeable assistant; values health and wellness.
+  values:
+  - health
+  - wellness
+  - family
+  goals:
+  - become a skilled apothecary
+  - learn about new remedies
+  - support the local community
+  start_place: Le Coeur de la Vie
+  workplace: Le Coeur de la Vie
+  job_title: Apothecary Assistant at Le Coeur de la Vie
+  residence_address: 80 Les Jardins Road
+- name: Gaspardinet Griffin
+  sex: female
+  age: 39
+  job: Midwife/Obstetrician
+  bio: Respected caregiver; values compassion, tradition.
+  values:
+  - compassion
+  - tradition
+  - family
+  goals:
+  - improve maternal care
+  - expand services to rural areas
+  - support local healthcare initiatives
+  start_place: Le Coeur de la Vie
+  workplace: Le Coeur de la Vie
+  job_title: Midwife/Obstetrician
+  residence_address: 140 Maison Rouge Lane
+- name: Urbain Brailsford
+  sex: male
+  age: 18
+  job: Apprentice Dreamweaver at La Maison des Rêves
+  bio: Young dreamweaver; passionate about artistry.
+  values:
+  - creativity
+  - innovation
+  - customer satisfaction
+  goals:
+  - master the craft of dreamweaving
+  - create a signature style
+  - become a respected member of La Maison des Rêves team
+  start_place: La Maison des Rêves
+  workplace: La Maison des Rêves
+  job_title: Apprentice Dreamweaver at La Maison des Rêves
+  residence_address: 150 Maison Rouge Lane
+- name: Antoinette Nutting
+  sex: female
+  age: 44
+  job: Innkeeper
+  bio: Widowed inn owner; values hospitality, family.
+  values:
+  - hospitality
+  - family
+  - community
+  goals:
+  - increase customer base
+  - improve inn's reputation
+  - provide for her daughter's education
+  start_place: La Maison des Rêves
+  workplace: La Maison des Rêves
+  job_title: Innkeeper
+  residence_address: 60 La Forêt Street
+- name: Carmencita Noakes
+  sex: female
+  age: 21
+  job: Dressmaker at La Maison des Rêves
+  bio: Talented seamstress; young, ambitious, and creative.
+  values:
+  - artistry
+  - independence
+  - self-expression
+  goals:
+  - establish own dressmaking business
+  - travel to Paris for fashion inspiration
+  - create a signature style that sets her apart
+  start_place: La Maison des Rêves
+  workplace: La Maison des Rêves
+  job_title: Dressmaker at La Maison des Rêves
+  residence_address: 160 Maison Rouge Lane
+- name: Hubertin Godfrey
+  sex: male
+  age: 50
+  job: Head Sommelier at La Maison des Rêves
+  bio: Experienced sommelier; values elegance, refinement.
+  values:
+  - hospitality
+  - wine connoisseurship
+  - customer satisfaction
+  goals:
+  - improve wine selection
+  - enhance customer experience
+  - increase sales
+  start_place: La Maison des Rêves
+  workplace: La Maison des Rêves
+  job_title: Head Sommelier at La Maison des Rêves
+  residence_address: 100 Le Pont Noir Bridge
+- name: Hortensinee Gauntlett
+  sex: female
+  age: 16
+  job: La Maison des Rêves' Servant
+  bio: Young servant; kind-hearted, ambitious.
+  values:
+  - loyalty
+  - discretion
+  - respect
+  goals:
+  - improve skills as a maid
+  - gain the trust of Madame Dupont
+  - one day become a lady's companion
+  start_place: La Maison des Rêves
+  workplace: La Maison des Rêves
+  job_title: La Maison des Rêves' Servant
+  residence_address: 70 Fleur de Lis Alley
+- name: Alphonse Mitford
+  sex: male
+  age: 30
+  job: blacksmith at Le Jardin de la Vie
+  bio: Respected craftsman; values tradition, family.
+  values:
+  - honesty
+  - hard work
+  - community
+  goals:
+  - improve working conditions for apprentices
+  - increase sales through innovation
+  - secure a stable future for his wife and children
+  start_place: Le Jardin de la Vie
+  workplace: Le Jardin de la Vie
+  job_title: blacksmith at Le Jardin de la Vie
+  residence_address: 90 Les Jardins Road
+- name: Amabelle Horsfall
+  sex: female
+  age: 27
+  job: Head Florist at Le Jardin de la Vie
+  bio: Respected florist; brings joy to others.
+  values:
+  - beauty
+  - creativity
+  - family
+  goals:
+  - improve flower arrangements
+  - increase customer satisfaction
+  - provide for family
+  start_place: Le Jardin de la Vie
+  workplace: Le Jardin de la Vie
+  job_title: Head Florist at Le Jardin de la Vie
+  residence_address: 70 La Forêt Street
+- name: Yvornette Merewether
+  sex: female
+  age: 52
+  job: Head Gardener at Le Jardin de la Vie
+  bio: Experienced horticulturist; nurturing growth, beauty.
+  values:
+  - preserving traditional gardening methods
+  - innovating sustainable practices
+  - passing on knowledge to apprentices
+  goals:
+  - develop a unique and thriving botanical garden
+  - train the next generation of gardeners
+  - contribute to the city's green spaces
+  start_place: Le Jardin de la Vie
+  workplace: Le Jardin de la Vie
+  job_title: Head Gardener at Le Jardin de la Vie
+  residence_address: 70 Le Jardin des Rêves Place
+- name: Sylviee Ridgeway
+  sex: female
+  age: 41
+  job: Head Gardener at Le Jardin de la Vie
+  bio: Experienced horticulturist; nurtures life and beauty.
+  values:
+  - nature
+  - nurturing
+  - simplicity
+  goals:
+  - improve garden's reputation
+  - develop new gardening techniques
+  - create a peaceful oasis for the community
+  start_place: Le Jardin de la Vie
+  workplace: Le Jardin de la Vie
+  job_title: Head Gardener at Le Jardin de la Vie
+  residence_address: 110 Le Pont Noir Bridge
+- name: Georgette Dawes
+  sex: female
+  age: 64
+  job: Head Gardener at Le Jardin de la Vie
+  bio: Experienced horticulturist; nurtures life and beauty.
+  values:
+  - nature
+  - self-sufficiency
+  - generosity
+  goals:
+  - perfect a new rose hybrid
+  - increase garden's biodiversity
+  - pass on knowledge to apprentices
+  start_place: Le Jardin de la Vie
+  workplace: Le Jardin de la Vie
+  job_title: Head Gardener at Le Jardin de la Vie
+  residence_address: 80 Fleur de Lis Alley
+- name: Rachidinettee Mitford
+  sex: female
+  age: 33
+  job: Maison des Émotions' Empathic Listener
+  bio: Compassionate listener; guides emotions with empathy.
+  values:
+  - emotional understanding
+  - compassion
+  - self-awareness
+  goals:
+  - deepen emotional connections in the community
+  - improve listening skills
+  - establish a reputation as a trusted empath
+  start_place: La Maison des Émotions
+  workplace: La Maison des Émotions
+  job_title: Maison des Émotions' Empathic Listener
+  residence_address: 90 L'Aurore Boulevard
+- name: Gaspardine Bowes
+  sex: female
+  age: 37
+  job: Midwife/Healer at La Maison des Émotions
+  bio: Compassionate caregiver; values empathy, kindness.
+  values:
+  - empathy
+  - compassion
+  - selflessness
+  goals:
+  - improve healthcare services
+  - increase public awareness about mental health
+  - establish a community center for emotional support
+  start_place: La Maison des Émotions
+  workplace: La Maison des Émotions
+  job_title: Midwife/Healer at La Maison des Émotions
+  residence_address: 100 Côte des Étoiles Way
+- name: Dulcie Redmond
+  sex: female
+  age: 32
+  job: Maison des Émotions' Counselor
+  bio: Empathetic listener; values emotional understanding.
+  values:
+  - empathy
+  - compassion
+  - self-awareness
+  goals:
+  - improve counseling techniques
+  - establish a reputation as a trusted counselor
+  - help clients find inner peace
+  start_place: La Maison des Émotions
+  workplace: La Maison des Émotions
+  job_title: Maison des Émotions' Counselor
+  residence_address: 100 Les Jardins Road
+- name: Gabriel Longfield
+  sex: male
+  age: 22
+  job: Emotional Research Assistant at La Maison des Émotions
+  bio: Young scholar; seeks balance between reason and emotion.
+  values:
+  - empathy
+  - knowledge
+  - self-awareness
+  goals:
+  - improve emotional intelligence in Lumière's citizens
+  - conduct groundbreaking research on human emotions
+  - become a respected authority in the field of emotional studies
+  start_place: La Maison des Émotions
+  workplace: La Maison des Émotions
+  job_title: Emotional Research Assistant at La Maison des Émotions
+  residence_address: 80 Place du Soleil
+- name: Ferdinandine Ellis
+  sex: female
+  age: 33
+  job: Midwife/Healer at La Maison des Émotions
+  bio: Compassionate healer; values empathy, kindness.
+  values:
+  - empathy
+  - compassion
+  - selflessness
+  goals:
+  - improve healthcare services
+  - learn about new medical practices
+  - help those in need
+  start_place: La Maison des Émotions
+  workplace: La Maison des Émotions
+  job_title: Midwife/Healer at La Maison des Émotions
+  residence_address: 120 Le Pont Noir Bridge
+- name: Grégoire Galton
+  sex: male
+  age: 52
+  job: bookshop owner/proprietor
+  bio: Wise bookseller; values knowledge, community.
+  values:
+  - knowledge
+  - community
+  - respect
+  goals:
+  - increase book selection
+  - host literary events
+  - support local education
+  start_place: Le Coq d'Argent Bookshop
+  workplace: Le Coq d'Argent Bookshop
+  job_title: bookshop owner/proprietor
+  residence_address: 110 Côte des Étoiles Way
+- name: Pascal Fortescue
+  sex: male
+  age: 23
+  job: bookshop assistant
+  bio: Young scholar; loves literature, values knowledge.
+  values:
+  - integrity
+  - education
+  - curiosity
+  goals:
+  - become a skilled bookseller
+  - learn multiple languages
+  - travel to distant lands
+  start_place: Le Coq d'Argent Bookshop
+  workplace: Le Coq d'Argent Bookshop
+  job_title: bookshop assistant
+  residence_address: 90 Rivière Royale
+- name: Racheline Galton
+  sex: female
+  age: 25
+  job: Bookshop Clerk
+  bio: Intelligent and organized bookshop clerk; values knowledge.
+  values:
+  - integrity
+  - education
+  - independence
+  goals:
+  - become a bookstore owner
+  - improve reading skills
+  - travel to distant lands
+  start_place: Le Coq d'Argent Bookshop
+  workplace: Le Coq d'Argent Bookshop
+  job_title: Bookshop Clerk
+  residence_address: 120 Côte des Étoiles Way
+- name: Kalixteine Cottrell
+  sex: male
+  age: 22
+  job: Bookshop Assistant
+  bio: Knowledgeable young assistant; values literature.
+  values:
+  - integrity
+  - education
+  - community service
+  goals:
+  - become a respected book expert
+  - learn multiple languages
+  - help establish a local library
+  start_place: Le Coq d'Argent Bookshop
+  workplace: Le Coq d'Argent Bookshop
+  job_title: Bookshop Assistant
+  residence_address: 130 Côte des Étoiles Way
+- name: Elisabetta Leigh
+  sex: female
+  age: 38
+  job: bookshop proprietor
+  bio: Intelligent businesswoman; values knowledge.
+  values:
+  - education
+  - independence
+  - self-improvement
+  goals:
+  - increase book sales
+  - expand shop offerings
+  - support local literacy programs
+  start_place: Le Coq d'Argent Bookshop
+  workplace: Le Coq d'Argent Bookshop
+  job_title: bookshop proprietor
+  residence_address: 80 Le Jardin des Rêves Place
+- name: Jasperin Rolfe
+  sex: male
+  age: 11
+  job: Apprentice at La Maison de la Vieillé (Old People's Home)
+  bio: Young apprentice; learning to care for elderly residents.
+  values:
+  - respect
+  - duty
+  - kindness
+  goals:
+  - become a skilled caregiver
+  - help with household chores
+  - learn to read and write
+  start_place: La Maison de la Vieillé
+  workplace: La Maison de la Vieillé
+  job_title: Apprentice at La Maison de la Vieillé (Old People's Home)
+  residence_address: 90 Le Jardin des Rêves Place
+- name: Gaspardin Isaacson
+  sex: male
+  age: 33
+  job: Resident of La Maison de la Vieillé (Home for the Aged)
+  bio: Devoted caregiver; values compassion, duty.
+  values:
+  - compassion
+  - duty
+  - respect
+  goals:
+  - improve care facilities
+  - support residents' well-being
+  - expand services
+  start_place: La Maison de la Vieillé
+  workplace: La Maison de la Vieillé
+  job_title: Resident of La Maison de la Vieillé (Home for the Aged)
+  residence_address: 170 Maison Rouge Lane
+- name: Aurore Pollard
+  sex: female
+  age: 31
+  job: Resident Caregiver at La Maison de la Vieillé
+  bio: Compassionate caregiver; values kindness, dedication.
+  values:
+  - kindness
+  - dedication
+  - respect for the elderly
+  goals:
+  - improve care quality
+  - expand services to more residents
+  - build strong relationships with clients and staff
+  start_place: La Maison de la Vieillé
+  workplace: La Maison de la Vieillé
+  job_title: Resident Caregiver at La Maison de la Vieillé
+  residence_address: 90 Fleur de Lis Alley
+- name: Edmée Cornish
+  sex: female
+  age: 30
+  job: midwife at La Maison de la Vieillé
+  bio: Compassionate caregiver; values tradition.
+  values:
+  - honesty
+  - hard work
+  - family
+  goals:
+  - improve care for elderly residents
+  - learn new methods to alleviate suffering
+  - support her own family's well-being
+  start_place: La Maison de la Vieillé
+  workplace: La Maison de la Vieillé
+  job_title: midwife at La Maison de la Vieillé
+  residence_address: 180 Maison Rouge Lane
+- name: Cécilie Meredith
+  sex: female
+  age: 48
+  job: Resident Caregiver at La Maison de la Vieillé
+  bio: Compassionate caregiver; values dignity, kindness.
+  values:
+  - dignity
+  - compassion
+  - respect
+  goals:
+  - improve care quality
+  - expand services to more residents
+  - build strong relationships with staff and family members
+  start_place: La Maison de la Vieillé
+  workplace: La Maison de la Vieillé
+  job_title: Resident Caregiver at La Maison de la Vieillé
+  residence_address: 130 Le Pont Noir Bridge
+- name: Jehan Austen
+  sex: male
+  age: 37
+  job: Hotel Concierge
+  bio: Efficient host; values discretion.
+  values:
+  - discretion
+  - hospitality
+  - loyalty
+  goals:
+  - improve guest experience
+  - increase hotel revenue
+  - build strong relationships with staff
+  start_place: Le Petit Château Hotel
+  workplace: Le Petit Château Hotel
+  job_title: Hotel Concierge
+  residence_address: 190 Maison Rouge Lane
+- name: Carmencita Langdale
+  sex: female
+  age: 25
+  job: Hotel Chambermaid
+  bio: Dedicated servant; values cleanliness, kindness.
+  values:
+  - cleanliness
+  - kindness
+  - hard work
+  goals:
+  - improve hotel's reputation
+  - learn English
+  - save for own home
+  start_place: Le Petit Château Hotel
+  workplace: Le Petit Château Hotel
+  job_title: Hotel Chambermaid
+  residence_address: 90 Place du Soleil
+- name: Benjamin Bunting
+  sex: male
+  age: 31
+  job: Hotel Porter (Le Petit Château Hotel)
+  bio: Dedicated servant; values discretion.
+  values:
+  - discretion
+  - loyalty
+  - respect
+  goals:
+  - secure a promotion
+  - improve living conditions for family
+  - become an important figure in the community
+  start_place: Le Petit Château Hotel
+  workplace: Le Petit Château Hotel
+  job_title: Hotel Porter (Le Petit Château Hotel)
+  residence_address: 100 Place du Soleil
+- name: Jasperin Lowe
+  sex: male
+  age: 24
+  job: Hotel Porter/Concierge at Le Petit Château Hotel
+  bio: Dedicated hotel staff; values discretion.
+  values:
+  - discretion
+  - hospitality
+  - loyalty
+  goals:
+  - improve customer service skills
+  - learn more about hotel operations
+  - advance to a management role
+  start_place: Le Petit Château Hotel
+  workplace: Le Petit Château Hotel
+  job_title: Hotel Porter/Concierge at Le Petit Château Hotel
+  residence_address: 140 Le Pont Noir Bridge
+- name: Antonin Skynner
+  sex: male
+  age: 22
+  job: Hotel Porter (Le Petit Château Hotel)
+  bio: Young, ambitious porter; values discretion.
+  values:
+  - discretion
+  - loyalty
+  - respect
+  goals:
+  - get promoted to concierge
+  - learn English fluently
+  - support family financially
+  start_place: Le Petit Château Hotel
+  workplace: Le Petit Château Hotel
+  job_title: Hotel Porter (Le Petit Château Hotel)
+  residence_address: 150 Le Pont Noir Bridge
+- name: Leontina Lightfoot
+  sex: female
+  age: 45
+  job: Mantua Maker (Dressmaker)
+  bio: Experienced dressmaker; values elegance, precision.
+  values:
+  - quality
+  - attention to detail
+  - customer satisfaction
+  goals:
+  - improve skills in embroidery and lace-making
+  - expand business to include custom millinery
+  - establish a reputation as the premier fashion house in Lumière
+  start_place: La Maison de la Mode Élégance
+  workplace: La Maison de la Mode Élégance
+  job_title: Mantua Maker (Dressmaker)
+  residence_address: 110 Les Jardins Road
+- name: Alban Isaacson
+  sex: male
+  age: 42
+  job: Fashion Designer/Couturier at La Maison de la Mode Élégance
+  bio: Respected designer; values elegance, innovation.
+  values:
+  - artistry
+  - innovation
+  - customer satisfaction
+  goals:
+  - create a signature collection
+  - establish a reputation in Paris
+  - expand the business to other cities
+  start_place: La Maison de la Mode Élégance
+  workplace: La Maison de la Mode Élégance
+  job_title: Fashion Designer/Couturier at La Maison de la Mode Élégance
+  residence_address: 200 Maison Rouge Lane
+- name: Édouard Minchin
+  sex: male
+  age: 19
+  job: Tailor's Assistant at La Maison de la Mode Élégance
+  bio: Young apprentice; eager to learn fashion trends.
+  values:
+  - attention to detail
+  - fashion innovation
+  - customer satisfaction
+  goals:
+  - become a skilled tailor
+  - create unique designs
+  - gain recognition in the fashion world
+  start_place: La Maison de la Mode Élégance
+  workplace: La Maison de la Mode Élégance
+  job_title: Tailor's Assistant at La Maison de la Mode Élégance
+  residence_address: 110 Place du Soleil
+- name: Nestorin Monk
+  sex: male
+  age: 11
+  job: Apprentice Tailor at La Maison de la Mode Élégance
+  bio: Young apprentice; eager to learn fashion skills.
+  values:
+  - respect for tradition
+  - attention to detail
+  - customer satisfaction
+  goals:
+  - master the art of tailoring
+  - create beautiful and elegant garments
+  - become a trusted member of La Maison de la Mode Élégance team
+  start_place: La Maison de la Mode Élégance
+  workplace: La Maison de la Mode Élégance
+  job_title: Apprentice Tailor at La Maison de la Mode Élégance
+  residence_address: 80 La Forêt Street
+- name: Anastasia Henley
+  sex: female
+  age: 28
+  job: Milliner's Assistant
+  bio: Young millinery artist; values elegance, precision.
+  values:
+  - creativity
+  - attention to detail
+  - customer satisfaction
+  goals:
+  - perfect a new hat design
+  - increase sales at La Maison de la Mode Élégance
+  - learn from the head milliner
+  start_place: La Maison de la Mode Élégance
+  workplace: La Maison de la Mode Élégance
+  job_title: Milliner's Assistant
+  residence_address: 90 La Forêt Street
+- name: Zdenka Fellows
+  sex: female
+  age: 48
+  job: Museum Curator
+  bio: Respected curator; values knowledge, beauty.
+  values:
+  - preservation of art
+  - education
+  - beauty
+  goals:
+  - acquire rare artifacts
+  - improve museum facilities
+  - share knowledge with community
+  start_place: Le Coeur de l'Art
+  workplace: Le Coeur de l'Art
+  job_title: Museum Curator
+  residence_address: 100 Le Jardin des Rêves Place
+- name: Gérardinet Clapham
+  sex: male
+  age: 7
+  job: Apprentice at Le Coeur de l'Art (a small art studio)
+  bio: Young apprentice; learning the ways of art and craft.
+  values:
+  - creativity
+  - hard work
+  - imagination
+  goals:
+  - become a skilled artist
+  - learn from master artists
+  - create something beautiful for the city
+  start_place: Le Coeur de l'Art
+  workplace: Le Coeur de l'Art
+  job_title: Apprentice at Le Coeur de l'Art (a small art studio)
+  residence_address: 120 Les Jardins Road
+- name: Giovanna Greenhill
+  sex: female
+  age: 48
+  job: Milliner at Le Coeur de l'Art
+  bio: Respected milliner; values elegance, family.
+  values:
+  - family
+  - honesty
+  - beauty
+  goals:
+  - improve skills
+  - increase business
+  - support local artists
+  start_place: Le Coeur de l'Art
+  workplace: Le Coeur de l'Art
+  job_title: Milliner at Le Coeur de l'Art
+  residence_address: 100 La Forêt Street
+- name: Thibautinette Dalrymple
+  sex: female
+  age: 42
+  job: milliner and hat maker
+  bio: Respected businesswoman; values elegance, tradition.
+  values:
+  - quality craftsmanship
+  - customer satisfaction
+  - family legacy
+  goals:
+  - increase sales
+  - expand product line
+  - pass on skills to apprentice
+  start_place: Le Coeur de l'Art
+  workplace: Le Coeur de l'Art
+  job_title: milliner and hat maker
+  residence_address: 130 Les Jardins Road
+- name: Kléophile Jordan
+  sex: female
+  age: 37
+  job: Artisan's Assistant at Le Coeur de l'Art
+  bio: Devoted artisan; values beauty, tradition.
+  values:
+  - beauty
+  - tradition
+  - craftsmanship
+  goals:
+  - master a new craft technique
+  - assist the lead artisan in creating a masterpiece
+  - help establish Le Coeur de l'Art as the premier art studio in Lumière
+  start_place: Le Coeur de l'Art
+  workplace: Le Coeur de l'Art
+  job_title: Artisan's Assistant at Le Coeur de l'Art
+  residence_address: 100 Rivière Royale
+- name: Thibautine Edwards
+  sex: female
+  age: 23
+  job: Museum Curator
+  bio: Intelligent and artistic; values knowledge.
+  values:
+  - preservation of art
+  - education
+  - independence
+  goals:
+  - develop La Maison des Arts Étouffés
+  - acquire rare artifacts
+  - establish reputation as curator
+  start_place: La Maison des Arts Étouffés
+  workplace: La Maison des Arts Étouffés
+  job_title: Museum Curator
+  residence_address: 120 Place du Soleil
+- name: Eloïse Dickenson
+  sex: female
+  age: 58
+  job: Museum Curator
+  bio: Respected educator; values knowledge, family.
+  values:
+  - education
+  - family
+  - preservation
+  goals:
+  - acquire rare artifacts
+  - establish a children's museum program
+  - publish research on local history
+  start_place: La Maison des Arts Étouffés
+  workplace: La Maison des Arts Étouffés
+  job_title: Museum Curator
+  residence_address: 210 Maison Rouge Lane
+- name: Justine Allenby
+  sex: female
+  age: 32
+  job: Museum Curator
+  bio: Intelligent and resourceful curator; values knowledge.
+  values:
+  - preservation of art
+  - education
+  - innovation
+  goals:
+  - acquire rare artifacts
+  - improve museum facilities
+  - promote cultural understanding
+  start_place: La Maison des Arts Étouffés
+  workplace: La Maison des Arts Étouffés
+  job_title: Museum Curator
+  residence_address: 140 Les Jardins Road
+- name: Giovanni Haydon
+  sex: male
+  age: 33
+  job: Artisan and Curator at La Maison des Arts Étouffés
+  bio: Devoted art conservator; cherishes beauty, tradition.
+  values:
+  - artistic integrity
+  - preservation of heritage
+  - community engagement
+  goals:
+  - perfect the art of restoration
+  - establish a renowned collection
+  - build a lasting legacy
+  start_place: La Maison des Arts Étouffés
+  workplace: La Maison des Arts Étouffés
+  job_title: Artisan and Curator at La Maison des Arts Étouffés
+  residence_address: 150 Les Jardins Road
+- name: Marcella Mackenzie
+  sex: female
+  age: 31
+  job: Museum Curator
+  bio: Intellectual patron; values knowledge, beauty.
+  values:
+  - preservation of art
+  - education
+  - community engagement
+  goals:
+  - acquire rare artifacts
+  - establish a library
+  - host cultural events
+  start_place: La Maison des Arts Étouffés
+  workplace: La Maison des Arts Étouffés
+  job_title: Museum Curator
+  residence_address: 100 Fleur de Lis Alley
+- name: Damian Courtenay
+  sex: male
+  age: 29
+  job: Head Gardener at Le Jardin de la Vieillé
+  bio: Experienced gardener; nurtures life and beauty.
+  values:
+  - stewardship
+  - growth
+  - harmony
+  goals:
+  - improve garden's biodiversity
+  - mentor young apprentices
+  - create a community garden
+  start_place: Le Jardin de la Vieillé
+  workplace: Le Jardin de la Vieillé
+  job_title: Head Gardener at Le Jardin de la Vieillé
+  residence_address: 220 Maison Rouge Lane
+- name: Guillermina Hopton
+  sex: female
+  age: 33
+  job: Head Gardener at Le Jardin de la Vieillé
+  bio: Experienced horticulturist; nurtures life.
+  values:
+  - nature
+  - fertility
+  - generosity
+  goals:
+  - improve garden's biodiversity
+  - share knowledge with community
+  - create a peaceful oasis
+  start_place: Le Jardin de la Vieillé
+  workplace: Le Jardin de la Vieillé
+  job_title: Head Gardener at Le Jardin de la Vieillé
+  residence_address: 110 Rivière Royale
+- name: Eléonore Lowndes
+  sex: female
+  age: 30
+  job: gardener/groundskeeper
+  bio: Devoted horticulturist; nurtures life.
+  values:
+  - stewardship
+  - growth
+  - harmony
+  goals:
+  - perfect a new rose variety
+  - create a community garden
+  - share knowledge with others
+  start_place: Le Jardin de la Vieillé
+  workplace: Le Jardin de la Vieillé
+  job_title: gardener/groundskeeper
+  residence_address: 110 Fleur de Lis Alley
+- name: Amadou Mansell
+  sex: male
+  age: 24
+  job: Gardener at Le Jardin de la Vieillé
+  bio: Devoted gardener; nurtures life.
+  values:
+  - nature
+  - growth
+  - care
+  goals:
+  - improve garden's beauty
+  - learn new plant species
+  - create community garden
+  start_place: Le Jardin de la Vieillé
+  workplace: Le Jardin de la Vieillé
+  job_title: Gardener at Le Jardin de la Vieillé
+  residence_address: 160 Le Pont Noir Bridge
+- name: Azor Corran
+  sex: male
+  age: 38
+  job: Head Gardener at Le Jardin de la Vieillé
+  bio: Experienced gardener; nurtures life and beauty.
+  values:
+  - nature
+  - stewardship
+  - beauty
+  goals:
+  - improve garden's biodiversity
+  - learn permaculture techniques
+  - pass on knowledge to apprentices
+  start_place: Le Jardin de la Vieillé
+  workplace: Le Jardin de la Vieillé
+  job_title: Head Gardener at Le Jardin de la Vieillé
+  residence_address: 110 Le Jardin des Rêves Place
+- name: Zélinée Bristowe
+  sex: female
+  age: 41
+  job: Maison de Parfumerie Shop Assistant
+  bio: Experienced perfumery shop assistant; values elegance, refinement.
+  values:
+  - beauty
+  - refinement
+  - customer satisfaction
+  goals:
+  - improve perfume knowledge
+  - increase sales skills
+  - advise customers on elegant fragrances
+  start_place: La Maison des Émotions Élégantes
+  workplace: La Maison des Émotions Élégantes
+  job_title: Maison de Parfumerie Shop Assistant
+  residence_address: 130 Place du Soleil
+- name: Beatrixe Doyley
+  sex: female
+  age: 35
+  job: Maison de Parfumerie Manageress (fragrance shop)
+  bio: Sophisticated entrepreneur; values elegance.
+  values:
+  - refinement
+  - innovation
+  - customer satisfaction
+  goals:
+  - increase sales
+  - expand product line
+  - improve employee skills
+  start_place: La Maison des Émotions Élégantes
+  workplace: La Maison des Émotions Élégantes
+  job_title: Maison de Parfumerie Manageress (fragrance shop)
+  residence_address: 100 L'Aurore Boulevard
+- name: Sylvester Porter
+  sex: male
+  age: 37
+  job: Maison des Émotions Élégantes - Emotional Experience Consultant
+  bio: Sophisticated guide; values elegance, refinement.
+  values:
+  - emotional intelligence
+  - cultural sensitivity
+  - discretion
+  goals:
+  - improve client satisfaction ratings
+  - develop new emotional experiences
+  - expand services to upper class
+  start_place: La Maison des Émotions Élégantes
+  workplace: La Maison des Émotions Élégantes
+  job_title: Maison des Émotions Élégantes - Emotional Experience Consultant
+  residence_address: 230 Maison Rouge Lane
+- name: Odonne Dillwyn
+  sex: male
+  age: 30
+  job: blacksmith's apprentice
+  bio: Hardworking craftsman; values tradition.
+  values:
+  - honesty
+  - hard work
+  - community
+  goals:
+  - become master blacksmith
+  - improve working conditions for apprentices
+  - save enough to buy own shop
+  start_place: La Maison des Émotions Élégantes, Blacksmith Shop
+  workplace: La Maison des Émotions Élégantes, Blacksmith Shop
+  job_title: blacksmith's apprentice
+  residence_address: 110 L'Aurore Boulevard
+- name: Ahasuerus Davidson
+  sex: male
+  age: 49
+  job: ' proprietor of La Maison des Émotions Élégantes, an establishment offering
+    emotional support and guidance to the citizens of Lumière'
+  bio: Respected gentleman; values elegance, refinement, and the well-being of others.
+  values:
+  - emotional intelligence
+  - compassion
+  - discretion
+  goals:
+  - expand services to reach a wider audience
+  - develop a reputation as a trusted emotional guide
+  - establish a community program for emotional support
+  start_place: La Maison des Émotions Élégantes
+  workplace: La Maison des Émotions Élégantes
+  job_title: ' proprietor of La Maison des Émotions Élégantes, an establishment offering
+    emotional support and guidance to the citizens of Lumière'
+  residence_address: 170 Le Pont Noir Bridge
+- name: Georges Hayward
+  sex: male
+  age: 8
+  job: Café Assistant
+  bio: Young apprentice; loves sweets and stories.
+  values:
+  - kindness
+  - curiosity
+  - friendship
+  goals:
+  - learn to make perfect pastries
+  - become a skilled storyteller
+  - make new friends at the café
+  start_place: Le Coq d'Argent Café
+  workplace: Le Coq d'Argent Café
+  job_title: Café Assistant
+  residence_address: 240 Maison Rouge Lane
+- name: André Cartwright
+  sex: male
+  age: 20
+  job: waiter
+  bio: Young and ambitious; values hospitality.
+  values:
+  - hospitality
+  - hard work
+  - customer satisfaction
+  goals:
+  - become a head waiter
+  - learn multiple languages
+  - travel to Europe
+  start_place: Le Coq d'Argent Café
+  workplace: Le Coq d'Argent Café
+  job_title: waiter
+  residence_address: 120 Rivière Royale
+- name: Léonie Jenkinson
+  sex: female
+  age: 39
+  job: Café waitress
+  bio: Warm-hearted server; values family, tradition.
+  values:
+  - family
+  - tradition
   - hospitality
   goals:
-  - improve menu offerings
-  - host a successful dinner party for the city's elite
-  - train an apprentice to take over his position
-  start_place: Lumière Restaurant
-  workplace: Lumière Restaurant
-  job_title: Head Chef at Lumière Restaurant
-  residence_address: 30 Forêt d'Amour
+  - learn English to improve career prospects
+  - save enough money for a small house
+  - start her own bakery one day
+  start_place: Le Coq d'Argent Café
+  workplace: Le Coq d'Argent Café
+  job_title: Café waitress
+  residence_address: 120 Fleur de Lis Alley
+- name: Georgette Rivers
+  sex: female
+  age: 23
+  job: waitress
+  bio: Young server; warm smile; loves people.
+  values:
+  - friendship
+  - loyalty
+  - happiness
+  goals:
+  - get promoted
+  - learn more about the city's history
+  - travel to Paris
+  start_place: Le Coq d'Argent Café
+  workplace: Le Coq d'Argent Café
+  job_title: waitress
+  residence_address: 160 Les Jardins Road
+- name: Delphine Hughes
+  sex: female
+  age: 38
+  job: Café waitress
+  bio: Warm hostess; values hospitality, family.
+  values:
+  - hospitality
+  - family
+  - community
+  goals:
+  - learn English
+  - improve café's reputation
+  - save for a house
+  start_place: Le Coq d'Argent Café
+  workplace: Le Coq d'Argent Café
+  job_title: Café waitress
+  residence_address: 130 Fleur de Lis Alley
+- name: Balthasar Kemmis
+  sex: male
+  age: 14
+  job: Apprentice at La Maison de la Vieillé Élégance (a small, high-end tailor shop)
+  bio: Young apprentice; eager to learn the art of tailoring.
+  values:
+  - respect for tradition
+  - attention to detail
+  - honesty in business
+  goals:
+  - become a master tailor
+  - learn to create intricate designs
+  - help support family through work
+  start_place: La Maison de la Vieillé Élégance
+  workplace: La Maison de la Vieillé Élégance
+  job_title: Apprentice at La Maison de la Vieillé Élégance (a small, high-end tailor
+    shop)
+  residence_address: 120 L'Aurore Boulevard
+- name: Benjamin Churchill
+  sex: male
+  age: 33
+  job: Tailor's Assistant at La Maison de la Vieillé Élégance
+  bio: Respectful assistant; values elegance, precision.
+  values:
+  - precision
+  - respect for tradition
+  - customer satisfaction
+  goals:
+  - become a master tailor
+  - learn new fashion techniques
+  - improve customer service skills
+  start_place: La Maison de la Vieillé Élégance
+  workplace: La Maison de la Vieillé Élégance
+  job_title: Tailor's Assistant at La Maison de la Vieillé Élégance
+  residence_address: 250 Maison Rouge Lane
+- name: Georgette Llewellyn
+  sex: female
+  age: 34
+  job: Milliner and Dressmaker at La Maison de la Vieillé Élégance
+  bio: Respected seamstress; values elegance, family.
+  values:
+  - elegance
+  - family
+  - loyalty
+  goals:
+  - improve skills in embroidery
+  - increase business through referrals
+  - support her daughter's education
+  start_place: La Maison de la Vieillé Élégance
+  workplace: La Maison de la Vieillé Élégance
+  job_title: Milliner and Dressmaker at La Maison de la Vieillé Élégance
+  residence_address: 140 Côte des Étoiles Way
+- name: Damasin Lumley
+  sex: male
+  age: 5
+  job: Apprentice at La Maison de la Vieillé Élégance (a small, upscale antique shop)
+  bio: Young apprentice; learning the value of fine craftsmanship.
+  values:
+  - quality
+  - patience
+  - respect
+  goals:
+  - learn to make a perfect wooden toy
+  - help with daily tasks and chores
+  - become more independent
+  start_place: La Maison de la Vieillé Élégance
+  workplace: La Maison de la Vieillé Élégance
+  job_title: Apprentice at La Maison de la Vieillé Élégance (a small, upscale antique
+    shop)
+  residence_address: 140 Place du Soleil
+- name: Xavier Cresswell
+  sex: male
+  age: 39
+  job: Tailor, La Maison de la Vieillé Élégance
+  bio: Respectful craftsman; values elegance, tradition.
+  values:
+  - honesty
+  - hard work
+  - respect for elders
+  goals:
+  - improve tailoring skills
+  - increase customer base
+  - support local economy
+  start_place: La Maison de la Vieillé Élégance
+  workplace: La Maison de la Vieillé Élégance
+  job_title: Tailor, La Maison de la Vieillé Élégance
+  residence_address: 120 Le Jardin des Rêves Place
+- name: Grégoirene Bruen
+  sex: male
+  age: 34
+  job: Bakery Assistant
+  bio: Responsible baker; values quality, tradition.
+  values:
+  - quality
+  - tradition
+  - family
+  goals:
+  - master pastry-making skills
+  - help Le Petit Château Bakery grow
+  - provide for family's future
+  start_place: Le Petit Château Bakery
+  workplace: Le Petit Château Bakery
+  job_title: Bakery Assistant
+  residence_address: 170 Les Jardins Road
+- name: Sylvie Cameron
+  sex: female
+  age: 16
+  job: Bakery Assistant
+  bio: Young apprentice; learns quickly; loves sweet treats.
+  values:
+  - hard work
+  - loyalty
+  - honesty
+  goals:
+  - master the art of pastry-making
+  - help Le Petit Château Bakery grow
+  - learn to read and write
+  start_place: Le Petit Château Bakery
+  workplace: Le Petit Château Bakery
+  job_title: Bakery Assistant
+  residence_address: 130 L'Aurore Boulevard
+- name: Gaspardine Bullock
+  sex: female
+  age: 31
+  job: Bakery Assistant
+  bio: Dedicated baker; values quality, family.
+  values:
+  - quality
+  - family
+  - community
+  goals:
+  - master new recipes
+  - support bakery growth
+  - care for loved ones
+  start_place: Le Petit Château Bakery
+  workplace: Le Petit Château Bakery
+  job_title: Bakery Assistant
+  residence_address: 150 Place du Soleil
+- name: Yvonne Denison
+  sex: female
+  age: 32
+  job: Bakery Assistant
+  bio: Hardworking baker's apprentice; values tradition.
+  values:
+  - honesty
+  - hard work
+  - quality baked goods
+  goals:
+  - become head baker
+  - learn to make traditional pastries
+  - support family business
+  start_place: Le Petit Château Bakery
+  workplace: Le Petit Château Bakery
+  job_title: Bakery Assistant
+  residence_address: 180 Le Pont Noir Bridge
+- name: Raimondo Bellasis
+  sex: male
+  age: 34
+  job: Bakery Assistant
+  bio: Young baker; ambitious, hardworking.
+  values:
+  - quality
+  - customer satisfaction
+  - innovation
+  goals:
+  - master traditional bread-making techniques
+  - introduce new recipes to the bakery
+  - become head baker at Le Petit Château Bakery
+  start_place: Le Petit Château Bakery
+  workplace: Le Petit Château Bakery
+  job_title: Bakery Assistant
+  residence_address: 180 Les Jardins Road
 streets:
 - Rivière Royale
-- L'Étoile de la Rivière
-- Forêt d'Amour
-- Côte des Lumières
-- La Rue du Marchand
-- Le Jardin de l'Hiver
-- La Place de la Liberté
-- Les Îles de la Paix
-- Rue des Mille Étoiles
-- Boulevard de la Révolution
+- L'Aurore Boulevard
+- Fleur de Lis Alley
+- La Forêt Street
+- Côte des Étoiles Way
+- Place du Soleil
+- Les Jardins Road
+- Maison Rouge Lane
+- Le Pont Noir Bridge
+- Le Jardin des Rêves Place
 houses:
 - id: Massingberd residence
-  address: 10 Côte des Lumières
+  address: 10 La Forêt Street
   resident: Abraham Massingberd
-- id: Cowles residence
-  address: 10 La Rue du Marchand
-  resident: Christine Cowles
-- id: Lightfoot residence
-  address: 10 L'Étoile de la Rivière
-  resident: Alphoncin Lightfoot
-- id: Gordon residence
-  address: 20 Côte des Lumières
-  resident: Rachidin Gordon
-- id: Brecknock residence
-  address: 20 L'Étoile de la Rivière
-  resident: Achille Brecknock
+- id: Massingberd residence
+  address: 10 Le Jardin des Rêves Place
+  resident: Wenceslasin Massingberd
 - id: Henderson residence
-  address: 10 La Place de la Liberté
+  address: 20 Le Jardin des Rêves Place
   resident: Baudouin Henderson
-- id: Compton residence
-  address: 20 La Rue du Marchand
-  resident: Nestor Compton
 - id: Groves residence
-  address: 10 Les Îles de la Paix
+  address: 10 Rivière Royale
   resident: Carmen Groves
-- id: Powell residence
-  address: 10 Le Jardin de l'Hiver
-  resident: Sabinne Powell
 - id: Lovelace residence
-  address: 10 Forêt d'Amour
+  address: 10 Côte des Étoiles Way
   resident: Anthelme Lovelace
-- id: Derbyshire residence
-  address: 20 Le Jardin de l'Hiver
-  resident: Eloïse Derbyshire
-- id: Shorter residence
-  address: 30 Le Jardin de l'Hiver
-  resident: Balthazarin Shorter
-- id: Brecknock residence
-  address: 30 Côte des Lumières
-  resident: Aquilina Brecknock
-- id: Faughan residence
-  address: 30 La Rue du Marchand
-  resident: Antoninette Faughan
-- id: Deacon residence
-  address: 30 L'Étoile de la Rivière
-  resident: Léonette Deacon
+- id: Britton residence
+  address: 30 Le Jardin des Rêves Place
+  resident: Ferdinand Britton
 - id: Hodson residence
-  address: 10 Boulevard de la Révolution
+  address: 20 Rivière Royale
   resident: Hugues Hodson
-- id: Brabazon residence
-  address: 20 Forêt d'Amour
-  resident: Félixinette Brabazon
-- id: Kennedy residence
-  address: 10 Rue des Mille Étoiles
-  resident: Sylviee Kennedy
 - id: Coleman residence
-  address: 40 Côte des Lumières
+  address: 10 Fleur de Lis Alley
   resident: Leontina Coleman
-- id: Leech residence
-  address: 30 Forêt d'Amour
-  resident: Aghdam Leech
+- id: Brabazon residence
+  address: 10 Maison Rouge Lane
+  resident: Damazin Brabazon
+- id: Fitzgerald residence
+  address: 10 Le Pont Noir Bridge
+  resident: Barbelette Fitzgerald
+- id: Keyte residence
+  address: 20 Maison Rouge Lane
+  resident: Raymond Keyte
+- id: Fortescue residence
+  address: 20 Côte des Étoiles Way
+  resident: Ignace Fortescue
+- id: Milner residence
+  address: 20 Fleur de Lis Alley
+  resident: Thekla Milner
+- id: Gaydon residence
+  address: 40 Le Jardin des Rêves Place
+  resident: Désiré Gaydon
+- id: Lawrence residence
+  address: 10 Les Jardins Road
+  resident: Candélaria Lawrence
+- id: Deacon residence
+  address: 30 Maison Rouge Lane
+  resident: Azorine Deacon
+- id: Inglesant residence
+  address: 10 L'Aurore Boulevard
+  resident: Viktorine Inglesant
+- id: Heathcote residence
+  address: 40 Maison Rouge Lane
+  resident: Klépharne Heathcote
+- id: Bligh residence
+  address: 10 Place du Soleil
+  resident: Léocadie Bligh
+- id: Davey residence
+  address: 20 Les Jardins Road
+  resident: Iphigénie Davey
+- id: Kingdon residence
+  address: 20 Place du Soleil
+  resident: Rachidinettee Kingdon
+- id: Adcock residence
+  address: 30 Place du Soleil
+  resident: Hubertin Adcock
+- id: Robinson residence
+  address: 20 L'Aurore Boulevard
+  resident: Kléberine Robinson
+- id: Flintoff residence
+  address: 30 Fleur de Lis Alley
+  resident: Anselme Flintoff
+- id: Eaton residence
+  address: 40 Place du Soleil
+  resident: Raimondo Eaton
+- id: Palliser residence
+  address: 30 Les Jardins Road
+  resident: Valentine Palliser
+- id: Shadwell residence
+  address: 50 Maison Rouge Lane
+  resident: Odon Shadwell
+- id: Hopkyns residence
+  address: 30 Côte des Étoiles Way
+  resident: Yvorne Hopkyns
+- id: Cornish residence
+  address: 40 Les Jardins Road
+  resident: Zinaida Cornish
+- id: Leonard residence
+  address: 20 Le Pont Noir Bridge
+  resident: Élodie Leonard
+- id: Dalton residence
+  address: 30 Rivière Royale
+  resident: Athéna Dalton
+- id: Cottrell residence
+  address: 60 Maison Rouge Lane
+  resident: Quintin Cottrell
+- id: Leigh residence
+  address: 30 L'Aurore Boulevard
+  resident: Cyrille Leigh
+- id: Monkhouse residence
+  address: 50 Place du Soleil
+  resident: Christine Monkhouse
+- id: Ledger residence
+  address: 40 Côte des Étoiles Way
+  resident: Alfred Ledger
+- id: Marlowe residence
+  address: 60 Place du Soleil
+  resident: Ursulinet Marlowe
+- id: Plumer residence
+  address: 40 L'Aurore Boulevard
+  resident: Rose Plumer
+- id: Gordon residence
+  address: 50 Les Jardins Road
+  resident: Auroreine Gordon
+- id: Noble residence
+  address: 30 Le Pont Noir Bridge
+  resident: Hippolyte Noble
+- id: Holdsworth residence
+  address: 40 Rivière Royale
+  resident: Thibaut Holdsworth
+- id: Rickards residence
+  address: 40 Le Pont Noir Bridge
+  resident: Georges Rickards
+- id: Rowland residence
+  address: 70 Maison Rouge Lane
+  resident: Corinne Rowland
+- id: Shorter residence
+  address: 60 Les Jardins Road
+  resident: Nestorine Shorter
+- id: Colebrook residence
+  address: 50 Rivière Royale
+  resident: Barbara Colebrook
+- id: Biddlecombe residence
+  address: 20 La Forêt Street
+  resident: Amandine Biddlecombe
+- id: Simmons residence
+  address: 50 Le Pont Noir Bridge
+  resident: Ahmed Simmons
+- id: Bloxham residence
+  address: 70 Place du Soleil
+  resident: Rachidinette Bloxham
+- id: Dalton residence
+  address: 50 Le Jardin des Rêves Place
+  resident: Odon Dalton
+- id: Leakey residence
+  address: 80 Maison Rouge Lane
+  resident: Grégoire Leakey
+- id: Leigh residence
+  address: 90 Maison Rouge Lane
+  resident: Calixta Leigh
+- id: Leonard residence
+  address: 60 Rivière Royale
+  resident: Aurelie Leonard
+- id: Halsey residence
+  address: 30 La Forêt Street
+  resident: Abdon Halsey
+- id: Hoffman residence
+  address: 50 Côte des Étoiles Way
+  resident: Akiyamino Hoffman
+- id: Boothby residence
+  address: 60 Le Pont Noir Bridge
+  resident: Valentinee Boothby
+- id: Parker residence
+  address: 40 Fleur de Lis Alley
+  resident: Henri Parker
+- id: Nuttall residence
+  address: 60 Côte des Étoiles Way
+  resident: Vital Nuttall
+- id: Deacon residence
+  address: 100 Maison Rouge Lane
+  resident: Amédée Deacon
+- id: Cooke residence
+  address: 110 Maison Rouge Lane
+  resident: Ferdinando Cooke
+- id: Rickardson residence
+  address: 50 L'Aurore Boulevard
+  resident: Colette Rickardson
+- id: Elmes residence
+  address: 70 Rivière Royale
+  resident: Abdelkader Elmes
+- id: Massingberd residence
+  address: 60 Le Jardin des Rêves Place
+  resident: Barbelette Massingberd
+- id: Bower residence
+  address: 40 La Forêt Street
+  resident: Alphonzo Bower
+- id: Bennett residence
+  address: 50 Fleur de Lis Alley
+  resident: Augustina Bennett
+- id: Britton residence
+  address: 70 Côte des Étoiles Way
+  resident: Vital Britton
+- id: Keir residence
+  address: 70 Le Pont Noir Bridge
+  resident: Zurzula Keir
+- id: Barnard residence
+  address: 80 Rivière Royale
+  resident: Giovannino Barnard
+- id: Chamberlayne residence
+  address: 80 Le Pont Noir Bridge
+  resident: Claude Chamberlayne
+- id: Courtenay residence
+  address: 70 Les Jardins Road
+  resident: Jehan Courtenay
+- id: Barnard residence
+  address: 60 L'Aurore Boulevard
+  resident: Bartolomeo Barnard
+- id: Boothby residence
+  address: 50 La Forêt Street
+  resident: Ursulinet Boothby
+- id: Payne residence
+  address: 70 L'Aurore Boulevard
+  resident: Marie Payne
+- id: Claridge residence
+  address: 120 Maison Rouge Lane
+  resident: Calixte Claridge
+- id: Hepburn residence
+  address: 80 L'Aurore Boulevard
+  resident: Léonie Hepburn
+- id: Graham residence
+  address: 60 Fleur de Lis Alley
+  resident: Félix Graham
+- id: Henley residence
+  address: 130 Maison Rouge Lane
+  resident: Damiano Henley
+- id: Dorsey residence
+  address: 80 Côte des Étoiles Way
+  resident: Nestorine Dorsey
+- id: Meade residence
+  address: 90 Le Pont Noir Bridge
+  resident: Marie Meade
+- id: Hopkins residence
+  address: 90 Côte des Étoiles Way
+  resident: Ferdinande Hopkins
+- id: Moore residence
+  address: 80 Les Jardins Road
+  resident: Gérard Moore
+- id: Griffin residence
+  address: 140 Maison Rouge Lane
+  resident: Gaspardinet Griffin
+- id: Brailsford residence
+  address: 150 Maison Rouge Lane
+  resident: Urbain Brailsford
+- id: Nutting residence
+  address: 60 La Forêt Street
+  resident: Antoinette Nutting
+- id: Noakes residence
+  address: 160 Maison Rouge Lane
+  resident: Carmencita Noakes
+- id: Godfrey residence
+  address: 100 Le Pont Noir Bridge
+  resident: Hubertin Godfrey
+- id: Gauntlett residence
+  address: 70 Fleur de Lis Alley
+  resident: Hortensinee Gauntlett
+- id: Mitford residence
+  address: 90 Les Jardins Road
+  resident: Alphonse Mitford
+- id: Horsfall residence
+  address: 70 La Forêt Street
+  resident: Amabelle Horsfall
+- id: Merewether residence
+  address: 70 Le Jardin des Rêves Place
+  resident: Yvornette Merewether
+- id: Ridgeway residence
+  address: 110 Le Pont Noir Bridge
+  resident: Sylviee Ridgeway
+- id: Dawes residence
+  address: 80 Fleur de Lis Alley
+  resident: Georgette Dawes
+- id: Mitford residence
+  address: 90 L'Aurore Boulevard
+  resident: Rachidinettee Mitford
+- id: Bowes residence
+  address: 100 Côte des Étoiles Way
+  resident: Gaspardine Bowes
+- id: Redmond residence
+  address: 100 Les Jardins Road
+  resident: Dulcie Redmond
+- id: Longfield residence
+  address: 80 Place du Soleil
+  resident: Gabriel Longfield
+- id: Ellis residence
+  address: 120 Le Pont Noir Bridge
+  resident: Ferdinandine Ellis
+- id: Galton residence
+  address: 110 Côte des Étoiles Way
+  resident: Grégoire Galton
+- id: Fortescue residence
+  address: 90 Rivière Royale
+  resident: Pascal Fortescue
+- id: Galton residence
+  address: 120 Côte des Étoiles Way
+  resident: Racheline Galton
+- id: Cottrell residence
+  address: 130 Côte des Étoiles Way
+  resident: Kalixteine Cottrell
+- id: Leigh residence
+  address: 80 Le Jardin des Rêves Place
+  resident: Elisabetta Leigh
+- id: Rolfe residence
+  address: 90 Le Jardin des Rêves Place
+  resident: Jasperin Rolfe
+- id: Isaacson residence
+  address: 170 Maison Rouge Lane
+  resident: Gaspardin Isaacson
+- id: Pollard residence
+  address: 90 Fleur de Lis Alley
+  resident: Aurore Pollard
+- id: Cornish residence
+  address: 180 Maison Rouge Lane
+  resident: Edmée Cornish
+- id: Meredith residence
+  address: 130 Le Pont Noir Bridge
+  resident: Cécilie Meredith
+- id: Austen residence
+  address: 190 Maison Rouge Lane
+  resident: Jehan Austen
+- id: Langdale residence
+  address: 90 Place du Soleil
+  resident: Carmencita Langdale
+- id: Bunting residence
+  address: 100 Place du Soleil
+  resident: Benjamin Bunting
+- id: Lowe residence
+  address: 140 Le Pont Noir Bridge
+  resident: Jasperin Lowe
+- id: Skynner residence
+  address: 150 Le Pont Noir Bridge
+  resident: Antonin Skynner
+- id: Lightfoot residence
+  address: 110 Les Jardins Road
+  resident: Leontina Lightfoot
+- id: Isaacson residence
+  address: 200 Maison Rouge Lane
+  resident: Alban Isaacson
+- id: Minchin residence
+  address: 110 Place du Soleil
+  resident: Édouard Minchin
+- id: Monk residence
+  address: 80 La Forêt Street
+  resident: Nestorin Monk
+- id: Henley residence
+  address: 90 La Forêt Street
+  resident: Anastasia Henley
+- id: Fellows residence
+  address: 100 Le Jardin des Rêves Place
+  resident: Zdenka Fellows
+- id: Clapham residence
+  address: 120 Les Jardins Road
+  resident: Gérardinet Clapham
+- id: Greenhill residence
+  address: 100 La Forêt Street
+  resident: Giovanna Greenhill
+- id: Dalrymple residence
+  address: 130 Les Jardins Road
+  resident: Thibautinette Dalrymple
+- id: Jordan residence
+  address: 100 Rivière Royale
+  resident: Kléophile Jordan
+- id: Edwards residence
+  address: 120 Place du Soleil
+  resident: Thibautine Edwards
+- id: Dickenson residence
+  address: 210 Maison Rouge Lane
+  resident: Eloïse Dickenson
+- id: Allenby residence
+  address: 140 Les Jardins Road
+  resident: Justine Allenby
+- id: Haydon residence
+  address: 150 Les Jardins Road
+  resident: Giovanni Haydon
+- id: Mackenzie residence
+  address: 100 Fleur de Lis Alley
+  resident: Marcella Mackenzie
+- id: Courtenay residence
+  address: 220 Maison Rouge Lane
+  resident: Damian Courtenay
+- id: Hopton residence
+  address: 110 Rivière Royale
+  resident: Guillermina Hopton
+- id: Lowndes residence
+  address: 110 Fleur de Lis Alley
+  resident: Eléonore Lowndes
+- id: Mansell residence
+  address: 160 Le Pont Noir Bridge
+  resident: Amadou Mansell
+- id: Corran residence
+  address: 110 Le Jardin des Rêves Place
+  resident: Azor Corran
+- id: Bristowe residence
+  address: 130 Place du Soleil
+  resident: Zélinée Bristowe
+- id: Doyley residence
+  address: 100 L'Aurore Boulevard
+  resident: Beatrixe Doyley
+- id: Porter residence
+  address: 230 Maison Rouge Lane
+  resident: Sylvester Porter
+- id: Dillwyn residence
+  address: 110 L'Aurore Boulevard
+  resident: Odonne Dillwyn
+- id: Davidson residence
+  address: 170 Le Pont Noir Bridge
+  resident: Ahasuerus Davidson
+- id: Hayward residence
+  address: 240 Maison Rouge Lane
+  resident: Georges Hayward
+- id: Cartwright residence
+  address: 120 Rivière Royale
+  resident: André Cartwright
+- id: Jenkinson residence
+  address: 120 Fleur de Lis Alley
+  resident: Léonie Jenkinson
+- id: Rivers residence
+  address: 160 Les Jardins Road
+  resident: Georgette Rivers
+- id: Hughes residence
+  address: 130 Fleur de Lis Alley
+  resident: Delphine Hughes
+- id: Kemmis residence
+  address: 120 L'Aurore Boulevard
+  resident: Balthasar Kemmis
+- id: Churchill residence
+  address: 250 Maison Rouge Lane
+  resident: Benjamin Churchill
+- id: Llewellyn residence
+  address: 140 Côte des Étoiles Way
+  resident: Georgette Llewellyn
+- id: Lumley residence
+  address: 140 Place du Soleil
+  resident: Damasin Lumley
+- id: Cresswell residence
+  address: 120 Le Jardin des Rêves Place
+  resident: Xavier Cresswell
+- id: Bruen residence
+  address: 170 Les Jardins Road
+  resident: Grégoirene Bruen
+- id: Cameron residence
+  address: 130 L'Aurore Boulevard
+  resident: Sylvie Cameron
+- id: Bullock residence
+  address: 150 Place du Soleil
+  resident: Gaspardine Bullock
+- id: Denison residence
+  address: 180 Le Pont Noir Bridge
+  resident: Yvonne Denison
+- id: Bellasis residence
+  address: 180 Les Jardins Road
+  resident: Raimondo Bellasis
 street_house_counts:
-  Rivière Royale: 0
-  L'Étoile de la Rivière: 3
-  Forêt d'Amour: 3
-  Côte des Lumières: 4
-  La Rue du Marchand: 3
-  Le Jardin de l'Hiver: 3
-  La Place de la Liberté: 1
-  Les Îles de la Paix: 1
-  Rue des Mille Étoiles: 1
-  Boulevard de la Révolution: 1
+  Rivière Royale: 12
+  L'Aurore Boulevard: 13
+  Fleur de Lis Alley: 13
+  La Forêt Street: 10
+  Côte des Étoiles Way: 14
+  Place du Soleil: 15
+  Les Jardins Road: 18
+  Maison Rouge Lane: 25
+  Le Pont Noir Bridge: 18
+  Le Jardin des Rêves Place: 12
 connections:
 - - Rivière Royale
-  - Rue des Mille Étoiles
+  - Les Jardins Road
 - - Rivière Royale
-  - Les Îles de la Paix
-- - L'Étoile de la Rivière
-  - Le Jardin de l'Hiver
-- - L'Étoile de la Rivière
-  - La Rue du Marchand
-- - Forêt d'Amour
-  - La Place de la Liberté
-- - Forêt d'Amour
+  - Le Pont Noir Bridge
+- - L'Aurore Boulevard
+  - Le Jardin des Rêves Place
+- - L'Aurore Boulevard
   - Rivière Royale
-- - Côte des Lumières
-  - La Rue du Marchand
-- - Côte des Lumières
+- - Fleur de Lis Alley
+  - L'Aurore Boulevard
+- - Fleur de Lis Alley
+  - Côte des Étoiles Way
+- - La Forêt Street
+  - Place du Soleil
+- - La Forêt Street
+  - Côte des Étoiles Way
+- - Côte des Étoiles Way
+  - L'Aurore Boulevard
+- - Côte des Étoiles Way
+  - Maison Rouge Lane
+- - Place du Soleil
+  - L'Aurore Boulevard
+- - Place du Soleil
+  - Le Jardin des Rêves Place
+- - Les Jardins Road
+  - Le Pont Noir Bridge
+- - Les Jardins Road
+  - Fleur de Lis Alley
+- - Maison Rouge Lane
   - Rivière Royale
-- - La Rue du Marchand
-  - La Place de la Liberté
-- - La Rue du Marchand
-  - Les Îles de la Paix
-- - Le Jardin de l'Hiver
-  - La Rue du Marchand
-- - La Place de la Liberté
-  - Côte des Lumières
-- - La Place de la Liberté
-  - Le Jardin de l'Hiver
-- - Les Îles de la Paix
-  - Côte des Lumières
-- - Les Îles de la Paix
-  - Rue des Mille Étoiles
-- - Rue des Mille Étoiles
-  - La Place de la Liberté
-- - Boulevard de la Révolution
-  - Forêt d'Amour
-- - Boulevard de la Révolution
-  - La Rue du Marchand
+- - Le Pont Noir Bridge
+  - Place du Soleil
+- - Le Jardin des Rêves Place
+  - Rivière Royale
+- - Le Jardin des Rêves Place
+  - Côte des Étoiles Way
 - - Massingberd residence
-  - Côte des Lumières
-- - Cowles residence
-  - La Rue du Marchand
-- - Lightfoot residence
-  - L'Étoile de la Rivière
-- - Gordon residence
-  - Côte des Lumières
-- - Brecknock residence
-  - L'Étoile de la Rivière
+  - La Forêt Street
+- - Massingberd residence
+  - Le Jardin des Rêves Place
 - - Henderson residence
-  - La Place de la Liberté
-- - Compton residence
-  - La Rue du Marchand
+  - Le Jardin des Rêves Place
 - - Groves residence
-  - Les Îles de la Paix
-- - Powell residence
-  - Le Jardin de l'Hiver
-- - Lovelace residence
-  - Forêt d'Amour
-- - Derbyshire residence
-  - Le Jardin de l'Hiver
-- - Shorter residence
-  - Le Jardin de l'Hiver
-- - Brecknock residence
-  - Côte des Lumières
-- - Faughan residence
-  - La Rue du Marchand
-- - Deacon residence
-  - L'Étoile de la Rivière
-- - Hodson residence
-  - Boulevard de la Révolution
-- - Brabazon residence
-  - Forêt d'Amour
-- - Kennedy residence
-  - Rue des Mille Étoiles
-- - Coleman residence
-  - Côte des Lumières
-- - Leech residence
-  - Forêt d'Amour
-- - Lumière City Hall
-  - Côte des Lumières
-- - Lumière Market Square
-  - Côte des Lumières
-- - Lumière Church
-  - La Rue du Marchand
-- - Lumière Library
-  - Forêt d'Amour
-- - Lumière Elementary School
-  - Le Jardin de l'Hiver
-- - Lumière Community Center
-  - L'Étoile de la Rivière
-- - Lumière Restaurant
-  - Rue des Mille Étoiles
-- - Madame Dupont's Bakery
-  - Forêt d'Amour
-- - Lumière's Library
-  - Côte des Lumières
-- - Le Coq Rouge Restaurant
-  - Rue des Mille Étoiles
-- - Maison de la Mode
-  - Rue des Mille Étoiles
-- - La Maison du Livre
-  - La Rue du Marchand
-- - Le Jardin de Lumière
-  - Boulevard de la Révolution
-- - La Pharmacie de la Ville
-  - La Place de la Liberté
-- - Le Café des Arts
-  - Boulevard de la Révolution
-- - La Maison de la Musique
-  - La Place de la Liberté
-- - Le Bazar Oriental
-  - Le Jardin de l'Hiver
-- - La Maison de la Mode Féminine
-  - Côte des Lumières
-- - Le Cercle des Écrivains
-  - Forêt d'Amour
-- - La Maison de la Santé
-  - Rue des Mille Étoiles
-- - Le Musée des Arts et Métiers
-  - Les Îles de la Paix
-- - La Maison de la Famille
-  - L'Étoile de la Rivière
-- - Le Jardin d'Enfants
   - Rivière Royale
-- - La Maison de la Beauté
-  - L'Étoile de la Rivière
-- - Le Cercle des Artistes
-  - Forêt d'Amour
-- - La Maison de la Cuisine
-  - Forêt d'Amour
-- - Le Musée des Sciences Naturelles
-  - La Place de la Liberté
-- - La Maison de la Vieillissement
-  - Boulevard de la Révolution
-- - Le Jardin Botanique
-  - L'Étoile de la Rivière
-- - La Maison de la Médecine Vétérinaire
-  - La Place de la Liberté
-- - Le Musée des Arts et Traditions Populaires
-  - La Place de la Liberté
-- - La Maison de la Mode Homme
-  - Boulevard de la Révolution
-- - Le Cercle des Étudiants
-  - Les Îles de la Paix
-- - La Maison de la Musique Classique
-  - Rue des Mille Étoiles
-- - Le Jardin de la Réflexion
-  - La Rue du Marchand
-- - La Maison de la Santé Mentale
-  - Rue des Mille Étoiles
+- - Lovelace residence
+  - Côte des Étoiles Way
+- - Britton residence
+  - Le Jardin des Rêves Place
+- - Hodson residence
+  - Rivière Royale
+- - Coleman residence
+  - Fleur de Lis Alley
+- - Brabazon residence
+  - Maison Rouge Lane
+- - Fitzgerald residence
+  - Le Pont Noir Bridge
+- - Keyte residence
+  - Maison Rouge Lane
+- - Fortescue residence
+  - Côte des Étoiles Way
+- - Milner residence
+  - Fleur de Lis Alley
+- - Gaydon residence
+  - Le Jardin des Rêves Place
+- - Lawrence residence
+  - Les Jardins Road
+- - Deacon residence
+  - Maison Rouge Lane
+- - Inglesant residence
+  - L'Aurore Boulevard
+- - Heathcote residence
+  - Maison Rouge Lane
+- - Bligh residence
+  - Place du Soleil
+- - Davey residence
+  - Les Jardins Road
+- - Kingdon residence
+  - Place du Soleil
+- - Adcock residence
+  - Place du Soleil
+- - Robinson residence
+  - L'Aurore Boulevard
+- - Flintoff residence
+  - Fleur de Lis Alley
+- - Eaton residence
+  - Place du Soleil
+- - Palliser residence
+  - Les Jardins Road
+- - Shadwell residence
+  - Maison Rouge Lane
+- - Hopkyns residence
+  - Côte des Étoiles Way
+- - Cornish residence
+  - Les Jardins Road
+- - Leonard residence
+  - Le Pont Noir Bridge
+- - Dalton residence
+  - Rivière Royale
+- - Cottrell residence
+  - Maison Rouge Lane
+- - Leigh residence
+  - L'Aurore Boulevard
+- - Monkhouse residence
+  - Place du Soleil
+- - Ledger residence
+  - Côte des Étoiles Way
+- - Marlowe residence
+  - Place du Soleil
+- - Plumer residence
+  - L'Aurore Boulevard
+- - Gordon residence
+  - Les Jardins Road
+- - Noble residence
+  - Le Pont Noir Bridge
+- - Holdsworth residence
+  - Rivière Royale
+- - Rickards residence
+  - Le Pont Noir Bridge
+- - Rowland residence
+  - Maison Rouge Lane
+- - Shorter residence
+  - Les Jardins Road
+- - Colebrook residence
+  - Rivière Royale
+- - Biddlecombe residence
+  - La Forêt Street
+- - Simmons residence
+  - Le Pont Noir Bridge
+- - Bloxham residence
+  - Place du Soleil
+- - Dalton residence
+  - Le Jardin des Rêves Place
+- - Leakey residence
+  - Maison Rouge Lane
+- - Leigh residence
+  - Maison Rouge Lane
+- - Leonard residence
+  - Rivière Royale
+- - Halsey residence
+  - La Forêt Street
+- - Hoffman residence
+  - Côte des Étoiles Way
+- - Boothby residence
+  - Le Pont Noir Bridge
+- - Parker residence
+  - Fleur de Lis Alley
+- - Nuttall residence
+  - Côte des Étoiles Way
+- - Deacon residence
+  - Maison Rouge Lane
+- - Cooke residence
+  - Maison Rouge Lane
+- - Rickardson residence
+  - L'Aurore Boulevard
+- - Elmes residence
+  - Rivière Royale
+- - Massingberd residence
+  - Le Jardin des Rêves Place
+- - Bower residence
+  - La Forêt Street
+- - Bennett residence
+  - Fleur de Lis Alley
+- - Britton residence
+  - Côte des Étoiles Way
+- - Keir residence
+  - Le Pont Noir Bridge
+- - Barnard residence
+  - Rivière Royale
+- - Chamberlayne residence
+  - Le Pont Noir Bridge
+- - Courtenay residence
+  - Les Jardins Road
+- - Barnard residence
+  - L'Aurore Boulevard
+- - Boothby residence
+  - La Forêt Street
+- - Payne residence
+  - L'Aurore Boulevard
+- - Claridge residence
+  - Maison Rouge Lane
+- - Hepburn residence
+  - L'Aurore Boulevard
+- - Graham residence
+  - Fleur de Lis Alley
+- - Henley residence
+  - Maison Rouge Lane
+- - Dorsey residence
+  - Côte des Étoiles Way
+- - Meade residence
+  - Le Pont Noir Bridge
+- - Hopkins residence
+  - Côte des Étoiles Way
+- - Moore residence
+  - Les Jardins Road
+- - Griffin residence
+  - Maison Rouge Lane
+- - Brailsford residence
+  - Maison Rouge Lane
+- - Nutting residence
+  - La Forêt Street
+- - Noakes residence
+  - Maison Rouge Lane
+- - Godfrey residence
+  - Le Pont Noir Bridge
+- - Gauntlett residence
+  - Fleur de Lis Alley
+- - Mitford residence
+  - Les Jardins Road
+- - Horsfall residence
+  - La Forêt Street
+- - Merewether residence
+  - Le Jardin des Rêves Place
+- - Ridgeway residence
+  - Le Pont Noir Bridge
+- - Dawes residence
+  - Fleur de Lis Alley
+- - Mitford residence
+  - L'Aurore Boulevard
+- - Bowes residence
+  - Côte des Étoiles Way
+- - Redmond residence
+  - Les Jardins Road
+- - Longfield residence
+  - Place du Soleil
+- - Ellis residence
+  - Le Pont Noir Bridge
+- - Galton residence
+  - Côte des Étoiles Way
+- - Fortescue residence
+  - Rivière Royale
+- - Galton residence
+  - Côte des Étoiles Way
+- - Cottrell residence
+  - Côte des Étoiles Way
+- - Leigh residence
+  - Le Jardin des Rêves Place
+- - Rolfe residence
+  - Le Jardin des Rêves Place
+- - Isaacson residence
+  - Maison Rouge Lane
+- - Pollard residence
+  - Fleur de Lis Alley
+- - Cornish residence
+  - Maison Rouge Lane
+- - Meredith residence
+  - Le Pont Noir Bridge
+- - Austen residence
+  - Maison Rouge Lane
+- - Langdale residence
+  - Place du Soleil
+- - Bunting residence
+  - Place du Soleil
+- - Lowe residence
+  - Le Pont Noir Bridge
+- - Skynner residence
+  - Le Pont Noir Bridge
+- - Lightfoot residence
+  - Les Jardins Road
+- - Isaacson residence
+  - Maison Rouge Lane
+- - Minchin residence
+  - Place du Soleil
+- - Monk residence
+  - La Forêt Street
+- - Henley residence
+  - La Forêt Street
+- - Fellows residence
+  - Le Jardin des Rêves Place
+- - Clapham residence
+  - Les Jardins Road
+- - Greenhill residence
+  - La Forêt Street
+- - Dalrymple residence
+  - Les Jardins Road
+- - Jordan residence
+  - Rivière Royale
+- - Edwards residence
+  - Place du Soleil
+- - Dickenson residence
+  - Maison Rouge Lane
+- - Allenby residence
+  - Les Jardins Road
+- - Haydon residence
+  - Les Jardins Road
+- - Mackenzie residence
+  - Fleur de Lis Alley
+- - Courtenay residence
+  - Maison Rouge Lane
+- - Hopton residence
+  - Rivière Royale
+- - Lowndes residence
+  - Fleur de Lis Alley
+- - Mansell residence
+  - Le Pont Noir Bridge
+- - Corran residence
+  - Le Jardin des Rêves Place
+- - Bristowe residence
+  - Place du Soleil
+- - Doyley residence
+  - L'Aurore Boulevard
+- - Porter residence
+  - Maison Rouge Lane
+- - Dillwyn residence
+  - L'Aurore Boulevard
+- - Davidson residence
+  - Le Pont Noir Bridge
+- - Hayward residence
+  - Maison Rouge Lane
+- - Cartwright residence
+  - Rivière Royale
+- - Jenkinson residence
+  - Fleur de Lis Alley
+- - Rivers residence
+  - Les Jardins Road
+- - Hughes residence
+  - Fleur de Lis Alley
+- - Kemmis residence
+  - L'Aurore Boulevard
+- - Churchill residence
+  - Maison Rouge Lane
+- - Llewellyn residence
+  - Côte des Étoiles Way
+- - Lumley residence
+  - Place du Soleil
+- - Cresswell residence
+  - Le Jardin des Rêves Place
+- - Bruen residence
+  - Les Jardins Road
+- - Cameron residence
+  - L'Aurore Boulevard
+- - Bullock residence
+  - Place du Soleil
+- - Denison residence
+  - Le Pont Noir Bridge
+- - Bellasis residence
+  - Les Jardins Road
+- - Lumière City Hall
+  - La Forêt Street
+- - Lumière Market Square
+  - Le Jardin des Rêves Place
+- - Lumière Church
+  - Maison Rouge Lane
+- - Lumière General Hospital
+  - Maison Rouge Lane
+- - Lumière Elementary School
+  - Place du Soleil
+- - Maison de la Vie
+  - Les Jardins Road
+- - Le Jardin des Fleurs
+  - Rivière Royale
+- - Lumière Laundry
+  - Place du Soleil
+- - La Belle Époque Salon
+  - Le Pont Noir Bridge
+- - Le Coq d'Or Bakery
+  - Le Pont Noir Bridge
+- - La Maison de la Mode
+  - Rivière Royale
+- - Le Petit Château Café
+  - Côte des Étoiles Way
+- - Lumière Livery
+  - Le Jardin des Rêves Place
+- - Le Jardin de la Réussite
+  - Rivière Royale
+- - La Maison des Arts
+  - L'Aurore Boulevard
+- - Le Coeur de la Vie
+  - Côte des Étoiles Way
+- - La Maison des Rêves
+  - Maison Rouge Lane
+- - Le Jardin de la Vie
+  - Les Jardins Road
+- - La Maison des Émotions
+  - L'Aurore Boulevard
+- - Le Coq d'Argent Bookshop
+  - Côte des Étoiles Way
+- - La Maison de la Vieillé
+  - Le Jardin des Rêves Place
+- - Le Petit Château Hotel
+  - Maison Rouge Lane
+- - La Maison de la Mode Élégance
+  - Les Jardins Road
+- - Le Coeur de l'Art
+  - Le Jardin des Rêves Place
+- - La Maison des Arts Étouffés
+  - Place du Soleil
+- - Le Jardin de la Vieillé
+  - Maison Rouge Lane
+- - La Maison des Émotions Élégantes
+  - Place du Soleil
+- - Le Coq d'Argent Café
+  - Maison Rouge Lane
+- - La Maison de la Vieillé Élégance
+  - L'Aurore Boulevard
+- - Le Petit Château Bakery
+  - Les Jardins Road
 street_lengths:
-  Rivière Royale: 0
-  L'Étoile de la Rivière: 30
-  Forêt d'Amour: 30
-  Côte des Lumières: 40
-  La Rue du Marchand: 30
-  Le Jardin de l'Hiver: 30
-  La Place de la Liberté: 10
-  Les Îles de la Paix: 10
-  Rue des Mille Étoiles: 10
-  Boulevard de la Révolution: 10
+  Rivière Royale: 120
+  L'Aurore Boulevard: 130
+  Fleur de Lis Alley: 130
+  La Forêt Street: 100
+  Côte des Étoiles Way: 140
+  Place du Soleil: 150
+  Les Jardins Road: 180
+  Maison Rouge Lane: 250
+  Le Pont Noir Bridge: 180
+  Le Jardin des Rêves Place: 120
