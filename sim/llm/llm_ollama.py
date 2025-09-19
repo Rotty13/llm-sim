@@ -21,7 +21,7 @@ BELIEF_LOCK_SYSTEM = (
 
 class LLM:
     """Tiny Ollama client with graceful fallbacks for dev/offline use."""
-    def __init__(self, base=OLLAMA_URL, gen_model=GEN_MODEL_FAST, emb_model=EMB_MODEL, temperature=0.4):
+    def __init__(self, base=OLLAMA_URL, gen_model=GEN_MODEL_FAST, emb_model=EMB_MODEL, temperature=0.8):
         self.base, self.gen_model, self.emb_model = base.rstrip("/"), gen_model, emb_model
         self.temperature = float(temperature)
 

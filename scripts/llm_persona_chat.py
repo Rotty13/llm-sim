@@ -4,14 +4,14 @@ Agent for direct LLM-based conversation with protopersonas loaded from city.yaml
 """
 import yaml
 import os
-from sim.llm.llm_llamacpp import LlamaCppLLM
+from sim.llm.llm_ollama import llm
 
-class LLLPersonaChat:
-    def __init__(self, city_yaml_path, model_path):
+class LLMPersonaChat:
+    def __init__(self, city_yaml_path, model_path=None):
         self.city_yaml_path = city_yaml_path
         self.model_path = model_path
         self.people = self._load_people()
-        self.llm = LlamaCppLLM(model_path)
+        self.llm = llm
 
     def _load_people(self):
         with open(self.city_yaml_path, 'r', encoding='utf-8') as f:
@@ -41,7 +41,7 @@ class LLLPersonaChat:
 if __name__ == "__main__":
     city_yaml_path = os.path.join(os.path.dirname(__file__), "..", "configs", "city.yaml")
     model_path = "./onnx_model/Llama-3.2-3B-Instruct-ONNX/cpu_and_mobile/model.onnx"  # Update as needed
-    agent = LLLPersonaChat(city_yaml_path, model_path)
+    agent = LLMPersonaChat(city_yaml_path, model_path)
     persona = agent.people[0]  # Example: first persona
     prompt = "Describe your typical day at work."
     response = agent.converse_with_persona(persona, prompt)
