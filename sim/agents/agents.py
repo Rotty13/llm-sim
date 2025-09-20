@@ -11,8 +11,10 @@ from ..llm.llm_ollama import llm, BELIEF_LOCK_SYSTEM
 from ..memory.memory import MemoryStore, MemoryItem
 from ..actions.actions import normalize_action
 from ..world.world import World
+
 from ..scheduler.scheduler import Appointment, enforce_schedule
 from ..inventory.inventory import Inventory
+
 
 def now_str(tick:int, start_dt=None) -> str:
     """
@@ -47,6 +49,7 @@ JOB_SITE = {"barista":"Cafe", "junior dev":"Office", "developer":"Office", "engi
 
 @dataclass
 class Agent:
+
     persona: Persona
     place: str
     memory: MemoryStore = field(default_factory=MemoryStore)
@@ -56,6 +59,22 @@ class Agent:
     inventory: Inventory = field(default_factory=lambda: Inventory(capacity_weight=5.0))
     obs_list: List[str] = field(default_factory=list)
     conversation_history: List[Dict[str, Any]] = field(default_factory=list)
+
+    def step_interact(self, world: 'World', participants: list, obs: str, tick: int, start_dt, incoming_message: Optional[dict], loglist: Optional[list] = None):
+        """
+        Cohesive step: agent converses, decides, and acts in the world.
+        Returns the conversation decision dict.
+        """
+        # Conversation step
+        conv_decision = self.decide_conversation(participants, obs, tick, incoming_message, start_dt=start_dt, loglist=loglist)
+        if conv_decision and "new_mood" in conv_decision:
+            self.physio.mood = conv_decision["new_mood"]
+        if conv_decision and "memory_write" in conv_decision and conv_decision["memory_write"]:
+            self.memory.write(MemoryItem(t=tick, kind="episodic", text=conv_decision["memory_write"], importance=0.5))
+        # Action step
+        action_decision = self.decide(world, obs, tick, start_dt)
+        self.act(world, action_decision, tick)
+        return conv_decision
 
     #incoming_message example {'to': 'David', 'from': agent.persona.name, 'text': decision_agent.get("reply",None)}
     def decide_conversation(self, participants: List[Agent],obs: str, tick: int, incoming_message: Optional[dict],start_dt: Optional[datetime] = None,   loglist: Optional[List[Dict[str, Any]]] = None) -> Dict[str,Any]:

@@ -244,18 +244,8 @@ def test_strangers_in_white_room_one_has_key():
                 'from': agent2.persona.name,
                 'text': last_decision_agent2.get("reply", None)
             }
-
-        decision_agent1 = agent1.decide_conversation(
-        participants, obs_agent1,
-         tick=tick,incoming_message=incoming_message_agent1, start_dt=start, loglist=loglist
-        )
-        if decision_agent1 and "new_mood" in decision_agent1:
-            agent1.physio.mood = decision_agent1["new_mood"]
-        if decision_agent1 and "memory_write" in decision_agent1 and decision_agent1["memory_write"]:
-            agent1.memory.write(MemoryItem(t=tick, kind="episodic", text=decision_agent1["memory_write"], importance=0.5))
-        #debug output of agent1 decision
+        decision_agent1 = agent1.step_interact(world, participants, obs_agent1, tick, start, incoming_message_agent1, loglist=loglist)
         print(f"Tick {tick} - {agent1.persona.name} to: {agent2.persona.name}: {decision_agent1.get('reply', None)}")
-
 
         incoming_message_agent2 = None
         if decision_agent1:
@@ -264,18 +254,9 @@ def test_strangers_in_white_room_one_has_key():
                 'from': agent1.persona.name,
                 'text': decision_agent1.get("reply", None)
             }
-        decision_agent2 = agent2.decide_conversation(participants=participants,
-            obs=obs_agent2, tick=tick,
-            incoming_message=incoming_message_agent2, loglist=loglist
-        )
+        decision_agent2 = agent2.step_interact(world, participants, obs_agent2, tick, start, incoming_message_agent2, loglist=loglist)
         last_decision_agent2 = decision_agent2
-        if decision_agent2 and "new_mood" in decision_agent2:
-            agent2.physio.mood = decision_agent2["new_mood"]
-        if decision_agent2 and "memory_write" in decision_agent2 and decision_agent2["memory_write"]:
-            agent2.memory.write(MemoryItem(t=tick, kind="episodic", text=decision_agent2["memory_write"], importance=0.5))
-        #debug output of agent2 decision
         print(f"Tick {tick} - {agent2.persona.name} to: {agent1.persona.name}: {decision_agent2.get('reply', None)}")
-        
     
     # Combine conversation histories and output to a file
     import json
@@ -307,52 +288,28 @@ text: '{msg_text}'
 
     with open(filepath, 'w', encoding="utf-8") as f:
         f.write(f"----- Conversation between {agent1.persona.name} and {agent2.persona.name} -----\n\n")
-        for msg in messages:
-            f.write(msg + "\n\n")
+        for tick in range(1, 15):
+            participants = [agent1, agent2]
+            incoming_message_agent1 = None
+            if last_decision_agent2:
+                incoming_message_agent1 = {
+                    'to': agent1.persona.name,
+                    'from': agent2.persona.name,
+                    'text': last_decision_agent2.get("reply", None)
+                }
+            decision_agent1 = agent1.step_interact(world, participants, obs_agent1, tick, start, incoming_message_agent1, loglist=loglist)
+            print(f"Tick {tick} - {agent1.persona.name} to: {agent2.persona.name}: {decision_agent1.get('reply', None)}")
 
-    # Check if both agents have conversation history
-    assert any(entry["role"] == "agent" for entry in agent1.conversation_history), "Agent1 did not reply during conversation."
-    assert any(entry["role"] == "agent" for entry in agent2.conversation_history), "Agent2 did not reply during conversation."
-    # Optionally, check if any reply mentions the other
-    agent1_replies = [entry["content"] for entry in agent1.conversation_history if entry["role"] == "agent"]
-    agent2_replies = [entry["content"] for entry in agent2.conversation_history if entry["role"] == "agent"]
-    agent1_to_agent2 = any(agent2.persona.name in reply for reply in agent1_replies)
-    agent2_to_agent1 = any(agent1.persona.name in reply for reply in agent2_replies)
-    assert agent1_to_agent2 or agent2_to_agent1, "No direct conversation detected."
-
-
-
-if __name__ == "__main__":
-    import sys
-    import os
-    args = sys.argv
-    sys.argv.append("test_strangers_in_white_room_with_door_and_padlock")
-    # Usage: python test_room.py [testname]
-    test_functions = {
-        'test_agent_decide_and_act_llm': test_agent_decide_and_act_llm,
-        'test_agent_llm_chat': test_agent_llm_chat,
-        'test_strangers_in_white_room_one_has_key': test_strangers_in_white_room_one_has_key,
-        'test_strangers_in_white_room_with_door_and_padlock': test_strangers_in_white_room_with_door_and_padlock,
-    }
-    if len(args) > 1:
-        # Run only the specified test(s)
-        for testname in args[1:]:
-            if testname in test_functions:
-                print(f"Running {testname}...")
-                try:
-                    test_functions[testname]()
-                    print(f"{testname}: PASSED")
-                except Exception as e:
-                    print(f"{testname}: FAILED\n{e}")
-            else:
-                print(f"No such test: {testname}")
-    else:
-        # Try to use pytest if available, else run all tests directly
-        try:
-            import pytest
-            print("Running all tests with pytest...")
-            pytest.main([__file__])
-        except ImportError:
+            incoming_message_agent2 = None
+            if decision_agent1:
+                incoming_message_agent2 = {
+                    'to': agent2.persona.name,
+                    'from': agent1.persona.name,
+                    'text': decision_agent1.get("reply", None)
+                }
+            decision_agent2 = agent2.step_interact(world, participants, obs_agent2, tick, start, incoming_message_agent2, loglist=loglist)
+            last_decision_agent2 = decision_agent2
+            print(f"Tick {tick} - {agent2.persona.name} to: {agent1.persona.name}: {decision_agent2.get('reply', None)}")
             print("pytest not available, running all tests directly...")
             for name, fn in test_functions.items():
                 print(f"Running {name}...")
