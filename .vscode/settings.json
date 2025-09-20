@@ -1,0 +1,20 @@
+{
+    "explorer.excludeGitIgnore": true,
+    "python.analysis.extraPaths": [
+        "${userHome}\\**"
+    ],
+    "python.analysis.includeAliasesFromUserFiles": true,
+    "python.terminal.useEnvFile": false,
+    "python.analysis.include": [
+    ],
+    "python.analysis.enableTroubleshootMissingImports": true,
+    "python.analysis.autoImportCompletions": true,
+    "python-envs.pythonProjects": [
+        {
+            "path": "",
+            "envManager": "ms-python.python:venv",
+            "packageManager": "ms-python.python:pip"
+        }
+    ],
+    
+}

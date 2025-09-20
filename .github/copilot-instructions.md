@@ -1,46 +1,41 @@
+
+
 # Copilot Instructions for llm-sim
 
-## Project Overview
-- **llm-sim** is a sandbox for simulating LLM-driven agents in a configurable city environment. Agents make decisions, interact, and write memories each tick.
-- The simulation is configured via YAML files in `configs/` (e.g., `world.yaml`, `personas.yaml`).
-- Main entry point: `scripts/run_sim.py`.
+## Overview
+**llm-sim** is a sandbox for simulating LLM-driven agents in a configurable city. Agents act, interact, and record memories each tick. Simulation is configured via YAML in `configs/`. Main entry: `scripts/run_sim.py`.
 
-## Architecture & Key Components
-- **Agents** (`sim/agents/agents.py`): Each agent has a persona, memory, physiological state, and decision logic. Actions include MOVE, INTERACT, SAY, EAT, WORK, PLAN, SLEEP.
-- **World** (`sim/world/world.py`): Contains places, events, and manages broadcasts. Places have capabilities and optional vendors.
-- **Memory** (`sim/memory/`): Agents store memories of different types (autobio, episodic, semantic, tom).
-- **Actions** (`sim/actions/`): Defines and normalizes agent actions.
-- **LLM Integration** (`sim/llm/`): Agents use LLMs for decision-making and conversation.
-- **Scheduler, Inventory**: Support agent planning and item management.
+## Key Components
+- **Agents**: See `sim/agents/agents.py`. Each agent has a persona, memory, physiological state, and decision logic. Actions: `SAY`, `INTERACT`, `MOVE`, etc.
+- **World**: See `sim/world/world.py`. Places, events, and broadcasts. Places have capabilities and optional vendors.
+- **Memory**: See `sim/memory/`. Agents store memories (`autobio`, `episodic`, `semantic`, `tom`).
+- **LLM Integration**: See `sim/llm/`. Agents use LLMs for decision and conversation via `llm.chat_json`.
 
-## Developer Workflows
-- **Setup**: `python -m venv .venv` (Windows: `.venv\Scripts\activate`), then `pip install -r requirements.txt`.
-- **Run Simulation**: `python scripts/run_sim.py` (accepts `--world`, `--personas`, `--ticks`, `--logdir` args).
-- **Logs**: Output logs and memory summaries are written to `data/logs/`.
-- **Testing**: Unit tests are in `sim/tests/` (e.g., `test_agents.py`, `test_llm.py`).
+## Usage
+- Setup: `python -m venv .venv` (Windows: `.venv\Scripts\activate`), then `pip install -r requirements.txt`.
+- Run: `python scripts/run_sim.py` (see script for args).
+- Logs: Output in `data/logs/`.
+- Tests: In `tests/`.
 
-## Project-Specific Patterns
-- **Agent Actions**: All speech must use `SAY({"to":..., "text":...})`. Non-verbal actions use `INTERACT`. Movement uses `MOVE({"to":...})`.
-- **Memory Writes**: Agents record memories after actions and conversations.
-- **Event Broadcasts**: All agent actions are broadcast to the world and logged as events.
-- **YAML Configs**: City, places, personas, and roles are defined in YAML files under `configs/`.
-- **Tick-Based Simulation**: Each tick represents 5 minutes; agent states update per tick.
+## Patterns
+- All speech: `SAY({"to":..., "text":...})`. Non-verbal: `INTERACT`. Movement: `MOVE({"to":...})`.
+- Agents record memories after actions/conversations (`MemoryStore.write`).
+- All actions are broadcast to the world (`World.broadcast`).
+- YAML configs define city, places, personas, roles.
+- Each tick = 5 minutes; agent states update per tick.
+- Use `llm.chat_json` for structured LLM output.
 
-## Integration Points
-- **LLM Calls**: Decision and conversation logic use LLMs via `llm.chat_json`.
-- **External Dependencies**: Only `requests` and `PyYAML` are required (see `requirements.txt`).
-
-## Example Patterns
-- To add a new agent type, extend `Agent` in `sim/agents/agents.py` and update YAML configs.
-- To add new place capabilities, update `ALLOWED_CAPS` in `sim/world/world.py` and relevant YAML.
-- To change agent decision logic, modify `decide` and `act` methods in `Agent`.
+## Extending
+- Add agent: extend `Agent` and update YAML.
+- Add place capability: update `ALLOWED_CAPS` and YAML.
+- Change agent logic: modify `decide`/`act` in `Agent`.
+- Add memory type: extend `MemoryItem`/`MemoryStore`.
 
 ## References
-- Main simulation: `scripts/run_sim.py`
-- Agent logic: `sim/agents/agents.py`
-- World logic: `sim/world/world.py`
+- Main: `scripts/run_sim.py`
+- Agents: `sim/agents/agents.py`
+- World: `sim/world/world.py`
 - Configs: `configs/`
-- Tests: `sim/tests/`
+- Tests: `tests/`
 
----
-_Review and update these instructions as the codebase evolves. For questions, see the README or key source files._
+_Update as codebase evolves. For questions, see README or key files._
