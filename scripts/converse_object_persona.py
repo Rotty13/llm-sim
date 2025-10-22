@@ -30,8 +30,8 @@ def converse_with_object(object_name, persona,  prompt, system_prompt=None):
 
 def main():
     parser = argparse.ArgumentParser(description="Chat with the personification of an object.")
-    parser.add_argument("--objectname", default="shovel", help="Name of the object to personify.")
-    parser.add_argument("--persona", default="a shovel", help="Persona description for the object.")
+    parser.add_argument("--objectname", default="hammer", help="Name of the object to personify.")
+    parser.add_argument("--persona", default="a hammer", help="Persona description for the object.")
     args = parser.parse_args()
 
     #object specification
@@ -41,7 +41,8 @@ def main():
     }
     # Initial prompt (fix: use objectname)
     initial_prompt = (f"State your category and a brief description of your purpose. "
-                      "Define your states, actions, and possible interactions with humans in JSON format.")
+                      "Define your states, actions, and possible interactions with humans in JSON format."
+                      'Example format: {"category": "tool", "description": "a tool for driving nails", "states": ["in use", "idle", "broken"], "actions": ["hit nail", "extract nail"], "interactions": ["can be used by humans to drive and extract nails"]}')
 
 
     # Step 1: Get initial object definition from LLM

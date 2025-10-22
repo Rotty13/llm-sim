@@ -1,0 +1,60 @@
+legend_version: '0.1'
+big_five_scale:
+  range:
+  - -1.0
+  - 1.0
+  meaning:
+    '-1.0': very low
+    '-0.5': low
+    '0.0': neutral
+    '0.5': high
+    '1.0': very high
+  dimensions:
+    Extraversion: energy & sociability
+    Agreeableness: cooperation & empathy
+    Conscientiousness: orderliness & self-discipline
+    Neuroticism: negative affect sensitivity (higher = more reactive)
+    Openness: curiosity & cognitive exploration
+values_scale:
+  range:
+  - 0.0
+  - 1.0
+  note: weight/importance; higher means more strongly preferred when choosing actions
+state_overlay:
+  fields:
+  - mood
+  - stress
+  - focus
+  influence_hint: mood positive -> slight risk/initiative up; stress high -> initiative
+    down; focus biases goal choice
+facet_derivation:
+  risk_tolerance:
+    range:
+    - 0.0
+    - 1.0
+    prior_formula_hint: sigmoid( 0.35*Extraversion + 0.40*Openness - 0.45*Neuroticism
+      + 0.15*Conscientiousness - 0.10*Agreeableness + 0.20*state.energy - 0.30*state.stress
+      + bias )
+    override_rule: store only if |observed - prior| > 0.25; mark derived=false
+  communication_style:
+    enum:
+    - assertive
+    - passive
+    - aggressive
+    - mixed
+    prior_rules:
+    - assertive if Extraversion>=0.3 AND Neuroticism<=0.3 AND Agreeableness in [-0.2,0.6]
+    - passive if Extraversion<=-0.3 OR Neuroticism>=0.5
+    - aggressive if Agreeableness<=-0.4 AND Extraversion>=0.2
+    - else mixed
+    state_adjust: increase assertive one step if mood=positive & stress<0.3; decrease
+      if stress>0.6
+decision_hints:
+- Prefer actions that increase goal utility * weighted by values; break ties using
+  Conscientiousness (planful) vs Openness (exploratory).
+- If stress>0.7, reduce initiative and seek restoring actions (rest/social support)
+  unless urgent goal is blocked.
+update_rules:
+  traits: stable; adjust slowly via EMA with small learning rate (e.g., 0.01)
+  state: transient; do not edit traits
+  facets: recompute each step; persist only notable deviations

@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "item.schema.json",
+  "title": "Item",
+  "allOf": [
+    { "$ref": "entity_base.schema.json" },
+    {
+      "type": "object",
+      "required": ["kind", "is_portable", "location"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "type": "string", "const": "item" },
+        "is_portable": { "type": "boolean", "const": true },
+
+        "item_type": {
+          "type": "string",
+          "enum": ["tool","container","consumable","resource","device","document","misc"]
+        },
+
+        "stackable": { "type": "boolean", "default": false },
+        "quantity":  { "type": "integer", "minimum": 1, "default": 1 },
+        "uses_left": { "type": "integer", "minimum": 0 },
+
+        "capacity_l": { "type": "number", "minimum": 0 },
+
+        "location": {
+          "description": "Exactly one of: held by person, inside another item, or placed at a place/slot",
+          "oneOf": [
+            {
+              "type": "object",
+              "required": ["holder_id"],
+              "additionalProperties": false,
+              "properties": { "holder_id": { "type": "string" } }
+            },
+            {
+              "type": "object",
+              "required": ["container_item_id"],
+              "additionalProperties": false,
+              "properties": { "container_item_id": { "type": "string" } }
+            },
+            {
+              "type": "object",
+              "required": ["place_id"],
+              "additionalProperties": false,
+              "properties": {
+                "place_id": { "type": "string" },
+                "slot":     { "type": "string", "maxLength": 40 },
+                "position": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "x": { "type": "number" },
+                    "y": { "type": "number" },
+                    "z": { "type": "number" }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

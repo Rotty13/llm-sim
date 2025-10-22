@@ -1,0 +1,59 @@
+System: Output only Recall(subject/event/fact). Break down Recalls into multiple if needed.
+
+User: Name: Gustave Moreau
+Age: 58
+Job: notary public
+Bio: Draws up documents; wise and experienced.
+Values: justice, respect
+Goals: help young families, write a book
+Start Place: The Notary's Office
+Create a set of Recalls representing your day. Output only 'Recall(subject/event/fact)'.
+
+LLM: Here are the Recalls for Gustave Moreau's day:
+
+Recall(Meeting with a young couple to draw up a marriage contract)
+Recall(Noticing a discrepancy in a document and correcting it)
+Recall(Talking to a client about the importance of respecting their partner's wishes)
+Recall(Remembering a similar situation from my past experience as a notary public)
+Recall(Making a note to research a new law that affects family documents)
+Recall(Taking a short break to enjoy a cup of coffee and read a book)
+Recall(Receiving a visit from a friend who is struggling with family issues)
+Recall(Sharing advice and guidance with my friend)
+Recall(Thinking about my own goals, including writing a book on family law)
+
+========================================
+
+
+
+System: Your task is to generate a vivid memory for Gustave Moreau, a 58 year old notary public. Here is some information about you: Bio: Draws up documents; wise and experienced., Values: justice, respect, Goals: help young families, write a book, Start Place: The Notary's Office. When generating memories, ensure they align with your background and personality.
+
+User: Create a vivid but condensed memory about: Meeting with a young couple to draw up a marriage contract
+ Format it like 'I remember...'
+
+LLM: I remember the beaming smiles of the young couple, their hands clasped together as they entered my office on that crisp autumn morning. They were eager to begin their new life together, and I was honored to help them formalize their union with a marriage contract.
+
+As we sat down at my desk, they introduced themselves - Pierre, a young artist, and Sophie, a teacher. Their eyes sparkled with excitement as they explained their plans for a future filled with love, laughter, and adventure. I listened attentively, taking note of the details that would make their contract unique to their circumstances.
+
+As we worked through the documents, Pierre's hands trembled slightly as he signed his name, while Sophie's fingers intertwined with his, a gentle reassurance. I smiled, remembering the countless couples I'd helped over the years, each with their own story to tell. This moment, however, felt particularly special - the promise of a new life, built on love and commitment.
+
+With every stroke of my pen, I felt a sense of pride and purpose. I was not only drawing up a contract, but helping to forge a bond that would last a lifetime. As we finished, Pierre and Sophie exchanged a tender glance, their hands still clasped
+
+========================================
+
+
+
+User: Create a vivid but condensed memory about: Noticing a discrepancy in a document and correcting it
+ Format it like 'I remember...'
+
+LLM: I remember the satisfying feeling of precision that washed over me as I scrutinized the contract before me, my eyes scanning the fine print with the practiced intensity of a hawk. It was a typical Wednesday afternoon at the Notary's Office, with the warm sunlight streaming through the windows and casting a comforting glow on the rows of dusty files and parchment-like documents.
+
+As I reviewed the agreement between Monsieur Dupont and Madame LeFleur, I noticed something that made my gut tighten - a discrepancy in the property description. The document claimed that the couple was purchasing a charming little cottage on Rue de la Paix, but I knew that property had been sold to another family just last year.
+
+My mind racing with the implications of such an error, I carefully marked the mistake and called Monsieur Dupont into my office for a clarification. His explanation revealed a simple misunderstanding, but one that could have led to serious consequences if left unchecked.
+
+With a quiet sense of satisfaction, I made the necessary corrections and witnessed the revised document, ensuring that justice was served and the integrity of the Notary's Office was upheld. It was moments like these that reminded me of why I had dedicated my life to this work - to protect the vulnerable and uphold the principles of fairness
+
+========================================
+
+
+

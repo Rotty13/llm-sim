@@ -1,0 +1,35 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: person_state.schema.json
+title: Person State Overlay
+type: object
+required:
+- id
+- t
+properties:
+  id:
+    type: string
+  t:
+    type: string
+    format: date-time
+  mood:
+    type: string
+    enum:
+    - positive
+    - neutral
+    - negative
+  stress:
+    type: number
+    minimum: 0
+    maximum: 1
+  focus:
+    type: string
+    enum:
+    - work
+    - social
+    - rest
+    - errand
+    - random
+  notes:
+    type: string
+    maxLength: 120
+additionalProperties: false

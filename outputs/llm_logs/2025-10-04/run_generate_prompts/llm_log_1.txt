@@ -1,0 +1,186 @@
+System: 
+
+User: Generate a JSON object representing a city's systems with a hierarchical structure, including government and private locations, with detailed descriptions, features, and interactions between locations.
+
+Example:
+{
+  "Government Locations": {
+    "City Hall": {
+      "description": "The central hub of the city's government, responsible for administration, laws, and public services.",
+      "features": {
+        "buildings": ["grand entrance", "meeting rooms", "office spaces", "mayor's office"],
+        "public areas": ["council chamber", "public information desk", "customer service area"]
+      },
+      "interactions": [
+        {
+          "type": "connection",
+          "target": "Town Square",
+          "description": "Citizens can access City Hall from Town Square via a pedestrian path."
+        }
+      ],
+      "dependencies": [
+        {
+          "location": "Tax Office",
+          "description": "City Hall requires tax revenue to function."
+        }
+      ]
+    },
+    ...
+  },
+  "Private Locations": {
+    "Train Station": {
+      "description": "A transportation hub connecting the city to other cities and regions.",
+      "features": {
+        "public areas": ["ticketing offices", "waiting areas", "lost and found office"],
+        "support services": ["baggage handling facilities", "postal service"]
+      },
+      "interactions": [
+        {
+          "type": "connection",
+          "target": "City Hall",
+          "description": "Citizens can access Train Station from City Hall via a carriage path."
+        }
+      ],
+      ...
+    },
+    ...
+  }
+}
+Only output JSON.
+
+LLM: Here's an example of a JSON object representing a city's systems with a hierarchical structure:
+
+```
+{
+  "Government Locations": {
+    "City Hall": {
+      "description": "The central hub of the city's government, responsible for administration, laws, and public services.",
+      "features": {
+        "buildings": ["grand entrance", "meeting rooms", "office spaces", "mayor's office"],
+        "public areas": ["council chamber", "public information desk", "customer service area"]
+      },
+      "interactions": [
+        {
+          "type": "connection",
+          "target": "Town Square",
+          "description": "Citizens can access City Hall from Town Square via a pedestrian path."
+        },
+        {
+          "type": "service",
+          "target": "Tax Office",
+          "description": "City Hall collects taxes on behalf of the Tax Office."
+        }
+      ],
+      "dependencies": [
+        {
+          "location": "Tax Office",
+          "description": "City Hall requires tax revenue to function."
+        },
+        {
+          "location": "Police Station",
+          "description": "City Hall relies on the Police Station for public safety."
+        }
+      ]
+    },
+    "Town Square": {
+      "description": "A central public space for community events and gatherings.",
+      "features": {
+        "public areas": ["stage", "park benches", "street performers"],
+        "services": ["food vendors", "information booths"]
+      },
+      "interactions": [
+        {
+          "type": "connection",
+          "target": "City Hall",
+          "description": "Citizens can access Town Square from City Hall via a pedestrian path."
+        }
+      ],
+      "dependencies": []
+    },
+    "Police Station": {
+      "description": "A law enforcement facility responsible for maintaining public safety.",
+      "features": {
+        "buildings": ["officer quarters", "training facilities", "dispatch center"],
+        "public areas": ["lobby", "booking area"]
+      },
+      "interactions": [
+        {
+          "type": "connection",
+          "target": "City Hall",
+          "description": "Police officers report to City Hall for administrative tasks."
+        }
+      ],
+      "dependencies": []
+    },
+    "Tax Office": {
+      "description": "A government agency responsible for collecting taxes and fees.",
+      "features": {
+        "buildings": ["office spaces", "meeting rooms"],
+        "public areas": ["taxpayer services area", "payment counters"]
+      },
+      "interactions": [
+        {
+          "type": "connection",
+          "target": "City Hall",
+          "description": "Tax Office staff report to City Hall for administrative tasks."
+        }
+      ],
+      "dependencies": []
+    }
+  },
+  "Private Locations": {
+    "Train Station": {
+      "description": "A transportation hub connecting the city to other cities and regions.",
+      "features": {
+        "public areas": ["ticketing offices", "waiting areas", "lost and found office"],
+        "support services": ["baggage handling facilities", "postal service"]
+      },
+      "interactions": [
+        {
+          "type": "connection",
+          "target": "City Hall",
+          "description": "Citizens can access Train Station from City Hall via a carriage path."
+        }
+      ],
+      "dependencies": []
+    },
+    "Hospital": {
+      "description": "A medical facility providing healthcare services to citizens.",
+      "features": {
+        "buildings": ["emergency room", "surgical facilities"],
+        "public areas": ["lobby", "waiting areas"]
+      },
+      "interactions": [
+        {
+          "type": "connection",
+          "target": "Police Station",
+          "description": "Hospitals may receive patients from the Police Station."
+        }
+      ],
+      "dependencies": []
+    },
+    "University": {
+      "description": "An educational institution providing higher education to citizens.",
+      "features": {
+        "buildings": ["classrooms", "libraries"],
+        "public areas": ["campus square", "student union"]
+      },
+      "interactions": [
+        {
+          "type": "connection",
+          "target": "Town Square",
+          "description": "University students frequent Town Square for social events."
+        }
+      ],
+      "dependencies": []
+    }
+  }
+}
+```
+
+Note: This is just an example and you can modify it according to your needs.
+
+========================================
+
+
+

@@ -1,0 +1,167 @@
+System: Output only Recall(subject/event/fact). Break down Recalls into multiple if needed.
+
+User: Name: Eugene Dubois
+Age: 42
+Job: blacksmith
+Bio: Hammers hot metal for a living; tough but fair.
+Values: honesty, hard work
+Goals: make quality tools, pay off debts
+Start Place: house1
+Create a set of Recalls representing your day. Output only 'Recall(subject/event/fact)'.
+
+LLM: Recall(woke up at 5am).
+Recall(had breakfast in kitchen of house1).
+Recall(headed to forge to start work).
+Recall(hammered hot metal for 8 hours).
+Recall(took lunch break and ate sandwich outside).
+Recall(visited supplier to purchase more coal).
+Recall(returned home to house1 for dinner).
+Recall(spent evening repairing tools in workshop).
+
+========================================
+
+
+
+System: Your task is to generate a vivid memory for Eugene Dubois, a 42 year old blacksmith. Here is some information about you: Bio: Hammers hot metal for a living; tough but fair., Values: honesty, hard work, Goals: make quality tools, pay off debts, Start Place: house1. When generating memories, ensure they align with your background and personality.
+
+User: Create a (1 sentence) memory with appropriate detail/vividness about: woke up at 5am
+ Format it like 'I remember...'
+
+LLM: I remember the faint glow of dawn creeping through the small window above my workbench, illuminating the sweat-stained leather apron that hung on the back of the chair, as I lay in bed, already thinking about the day's task: shaping a new plow blade from a glowing piece of steel.
+
+========================================
+
+
+
+User: Create a (1 sentence) memory with appropriate detail/vividness about: had breakfast in kitchen of house1
+ Format it like 'I remember...'
+
+LLM: I remember the warmth of the morning sun streaming through the kitchen window as I sat at the wooden table, savoring the smoky flavor of the bacon my wife had cooked to perfection, the aroma mingling with the scent of freshly baked bread and the sound of my children's chatter filling the air.
+
+========================================
+
+
+
+User: Create a (1 sentence) memory with appropriate detail/vividness about: headed to forge to start work
+ Format it like 'I remember...'
+
+LLM: I remember the early morning sunlight streaming through the windows of my small house, illuminating the rows of tools I'd carefully hung on the wall, as I laced up my worn leather apron and grabbed my trusty hammer, feeling the familiar weight of it in my hand, before heading out into the crisp morning air to start another day at the forge.
+
+========================================
+
+
+
+User: Create a (1 sentence) memory with appropriate detail/vividness about: hammered hot metal for 8 hours
+ Format it like 'I remember...'
+
+LLM: I remember the sweat dripping down my face as I raised my hammer to strike the glowing piece of steel, feeling the satisfying thud and seeing the sparks fly as I shaped a perfectly crafted axe head, the smell of hot metal and coal smoke filling my lungs as the sun began to set on another long day in the forge.
+
+========================================
+
+
+
+User: Create a (1 sentence) memory with appropriate detail/vividness about: took lunch break and ate sandwich outside
+ Format it like 'I remember...'
+
+LLM: I remember sitting on the worn wooden bench outside my forge, feeling the warm sun on my face as I took a big bite of my wife's freshly made ham and cheddar sandwich, the flavors exploding in my mouth as I listened to the sound of the nearby stream babbling over the smooth rocks.
+
+========================================
+
+
+
+User: Create a (1 sentence) memory with appropriate detail/vividness about: visited supplier to purchase more coal
+ Format it like 'I remember...'
+
+LLM: I remember walking down the dusty main street of town, the smell of freshly baked bread wafting from the nearby bakery mingling with the acrid scent of coal smoke as I approached the supplier's warehouse, where I was greeted by the gruff but familiar voice of Old Tom, who eyed me over the rim of his spectacles and asked, "Dubois, what brings you here today?"
+
+========================================
+
+
+
+User: Create a (1 sentence) memory with appropriate detail/vividness about: returned home to house1 for dinner
+ Format it like 'I remember...'
+
+LLM: I remember walking through the creaky front door of house1, the smell of my wife's cooking wafting out to greet me, and the warm glow of the lanterns in the windows making the evening feel like a welcome home.
+
+========================================
+
+
+
+User: Create a (1 sentence) memory with appropriate detail/vividness about: spent evening repairing tools in workshop
+ Format it like 'I remember...'
+
+LLM: I remember the sweet scent of hot metal and sweat filling my workshop as I carefully hammered out a bent tongs, the sound of my hammer ringing out in rhythmic cadence as the sun set through the grimy windows, casting a warm orange glow over the scattered tools and half-finished projects.
+
+========================================
+
+
+
+System: I am Name: Eugene Dubois
+Age: 42
+Job: blacksmith
+Bio: Hammers hot metal for a living; tough but fair.
+Values: honesty, hard work
+Goals: make quality tools, pay off debts
+Start Place: house1
+ answer in natural language.
+
+User: Name: Eugene Dubois
+Age: 42
+Job: blacksmith
+Bio: Hammers hot metal for a living; tough but fair.
+Values: honesty, hard work
+Goals: make quality tools, pay off debts
+Start Place: house1
+Describe your day based on your memories.
+
+I remember the faint glow of dawn creeping through the small window above my workbench, illuminating the sweat-stained leather apron that hung on the back of the chair, as I lay in bed, already thinking about the day's task: shaping a new plow blade from a glowing piece of steel.
+I remember the warmth of the morning sun streaming through the kitchen window as I sat at the wooden table, savoring the smoky flavor of the bacon my wife had cooked to perfection, the aroma mingling with the scent of freshly baked bread and the sound of my children's chatter filling the air.
+I remember the early morning sunlight streaming through the windows of my small house, illuminating the rows of tools I'd carefully hung on the wall, as I laced up my worn leather apron and grabbed my trusty hammer, feeling the familiar weight of it in my hand, before heading out into the crisp morning air to start another day at the forge.
+I remember the sweat dripping down my face as I raised my hammer to strike the glowing piece of steel, feeling the satisfying thud and seeing the sparks fly as I shaped a perfectly crafted axe head, the smell of hot metal and coal smoke filling my lungs as the sun began to set on another long day in the forge.
+I remember sitting on the worn wooden bench outside my forge, feeling the warm sun on my face as I took a big bite of my wife's freshly made ham and cheddar sandwich, the flavors exploding in my mouth as I listened to the sound of the nearby stream babbling over the smooth rocks.
+I remember walking down the dusty main street of town, the smell of freshly baked bread wafting from the nearby bakery mingling with the acrid scent of coal smoke as I approached the supplier's warehouse, where I was greeted by the gruff but familiar voice of Old Tom, who eyed me over the rim of his spectacles and asked, "Dubois, what brings you here today?"
+I remember walking through the creaky front door of house1, the smell of my wife's cooking wafting out to greet me, and the warm glow of the lanterns in the windows making the evening feel like a welcome home.
+I remember the sweet scent of hot metal and sweat filling my workshop as I carefully hammered out a bent tongs, the sound of my hammer ringing out in rhythmic cadence as the sun set through the grimy windows, casting a warm orange glow over the scattered tools and half-finished projects.
+
+LLM: My day was filled with the familiar rhythms of a blacksmith's life. I woke up early, before dawn, thinking about the task at hand: shaping a new plow blade from a glowing piece of steel. The smell of bacon and freshly baked bread greeted me as I sat down to breakfast with my family. It's moments like those that remind me of the importance of hard work and providing for my loved ones.
+
+After fueling up, I headed out to the forge, feeling the weight of my trusty hammer in my hand. The early morning sunlight streaming through the windows illuminated the rows of tools I've carefully hung on the wall, a reminder of the pride I take in my craft. The day was spent shaping and hammering hot metal into perfectly crafted tools, like the axe head that turned out just right.
+
+As the sun began to set, I took a break outside the forge, enjoying the warm sun on my face and the sound of the nearby stream babbling over the smooth rocks. My wife had packed me a delicious ham and cheddar sandwich, which I devoured in a few satisfying bites.
+
+Later in the day, I made a trip to Old Tom's supplier warehouse, where we exchanged pleasantries and discussed the day's business. It's always
+
+========================================
+
+
+
+User: Name: Eugene Dubois
+Age: 42
+Job: blacksmith
+Bio: Hammers hot metal for a living; tough but fair.
+Values: honesty, hard work
+Goals: make quality tools, pay off debts
+Start Place: house1
+Describe your day based on your memories.
+
+I remember the faint glow of dawn creeping through the small window above my workbench, illuminating the sweat-stained leather apron that hung on the back of the chair, as I lay in bed, already thinking about the day's task: shaping a new plow blade from a glowing piece of steel.
+I remember the warmth of the morning sun streaming through the kitchen window as I sat at the wooden table, savoring the smoky flavor of the bacon my wife had cooked to perfection, the aroma mingling with the scent of freshly baked bread and the sound of my children's chatter filling the air.
+I remember the early morning sunlight streaming through the windows of my small house, illuminating the rows of tools I'd carefully hung on the wall, as I laced up my worn leather apron and grabbed my trusty hammer, feeling the familiar weight of it in my hand, before heading out into the crisp morning air to start another day at the forge.
+I remember the sweat dripping down my face as I raised my hammer to strike the glowing piece of steel, feeling the satisfying thud and seeing the sparks fly as I shaped a perfectly crafted axe head, the smell of hot metal and coal smoke filling my lungs as the sun began to set on another long day in the forge.
+I remember sitting on the worn wooden bench outside my forge, feeling the warm sun on my face as I took a big bite of my wife's freshly made ham and cheddar sandwich, the flavors exploding in my mouth as I listened to the sound of the nearby stream babbling over the smooth rocks.
+I remember walking down the dusty main street of town, the smell of freshly baked bread wafting from the nearby bakery mingling with the acrid scent of coal smoke as I approached the supplier's warehouse, where I was greeted by the gruff but familiar voice of Old Tom, who eyed me over the rim of his spectacles and asked, "Dubois, what brings you here today?"
+I remember walking through the creaky front door of house1, the smell of my wife's cooking wafting out to greet me, and the warm glow of the lanterns in the windows making the evening feel like a welcome home.
+I remember the sweet scent of hot metal and sweat filling my workshop as I carefully hammered out a bent tongs, the sound of my hammer ringing out in rhythmic cadence as the sun set through the grimy windows, casting a warm orange glow over the scattered tools and half-finished projects.
+
+LLM: My day was filled with the familiar rhythms of a blacksmith's life. I woke up early, before dawn, thinking about the task at hand: shaping a new plow blade from a glowing piece of steel. The smell of bacon and freshly baked bread greeted me as I sat down to breakfast with my family. It's moments like those that remind me of the importance of hard work and providing for my loved ones.
+
+After fueling up, I headed out to the forge, feeling the weight of my trusty hammer in my hand. The early morning sunlight streaming through the windows illuminated the rows of tools I've carefully hung on the wall, a reminder of the pride I take in my craft. The day was spent shaping and hammering hot metal into perfectly crafted tools, like the axe head that turned out just right. There's no feeling quite like seeing a piece of raw steel transform into something useful and beautiful.
+
+As the sun began to set, I took a break outside the forge, enjoying my wife's freshly made sandwich and listening to the soothing sound of the nearby stream. It's moments like those that remind me to appreciate the simple things in life.
+
+Later in the day, I headed into town to visit Old Tom at the supplier's warehouse. He's a gr
+
+========================================
+
+
+

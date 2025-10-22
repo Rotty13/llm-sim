@@ -1,0 +1,38 @@
+{
+  "station": {
+    "location": {
+      "city": "Lyon",
+      "country": "France"
+    },
+    "year_opened": 1900,
+    "train_line": "Paris-Lyon Express",
+    "staff": [
+      {
+        "name": "Station Master",
+        "role": "Manages the station, oversees staff and operations."
+      },
+      {
+        "name": "Conductor",
+        "role": "Ensures safe passage of passengers and cargo, monitors train performance"
+      },
+      {
+        "name": "Ticket Collector",
+        "role": "Sells tickets to passengers, handles ticket sales and refunds"
+      }
+    ],
+    "actions": [
+      {
+        "action": "Pay for ticket",
+        "description": "Purchase a ticket from the ticket collector or automated kiosk."
+      },
+      {
+        "action": "Board train",
+        "description": "Enter the train through the designated boarding platform."
+      },
+      {
+        "action": "Exit station",
+        "description": "Leave the station premises through the designated exit gates."
+      }
+    ]
+  }
+}

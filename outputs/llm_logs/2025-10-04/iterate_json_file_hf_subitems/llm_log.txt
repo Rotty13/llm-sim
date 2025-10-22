@@ -1,0 +1,126 @@
+System: You are a helpful assistant. Output only the improved JSON. Do not ask questions. If no changes are made, respond with the original JSON.
+
+User: Here is the initial JSON data for City Hall:
+{
+  "description": "The central hub of the city's government, responsible for administration, laws, and public services.",
+  "features": {
+    "buildings": [
+      "grand entrance",
+      "meeting rooms",
+      "office spaces",
+      "mayor's office"
+    ],
+    "public areas": [
+      "council chamber",
+      "public information desk",
+      "customer service area"
+    ]
+  }
+}
+
+Here is the human feedback for improvement:
+clasify each place based on if it should have rooms
+
+LLM (JSON): {
+  "description": "The central hub of the city's government, responsible for administration, laws, and public services.",
+  "features": {
+    "buildings": [
+      {
+        "name": "grand entrance",
+        "type": "non-public"
+      },
+      {
+        "name": "meeting rooms",
+        "type": "public"
+      },
+      {
+        "name": "office spaces",
+        "type": "non-public"
+      },
+      {
+        "name": "mayor's office",
+        "type": "non-public"
+      }
+    ],
+    "public areas": [
+      "council chamber",
+      "public information desk",
+      "customer service area"
+    ]
+  }
+}
+
+========================================
+
+
+
+User: Here is the previous improved JSON for City Hall:
+{
+  "description": "The central hub of the city's government, responsible for administration, laws, and public services.",
+  "features": {
+    "buildings": [
+      {
+        "name": "grand entrance",
+        "type": "non-public"
+      },
+      {
+        "name": "meeting rooms",
+        "type": "public"
+      },
+      {
+        "name": "office spaces",
+        "type": "non-public"
+      },
+      {
+        "name": "mayor's office",
+        "type": "non-public"
+      }
+    ],
+    "public areas": [
+      "council chamber",
+      "public information desk",
+      "customer service area"
+    ]
+  }
+}
+
+Here is the human feedback for further improvement:
+clasify each place based on if it should have rooms
+
+LLM (JSON): {
+  "description": "The central hub of the city's government, responsible for administration, laws, and public services.",
+  "features": {
+    "buildings": [
+      {
+        "name": "grand entrance",
+        "type": "public",
+        "rooms": null
+      },
+      {
+        "name": "meeting rooms",
+        "type": "public",
+        "rooms": true
+      },
+      {
+        "name": "office spaces",
+        "type": "non-public",
+        "rooms": true
+      },
+      {
+        "name": "mayor's office",
+        "type": "non-public",
+        "rooms": null
+      }
+    ],
+    "public areas": [
+      "council chamber",
+      "public information desk",
+      "customer service area"
+    ]
+  }
+}
+
+========================================
+
+
+

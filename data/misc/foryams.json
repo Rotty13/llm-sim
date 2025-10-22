@@ -1,0 +1,933 @@
+{
+    "characters": [
+        {
+            "character": "Chasca",
+            "rarity": 5,
+            "currentLevel": 90,
+            "maxLevel": 90,
+            "element": "Anemo",
+            "weaponType": "Bow",
+            "ascensionPhase": 6,
+            "constellation": 1,
+            "talents": {
+                "normalAttack": 2,
+                "elementalSkill": 8,
+                "elementalBurst": 6
+            },
+            "metaTier": "A",
+            "metaRole": "Main DPS",
+            "equippedWeapon": "astral_vultures_crimson_plumage",
+            "equippedArtifacts": [
+                {
+                    "set": "heart_of_depth",
+                    "slot": "Circlet of Logos",
+                    "rarity": 5,
+                    "level": 20,
+                    "mainStat": "CRIT DMG%",
+                    "substats": [
+                        {
+                            "stat": "ATK%",
+                            "value": 21.6
+                        },
+                        {
+                            "stat": "Elemental Mastery",
+                            "value": 42
+                        },
+                        {
+                            "stat": "ATK",
+                            "value": 31
+                        },
+                        {
+                            "stat": "CRIT Rate%",
+                            "value": 2.7
+                        }
+                    ]
+                },
+                {
+                    "set": "obsidian_codex",
+                    "slot": "Flower of Life",
+                    "rarity": 5,
+                    "level": 20,
+                    "mainStat": "HP",
+                    "substats": [
+                        {
+                            "stat": "Energy Recharge%",
+                            "value": 10.4
+                        },
+                        {
+                            "stat": "CRIT Rate%",
+                            "value": 12.4
+                        },
+                        {
+                            "stat": "DEF",
+                            "value": 39
+                        },
+                        {
+                            "stat": "DEF%",
+                            "value": 5.8
+                        }
+                    ]
+                },
+                {
+                    "set": "obsidian_codex",
+                    "slot": "Sands of Eon",
+                    "rarity": 5,
+                    "level": 20,
+                    "mainStat": "ATK%",
+                    "substats": [
+                        {
+                            "stat": "HP%",
+                            "value": 11.7
+                        },
+                        {
+                            "stat": "HP",
+                            "value": 299
+                        },
+                        {
+                            "stat": "ATK",
+                            "value": 43
+                        },
+                        {
+                            "stat": "CRIT Rate%",
+                            "value": 7.8
+                        }
+                    ]
+                },
+                {
+                    "set": "obsidian_codex",
+                    "slot": "feather",
+                    "rarity": 5,
+                    "level": 20,
+                    "mainStat": "ATK",
+                    "substats": [
+                        {
+                            "stat": "HP",
+                            "value": 299
+                        },
+                        {
+                            "stat": "CRIT DMG%",
+                            "value": 21
+                        },
+                        {
+                            "stat": "ATK%",
+                            "value": 14
+                        },
+                        {
+                            "stat": "Energy Recharge%",
+                            "value": 4.5
+                        }
+                    ]
+                },
+                {
+                    "set": "obsidian_codex",
+                    "slot": "Goblet of Eonothem",
+                    "rarity": 5,
+                    "level": 20,
+                    "mainStat": "ATK%",
+                    "substats": [
+                        {
+                            "stat": "DEF",
+                            "value": 19
+                        },
+                        {
+                            "stat": "Elemental Mastery",
+                            "value": 35
+                        },
+                        {
+                            "stat": "CRIT Rate%",
+                            "value": 10.5
+                        },
+                        {
+                            "stat": "CRIT DMG%",
+                            "value": 14
+                        }
+                    ]
+                }
+            ],
+            "artifactSetBonuses": {
+                "sets": [
+                    {
+                        "setName": "heart_of_depth",
+                        "pieceCount": 1
+                    },
+                    {
+                        "setName": "obsidian_codex",
+                        "pieceCount": 4
+                    }
+                ],
+                "activeBonuses": [
+                    "heart_of_depth (1 piece, no set bonus)",
+                    "obsidian_codex (4-piece bonus active)"
+                ]
+            }
+        },
+        {
+            "character": "Traveler",
+            "rarity": 5,
+            "currentLevel": 70,
+            "maxLevel": 70,
+            "element": "Electro",
+            "weaponType": "Sword",
+            "ascensionPhase": 4,
+            "constellation": 0,
+            "metaTier": "C",
+            "metaRole": "Support"
+        },
+        {
+            "character": "Barbara",
+            "rarity": 4,
+            "currentLevel": 70,
+            "maxLevel": 70,
+            "element": "Hydro",
+            "weaponType": "Catalyst",
+            "ascensionPhase": 4,
+            "constellation": 0,
+            "metaTier": "C",
+            "metaRole": "Healer"
+        },
+        {
+            "character": "Venti",
+            "rarity": 5,
+            "currentLevel": 70,
+            "maxLevel": 70,
+            "element": "Anemo",
+            "weaponType": "Bow",
+            "ascensionPhase": 4,
+            "constellation": 0,
+            "metaTier": "B",
+            "metaRole": "Support"
+        },
+        {
+            "character": "Sucrose",
+            "rarity": 4,
+            "currentLevel": 70,
+            "maxLevel": 70,
+            "element": "Anemo",
+            "weaponType": "Catalyst",
+            "ascensionPhase": 4,
+            "constellation": 0,
+            "metaTier": "A",
+            "metaRole": "Support"
+        },
+        {
+            "character": "Bennett",
+            "rarity": 4,
+            "currentLevel": 70,
+            "maxLevel": 70,
+            "element": "Pyro",
+            "weaponType": "Sword",
+            "ascensionPhase": 4,
+            "constellation": 0,
+            "metaTier": "S",
+            "metaRole": "Support"
+        },
+        {
+            "character": "Citlali",
+            "rarity": 5,
+            "currentLevel": 70,
+            "maxLevel": 80,
+            "element": "Cryo",
+            "weaponType": "Catalyst",
+            "ascensionPhase": 5,
+            "constellation": 0,
+            "metaTier": "S",
+            "metaRole": "Support"
+        },
+        {
+            "character": "Ororon",
+            "rarity": 4,
+            "currentLevel": 70,
+            "maxLevel": 70,
+            "element": "Electro",
+            "weaponType": "Bow",
+            "ascensionPhase": 4,
+            "constellation": 0,
+            "metaTier": "S",
+            "metaRole": "Support"
+        },
+        {
+            "character": "Kuki Shinobu",
+            "rarity": 4,
+            "currentLevel": 70,
+            "maxLevel": 70,
+            "element": "Electro",
+            "weaponType": "Sword",
+            "ascensionPhase": 4,
+            "constellation": 0,
+            "metaTier": "A",
+            "metaRole": "Healer"
+        }
+    ],
+    "artifacts": [
+        {
+            "artifactSet": "noblesse_oblige",
+            "slot": "Flower of Life",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "HP",
+            "substats": [
+                {
+                    "stat": "HP%",
+                    "value": 4.1
+                },
+                {
+                    "stat": "ATK%",
+                    "value": 4.7
+                },
+                {
+                    "stat": "Energy Recharge%",
+                    "value": 9.7
+                },
+                {
+                    "stat": "DEF",
+                    "value": 74
+                }
+            ],
+            "equippedOn": "bennett"
+        },
+        {
+            "artifactSet": "heart_of_depth",
+            "slot": "Circlet of Logos",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "CRIT DMG%",
+            "substats": [
+                {
+                    "stat": "ATK%",
+                    "value": 21.6
+                },
+                {
+                    "stat": "Elemental Mastery",
+                    "value": 42
+                },
+                {
+                    "stat": "ATK",
+                    "value": 31
+                },
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 2.7
+                }
+            ],
+            "equippedOn": "chasca"
+        },
+        {
+            "artifactSet": "obsidian_codex",
+            "slot": "Sands of Eon",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "HP%",
+            "substats": [
+                {
+                    "stat": "ATK",
+                    "value": 62
+                },
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 7.8
+                },
+                {
+                    "stat": "Elemental Mastery",
+                    "value": 21
+                },
+                {
+                    "stat": "ATK%",
+                    "value": 5.3
+                }
+            ],
+            "equippedOn": "mualani"
+        },
+        {
+            "artifactSet": "obsidian_codex",
+            "slot": "Flower of Life",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "HP",
+            "substats": [
+                {
+                    "stat": "Energy Recharge%",
+                    "value": 10.4
+                },
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 12.4
+                },
+                {
+                    "stat": "DEF",
+                    "value": 39
+                },
+                {
+                    "stat": "DEF%",
+                    "value": 5.8
+                }
+            ],
+            "equippedOn": "chasca"
+        },
+        {
+            "artifactSet": "obsidian_codex",
+            "slot": "Sands of Eon",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "ATK%",
+            "substats": [
+                {
+                    "stat": "HP%",
+                    "value": 11.7
+                },
+                {
+                    "stat": "HP",
+                    "value": 299
+                },
+                {
+                    "stat": "ATK",
+                    "value": 43
+                },
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 7.8
+                }
+            ],
+            "equippedOn": "chasca"
+        },
+        {
+            "artifactSet": "obsidian_codex",
+            "slot": "Circlet of Logos",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "CRIT DMG%",
+            "substats": [
+                {
+                    "stat": "HP%",
+                    "value": 11.7
+                },
+                {
+                    "stat": "Elemental Mastery",
+                    "value": 40
+                },
+                {
+                    "stat": "HP",
+                    "value": 269
+                },
+                {
+                    "stat": "ATK",
+                    "value": 45
+                }
+            ]
+        },
+        {
+            "artifactSet": "obsidian_codex",
+            "slot": "feather",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "ATK",
+            "substats": [
+                {
+                    "stat": "DEF",
+                    "value": 39
+                },
+                {
+                    "stat": "Elemental Mastery",
+                    "value": 16
+                },
+                {
+                    "stat": "CRIT DMG%",
+                    "value": 19.4
+                },
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 6.6
+                }
+            ],
+            "equippedOn": "mualani"
+        },
+        {
+            "artifactSet": "obsidian_codex",
+            "slot": "feather",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "ATK",
+            "substats": [
+                {
+                    "stat": "HP",
+                    "value": 299
+                },
+                {
+                    "stat": "CRIT DMG%",
+                    "value": 21
+                },
+                {
+                    "stat": "ATK%",
+                    "value": 14
+                },
+                {
+                    "stat": "Energy Recharge%",
+                    "value": 4.5
+                }
+            ],
+            "equippedOn": "chasca"
+        },
+        {
+            "artifactSet": "obsidian_codex",
+            "slot": "Flower of Life",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "HP",
+            "substats": [
+                {
+                    "stat": "CRIT DMG%",
+                    "value": 14
+                },
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 3.9
+                },
+                {
+                    "stat": "DEF",
+                    "value": 60
+                },
+                {
+                    "stat": "ATK",
+                    "value": 35
+                }
+            ],
+            "equippedOn": "mualani"
+        },
+        {
+            "artifactSet": "scroll_of_the_hero_of_cinder_city",
+            "slot": "Circlet of Logos",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "CRIT DMG%",
+            "substats": [
+                {
+                    "stat": "Energy Recharge%",
+                    "value": 10.4
+                },
+                {
+                    "stat": "ATK",
+                    "value": 51
+                },
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 7
+                },
+                {
+                    "stat": "DEF",
+                    "value": 16
+                }
+            ]
+        },
+        {
+            "artifactSet": "gladiators_finale",
+            "slot": "Sands of Eon",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "Elemental Mastery",
+            "substats": [
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 6.6
+                },
+                {
+                    "stat": "HP",
+                    "value": 538
+                },
+                {
+                    "stat": "CRIT DMG%",
+                    "value": 7.8
+                },
+                {
+                    "stat": "DEF",
+                    "value": 56
+                }
+            ],
+            "equippedOn": "fischl"
+        },
+        {
+            "artifactSet": "silken_moons_serenade",
+            "slot": "Sands of Eon",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "Elemental Mastery",
+            "substats": [
+                {
+                    "stat": "Energy Recharge%",
+                    "value": 4.5
+                },
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 9.7
+                },
+                {
+                    "stat": "ATK%",
+                    "value": 14.6
+                },
+                {
+                    "stat": "DEF",
+                    "value": 19
+                }
+            ],
+            "equippedOn": "lauma"
+        },
+        {
+            "artifactSet": "obsidian_codex",
+            "slot": "Goblet of Eonothem",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "Hydro DMG%",
+            "substats": [
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 6.6
+                },
+                {
+                    "stat": "CRIT DMG%",
+                    "value": 12.4
+                },
+                {
+                    "stat": "HP",
+                    "value": 478
+                },
+                {
+                    "stat": "Elemental Mastery",
+                    "value": 33
+                }
+            ],
+            "equippedOn": "mualani"
+        },
+        {
+            "artifactSet": "deepwood_memories",
+            "slot": "Circlet of Logos",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "CRIT Rate%",
+            "substats": [
+                {
+                    "stat": "HP%",
+                    "value": 10.5
+                },
+                {
+                    "stat": "HP",
+                    "value": 807
+                },
+                {
+                    "stat": "Energy Recharge%",
+                    "value": 10.4
+                },
+                {
+                    "stat": "Elemental Mastery",
+                    "value": 16
+                }
+            ],
+            "equippedOn": "lauma"
+        },
+        {
+            "artifactSet": "deepwood_memories",
+            "slot": "feather",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "ATK",
+            "substats": [
+                {
+                    "stat": "HP",
+                    "value": 866
+                },
+                {
+                    "stat": "ATK%",
+                    "value": 8.2
+                },
+                {
+                    "stat": "Energy Recharge%",
+                    "value": 6.5
+                },
+                {
+                    "stat": "Elemental Mastery",
+                    "value": 56
+                }
+            ],
+            "equippedOn": "lauma"
+        },
+        {
+            "artifactSet": "deepwood_memories",
+            "slot": "Flower of Life",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "HP",
+            "substats": [
+                {
+                    "stat": "CRIT DMG%",
+                    "value": 12.4
+                },
+                {
+                    "stat": "ATK",
+                    "value": 68
+                },
+                {
+                    "stat": "Elemental Mastery",
+                    "value": 21
+                },
+                {
+                    "stat": "Energy Recharge%",
+                    "value": 4.5
+                }
+            ],
+            "equippedOn": "lauma"
+        },
+        {
+            "artifactSet": "golden_troupe",
+            "slot": "Circlet of Logos",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "CRIT DMG%",
+            "substats": [
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 5.8
+                },
+                {
+                    "stat": "Elemental Mastery",
+                    "value": 54
+                },
+                {
+                    "stat": "DEF",
+                    "value": 37
+                },
+                {
+                    "stat": "HP%",
+                    "value": 4.1
+                }
+            ],
+            "equippedOn": "mualani"
+        },
+        {
+            "artifactSet": "obsidian_codex",
+            "slot": "Goblet of Eonothem",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "ATK%",
+            "substats": [
+                {
+                    "stat": "DEF",
+                    "value": 19
+                },
+                {
+                    "stat": "Elemental Mastery",
+                    "value": 35
+                },
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 10.5
+                },
+                {
+                    "stat": "CRIT DMG%",
+                    "value": 14
+                }
+            ],
+            "equippedOn": "chasca"
+        },
+        {
+            "artifactSet": "gilded_dreams",
+            "slot": "Sands of Eon",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "ATK%",
+            "substats": [
+                {
+                    "stat": "CRIT DMG%",
+                    "value": 20.2
+                },
+                {
+                    "stat": "HP%",
+                    "value": 9.9
+                },
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 5.8
+                },
+                {
+                    "stat": "DEF%",
+                    "value": 7.3
+                }
+            ],
+            "equippedOn": "klee"
+        },
+        {
+            "artifactSet": "obsidian_codex",
+            "slot": "Goblet of Eonothem",
+            "rarity": 5,
+            "currentLevel": 20,
+            "mainStat": "ATK%",
+            "substats": [
+                {
+                    "stat": "Elemental Mastery",
+                    "value": 42
+                },
+                {
+                    "stat": "CRIT DMG%",
+                    "value": 5.4
+                },
+                {
+                    "stat": "HP%",
+                    "value": 10.5
+                },
+                {
+                    "stat": "CRIT Rate%",
+                    "value": 9.7
+                }
+            ],
+            "equippedOn": "flins"
+        }
+    ],
+    "inventory": [
+        {
+            "resource": "A Huge Bag Of Mora",
+            "quantity": 10496,
+            "category": "Currency"
+        },
+        {
+            "resource": "Childe And Teucers Mora Pouch",
+            "quantity": 9963,
+            "category": "Currency"
+        },
+        {
+            "resource": "Masterless Stardust",
+            "quantity": 6340,
+            "category": "Material"
+        },
+        {
+            "resource": "Credit Coupons",
+            "quantity": 1740,
+            "category": "Material"
+        },
+        {
+            "resource": "Dust Of Azoth",
+            "quantity": 1730,
+            "category": "Material"
+        },
+        {
+            "resource": "Fineenhancementore",
+            "quantity": 1091,
+            "category": "Weapon EXP"
+        },
+        {
+            "resource": "Lucky Coin",
+            "quantity": 700,
+            "category": "Material"
+        },
+        {
+            "resource": "Berry",
+            "quantity": 519,
+            "category": "Material"
+        },
+        {
+            "resource": "Slimecondensate",
+            "quantity": 449,
+            "category": "Material"
+        },
+        {
+            "resource": "Enhancementore",
+            "quantity": 378,
+            "category": "Weapon EXP"
+        },
+        {
+            "resource": "Sweetflower",
+            "quantity": 366,
+            "category": "Material"
+        },
+        {
+            "resource": "Sunsettia",
+            "quantity": 301,
+            "category": "Material"
+        },
+        {
+            "resource": "Ironchunk",
+            "quantity": 278,
+            "category": "Character Ascension"
+        },
+        {
+            "resource": "Heavyhorn",
+            "quantity": 266,
+            "category": "Material"
+        },
+        {
+            "resource": "Carrot",
+            "quantity": 257,
+            "category": "Material"
+        },
+        {
+            "resource": "Mint",
+            "quantity": 254,
+            "category": "Material"
+        },
+        {
+            "resource": "Damagedmask",
+            "quantity": 244,
+            "category": "Material"
+        },
+        {
+            "resource": "Sanctifying Unction",
+            "quantity": 239,
+            "category": "Material"
+        },
+        {
+            "resource": "Firmarrowhead",
+            "quantity": 237,
+            "category": "Material"
+        },
+        {
+            "resource": "Crystalchunk",
+            "quantity": 217,
+            "category": "Weapon EXP"
+        },
+        {
+            "resource": "Luna Sigil",
+            "quantity": 216,
+            "category": "Material"
+        },
+        {
+            "resource": "Sentryswoodenwhistle",
+            "quantity": 194,
+            "category": "Material"
+        },
+        {
+            "resource": "Frostnightsglimmer",
+            "quantity": 190,
+            "category": "Material"
+        },
+        {
+            "resource": "Pinecone",
+            "quantity": 189,
+            "category": "Material"
+        },
+        {
+            "resource": "Recruitsinsignia",
+            "quantity": 180,
+            "category": "Material"
+        },
+        {
+            "resource": "Lightlessbone",
+            "quantity": 176,
+            "category": "Material"
+        },
+        {
+            "resource": "Mushroom",
+            "quantity": 172,
+            "category": "Material"
+        },
+        {
+            "resource": "Adventurersexperience",
+            "quantity": 167,
+            "category": "Character EXP"
+        },
+        {
+            "resource": "Apple",
+            "quantity": 156,
+            "category": "Material"
+        },
+        {
+            "resource": "Juvenilefang",
+            "quantity": 148,
+            "category": "Material"
+        }
+    ]
+}

@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "person.schema.json",
+  "title": "Person",
+  "type": "object",
+  "required": ["id", "name", "traits"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "0.3" },
+
+    "id": { "type": "string", "description": "Unique ID" },
+    "name": { "type": "string" },
+    "alias": { "type": "string" },
+
+    "short_desc": { "type": "string", "maxLength": 140 },
+
+    "traits": {
+      "type": "object",
+      "properties": {
+        "big_five": {
+          "type": "object",
+          "required": [
+            "Extraversion",
+            "Agreeableness",
+            "Conscientiousness",
+            "Neuroticism",
+            "Openness"
+          ],
+          "properties": {
+            "Extraversion": { "type": "number", "minimum": -1, "maximum": 1 },
+            "Agreeableness": { "type": "number", "minimum": -1, "maximum": 1 },
+            "Conscientiousness": { "type": "number", "minimum": -1, "maximum": 1 },
+            "Neuroticism": { "type": "number", "minimum": -1, "maximum": 1 },
+            "Openness": { "type": "number", "minimum": -1, "maximum": 1 }
+          }
+        },
+
+        "facets": {
+          "type": "object",
+          "description": "Optional overrides of derived values",
+          "properties": {
+            "risk_tolerance": {
+              "type": "object",
+              "properties": {
+                "value": { "type": "number", "minimum": 0, "maximum": 1 },
+                "derived": { "type": "boolean", "default": true }
+              }
+            },
+            "communication_style": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "enum": ["assertive", "passive", "aggressive", "mixed"]
+                },
+                "derived": { "type": "boolean", "default": true }
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["big_five"],
+      "additionalProperties": false
+    },
+
+    "values": {
+      "type": "object",
+      "description": "Weights in [0,1] for guiding choices",
+      "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 }
+    },
+
+    "meta": {
+      "type": "object",
+      "properties": {
+        "lang": { "type": "string", "default": "en-US" },
+        "last_updated": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "additionalProperties": false
+}

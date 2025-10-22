@@ -1,0 +1,359 @@
+System: You are a helpful assistant. Output only valid JSON.
+
+User: Generate a taxonomy tree representing the different zones and categories and places/land in a fictional small europeon city in the year 1900. keep it general/abstract. no specific names likes "jacks cigars". names likes "city hall", "market square", "bakery" are acceptable. required: name, category/zone, parent category/zone
+
+LLM (JSON): {
+  "name": "Market Square",
+  "category/zone": "Public Spaces",
+  "parent category/zone": null
+}
+
+========================================
+
+
+
+User: You are to improve and expand the following JSON response.
+Iteration 1:
+{
+  "name": "Market Square",
+  "category/zone": "Public Spaces",
+  "parent category/zone": null
+}
+
+
+LLM (JSON): {
+  "location": {
+    "address": "123 Main St, Anytown USA"
+  },
+  "features": [
+    {
+      "amenity": "Restrooms",
+      "type": "Facility"
+    },
+    {
+      "amenity": "Food Carts",
+      "type": "Vending"
+    }
+  ],
+  "name": "Market Square",
+  "category/zone": "Public Spaces",
+  "parent category/zone": null,
+  "description": "A bustling public square with shops, restaurants, and entertainment.",
+  "hours_of_operation": {
+    "monday_to_saturday": "9am - 10pm",
+    "sunday": "11am - 8pm"
+  },
+  "contact": {
+    "phone": "(123) 456-7890",
+    "email": "marketsquare@example.com"
+  }
+}
+
+========================================
+
+
+
+User: You are to improve and expand the following JSON response.
+Iteration 2:
+{
+  "location": {
+    "address": "123 Main St, Anytown USA"
+  },
+  "features": [
+    {
+      "amenity": "Restrooms",
+      "type": "Facility"
+    },
+    {
+      "amenity": "Food Carts",
+      "type": "Vending"
+    }
+  ],
+  "name": "Market Square",
+  "category/zone": "Public Spaces",
+  "parent category/zone": null,
+  "description": "A bustling public square with shops, restaurants, and entertainment.",
+  "hours_of_operation": {
+    "monday_to_saturday": "9am - 10pm",
+    "sunday": "11am - 8pm"
+  },
+  "contact": {
+    "phone": "(123) 456-7890",
+    "email": "marketsquare@example.com"
+  }
+}
+
+
+LLM (JSON): {
+  "location": {
+    "address": "123 Main St, Anytown USA",
+    "city": "Anytown",
+    "state": "USA",
+    "zip_code": "12345",
+    "coordinates": {
+      "latitude": 40.7128,
+      "longitude": -74.0060
+    }
+  },
+  "features": [
+    {
+      "amenity": "Restrooms",
+      "type": "Facility",
+      "description": "Public restrooms available for customers and visitors."
+    },
+    {
+      "amenity": "Food Carts",
+      "type": "Vending",
+      "items": ["Snacks", "Beverages", "Street Food"]
+    }
+  ],
+  "name": "Market Square",
+  "category/zone": "Public Spaces",
+  "parent category/zone": null,
+  "description": "A bustling public square with shops, restaurants, and entertainment.",
+  "hours_of_operation": {
+    "monday_to_saturday": "9am - 10pm",
+    "sunday": "11am - 8pm"
+  },
+  "contact": {
+    "phone": "(123) 456-7890",
+    "email": "marketsquare@example.com",
+    "social_media": [
+      {"platform": "Facebook", "handle": "@MarketSquare"},
+      {"platform": "Twitter", "handle": "@MarketSq"}
+    ]
+  },
+  "events": [
+    {
+      "name": "Summer Concert Series",
+      "date": "June 1 - August 31",
+      "description": "Free outdoor concerts every Thursday evening."
+    },
+    {
+      "name": "Holiday Market",
+      "date": "December 1 - 24",
+      "description": "A festive market with local vendors and crafts."
+    }
+  ],
+  "images": [
+    {"url": "https://example.com/image1.jpg", "caption": "Market Square at night"},
+    {"url": "https://example.com/image2.jpg", "caption": "Summer concert series"}
+  ]
+}
+
+========================================
+
+
+
+User: You are to improve and expand the following JSON response.
+Iteration 3:
+{
+  "location": {
+    "address": "123 Main St, Anytown USA",
+    "city": "Anytown",
+    "state": "USA",
+    "zip_code": "12345",
+    "coordinates": {
+      "latitude": 40.7128,
+      "longitude": -74.006
+    }
+  },
+  "features": [
+    {
+      "amenity": "Restrooms",
+      "type": "Facility",
+      "description": "Public restrooms available for customers and visitors."
+    },
+    {
+      "amenity": "Food Carts",
+      "type": "Vending",
+      "items": [
+        "Snacks",
+        "Beverages",
+        "Street Food"
+      ]
+    }
+  ],
+  "name": "Market Square",
+  "category/zone": "Public Spaces",
+  "parent category/zone": null,
+  "description": "A bustling public square with shops, restaurants, and entertainment.",
+  "hours_of_operation": {
+    "monday_to_saturday": "9am - 10pm",
+    "sunday": "11am - 8pm"
+  },
+  "contact": {
+    "phone": "(123) 456-7890",
+    "email": "marketsquare@example.com",
+    "social_media": [
+      {
+        "platform": "Facebook",
+        "handle": "@MarketSquare"
+      },
+      {
+        "platform": "Twitter",
+        "handle": "@MarketSq"
+      }
+    ]
+  },
+  "events": [
+    {
+      "name": "Summer Concert Series",
+      "date": "June 1 - August 31",
+      "description": "Free outdoor concerts every Thursday evening."
+    },
+    {
+      "name": "Holiday Market",
+      "date": "December 1 - 24",
+      "description": "A festive market with local vendors and crafts."
+    }
+  ],
+  "images": [
+    {
+      "url": "https://example.com/image1.jpg",
+      "caption": "Market Square at night"
+    },
+    {
+      "url": "https://example.com/image2.jpg",
+      "caption": "Summer concert series"
+    }
+  ]
+}
+
+
+LLM (JSON): {
+  "location": {
+    "address": "123 Main St, Anytown USA",
+    "city": "Anytown",
+    "state": "USA",
+    "zip_code": "12345",
+    "coordinates": {
+      "latitude": 40.7128,
+      "longitude": -74.006
+    }
+  },
+  "features": [
+    {
+      "amenity": "Restrooms",
+      "type": "Facility",
+      "description": "Public restrooms available for customers and visitors.",
+      "accessibility": {
+        "wheelchair_accessible": true,
+        "ramp_available": false
+      },
+      "services": ["cleaning", "security"]
+    },
+    {
+      "amenity": "Food Carts",
+      "type": "Vending",
+      "items": [
+        "Snacks",
+        "Beverages",
+        "Street Food"
+      ],
+      "pricing": {
+        "average_cost": 5,
+        "payment_methods": ["cash", "card"]
+      }
+    }
+  ],
+  "name": "Market Square",
+  "category/zone": "Public Spaces",
+  "parent category/zone": null,
+  "description": "A bustling public square with shops, restaurants, and entertainment.",
+  "hours_of_operation": {
+    "monday_to_saturday": "9am - 10pm",
+    "sunday": "11am - 8pm"
+  },
+  "contact": {
+    "phone": "(123) 456-7890",
+    "email": "marketsquare@example.com",
+    "social_media": [
+      {
+        "platform": "Facebook",
+        "handle": "@MarketSquare"
+      },
+      {
+        "platform": "Twitter",
+        "handle": "@MarketSq"
+      }
+    ],
+    "address_for_mailing": {
+      "street": "123 Main St",
+      "city": "Anytown",
+      "state": "USA",
+      "zip_code": "12345"
+    }
+  },
+  "events": [
+    {
+      "name": "Summer Concert Series",
+      "date": "June 1 - August 31",
+      "description": "Free outdoor concerts every Thursday evening.",
+      "schedule": ["thursday at 6pm"],
+      "tickets": {
+        "purchase_link": "https://example.com/tickets",
+        "price": 10
+      }
+    },
+    {
+      "name": "Holiday Market",
+      "date": "December 1 - 24",
+      "description": "A festive market with local vendors and crafts.",
+      "schedule": ["saturday at 9am"],
+      "admission": {
+        "free": true,
+        "special_admission_days": ["december 22"]
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://example.com/image1.jpg",
+      "caption": "Market Square at night"
+    },
+    {
+      "url": "https://example.com/image2.jpg",
+      "caption": "Summer concert series"
+    },
+    {
+      "url": "https://example.com/image3.jpg",
+      "caption": "Holiday market vendors"
+    }
+  ],
+  "reviews": [
+    {
+      "rating": 5,
+      "reviewer": "John Doe",
+      "date": "2022-01-01",
+      "text": "Great place to visit and shop!"
+    },
+    {
+      "rating": 3,
+      "reviewer": "Jane Doe",
+      "date": "2022-02-01",
+      "text": "Nice atmosphere, but food options were limited."
+    }
+  ],
+  "awards": [
+    {
+      "name": "Best Public Space in Anytown",
+      "year": 2020,
+      "source": "Anytown Gazette"
+    },
+    {
+      "name": "Top 10 Places to Visit in USA",
+      "year": 2019,
+      "source": "USA Today"
+    }
+  ],
+  "covid_info": {
+    "mask_required": false,
+    "social_distancing_enforced": true
+  }
+}
+
+========================================
+
+
+

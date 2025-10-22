@@ -1,0 +1,56 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: person_goals.schema.json
+title: Goals
+type: object
+required:
+- id
+- goals
+properties:
+  id:
+    type: string
+  goals:
+    type: array
+    items:
+      type: object
+      required:
+      - gid
+      - desc
+      - horizon
+      - priority
+      - status
+      properties:
+        gid:
+          type: string
+        desc:
+          type: string
+          maxLength: 120
+        horizon:
+          type: string
+          enum:
+          - now
+          - today
+          - week
+          - month
+          - year
+          - life
+        priority:
+          type: number
+          minimum: 0
+          maximum: 1
+        status:
+          type: string
+          enum:
+          - active
+          - paused
+          - done
+          - blocked
+  motivations:
+    type: array
+    items:
+      type: string
+      maxLength: 80
+    maxItems: 8
+  last_updated:
+    type: string
+    format: date-time
+additionalProperties: false

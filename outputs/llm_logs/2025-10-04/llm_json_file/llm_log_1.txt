@@ -1,0 +1,51 @@
+System: You are a helpful assistant. Output only the improved JSON. Do not ask questions. If no changes are made, respond with the original JSON.
+
+User: Here is the JSON data:
+{
+  "City Hall": {
+    "description": "The central hub of the city's government, responsible for administration, laws, and public services.",
+    "features": {
+      "buildings": [
+        "grand entrance",
+        "meeting rooms",
+        "office spaces",
+        "mayor's office"
+      ],
+      "public areas": [
+        "council chamber",
+        "public information desk",
+        "customer service area"
+      ]
+    }
+  }
+}
+
+User Prompt:
+Improve this json representation of a place to better facilitate agent interaction and traversal
+
+LLM (JSON): {
+  "$id": "/City Hall",
+  "name": "City Hall",
+  "description": {
+    "en-US": "The central hub of the city's government, responsible for administration, laws, and public services."
+  },
+  "features": {
+    "buildings": [
+      { "$ref": "#/features/buildings" },
+      { "$id": "/City Hall/features/buildings/meeting rooms", "name": "meeting rooms", "description": { "en-US": "For holding meetings and council sessions." } },
+      { "$id": "/City Hall/features/buildings/office spaces", "name": "office spaces", "description": { "en-US": "Where government employees work." } },
+      { "$id": "/City Hall/features/buildings/mayor's office", "name": "mayor's office", "description": { "en-US": "The workplace of the city mayor." } }
+    ],
+    "public areas": [
+      { "$ref": "#/features/public areas" },
+      { "$id": "/City Hall/features/public areas/council chamber", "name": "council chamber", "description": { "en-US": "Where council members meet to discuss and vote on laws." } },
+      { "$id": "/City Hall/features/public areas/public information desk", "name": "public information desk", "description": { "en-US": "For answering citizens' questions about city services and policies." } },
+      { "$id": "/City Hall/features/public areas/customer service area", "name": "customer service area", "description": { "en-US": "Where citizens can get help with city-related issues." } }
+    ]
+  }
+}
+
+========================================
+
+
+

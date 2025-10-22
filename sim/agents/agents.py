@@ -7,14 +7,16 @@ import json, string
 
 from matplotlib.pylab import f
 
-from ..llm.llm_ollama import llm, BELIEF_LOCK_SYSTEM
+from ..llm.llm_ollama import AI_ASSISTANT_SYSTEM
 from ..memory.memory import MemoryStore, MemoryItem
 from ..actions.actions import normalize_action
 from ..world.world import World
 
 from ..scheduler.scheduler import Appointment, enforce_schedule
 from ..inventory.inventory import Inventory
+from sim.llm import llm_ollama
 
+llm = llm_ollama.LLM()
 
 def now_str(tick:int, start_dt=None) -> str:
     """
@@ -228,7 +230,7 @@ class Agent:
         if action.startswith("invalid action format"):
             retries = 0
             while retries < 3 and action.startswith("invalid action format"):
-                fixedaction = llm.chat(f"Please correct this action call it acceptions json. \n {decision.get('action','')}", system=BELIEF_LOCK_SYSTEM, max_tokens=64)
+                fixedaction = llm.chat(f"Please correct this action call it acceptions json. \n {decision.get('action','')}", system=AI_ASSISTANT_SYSTEM, max_tokens=64)
                 action = normalize_action(decision.get("action",""))
                 if not action.startswith("invalid action format"):
                     break

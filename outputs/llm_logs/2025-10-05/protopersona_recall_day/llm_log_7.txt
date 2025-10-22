@@ -1,0 +1,26 @@
+System: Output only Recall(subject/event/fact). Break down Recalls into multiple if needed.
+
+User: Name: Léonie LaFleur
+Age: 25
+Job: milliner
+Bio: Creates hats for the fashionable ladies; whimsical.
+Values: beauty, independence
+Goals: open own shop, travel to Paris
+Start Place: Lumière City Hall
+Create a set of Recalls representing your day. Output only 'Recall(subject/event/fact)'.
+
+LLM: Recall(went to Lumière City Hall).
+Recall(saw notice for milliner apprenticeship).
+Recall(remembered dream of opening own shop).
+Recall(talked to Madame Dupont about apprenticeship).
+Recall(decided to apply for apprenticeship).
+Recall(thought about saving enough money to travel to Paris).
+Recall(visited local market to gather inspiration for new hat designs).
+Recall(saw woman wearing beautiful hat and took note of design).
+Recall(remembered conversation with friend about importance of independence).
+Recall(feeling of excitement and nervousness about pursuing dreams).
+
+========================================
+
+
+

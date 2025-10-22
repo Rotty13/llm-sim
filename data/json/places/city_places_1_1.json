@@ -1,0 +1,376 @@
+{
+  "Government Locations": {
+    "City Hall": {
+      "description": "The central hub of the city's government, responsible for administration, laws, and public services.",
+      "features": {
+        "rooms": [
+          "grand entrance (entry)",
+          "meeting rooms (meetings)",
+          "office spaces (work)",
+          "mayor's office (administration)",
+          "council chamber (governance)",
+          "public information desk (information)",
+          "customer service area (service)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Town Square": {
+      "description": "A public gathering space often featuring important buildings such as the city hall, church, and market stalls, serving as a hub for civic events and community activities.",
+      "features": {
+        "areas": [
+          "fountains (relaxation)",
+          "pedestrian walkways (transit)",
+          "statues (art)",
+          "street performers (entertainment)",
+          "public speeches (events)",
+          "festivals (events)",
+          "celebrations (events)"
+        ]
+      },
+      "has_rooms": false
+    },
+    "Market Place": {
+      "description": "A designated area for buying and selling goods, often regulated by the city government, offering a diverse range of products and services to cater to various needs.",
+      "features": {
+        "areas": [
+          "stalls (commerce)",
+          "shops (commerce)",
+          "food vendors (food)",
+          "town crier's platform (announcements)",
+          "regular markets (commerce)"
+        ]
+      },
+      "has_rooms": false
+    },
+    "Courthouse": {
+      "description": "The building where legal proceedings take place, including trials and court hearings, providing a fair and impartial forum for resolving disputes.",
+      "features": {
+        "rooms": [
+          "grand hall (court proceedings)",
+          "judges' chambers (work)",
+          "witness waiting area (waiting)",
+          "jury deliberation room (deliberation)",
+          "holding cells (detention)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "City Guard Barracks": {
+      "description": "The residence of the city's law enforcement and military personnel, responsible for maintaining order, protecting citizens, and upholding the law.",
+      "features": {
+        "rooms": [
+          "living quarters (rest)",
+          "mess hall (dining)",
+          "armories (storage)",
+          "drill ground (training)",
+          "fitness center (exercise)",
+          "training facilities (training)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Council Chamber": {
+      "description": "A meeting room where government officials discuss and make decisions on policies, laws, and city projects.",
+      "features": {
+        "rooms": [
+          "large table (meetings)",
+          "seating areas (meetings)",
+          "display boards for documents and maps (information)",
+          "clerk's office (work)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Archives Building": {
+      "description": "A repository storing historical documents, records, and artifacts, preserving the city's history and cultural heritage.",
+      "features": {
+        "rooms": [
+          "shelves (storage)",
+          "cabinets (storage)",
+          "storage rooms for sensitive materials (storage)",
+          "research library (study)",
+          "digital archive (study)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Tax Office": {
+      "description": "A facility responsible for collecting taxes, fees, and other revenue, ensuring the financial stability of the city government.",
+      "features": {
+        "rooms": [
+          "offices (work)",
+          "record-keeping areas (storage)",
+          "payment counters (service)",
+          "tax collection agency (service)",
+          "department for tax assistance and guidance (service)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Public Records Office": {
+      "description": "A department maintaining official documents, certificates, and licenses, providing essential services to citizens, businesses, and government agencies.",
+      "features": {
+        "rooms": [
+          "storage rooms (storage)",
+          "filing system (storage)",
+          "counter spaces (service)",
+          "waiting areas (waiting)",
+          "public access area for viewing records (information)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "City Planning Office": {
+      "description": "A department responsible for urban development, infrastructure projects, and zoning regulations, shaping the city's growth and development.",
+      "features": {
+        "rooms": [
+          "map libraries (study)",
+          "design studios (work)",
+          "meeting rooms (meetings)",
+          "model workshop (work)",
+          "data analysis center (work)"
+        ]
+      },
+      "has_rooms": true
+    }
+  },
+  "Private Locations": {
+    "Train Station": {
+      "description": "A transportation hub connecting the city to other cities and regions, offering various travel options such as trains, carriages, and pedestrian paths.",
+      "features": {
+        "rooms": [
+          "ticketing offices (service)",
+          "waiting areas (waiting)",
+          "lost and found office (service)",
+          "baggage handling facilities (storage)",
+          "postal service (service)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Townhouses": {
+      "group_type": "Residential Complex",
+      "description": "A collection of upscale townhouses for wealthy and middle-class citizens, each with private amenities.",
+      "sub_locations": {
+        "Townhouse A": {
+          "description": "A luxury townhouse with a private garden and dedicated staff.",
+          "rooms": [
+            "private garden (relaxation)",
+            "servants' quarters (living)",
+            "secure entryway (security)",
+            "concierge desk (service)"
+          ]
+        },
+        "Townhouse B": {
+          "description": "A modern townhouse with enhanced security and a spacious garden.",
+          "rooms": [
+            "spacious garden (relaxation)",
+            "guest room (living)",
+            "secure entryway (security)"
+          ]
+        }
+      }
+    },
+    "Tenement District": {
+      "group_type": "Residential Block",
+      "description": "A district of tenement buildings for lower-class citizens, with communal and commercial sub-locations.",
+      "sub_locations": {
+        "Tenement Building 1": {
+          "description": "A crowded tenement with shared laundry and courtyard.",
+          "rooms": [
+            "shared courtyard (relaxation)",
+            "laundry room (hygiene)",
+            "community center (socializing)"
+          ]
+        },
+        "Tenement Building 2": {
+          "description": "A tenement with a tavern and small shops on the ground floor.",
+          "rooms": [
+            "tavern (socializing)",
+            "shop (commerce)"
+          ]
+        }
+      }
+    },
+    "Apothecary Shop": {
+      "description": "A store selling medicinal herbs, remedies, and equipment, providing essential healthcare services to the community, often staffed by skilled pharmacists and healers.",
+      "features": {
+        "rooms": [
+          "display cases (commerce)",
+          "shelves (storage)",
+          "consultation area (service)",
+          "laboratory for compound preparation (work)",
+          "pharmacy (service)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Inn": {
+      "description": "A lodging establishment for travelers and locals alike, offering a range of amenities such as comfortable rooms, meals, taverns, game halls, a common room for socializing, a courtyard, a stable, and a kitchen serving local cuisine.",
+      "features": {
+        "rooms": [
+          "comfortable rooms (sleeping)",
+          "stable (storage)",
+          "meals (dining)",
+          "taverns (socializing)",
+          "game halls (entertainment)",
+          "common room for socializing (socializing)",
+          "courtyard (relaxation)",
+          "kitchen (cooking)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Blacksmith Forge": {
+      "description": "A workshop where metal goods are crafted and repaired, providing essential services for the city's residents, including horse shoes, tools, equipment, a smithing academy for apprentices, a furnace, an anvil, and a testing area for metalwork.",
+      "features": {
+        "rooms": [
+          "horse shoes (crafting)",
+          "tools (crafting)",
+          "equipment (crafting)",
+          "smithing academy for apprentices (training)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Church": {
+      "description": "A place of worship for the city's religious community, offering spiritual guidance, solace, and a sense of belonging to its congregation.",
+      "features": {
+        "rooms": [
+          "grand altar (worship)",
+          "pews (worship)",
+          "cemetery (memorial)",
+          "clergy residence (living)",
+          "community center (socializing)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Guildhall": {
+      "description": "The headquarters of various trade guilds, such as carpenters, bakers, or merchants, serving as a hub for professional development, networking, and industry standards.",
+      "features": {
+        "rooms": [
+          "meeting rooms (meetings)",
+          "libraries (study)",
+          "training facilities (training)",
+          "apprenticeship program (training)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Brewery": {
+      "description": "A facility producing and selling beer, providing a popular beverage to the city's residents, often featuring a tasting room, a social atmosphere, a brewhouse tour, fermentation tanks, a bottling line, and a storage area for barrels.",
+      "features": {
+        "rooms": [
+          "fermentation tanks (production)",
+          "bottling line (production)",
+          "tasting room (dining)",
+          "social atmosphere (socializing)",
+          "brewhouse tour (entertainment)",
+          "storage area (storage)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Noble Manor": {
+      "description": "A grand residence of the city's wealthy aristocracy, often featuring luxurious amenities, gardens, private courtyards, a ballroom, a chapel, and a private theater for entertaining guests.",
+      "features": {
+        "rooms": [
+          "luxurious amenities (living)",
+          "gardens (relaxation)",
+          "private courtyards (relaxation)",
+          "ballroom (entertainment)",
+          "chapel (worship)",
+          "private theater (entertainment)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Merchant's Guildhall": {
+      "description": "A meeting place for merchants and traders, providing a platform for networking, trade negotiations, industry development, access to trade routes and market information, conference rooms, a library, a data center, and a member lounge.",
+      "features": {
+        "rooms": [
+          "conference rooms (meetings)",
+          "library (study)",
+          "data center (work)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "Theater District": {
+      "group_type": "Entertainment Zone",
+      "description": "A district with multiple entertainment venues and training facilities for performers.",
+      "sub_locations": {
+        "Grand Theater": {
+          "description": "A large theater for plays and concerts.",
+          "rooms": [
+            "main stage (performance)",
+            "auditorium (entertainment)",
+            "backstage (work)"
+          ]
+        },
+        "Playhouse": {
+          "description": "A smaller venue for local performances.",
+          "rooms": [
+            "stage (performance)",
+            "seating area (entertainment)"
+          ]
+        },
+        "Theater Academy": {
+          "description": "A school for actors and performers.",
+          "rooms": [
+            "classroom (training)",
+            "practice studio (training)"
+          ]
+        },
+        "Music Hall": {
+          "description": "A venue for musical performances and rehearsals.",
+          "rooms": [
+            "concert stage (performance)",
+            "rehearsal room (training)"
+          ]
+        },
+        "Dance Studio": {
+          "description": "A studio for dance lessons and practice.",
+          "rooms": [
+            "dance floor (training)",
+            "changing room (hygiene)"
+          ]
+        },
+        "Costume Shop": {
+          "description": "A shop for costumes and props.",
+          "rooms": [
+            "retail area (commerce)",
+            "fitting room (service)"
+          ]
+        }
+      }
+    },
+    "Library": {
+      "description": "A repository of books, manuscripts, knowledge, providing access to educational resources, research materials, and cultural enrichment for the community.",
+      "features": {
+        "rooms": [
+          "reading rooms (study)",
+          "cataloging system (work)",
+          "scriptorium for manuscript copying (work)",
+          "digital archive (study)"
+        ]
+      },
+      "has_rooms": true
+    },
+    "City Museum": {
+      "description": "A facility showcasing the city's history, art, culture, featuring exhibits, artifacts, interactive displays, a museum library, a curator's office, and a research center for scholars.",
+      "features": {
+        "rooms": [
+          "exhibits (display)",
+          "artifacts (display)",
+          "museum library (study)",
+          "curator's office (work)",
+          "research center (study)"
+        ]
+      },
+      "has_rooms": true
+    }
+  }
+}

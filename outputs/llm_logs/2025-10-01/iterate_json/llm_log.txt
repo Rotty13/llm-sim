@@ -1,0 +1,1282 @@
+System: You are a helpful assistant. Output only valid JSON.
+
+User: Generate a taxonomy tree representing the different zones and categories and places/land in a small europeon city in the year 1900
+
+LLM: ```json
+{
+  "name": "City of Lyon, France",
+  "children": [
+    {
+      "name": "Zone 1: Historic Center",
+      "children": [
+        {
+          "name": "Category 1.1: Residential",
+          "children": [
+            {
+              "name": "Place/land 1.1.1: Rue de la République",
+              "description": "Main street of the historic center"
+            },
+            {
+              "name": "Place/land 1.1.2: Place des Terreaux",
+              "description": "Central square of the historic center"
+            }
+          ]
+        },
+        {
+          "name": "Category 1.2: Commercial",
+          "children": [
+            {
+              "name": "Place/land 1.2.1: Les Halles de Lyon",
+              "description": "City market and food hall"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 2: Industrial Area",
+      "children": [
+        {
+          "name": "Category 2.1: Factories and Mills",
+          "children": [
+            {
+              "name": "Place/land 2.1.1: La Part-Dieu",
+              "description": "Industrial complex with textile mills"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 3: Parks and Green Spaces",
+      "children": [
+        {
+          "name": "Category 3.1: Public Gardens",
+          "children": [
+            {
+              "name": "Place/land 3.1.1: Parc de la Tête d'Or",
+              "description": "Large public park in the northern part of the city"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+========================================
+
+
+
+User: You are to improve and expand the following JSON response.
+Iteration 1:
+{
+  "name": "City of Lyon, France",
+  "children": [
+    {
+      "name": "Zone 1: Historic Center",
+      "children": [
+        {
+          "name": "Category 1.1: Residential",
+          "children": [
+            {
+              "name": "Place/land 1.1.1: Rue de la R\u00e9publique",
+              "description": "Main street of the historic center"
+            },
+            {
+              "name": "Place/land 1.1.2: Place des Terreaux",
+              "description": "Central square of the historic center"
+            }
+          ]
+        },
+        {
+          "name": "Category 1.2: Commercial",
+          "children": [
+            {
+              "name": "Place/land 1.2.1: Les Halles de Lyon",
+              "description": "City market and food hall"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 2: Industrial Area",
+      "children": [
+        {
+          "name": "Category 2.1: Factories and Mills",
+          "children": [
+            {
+              "name": "Place/land 2.1.1: La Part-Dieu",
+              "description": "Industrial complex with textile mills"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 3: Parks and Green Spaces",
+      "children": [
+        {
+          "name": "Category 3.1: Public Gardens",
+          "children": [
+            {
+              "name": "Place/land 3.1.1: Parc de la T\u00eate d'Or",
+              "description": "Large public park in the northern part of the city"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
+LLM: {
+  "name": "City of Lyon, France",
+  "children": [
+    {
+      "name": "Zone 1: Historic Center",
+      "description": "Old town with cobblestone streets and historic buildings",
+      "children": [
+        {
+          "name": "Category 1.1: Residential",
+          "description": "Area with traditional French architecture and narrow streets",
+          "children": [
+            {
+              "name": "Place/land 1.1.1: Rue de la République",
+              "description": "Main street of the historic center",
+              "features": [
+                "pedestrian-friendly",
+                "shaded"
+              ],
+              "transportation": [
+                "bus",
+                "tram"
+              ]
+            },
+            {
+              "name": "Place/land 1.1.2: Place des Terreaux",
+              "description": "Central square of the historic center",
+              "features": [
+                "fountain",
+                "statue"
+              ],
+              "events": [
+                "festivals",
+                "concerts"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Category 1.2: Commercial",
+          "description": "Area with shops, cafes, and restaurants",
+          "children": [
+            {
+              "name": "Place/land 1.2.1: Les Halles de Lyon",
+              "description": "City market and food hall",
+              "features": [
+                "food stalls",
+                "fresh produce"
+              ],
+              "opening_hours": [
+                "Monday to Saturday: 8am - 7pm",
+                "Sunday: 9am - 6pm"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 2: Industrial Area",
+      "description": "Area with factories and industrial facilities",
+      "children": [
+        {
+          "name": "Category 2.1: Factories and Mills",
+          "description": "Industrial complex with textile mills",
+          "features": [
+            "production facilities",
+            "warehousing"
+          ],
+          "transportation": [
+            "truck access",
+            "railway"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 3: Parks and Green Spaces",
+      "description": "Area with parks, gardens, and green spaces",
+      "children": [
+        {
+          "name": "Category 3.1: Public Gardens",
+          "description": "Large public park in the northern part of the city",
+          "features": [
+            "walking trails",
+            "picnic areas"
+          ],
+          "opening_hours": [
+            "daily: 8am - sunset"
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+========================================
+
+
+
+User: You are to improve and expand the following JSON response.
+Iteration 2:
+{
+  "name": "City of Lyon, France",
+  "children": [
+    {
+      "name": "Zone 1: Historic Center",
+      "description": "Old town with cobblestone streets and historic buildings",
+      "children": [
+        {
+          "name": "Category 1.1: Residential",
+          "description": "Area with traditional French architecture and narrow streets",
+          "children": [
+            {
+              "name": "Place/land 1.1.1: Rue de la R\u00e9publique",
+              "description": "Main street of the historic center",
+              "features": [
+                "pedestrian-friendly",
+                "shaded"
+              ],
+              "transportation": [
+                "bus",
+                "tram"
+              ]
+            },
+            {
+              "name": "Place/land 1.1.2: Place des Terreaux",
+              "description": "Central square of the historic center",
+              "features": [
+                "fountain",
+                "statue"
+              ],
+              "events": [
+                "festivals",
+                "concerts"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Category 1.2: Commercial",
+          "description": "Area with shops, cafes, and restaurants",
+          "children": [
+            {
+              "name": "Place/land 1.2.1: Les Halles de Lyon",
+              "description": "City market and food hall",
+              "features": [
+                "food stalls",
+                "fresh produce"
+              ],
+              "opening_hours": [
+                "Monday to Saturday: 8am - 7pm",
+                "Sunday: 9am - 6pm"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 2: Industrial Area",
+      "description": "Area with factories and industrial facilities",
+      "children": [
+        {
+          "name": "Category 2.1: Factories and Mills",
+          "description": "Industrial complex with textile mills",
+          "features": [
+            "production facilities",
+            "warehousing"
+          ],
+          "transportation": [
+            "truck access",
+            "railway"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 3: Parks and Green Spaces",
+      "description": "Area with parks, gardens, and green spaces",
+      "children": [
+        {
+          "name": "Category 3.1: Public Gardens",
+          "description": "Large public park in the northern part of the city",
+          "features": [
+            "walking trails",
+            "picnic areas"
+          ],
+          "opening_hours": [
+            "daily: 8am - sunset"
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
+LLM: Here is an expanded and improved version of the JSON response:
+
+```json
+{
+  "name": "City of Lyon, France",
+  "description": "A city with a rich history and culture, known for its gastronomy, historical landmarks, and natural beauty.",
+  "children": [
+    {
+      "name": "Zone 1: Historic Center",
+      "description": "Old town with cobblestone streets and historic buildings",
+      "features": [
+        "pedestrian-friendly",
+        "shaded"
+      ],
+      "transportation": [
+        "bus",
+        "tram"
+      ],
+      "children": [
+        {
+          "name": "Category 1.1: Residential",
+          "description": "Area with traditional French architecture and narrow streets",
+          "features": [
+            "traditional architecture",
+            "narrow streets"
+          ],
+          "children": [
+            {
+              "name": "Place/land 1.1.1: Rue de la République",
+              "description": "Main street of the historic center",
+              "features": [
+                "pedestrian-friendly",
+                "shaded"
+              ],
+              "transportation": [
+                "bus",
+                "tram"
+              ],
+              "events": [
+                {
+                  "name": "Fête de la Musique",
+                  "description": "Annual music festival",
+                  "date": "June 21st"
+                }
+              ]
+            },
+            {
+              "name": "Place/land 1.1.2: Place des Terreaux",
+              "description": "Central square of the historic center",
+              "features": [
+                "fountain",
+                "statue"
+              ],
+              "transportation": [
+                "bus",
+                "tram"
+              ],
+              "events": [
+                {
+                  "name": "Festival de la Lumières",
+                  "description": "Annual light festival",
+                  "date": "December 6th-8th"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Category 1.2: Commercial",
+          "description": "Area with shops, cafes, and restaurants",
+          "features": [
+            "shopping center",
+            "food hall"
+          ],
+          "children": [
+            {
+              "name": "Place/land 1.2.1: Les Halles de Lyon",
+              "description": "City market and food hall",
+              "features": [
+                "food stalls",
+                "fresh produce"
+              ],
+              "opening_hours": [
+                "Monday to Saturday: 8am - 7pm",
+                "Sunday: 9am - 6pm"
+              ],
+              "events": [
+                {
+                  "name": "Fête des Fromages",
+                  "description": "Annual cheese festival",
+                  "date": "September 21st"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 2: Industrial Area",
+      "description": "Area with factories and industrial facilities",
+      "features": [
+        "industrial complex",
+        "textile mills"
+      ],
+      "children": [
+        {
+          "name": "Category 2.1: Factories and Mills",
+          "description": "Industrial complex with textile mills",
+          "features": [
+            "production facilities",
+            "warehousing"
+          ],
+          "transportation": [
+            "truck access",
+            "railway"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Friday",
+              "start_time": "8am",
+              "end_time": "5pm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 3: Parks and Green Spaces",
+      "description": "Area with parks, gardens, and green spaces",
+      "features": [
+        "walking trails",
+        "picnic areas"
+      ],
+      "children": [
+        {
+          "name": "Category 3.1: Public Gardens",
+          "description": "Large public park in the northern part of the city",
+          "features": [
+            "lakes",
+            "playgrounds"
+          ],
+          "opening_hours": [
+            "daily: 8am - sunset"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 4: Cultural Districts",
+      "description": "Area with museums, theaters, and cultural institutions",
+      "features": [
+        "museums",
+        "theaters"
+      ],
+      "children": [
+        {
+          "name": "Category 4.1: Museums",
+          "description": "Area with various museums and art galleries",
+          "features": [
+            "art museum",
+            "history museum"
+          ],
+          "opening_hours": [
+            {
+              "name": "Tuesday to Sunday",
+              "start_time": "10am",
+              "end_time": "6pm"
+            }
+          ]
+        },
+        {
+          "name": "Category 4.2: Theaters",
+          "description": "Area with various theaters and performance venues",
+          "features": [
+            "drama theater",
+            "music venue"
+          ],
+          "opening_hours": [
+            {
+              "name": "Tuesday to Sunday",
+              "start_time": "7pm",
+              "end_time": "11pm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+This expanded JSON response includes the following features:
+
+*   Added a `description` field to the top-level object to provide a brief overview of the city.
+*   Added a `features` array to each zone and category to list notable features associated with them.
+*   Added a `transportation` array to each zone and category to list transportation options available in those areas.
+*   Added an `opening_hours` field to each zone and category to specify the opening hours of attractions and facilities.
+*   Added an `events` array to each place/land to list upcoming events and festivals held there.
+*   Added a `date` field to each event to specify the date it takes place.
+*   Added new zones and categories to provide more comprehensive information about the city.
+
+These improvements should make the JSON response more informative and useful for users.
+
+========================================
+
+
+
+User: You are to improve and expand the following JSON response.
+Iteration 3:
+{
+  "name": "City of Lyon, France",
+  "description": "A city with a rich history and culture, known for its gastronomy, historical landmarks, and natural beauty.",
+  "children": [
+    {
+      "name": "Zone 1: Historic Center",
+      "description": "Old town with cobblestone streets and historic buildings",
+      "features": [
+        "pedestrian-friendly",
+        "shaded"
+      ],
+      "transportation": [
+        "bus",
+        "tram"
+      ],
+      "children": [
+        {
+          "name": "Category 1.1: Residential",
+          "description": "Area with traditional French architecture and narrow streets",
+          "features": [
+            "traditional architecture",
+            "narrow streets"
+          ],
+          "children": [
+            {
+              "name": "Place/land 1.1.1: Rue de la R\u00e9publique",
+              "description": "Main street of the historic center",
+              "features": [
+                "pedestrian-friendly",
+                "shaded"
+              ],
+              "transportation": [
+                "bus",
+                "tram"
+              ],
+              "events": [
+                {
+                  "name": "F\u00eate de la Musique",
+                  "description": "Annual music festival",
+                  "date": "June 21st"
+                }
+              ]
+            },
+            {
+              "name": "Place/land 1.1.2: Place des Terreaux",
+              "description": "Central square of the historic center",
+              "features": [
+                "fountain",
+                "statue"
+              ],
+              "transportation": [
+                "bus",
+                "tram"
+              ],
+              "events": [
+                {
+                  "name": "Festival de la Lumi\u00e8res",
+                  "description": "Annual light festival",
+                  "date": "December 6th-8th"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Category 1.2: Commercial",
+          "description": "Area with shops, cafes, and restaurants",
+          "features": [
+            "shopping center",
+            "food hall"
+          ],
+          "children": [
+            {
+              "name": "Place/land 1.2.1: Les Halles de Lyon",
+              "description": "City market and food hall",
+              "features": [
+                "food stalls",
+                "fresh produce"
+              ],
+              "opening_hours": [
+                "Monday to Saturday: 8am - 7pm",
+                "Sunday: 9am - 6pm"
+              ],
+              "events": [
+                {
+                  "name": "F\u00eate des Fromages",
+                  "description": "Annual cheese festival",
+                  "date": "September 21st"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 2: Industrial Area",
+      "description": "Area with factories and industrial facilities",
+      "features": [
+        "industrial complex",
+        "textile mills"
+      ],
+      "children": [
+        {
+          "name": "Category 2.1: Factories and Mills",
+          "description": "Industrial complex with textile mills",
+          "features": [
+            "production facilities",
+            "warehousing"
+          ],
+          "transportation": [
+            "truck access",
+            "railway"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Friday",
+              "start_time": "8am",
+              "end_time": "5pm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 3: Parks and Green Spaces",
+      "description": "Area with parks, gardens, and green spaces",
+      "features": [
+        "walking trails",
+        "picnic areas"
+      ],
+      "children": [
+        {
+          "name": "Category 3.1: Public Gardens",
+          "description": "Large public park in the northern part of the city",
+          "features": [
+            "lakes",
+            "playgrounds"
+          ],
+          "opening_hours": [
+            "daily: 8am - sunset"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 4: Cultural Districts",
+      "description": "Area with museums, theaters, and cultural institutions",
+      "features": [
+        "museums",
+        "theaters"
+      ],
+      "children": [
+        {
+          "name": "Category 4.1: Museums",
+          "description": "Area with various museums and art galleries",
+          "features": [
+            "art museum",
+            "history museum"
+          ],
+          "opening_hours": [
+            {
+              "name": "Tuesday to Sunday",
+              "start_time": "10am",
+              "end_time": "6pm"
+            }
+          ]
+        },
+        {
+          "name": "Category 4.2: Theaters",
+          "description": "Area with various theaters and performance venues",
+          "features": [
+            "drama theater",
+            "music venue"
+          ],
+          "opening_hours": [
+            {
+              "name": "Tuesday to Sunday",
+              "start_time": "7pm",
+              "end_time": "11pm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
+LLM: Here is the expanded JSON response:
+
+```json
+{
+  "name": "City of Lyon, France",
+  "description": "A city with a rich history and culture, known for its gastronomy, historical landmarks, and natural beauty.",
+  "children": [
+    {
+      "name": "Zone 1: Historic Center",
+      "description": "Old town with cobblestone streets and historic buildings",
+      "features": [
+        "pedestrian-friendly",
+        "shaded"
+      ],
+      "transportation": [
+        "bus",
+        "tram"
+      ],
+      "children": [
+        {
+          "name": "Category 1.1: Residential",
+          "description": "Area with traditional French architecture and narrow streets",
+          "features": [
+            "traditional architecture",
+            "narrow streets"
+          ],
+          "children": [
+            {
+              "name": "Place/land 1.1.1: Rue de la République",
+              "description": "Main street of the historic center",
+              "features": [
+                "pedestrian-friendly",
+                "shaded"
+              ],
+              "transportation": [
+                "bus",
+                "tram"
+              ],
+              "events": [
+                {
+                  "name": "Fête de la Musique",
+                  "description": "Annual music festival",
+                  "date": "June 21st"
+                }
+              ],
+              "opening_hours": [
+                "Monday to Saturday: 9am - 7pm",
+                "Sunday: 10am - 6pm"
+              ]
+            },
+            {
+              "name": "Place/land 1.1.2: Place des Terreaux",
+              "description": "Central square of the historic center",
+              "features": [
+                "fountain",
+                "statue"
+              ],
+              "transportation": [
+                "bus",
+                "tram"
+              ],
+              "events": [
+                {
+                  "name": "Festival de la Lumière",
+                  "description": "Annual light festival",
+                  "date": "December 6th-8th"
+                }
+              ],
+              "opening_hours": [
+                "Monday to Saturday: 10am - 8pm",
+                "Sunday: 11am - 7pm"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Category 1.2: Commercial",
+          "description": "Area with shops, cafes, and restaurants",
+          "features": [
+            "shopping center",
+            "food hall"
+          ],
+          "children": [
+            {
+              "name": "Place/land 1.2.1: Les Halles de Lyon",
+              "description": "City market and food hall",
+              "features": [
+                "food stalls",
+                "fresh produce"
+              ],
+              "opening_hours": [
+                "Monday to Saturday: 8am - 7pm",
+                "Sunday: 9am - 6pm"
+              ],
+              "events": [
+                {
+                  "name": "Fête des Fromages",
+                  "description": "Annual cheese festival",
+                  "date": "September 21st"
+                }
+              ]
+            },
+            {
+              "name": "Place/land 1.2.2: Rue Mercière",
+              "description": "Popular shopping street with boutiques and cafes",
+              "features": [
+                "boutique stores",
+                "cafe culture"
+              ],
+              "transportation": [
+                "bus",
+                "tram"
+              ],
+              "events": [
+                {
+                  "name": "Fête de la Mode",
+                  "description": "Annual fashion festival",
+                  "date": "March 20th-22nd"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 2: Industrial Area",
+      "description": "Area with factories and industrial facilities",
+      "features": [
+        "industrial complex",
+        "textile mills"
+      ],
+      "children": [
+        {
+          "name": "Category 2.1: Factories and Mills",
+          "description": "Industrial complex with textile mills",
+          "features": [
+            "production facilities",
+            "warehousing"
+          ],
+          "transportation": [
+            "truck access",
+            "railway"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Friday",
+              "start_time": "8am",
+              "end_time": "5pm"
+            }
+          ]
+        },
+        {
+          "name": "Category 2.2: Logistics and Distribution",
+          "description": "Area with warehouses, logistics centers, and distribution hubs",
+          "features": [
+            "warehousing",
+            "distribution centers"
+          ],
+          "transportation": [
+            "truck access",
+            "railway"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Friday",
+              "start_time": "8am",
+              "end_time": "5pm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 3: Parks and Green Spaces",
+      "description": "Area with parks, gardens, and green spaces",
+      "features": [
+        "walking trails",
+        "picnic areas"
+      ],
+      "children": [
+        {
+          "name": "Category 3.1: Public Gardens",
+          "description": "Large public park in the northern part of the city",
+          "features": [
+            "lakes",
+            "playgrounds"
+          ],
+          "opening_hours": [
+            "daily: 8am - sunset"
+          ]
+        },
+        {
+          "name": "Category 3.2: Botanical Gardens",
+          "description": "Beautiful botanical gardens with exotic plants and flowers",
+          "features": [
+            "greenhouses",
+            "conservatory"
+          ],
+          "opening_hours": [
+            "Tuesday to Sunday: 10am - 6pm"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 4: Cultural Districts",
+      "description": "Area with museums, theaters, and cultural institutions",
+      "features": [
+        "museums",
+        "theaters"
+      ],
+      "children": [
+        {
+          "name": "Category 4.1: Museums",
+          "description": "Area with various museums and art galleries",
+          "features": [
+            "art museum",
+            "history museum"
+          ],
+          "opening_hours": [
+            {
+              "name": "Tuesday to Sunday",
+              "start_time": "10am",
+              "end_time": "6pm"
+            }
+          ]
+        },
+        {
+          "name": "Category 4.2: Theaters",
+          "description": "Area with various theaters and performance venues",
+          "features": [
+            "drama theater",
+            "music venue"
+          ],
+          "opening_hours": [
+            {
+              "name": "Tuesday to Sunday",
+              "start_time": "7pm",
+              "end_time": "11pm"
+            }
+          ]
+        },
+        {
+          "name": "Category 4.3: Art Galleries",
+          "description": "Area with various art galleries and exhibition spaces",
+          "features": [
+            "contemporary art",
+            "modern art"
+          ],
+          "opening_hours": [
+            {
+              "name": "Tuesday to Saturday",
+              "start_time": "11am",
+              "end_time": "7pm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 5: Education and Research",
+      "description": "Area with universities, research institutions, and libraries",
+      "features": [
+        "universities",
+        "research centers"
+      ],
+      "children": [
+        {
+          "name": "Category 5.1: Universities",
+          "description": "Area with various universities and higher education institutions",
+          "features": [
+            "academic programs",
+            "research facilities"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Friday",
+              "start_time": "9am",
+              "end_time": "5pm"
+            }
+          ]
+        },
+        {
+          "name": "Category 5.2: Research Institutions",
+          "description": "Area with various research institutions and laboratories",
+          "features": [
+            "research facilities",
+            "laboratories"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Friday",
+              "start_time": "9am",
+              "end_time": "5pm"
+            }
+          ]
+        },
+        {
+          "name": "Category 5.3: Libraries",
+          "description": "Area with various libraries and reading rooms",
+          "features": [
+            "book collections",
+            "reading rooms"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Saturday",
+              "start_time": "10am",
+              "end_time": "7pm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 6: Healthcare and Wellness",
+      "description": "Area with hospitals, clinics, and wellness centers",
+      "features": [
+        "hospitals",
+        "clinics"
+      ],
+      "children": [
+        {
+          "name": "Category 6.1: Hospitals",
+          "description": "Area with various hospitals and medical facilities",
+          "features": [
+            "emergency services",
+            "outpatient care"
+          ],
+          "opening_hours": [
+            {
+              "name": "24/7",
+              "start_time": "",
+              "end_time": ""
+            }
+          ]
+        },
+        {
+          "name": "Category 6.2: Clinics",
+          "description": "Area with various clinics and medical offices",
+          "features": [
+            "primary care",
+            "specialty services"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Friday",
+              "start_time": "9am",
+              "end_time": "5pm"
+            }
+          ]
+        },
+        {
+          "name": "Category 6.3: Wellness Centers",
+          "description": "Area with various wellness centers and spas",
+          "features": [
+            "fitness classes",
+            "spa services"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Sunday",
+              "start_time": "9am",
+              "end_time": "8pm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 7: Sports and Recreation",
+      "description": "Area with sports facilities, parks, and recreational spaces",
+      "features": [
+        "sports facilities",
+        "parks"
+      ],
+      "children": [
+        {
+          "name": "Category 7.1: Sports Facilities",
+          "description": "Area with various sports facilities and arenas",
+          "features": [
+            "indoor sports",
+            "outdoor sports"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Sunday",
+              "start_time": "9am",
+              "end_time": "10pm"
+            }
+          ]
+        },
+        {
+          "name": "Category 7.2: Parks and Green Spaces",
+          "description": "Area with various parks, gardens, and green spaces",
+          "features": [
+            "walking trails",
+            "picnic areas"
+          ],
+          "opening_hours": [
+            "daily: 8am - sunset"
+          ]
+        },
+        {
+          "name": "Category 7.3: Recreation Centers",
+          "description": "Area with various recreation centers and community spaces",
+          "features": [
+            "fitness classes",
+            "program rooms"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Sunday",
+              "start_time": "9am",
+              "end_time": "8pm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 8: Industrial and Business Parks",
+      "description": "Area with industrial facilities, business parks, and commercial spaces",
+      "features": [
+        "industrial complex",
+        "office parks"
+      ],
+      "children": [
+        {
+          "name": "Category 8.1: Industrial Facilities",
+          "description": "Area with various industrial facilities and manufacturing sites",
+          "features": [
+            "production facilities",
+            "warehousing"
+          ],
+          "transportation": [
+            "truck access",
+            "railway"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Friday",
+              "start_time": "8am",
+              "end_time": "5pm"
+            }
+          ]
+        },
+        {
+          "name": "Category 8.2: Business Parks",
+          "description": "Area with various office parks and commercial spaces",
+          "features": [
+            "office buildings",
+            "retail spaces"
+          ],
+          "transportation": [
+            "parking lots",
+            "bike racks"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Friday",
+              "start_time": "9am",
+              "end_time": "5pm"
+            }
+          ]
+        },
+        {
+          "name": "Category 8.3: Logistics and Distribution Centers",
+          "description": "Area with various logistics and distribution centers",
+          "features": [
+            "warehousing",
+            "distribution facilities"
+          ],
+          "transportation": [
+            "truck access",
+            "railway"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Friday",
+              "start_time": "8am",
+              "end_time": "5pm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zone 9: Mixed-Use Development",
+      "description": "Area with mixed-use development and integrated communities",
+      "features": [
+        "mixed-use development",
+        "integrated communities"
+      ],
+      "children": [
+        {
+          "name": "Category 9.1: Residential and Commercial",
+          "description": "Area with mixed-use development and residential-commercial spaces",
+          "features": [
+            "apartments",
+            "office spaces"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Sunday",
+              "start_time": "",
+              "end_time": ""
+            }
+          ]
+        },
+        {
+          "name": "Category 9.2: Retail and Entertainment",
+          "description": "Area with mixed-use development and retail-entertainment spaces",
+          "features": [
+            "retail stores",
+            "restaurants"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Sunday",
+              "start_time": "",
+              "end_time": ""
+            }
+          ]
+        },
+        {
+          "name": "Category 9.3: Community Spaces",
+          "description": "Area with mixed-use development and community spaces",
+          "features": [
+            "community centers",
+            "parks"
+          ],
+          "opening_hours": [
+            {
+              "name": "Monday to Sunday",
+              "start_time": "",
+              "end_time": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+Note: This is a more complex version of the previous example, with additional zones, categories, and features.
+
+========================================
+
+
+

@@ -1,0 +1,5272 @@
+System: You are a helpful assistant. Output only valid JSON.
+
+User: Generate a taxonomy tree representing the different zones and categories and places/land in a fictional small europeon city in the year 1900
+
+LLM: [
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Región de la Ciudad",
+    "children": [
+      {
+        "name": "Distrito de la Ciudad",
+        "children": [
+          {
+            "name": "Barrio de la Catedral",
+            "children": []
+          },
+          {
+            "name": "Barrio del Mercado",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Parque y Jardines",
+        "children": [
+          {
+            "name": "Parque de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Jardines de la Reina",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Paisajes Naturales",
+    "children": [
+      {
+        "name": "Cerro de la Ciudad",
+        "children": []
+      },
+      {
+        "name": "Rio de la Ciudad",
+        "children": []
+      }
+    ]
+  }
+]
+
+========================================
+
+
+
+User: You are to improve and expand the following JSON response.
+Iteration 1:
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Regi\u00f3n de la Ciudad",
+    "children": [
+      {
+        "name": "Distrito de la Ciudad",
+        "children": [
+          {
+            "name": "Barrio de la Catedral",
+            "children": []
+          },
+          {
+            "name": "Barrio del Mercado",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Parque y Jardines",
+        "children": [
+          {
+            "name": "Parque de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Jardines de la Reina",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Paisajes Naturales",
+    "children": [
+      {
+        "name": "Cerro de la Ciudad",
+        "children": []
+      },
+      {
+        "name": "Rio de la Ciudad",
+        "children": []
+      }
+    ]
+  }
+]
+
+
+LLM: [
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": []
+          },
+          {
+            "name": "Nueva York",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": []
+          },
+          {
+            "name": "Guadalajara",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": []
+          },
+          {
+            "name": "Alexandria",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": []
+          },
+          {
+            "name": "Orán",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+]
+
+========================================
+
+
+
+User: You are to improve and expand the following JSON response.
+Iteration 2:
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Regi\u00f3n de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Am\u00e9rica del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": []
+          },
+          {
+            "name": "Nueva York",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "M\u00e9xico",
+        "children": [
+          {
+            "name": "Ciudad de M\u00e9xico",
+            "children": []
+          },
+          {
+            "name": "Guadalajara",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "\u00c1frica del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": []
+          },
+          {
+            "name": "Alexandria",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": []
+          },
+          {
+            "name": "Or\u00e1n",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+]
+
+
+LLM: ```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+========================================
+
+
+
+System: You are to repair JSON into valid JSON format. Output only valid JSON.
+
+User: Repair the following JSON into valid JSON format.
+```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+LLM: ```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+========================================
+
+
+
+User: Repair the following JSON into valid JSON format.
+```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+LLM: ```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+========================================
+
+
+
+User: Repair the following JSON into valid JSON format.
+```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+LLM: ```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+========================================
+
+
+
+User: Repair the following JSON into valid JSON format.
+```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+LLM: ```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+========================================
+
+
+
+User: Repair the following JSON into valid JSON format.
+```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+LLM: ```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+========================================
+
+
+
+User: Repair the following JSON into valid JSON format.
+```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+LLM: ```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+========================================
+
+
+
+User: Repair the following JSON into valid JSON format.
+```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+LLM: ```json
+[
+  {
+    "name": "Europa",
+    "children": [
+      {
+        "name": "Europa Central",
+        "children": [
+          {
+            "name": "Austria-Hungaria",
+            "children": [
+              {
+                "name": "Provincia de Burgenland",
+                "children": []
+              },
+              {
+                "name": "Provincia de Carintia",
+                "children": []
+              },
+              {
+                "name": "Provincia de Salzburgo",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Norte",
+            "children": [
+              {
+                "name": "Dinamarca",
+                "children": []
+              },
+              {
+                "name": "Suecia",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Europa del Este",
+            "children": [
+              {
+                "name": "Alemania",
+                "children": []
+              },
+              {
+                "name": "Francia",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Región de la Ciudad",
+        "children": [
+          {
+            "name": "Distrito de la Ciudad",
+            "children": [
+              {
+                "name": "Barrio de la Catedral",
+                "children": []
+              },
+              {
+                "name": "Barrio del Mercado",
+                "children": []
+              },
+              {
+                "name": "Barrio de las Artes",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Parque y Jardines",
+            "children": [
+              {
+                "name": "Parque de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Jardines de la Reina",
+                "children": []
+              },
+              {
+                "name": "Jardines del Rey",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Paisajes Naturales",
+        "children": [
+          {
+            "name": "Cerro de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Rio de la Ciudad",
+            "children": []
+          },
+          {
+            "name": "Lago de la Ciudad",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "América del Norte",
+    "children": [
+      {
+        "name": "Estados Unidos",
+        "children": [
+          {
+            "name": "California",
+            "children": [
+              {
+                "name": "Los Ángeles",
+                "children": []
+              },
+              {
+                "name": "San Francisco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Nueva York",
+            "children": [
+              {
+                "name": "Ciudad de Nueva York",
+                "children": []
+              },
+              {
+                "name": "Albany",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "México",
+        "children": [
+          {
+            "name": "Ciudad de México",
+            "children": [
+              {
+                "name": "Centro Histórico",
+                "children": []
+              },
+              {
+                "name": "Xochimilco",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Guadalajara",
+            "children": [
+              {
+                "name": "Centro",
+                "children": []
+              },
+              {
+                "name": "Tlaquepaque",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "África del Norte",
+    "children": [
+      {
+        "name": "Egipto",
+        "children": [
+          {
+            "name": "El Cairo",
+            "children": [
+              {
+                "name": "Isla de la Ciudad",
+                "children": []
+              },
+              {
+                "name": "Pirámides de Giza",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Alexandria",
+            "children": [
+              {
+                "name": "Puerto de Alejandro",
+                "children": []
+              },
+              {
+                "name": "Teatro Romano",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Argelia",
+        "children": [
+          {
+            "name": "Argel",
+            "children": [
+              {
+                "name": "Casbah de Argel",
+                "children": []
+              },
+              {
+                "name": "Catedral de San Felipe",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Orán",
+            "children": [
+              {
+                "name": "Ciudad Vieja",
+                "children": []
+              },
+              {
+                "name": "Puerto de Orán",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Asia del Este",
+    "children": [
+      {
+        "name": "China",
+        "children": [
+          {
+            "name": "Pekín",
+            "children": [
+              {
+                "name": "Gran Muralla China",
+                "children": []
+              },
+              {
+                "name": "Tiananmén",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Shanghái",
+            "children": [
+              {
+                "name": "Puente de la Paz",
+                "children": []
+              },
+              {
+                "name": "Jardín Botánico",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Corea del Norte",
+        "children": [
+          {
+            "name": "Pyongyang",
+            "children": [
+              {
+                "name": "Estadio de la Victoria",
+                "children": []
+              },
+              {
+                "name": "Museo de la Revolución",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Hamhung",
+            "children": [
+              {
+                "name": "Puerto de Hamhung",
+                "children": []
+              },
+              {
+                "name": "Parque de la Victoria",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+========================================
+
+
+

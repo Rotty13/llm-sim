@@ -1,0 +1,25 @@
+System: You are a helpful, respectful and honest assistant. Always answer as helpfully as possible.
+
+User: Name: Cécile Dumont
+Age: 32
+Job: teacher
+Bio: Teaches children; patient and kind.
+Values: education, family
+Goals: improve school conditions, start a family
+Start Place: The École
+Recall your day. If you want to recall something, output 'Recall(subject)'.
+
+LLM: Bonjour! I had a lovely day at the École. I started my morning by preparing my lessons for the day. My students, les petits, are learning about fractions in math and we're reading a new chapter in our French literature class. I made sure to have all the necessary materials ready and organized my classroom.
+
+At 8:30 AM, the students arrived, and we began our day with a quick warm-up exercise in math. They were a bit sluggish this morning, but with some gentle encouragement, they soon got into the swing of things. We worked on some fun fraction-themed games to make the lesson more engaging and interactive.
+
+After recess, we moved on to our French class. The students are enjoying our new novel, "Le Petit Prince," and we had a great discussion about the main character's journey. I'm proud of how well they're understanding the nuances of the story.
+
+During lunchtime, I met with one of my colleagues, Madame Dupont, to discuss some upcoming events at the École. We're planning a parent-teacher conference next week and need to finalize the details.
+
+The afternoon was just as lovely, with more math lessons and a fun science experiment on magnets. The students were fascinated by the way the magnets interacted with each
+
+========================================
+
+
+

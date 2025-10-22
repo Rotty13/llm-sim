@@ -1,0 +1,94 @@
+station:
+  location:
+    city: Lyon
+    country: France
+  year_opened: 1900
+  train_line: Paris-Lyon Express
+  staff:
+  - name: Station Master
+    role: Manages the station, oversees staff and operations.
+  - name: Conductor
+    role: Ensures safe passage of passengers and cargo, monitors train performance
+  - name: Ticket Collector
+    role: Sells tickets to passengers, handles ticket sales and refunds
+
+  areas:
+  - name: Main Concourse
+    actions:
+    - description: Purchase a ticket from the ticket collector or automated kiosk.
+    - description: Board train through designated boarding platform.
+
+    staff_roles:
+    - name: Station Staff
+      role: Assists passengers, provides information about station facilities and
+        services.
+  - name: Ticketing Hall
+    actions:
+    - description: Buy snacks and beverages from vending machines or station cafes.
+    - description: Use restrooms for personal hygiene.
+
+    staff_roles:
+    - name: Ticketing Staff
+      role: Assists passengers with ticket purchases and sales.
+  - name: Platform Area
+    actions:
+    - description: Board train through designated boarding platform.
+    - description: Wait for train arrival or departure on the platform.
+
+    staff_roles:
+    - name: Platform Announcer
+      role: Makes public announcements regarding train arrivals and departures.
+    - name: Station Staff
+      role: Assists passengers, provides information about station facilities and
+        services.
+  - name: Exit Gates
+    actions:
+    - description: Leave the station premises through designated exit gates.
+
+    staff_roles:
+    - name: Station Security
+      role: Monitors and controls access to the station, ensuring passenger safety
+        and security.
+  - name: Boarding Area
+    actions:
+    - description: Present ticket to conductor for validation before boarding train.
+    - description: Check for available seating on the train before boarding.
+
+    staff_roles:
+    - name: Conductor
+      role: Ensures safe passage of passengers and cargo, monitors train performance.
+  - name: Waiting Room
+    actions:
+    - description: Wait for connecting trains in a comfortable environment.
+    - description: Use restrooms located within the waiting room.
+
+    staff_roles:
+    - name: Station Staff
+      role: Assists passengers, provides information about station facilities and
+        services.
+  - name: Food and Beverage Area
+    actions:
+    - description: Purchase snacks and beverages from vending machines or station
+        cafes.
+    - description: Use dining tables for eating and socializing.
+
+    staff_roles:
+    - name: Food Service Staff
+      role: Prepares and serves food and beverages to passengers.
+  - name: Train Area
+    areas:
+    - name: Coach 1
+      actions:
+      - description: Find a seat in Coach 1.
+      - description: Store luggage in designated compartments.
+      staff_roles: []
+    - name: Coach 2
+      actions:
+      - description: Use restrooms located within Coach 2.
+      - description: Purchase food and beverages from onboard café.
+      staff_roles: []
+    - name: Café Car
+      actions:
+      - description: Purchase snacks and beverages from the café car.
+      - description: Use seating area for socializing or eating.
+      staff_roles: []

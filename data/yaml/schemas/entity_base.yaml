@@ -1,0 +1,93 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: entity_base.schema.json
+title: Entity Base
+type: object
+required:
+- id
+- name
+additionalProperties: false
+properties:
+  schema_version:
+    type: string
+    const: '0.1'
+  id:
+    type: string
+    description: Stable unique id (e.g., i.mug.001, o.kettle.01)
+  name:
+    type: string
+  short_desc:
+    type: string
+    maxLength: 140
+  tags:
+    type: array
+    items:
+      type: string
+    maxItems: 10
+  state:
+    type: object
+    description: Small mutable key->value map
+    additionalProperties:
+      oneOf:
+      - type: string
+      - type: number
+      - type: boolean
+      - type: 'null'
+  qualities:
+    type: object
+    additionalProperties: false
+    properties:
+      weight_kg:
+        type: number
+        minimum: 0
+      size_l:
+        type: number
+        minimum: 0
+      value:
+        type: number
+      fragility:
+        type: number
+        minimum: 0
+        maximum: 1
+  ownership:
+    type: object
+    additionalProperties: false
+    properties:
+      owner_id:
+        type: string
+      permit:
+        type: string
+        enum:
+        - private
+        - shared
+        - public
+  affordances:
+    type: array
+    description: Atomic actions this entity supports
+    items:
+      type: string
+      enum:
+      - pick_up
+      - drop
+      - open
+      - close
+      - toggle
+      - use
+      - sit
+      - lie
+      - consume
+      - fill
+      - pour
+      - cook
+      - store
+      - retrieve
+      - inspect
+    maxItems: 16
+  meta:
+    type: object
+    additionalProperties: false
+    properties:
+      source:
+        type: string
+      last_updated:
+        type: string
+        format: date-time
