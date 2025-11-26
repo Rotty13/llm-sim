@@ -1,4 +1,10 @@
 import math
+"""
+interaction.py
+
+Implements preference_to_interact, a model for estimating agent interaction likelihood based on personality traits and context. Used for simulating social interactions.
+"""
+import math
 
 def preference_to_interact(
     E_self, A_self, N_self,

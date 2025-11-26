@@ -1,13 +1,21 @@
-import yaml
+"""
+visualize_city_graph.py
+
+Visualizes the city structure as a graph using NetworkX and Matplotlib. Loads city configuration from YAML and displays places, streets, and houses as nodes and edges.
+
+Usage:
+    python scripts/visualization/visualize_city_graph.py city.yaml
+"""
+from sim.world.world_manager import WorldManager
 import networkx as nx
 import matplotlib.pyplot as plt
 import argparse
 
 # Load city config and visualize connectivity
 
-def load_city(city_path):
-    with open(city_path, "r") as f:
-        return yaml.safe_load(f)
+def load_city(world_name):
+    wm = WorldManager()
+    return wm.load_city(world_name)
 
 def build_graph(city_data):
     G = nx.Graph()
@@ -58,9 +66,9 @@ def visualize_graph(G, city_name):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--city", default="configs/city.yaml")
+    parser.add_argument("--world", default="World_0")
     args = parser.parse_args()
-    city_data = load_city(args.city)
+    city_data = load_city(args.world)
     G = build_graph(city_data)
     visualize_graph(G, city_data.get("city", "City"))
 

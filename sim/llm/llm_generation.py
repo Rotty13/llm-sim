@@ -1,4 +1,9 @@
 # LLM-based generation functions and helpers
+"""
+llm_generation.py
+
+Provides LLM-based generation functions and helpers for simulation entities, places, and prompts. Integrates with Ollama backend and simulation world.
+"""
 from typing import List, Dict, Any
 from .llm_ollama import OllamaClient
 from ..world.world import Place, Vendor, World

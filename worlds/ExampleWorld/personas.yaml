@@ -1,0 +1,14 @@
+# ExampleWorld personas.yaml
+personas:
+  - name: Abigail
+    role: schoolteacher
+    traits: [patient, educated]
+  - name: Thomas
+    role: blacksmith
+    traits: [strong, reliable]
+  - name: Mary
+    role: general store owner
+    traits: [resourceful, sociable]
+  - name: Samuel
+    role: pastor
+    traits: [wise, compassionate]

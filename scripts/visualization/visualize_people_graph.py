@@ -1,16 +1,25 @@
 
-import yaml
+"""
+visualize_people_graph.py
+
+Visualizes relationships between people and places in the city using NetworkX and Matplotlib. Loads city and persona data from YAML and displays connections as a graph.
+
+Usage:
+    python scripts/visualization/visualize_people_graph.py city.yaml personas.yaml
+"""
+
+from sim.world.world_manager import WorldManager
 import networkx as nx
 import matplotlib.pyplot as plt
 import argparse
 
-def load_city(city_path):
-    with open(city_path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
+def load_city(world_name):
+    wm = WorldManager()
+    return wm.load_city(world_name)
 
-def load_personas(personas_path):
-    with open(personas_path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f).get("people", [])
+def load_personas(world_name):
+    wm = WorldManager()
+    return wm.load_personas(world_name)
 
 def build_people_graph(city_data, people):
     G = nx.Graph()
@@ -69,11 +78,10 @@ def visualize_people_graph(G, city_name):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--city", default="configs/city.yaml")
-    parser.add_argument("--personas", default="configs/personas.yaml")
+    parser.add_argument("--world", default="World_0")
     args = parser.parse_args()
-    city_data = load_city(args.city)
-    people = load_personas(args.personas)
+    city_data = load_city(args.world)
+    people = load_personas(args.world)
     G = build_people_graph(city_data, people)
     visualize_people_graph(G, city_data.get("city", "City"))
 

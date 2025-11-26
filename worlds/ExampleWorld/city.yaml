@@ -1,0 +1,9 @@
+# ExampleWorld city.yaml
+name: Willowbrook
+population: 350
+features:
+  - town square
+  - blacksmith
+  - general store
+  - church
+  - schoolhouse

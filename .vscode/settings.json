@@ -16,5 +16,11 @@
             "packageManager": "ms-python.python:pip"
         }
     ],
+    "files.watcherExclude": {
+        "/outputs": true
+    },
+    "workbench.localHistory.exclude": {
+        "/outputs": true
+    },
     
 }

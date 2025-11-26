@@ -1,3 +1,11 @@
+"""
+export_to_onnx.py
+
+Exports a Hugging Face transformer model to ONNX format for optimized inference. Uses Optimum and ONNX Runtime for conversion.
+
+Usage:
+	python scripts/misc/export_to_onnx.py
+"""
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from optimum.onnxruntime import ORTModelForCausalLM
 import torch

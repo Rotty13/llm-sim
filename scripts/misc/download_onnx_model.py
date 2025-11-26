@@ -1,3 +1,12 @@
+"""
+download_onnx_model.py
+
+Downloads ONNX model files and related configuration from Hugging Face Hub for LLM inference. Used to set up local ONNX models for accelerated inference.
+
+Usage:
+    python scripts/misc/download_onnx_model.py
+"""
+from huggingface_hub import hf_hub_download
 from huggingface_hub import hf_hub_download
 import os
 

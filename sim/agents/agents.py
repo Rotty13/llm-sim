@@ -1,34 +1,37 @@
 from __future__ import annotations
+
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 from difflib import SequenceMatcher
 import json, string
-
-from matplotlib.pylab import f
+from typing import TYPE_CHECKING
 
 from ..llm.llm_ollama import AI_ASSISTANT_SYSTEM
 from ..memory.memory import MemoryStore, MemoryItem
 from ..actions.actions import normalize_action
 from ..world.world import World
-
 from ..scheduler.scheduler import Appointment, enforce_schedule
 from ..inventory.inventory import Inventory
 from sim.llm import llm_ollama
 
+from .controllers import BaseController, LogicController
+from .memory_manager import MemoryManager
+from .inventory_handler import InventoryHandler
+from .decision_controller import DecisionController
+from .movement_controller import MovementController
+
 llm = llm_ollama.LLM()
 
-def now_str(tick:int, start_dt=None) -> str:
+def now_str(tick: int, start_dt=None) -> str:
     """
     Returns a formatted time string for the given tick and start_dt.
     If start_dt is None, returns local time as HH:MM.
     """
     if start_dt is not None:
-        from datetime import timedelta
-        return (start_dt + timedelta(minutes=5*tick)).strftime("%Y-%m-%d %H:%M")
-    else:
-        # fallback: local time as HH:MM
-        return f"{(tick*5)//60:02d}:{(tick*5)%60:02d}"
+        from sim.utils.utils import now_str
+        return now_str(tick, start_dt)
+    return f"{(tick * 5) // 60:02d}:{(tick * 5) % 60:02d}"
 
 @dataclass
 class Persona:
@@ -49,18 +52,45 @@ class Physio:
 
 JOB_SITE = {"barista":"Cafe", "junior dev":"Office", "developer":"Office", "engineer":"Office"}
 
+
 @dataclass
 class Agent:
-
     persona: Persona
     place: str
+    calendar: List[Appointment] = field(default_factory=list)
+    controller: Any = field(default_factory=lambda: LogicController())
     memory: MemoryStore = field(default_factory=MemoryStore)
     physio: Physio = field(default_factory=Physio)
     plan: List[str] = field(default_factory=list)
-    calendar: List[Appointment] = field(default_factory=list)
     inventory: Inventory = field(default_factory=lambda: Inventory(capacity_weight=5.0))
     obs_list: List[str] = field(default_factory=list)
     conversation_history: List[Dict[str, Any]] = field(default_factory=list)
+    memory_manager: MemoryManager = field(default_factory=MemoryManager)
+    inventory_handler: InventoryHandler = field(default_factory=InventoryHandler)
+    decision_controller: DecisionController = field(default_factory=DecisionController)
+    movement_controller: MovementController = field(default_factory=MovementController)
+
+    busy_until: int = 0  # Tick until which the agent is busy
+
+    def deposit_item_to_place(self, world: 'World', item_id: str, qty: int = 1) -> bool:
+        """
+        Delegate depositing items to the InventoryHandler.
+        Updates busy_until to reflect the time taken for the action.
+        """
+        success = self.inventory_handler.deposit_item_to_place(self, world, item_id, qty)
+        if success:
+            self.busy_until += 5  # Example: Depositing takes 5 ticks
+        return success
+
+    def withdraw_item_from_place(self, world: 'World', item_id: str, qty: int = 1) -> bool:
+        """
+        Delegate withdrawing items to the InventoryHandler.
+        Updates busy_until to reflect the time taken for the action.
+        """
+        success = self.inventory_handler.withdraw_item_from_place(self, world, item_id, qty)
+        if success:
+            self.busy_until += 5  # Example: Withdrawing takes 5 ticks
+        return success
 
     def step_interact(self, world: 'World', participants: list, obs: str, tick: int, start_dt, incoming_message: Optional[dict], loglist: Optional[list] = None):
         """
@@ -72,13 +102,12 @@ class Agent:
         if conv_decision and "new_mood" in conv_decision:
             self.physio.mood = conv_decision["new_mood"]
         if conv_decision and "memory_write" in conv_decision and conv_decision["memory_write"]:
-            self.memory.write(MemoryItem(t=tick, kind="episodic", text=conv_decision["memory_write"], importance=0.5))
+            self.memory_manager.write_memory(MemoryItem(t=tick, kind="episodic", text=conv_decision["memory_write"], importance=0.5))
         # Action step
         action_decision = self.decide(world, obs, tick, start_dt)
         self.act(world, action_decision, tick)
         return conv_decision
 
-    #incoming_message example {'to': 'David', 'from': agent.persona.name, 'text': decision_agent.get("reply",None)}
     def decide_conversation(self, participants: List[Agent],obs: str, tick: int, incoming_message: Optional[dict],start_dt: Optional[datetime] = None,   loglist: Optional[List[Dict[str, Any]]] = None) -> Dict[str,Any]:
         """
         Decide on a conversational response using LLM, considering conversation history.
@@ -147,21 +176,17 @@ class Agent:
     _last_diary_tick: int = -999
     _last_diary: str = ""
 
-    def add_observation(self, text:str):
-        if text and text not in self.obs_list:
-            self.obs_list.append(text)
-            if len(self.obs_list) > 20:
-                self.obs_list.pop(0)
+    def add_observation(self, text: str):
+        self.memory_manager.add_observation(text)
 
-    def _norm_text(self, s:str) -> str:
-        return "".join(ch for ch in (s or "").lower().strip() if ch not in string.punctuation)
-
-    def _maybe_write_diary(self, text:str, tick:int):
-        if not text: return
-        if (tick - self._last_diary_tick) < 6: return
-        sim = SequenceMatcher(None, self._norm_text(self._last_diary), self._norm_text(text)).ratio()
+    def _maybe_write_diary(self, text: str, tick: int):
+        if not text:
+            return
+        if (tick - self._last_diary_tick) < 6:
+            return
+        sim = SequenceMatcher(None, self.memory_manager._norm_text(self._last_diary), self.memory_manager._norm_text(text)).ratio()
         if sim < 0.93:
-            self.memory.write(MemoryItem(t=tick, kind="autobio", text=text, importance=0.6))
+            self.memory_manager.write_memory(MemoryItem(t=tick, kind="autobio", text=text, importance=0.6))
             self._last_diary, self._last_diary_tick = text, tick
 
     def _work_allowed_here(self, world:World) -> bool:
@@ -172,145 +197,71 @@ class Agent:
         p = world.places[self.place]
         return "food" in p.capabilities or "food_home" in p.capabilities
 
-    def decide(self, world: World, obs_text:str, tick:int, start_dt) -> Dict[str,Any]:
-        if tick < self.busy_until:
-            return {"action": "CONTINUE()", "private_thought": None, "memory_write": None}
+    def decide(self, world: World, obs_text: str, tick: int, start_dt) -> Dict[str, Any]:
+        """
+        Enhanced decision-making logic for agents, including rule-based and probabilistic choices.
 
-        # light memory retrieval (queries could also come from LLM)
-        rel = []
-        for q in ("today","schedule","rent","meal","work"):
-            for m in self.memory.recall(q, k=1):
-                rel.append(f"[{now_str(m.t,start_dt)}] {m.kind}: {m.text}")
+        Notes:
+            - Decision logic should only reside in the controller.
+        """
+        # Delegate decision-making entirely to the controller
+        decision = self.decision_controller.decide(self, world, obs_text, tick, start_dt)
+        return decision
 
-        env_obs = json.dumps(self.obs_list)
-        roster = ", ".join(sorted(a.persona.name for a in world._agents)) if hasattr(world, "_agents") else "NEARBY"
+    def enforce_schedule(self, tick: int):
+        """
+        Integrates the `busy_until` attribute with the scheduler to enforce appointments and schedules.
+        """
+        if self.busy_until > tick:
+            return  # Agent is busy
 
-        # SYSTEM prompt: ground rules, available actions, formatting
-        system_prompt = (
-            "You are a human.\n"
-            "Choose ONE action and a private thought ≤20 words.\n"
-            "Action examples (valid JSON):\n"
-            '  {"action": "MOVE", "params": {"to": "Cafe"}} \n'
-            '  {"action": "INTERACT", "params": {"verb": "buy", "item": "coffee"}} \n'
-            '  {"action": "THINK", "params": {"note": "private"}} \n'
-            '  {"action": "PLAN", "params": {"steps": ["MOVE:Office", "WORK:focus", "EAT:Cafe"]}} \n'
-            '  {"action": "SAY", "params": {"to": "NEARBY", "text": "..."}} \n'
-            '  {"action": "SLEEP"} \n  {"action": "EAT"} \n  {"action": "WORK"} \n\n'
-            "Return ONLY JSON with keys: action, private_thought, memory_write (nullable).\n"
-            "example: {\"action\": \"INTERACT\", \"params\": {\"verb\": \"buy\", \"item\": \"coffee\"}}, \"private_thought\": \"I feel happy.\", \"memory_write\": \"I bought a coffee.\"}\n"
-            "Rules:\n"
-            '- ALL speech or verbal communication MUST use SAY({"to":...,"text":...}) \n'
-            "- INTERACT is ONLY for non-verbal actions (e.g., buy, hug, give, take, etc.), NOT for speech. \n"
-            "- MOVE.to must be an existing PLACE, not an object.\n"
-            "- Prefer EAT only if hunger > 0.45 and at most once per 45 minutes.\n"
-            "- If unsure who to address, use SAY to NEARBY or ALL.\n"
-        )
+        for appointment in self.calendar:
+            if appointment.start_tick == tick:
+                self.place = appointment.location
+                self.busy_until = appointment.end_tick
+                break
 
-        # USER prompt: dynamic context
-        user_prompt = (
-            f"You are {self.persona.name} (job: {self.persona.job}, city: {self.persona.city}) Bio: {self.persona.bio}.\n"
-            f"Time {now_str(tick,start_dt)}. Location {self.place}. Mood {self.physio.mood}.\n"
-            f"Needs: energy={self.physio.energy:.2f}, hunger={self.physio.hunger:.2f}, stress={self.physio.stress:.2f}.\n"
-            "Recent memories:\n" + ("\n".join(rel) if rel else "(none)") + "\n"
-            f"Known people: {roster}\n\n"
-            f"Observation: {obs_text}, {env_obs}\n\n"
-            f"My values: {', '.join(self.persona.values)}.\n"
-            f"My goals: {', '.join(self.persona.goals)}.\n"
-        )
-        self.obs_list = []
-        out = llm.chat_json(user_prompt, system=system_prompt, max_tokens=256)
-        # sanity carve
-        if not isinstance(out, dict):
-            out = {"action":"THINK()","private_thought":None,"memory_write":None}
-        return out
+    def update_relationships(self, world: World):
+        """
+        Updates item ownership using the world's `item_ownership` dictionary.
+        """
+        for item_stack in self.inventory.stacks:
+            world.item_ownership[item_stack.item.id] = self.persona.name
 
-    def act(self, world: World, decision: Dict[str,Any], tick:int):
-        action = decision.get("action","")#normalize_action(decision.get("action",""))
-        params = decision.get("params",{})
-        if action.startswith("invalid action format"):
-            retries = 0
-            while retries < 3 and action.startswith("invalid action format"):
-                fixedaction = llm.chat(f"Please correct this action call it acceptions json. \n {decision.get('action','')}", system=AI_ASSISTANT_SYSTEM, max_tokens=64)
-                action = normalize_action(decision.get("action",""))
-                if not action.startswith("invalid action format"):
-                    break
-                retries += 1
+    def act(self, world: World, decision: Dict[str, Any], tick: int):
+        """
+        Perform the action decided by the agent.
+        """
+        action = decision.get("action", "")
+        params = decision.get("params", {})
 
-        priv   = decision.get("private_thought")
-        memw   = decision.get("memory_write")
-
-
-        # busy silence
-        if action.startswith("CONTINUE"):
-            self._homeostasis(action)
-            return
-
-        # route if needed
-        if action.startswith("WORK") and not self._work_allowed_here(world):
-            target = JOB_SITE.get(self.persona.job, "Office")
-            action = f'MOVE({{"to":"{target}"}})'
-        if action.startswith("EAT") and not self._eat_allowed_here(world):
-            action = 'MOVE({"to":"Cafe"})'
-
-        # diary
-        if priv: self._maybe_write_diary(priv, tick)
-        if memw and isinstance(memw, str) and memw.strip():
-            self.memory.write(MemoryItem(t=tick, kind="episodic", text=memw.strip(), importance=0.6))
-
-        # enact
-        if action.startswith("SAY"):
-            if (tick - self._last_say_tick) >= 6:
-                world.broadcast(self.place, {"actor":self.persona.name, "kind":"say", "text":action, "t":tick})
-                for agent in world._agents:
-                    if agent != self:
-                        out = {"agentsay": {"name": self.persona.name}}
-                        out.update(params)
-                        agent.add_observation(json.dumps(out))
-                self._last_say_tick = tick
-
-        elif action.startswith("MOVE"):
-            try:
-                payload = json.loads(action[action.find("(")+1:action.rfind(")")])
-                dest = payload.get("to")
-                if dest and world.valid_place(dest) and dest != self.place:
-                    self.busy_until = tick + 2
-                    world.broadcast(self.place, {"actor":self.persona.name, "kind":"move", "text":action, "t":tick})
-
-                    self.place = dest
-            except Exception:
-                pass
-
-        elif action.startswith("WORK"):
-            world.broadcast(self.place, {"actor":self.persona.name, "kind":"act", "text":"WORK()", "t":tick})
+        if action == "MOVE":
+            destination = params.get("to")
+            if destination:
+                self.movement_controller.move_to(self, world, destination)
+        elif action == "EAT":
+            self.physio.hunger = max(0.0, self.physio.hunger - 0.5)
+            self.busy_until = tick + 1
+        elif action == "SLEEP":
+            self.physio.energy = min(1.0, self.physio.energy + 0.5)
             self.busy_until = tick + 3
-
-        elif action.startswith("EAT"):
-            # cooldown behavior omitted for brevity—broadcast simple eat
-            world.broadcast(self.place, {"actor":self.persona.name, "kind":"act", "text":"EAT()", "t":tick})
+        elif action == "RELAX":
+            self.physio.stress = max(0.0, self.physio.stress - 0.2)
+            self.busy_until = tick + 1
+        elif action == "EXPLORE":
             self.busy_until = tick + 2
 
-        elif action.startswith("PLAN"):
-            world.broadcast(self.place, {"actor":self.persona.name, "kind":"act", "text":"PLAN", "t":tick})
-            # naive plan store
-            try:
-                payload = json.loads(action[action.find("(")+1:action.rfind(")")]) or {}
-                steps = payload.get("steps") if isinstance(payload.get("steps"), list) else []
-                if steps: self.plan = steps
-            except Exception:
-                pass
+        # Broadcast the action to the world
+        world.broadcast(self.place, {"actor": self.persona.name, "action": action, "params": params, "tick": tick})
 
-        else:
-            world.broadcast(self.place, {"actor":self.persona.name, "kind":"act", "text":action, "t":tick})
+    def move_to(self, world: World, destination: str) -> bool:
+        """
+        Move the agent to a new location if valid.
+        """
+        return self.movement_controller.move_to(self, world, destination)
 
-        self._homeostasis(action)
-
-    def _homeostasis(self, action:str):
-        a = action.strip()
-        # passive drift
-        self.physio.energy = max(0.0, self.physio.energy - 0.02)
-        self.physio.hunger = min(1.0, self.physio.hunger + 0.02)
-        self.physio.stress = min(1.0, self.physio.stress + 0.01)
-        if a.startswith("SLEEP"):
-            self.physio.energy = min(1.0, self.physio.energy + 0.5)
-            self.physio.stress = max(0.0, self.physio.stress - 0.1)
-        self.physio.mood = "cheerful" if (self.physio.stress < 0.3 and self.physio.energy > 0.5) else "neutral"
+    def use_item(self, item: Any) -> bool:
+        """
+        Use an item from the agent's inventory.
+        """
+        return self.inventory_handler.use_item(item)

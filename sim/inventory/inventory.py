@@ -1,3 +1,26 @@
+from typing import Any
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
+def interact_with_inventory(self, inventory: 'Inventory', qty: int = 1):
+        """Stub: Item interacts with inventory (add/remove/check)."""
+        pass
+
+def interact_with_place(self, place: Any, qty: int = 1):
+        """Stub: Item interacts with a place (deposit/withdraw)."""
+        pass
+
+def interact_with_vendor(self, vendor: Any, qty: int = 1, buy: bool = True):
+        """Stub: Item interacts with vendor (buy/sell)."""
+        pass
+"""
+inventory.py
+
+Defines Item, ItemStack, and Inventory classes for agent inventory management. Supports item addition, removal, and tag-based search.
+"""
 # Inventory classes and items
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Set
@@ -27,21 +50,25 @@ class Inventory:
         return self._current_weight() + item.weight * qty <= self.capacity_weight
 
     def add(self, item: Item, qty: int = 1) -> bool:
-        if not self.can_add(item, qty): return False
+        logger.debug(f"Attempting to add item {item} (qty: {qty}) to inventory.")
+        if not self.can_add(item, qty):
+            logger.error(f"Cannot add item {item.id} (qty: {qty}). Exceeds capacity.")
+            return False
         for s in self.stacks:
+            logger.debug(f"Inspecting stack during add: {s.item} (qty: {s.qty}).")
             if s.item.id == item.id:
                 s.qty += qty
+                logger.debug(f"Updated existing stack for item {item.id}. New quantity: {s.qty}.")
                 return True
         self.stacks.append(ItemStack(item, qty))
+        logger.debug(f"Added new stack for item {item}. Quantity: {qty}.")
         return True
 
     def has(self, item_id: str, qty: int = 1) -> bool:
-        total = 0
-        for s in self.stacks:
-            if s.item.id == item_id:
-                total += s.qty
-                if total >= qty: return True
-        return False
+        logger.debug(f"Checking if inventory contains item {item_id} (qty: {qty}).")
+        total = self.count(item_id)
+        logger.debug(f"Total quantity of {item_id} in inventory: {total}.")
+        return total >= qty
 
     def remove(self, item_id: str, qty: int = 1) -> bool:
         needed = qty
@@ -61,10 +88,39 @@ class Inventory:
         return None
 
     def count(self, item_id: str) -> int:
-        return sum(s.qty for s in self.stacks if s.item.id == item_id)
+        logger.debug(f"Counting total quantity of item {item_id} in inventory.")
+        total = 0
+        for s in self.stacks:
+            logger.debug(f"Inspecting stack: {s.item.id} (qty: {s.qty}).")
+            if s.item.id == item_id:
+                total += s.qty
+                logger.debug(f"Running total for {item_id}: {total}.")
+        logger.debug(f"Final total quantity of {item_id}: {total}.")
+        return total
 
     def to_compact_str(self) -> str:
         return ", ".join(f"{s.item.name} x{s.qty}" for s in self.stacks) or "(empty)"
+
+    def get_quantity(self, item_id: str) -> int:
+        """
+        Get the total quantity of an item in the inventory by its ID.
+        """
+        return sum(s.qty for s in self.stacks if s.item.id == item_id)
+
+    def get_item_weight(self, item_id: str) -> float:
+        """
+        Get the weight of a single unit of the specified item.
+        """
+        for s in self.stacks:
+            if s.item.id == item_id:
+                return s.item.weight
+        raise ValueError(f"Item {item_id} not found in inventory.")
+
+    def get_total_weight(self) -> float:
+        """
+        Calculate the total weight of all items in the inventory.
+        """
+        return self._current_weight()
 
 ITEMS = {
     "money":   Item(id="money",   name="$",        tags={"currency"},                    weight=0.0, effects={}),

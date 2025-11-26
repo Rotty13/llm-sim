@@ -1,3 +1,8 @@
+"""
+actions.py
+
+Defines the normalize_action function for converting action representations to a canonical DSL string. Used throughout the simulation for agent and system actions.
+"""
 from __future__ import annotations
 import json, re
 from typing import Any

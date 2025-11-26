@@ -1,4 +1,10 @@
 # Utility functions
+"""
+utils.py
+
+Provides shared utility functions for time formatting and vector similarity, used throughout the simulation modules.
+"""
+# Utility functions
 import math
 from datetime import datetime, timedelta
 from typing import List

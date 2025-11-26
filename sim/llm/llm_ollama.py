@@ -1,4 +1,10 @@
 from __future__ import annotations
+
+"""
+llm_ollama.py
+
+Unified LLM client for the simulation project. Provides chat and embedding APIs using Ollama backend. Legacy interfaces for Llama.cpp and TensorRT/ONNX redirect to Ollama.
+"""
 import sys
 import time
 from pyparsing import Opt
@@ -145,7 +151,7 @@ class LLM:
         }
         if max_tokens:
             body["options"]["num_predict"] = max_tokens
-        data = self._post("/api/chat", body, timeout=timeout)
+        data = self._post("/api/chat", body, timeout=timeout or 250)
         response=data.get("message")
         txt = (data.get("message") or {}).get("content", "").strip()
         if log:
@@ -219,12 +225,20 @@ class LLM:
             # ultra-minimal fallback
             return {"failedJSON": txt}
 
-    def embed(self, text: str, timeout: Optional[int] = None) -> List[float]:
-        payload = {"model": self.emb_model, "prompt": text, "keep_alive":"30m"}
-        data = self._post("/api/embeddings", payload, timeout=timeout)
-        if "embedding" in data:
-            return data["embedding"]
-        # offline fallback: deterministic pseudo-embedding
+    def embed(self, text: str, timeout: Optional[int] = 60) -> List[float]:
+        retries = 3
+        for attempt in range(retries):
+            try:
+                payload = {"model": self.emb_model, "prompt": text, "keep_alive": "30m"}
+                data = self._post("/api/embeddings", payload, timeout=timeout)
+                if "embedding" in data:
+                    return data["embedding"]
+            except Exception as e:
+                if attempt < retries - 1:
+                    continue  # Retry on failure
+                else:
+                    raise e  # Raise the exception if all retries fail
+        # Offline fallback: deterministic pseudo-embedding
         rnd = random.Random(hash(text) & 0xFFFFFFFF)
         return [rnd.uniform(-1, 1) for _ in range(64)]
 
@@ -238,7 +252,7 @@ class LLM_Convo(LLM):
         self.messages = []
 
     def chat(self, prompt: str, system: str = AI_ASSISTANT_SYSTEM, max_tokens: int = 256, seed=1, timeout: Optional[int] = None) -> str:
-        # Compose message history
+        timeout = timeout or 60  # Set default timeout if None
         msgs = self.messages
         txt = super().chat(prompt, system=system, max_tokens=max_tokens, seed=seed, messages=msgs, timeout=timeout)
         msgs.append({"role": "user", "content": prompt})
