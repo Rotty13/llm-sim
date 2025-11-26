@@ -2,6 +2,10 @@
 - Added YAML/JSON schema validation utilities for configs
 - Implemented agent learning/adaptation stubs
 - Added simulation metrics and logging utilities
+- (2025-11-26) Created comprehensive Features/Mechanics TODO document (`docs/FEATURES_TODO.md`)
+  - Cataloged 20 features/mechanics needing implementation across 5 priority categories
+  - Identified gaps in: Core Simulation, Agent Behavior, World/Economy, Infrastructure, Advanced Features
+  - Provided recommended implementation order and next steps
 
 ## ⬜ Next Steps & Future Goals
 - Expand agent learning/adaptation into full feature (track experience, update strategies)
