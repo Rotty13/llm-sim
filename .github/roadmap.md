@@ -129,3 +129,11 @@ This file tracks all current, future, and completed features, goals, and tasks, 
   - **Completed**: (pending)
   - **Notes**: Integrate LLMs after hardcoded foundation is stable.
 
+- ✅ **Documentation**: Comprehensive Features/Mechanics TODO List
+  - **Status**: completed
+  - **Reason**: Created detailed audit of all features and mechanics needing implementation
+  - **Created**: 2025-11-26
+  - **Completed**: 2025-11-26
+  - **Notes**: See `docs/FEATURES_TODO.md` for full list of 20 categorized items with priorities
+  - **Categories covered**: Core Simulation (3), Agent Behavior (4), World/Economy (4), Infrastructure (4), Advanced/Future (5)
+
