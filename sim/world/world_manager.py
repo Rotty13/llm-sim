@@ -6,9 +6,16 @@ Provides WorldManager class for handling file I/O, data loading, and management 
 import os
 import yaml
 import json
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List, TYPE_CHECKING
 import logging
-from sim.agents.agents import Agent, Persona
+from sim.utils.schema_validation import (
+    validate_city_config, validate_personas_config, validate_world_config,
+    validate_names_config, validate_place_connectivity
+)
+from sim.scheduler.scheduler import Appointment
+
+if TYPE_CHECKING:
+    from sim.agents.agents import Agent, Persona
 
 logger = logging.getLogger(__name__)
 
@@ -69,8 +76,9 @@ class WorldManager:
             ticks (int): Number of simulation ticks to run.
         """
         print(f"Running simulation for world '{world_name}' for {ticks} ticks...")
-        # Load world object and agents (stub: would need actual loading logic)
+        # Lazy imports to avoid circular dependencies
         from sim.world.world import World
+        from sim.agents.agents import Agent, Persona
         # Example: create empty world with loaded places
         city = self.load_city(world_name)
         places_data = city.get('places', {}) if city else {}
@@ -100,6 +108,7 @@ class WorldManager:
         # Run simulation loop
         world.simulation_loop(ticks)
         print(f"Simulation for world '{world_name}' completed.")
+
     def __init__(self, worlds_dir: str = "worlds"):
         """
         Initialize WorldManager with the given worlds directory.
@@ -107,6 +116,171 @@ class WorldManager:
             worlds_dir (str): Directory containing world folders.
         """
         self.worlds_dir = worlds_dir
+
+    def validate_config(self, world_name: str, config_type: str = "all") -> List[str]:
+        """
+        Validate configuration files for a world.
+        Args:
+            world_name (str): Name of the world.
+            config_type (str): Type of config to validate ('city', 'personas', 'world', 'names', 'all').
+        Returns:
+            List[str]: List of validation error messages.
+        """
+        errors = []
+        
+        if config_type in ("city", "all"):
+            city_data = self.load_yaml(world_name, "city.yaml")
+            if city_data:
+                errors.extend(validate_city_config(city_data))
+                # Validate place connectivity if places exist
+                if "places" in city_data and isinstance(city_data["places"], list):
+                    errors.extend(validate_place_connectivity(city_data["places"]))
+        
+        if config_type in ("personas", "all"):
+            personas_data = self.load_yaml(world_name, "personas.yaml")
+            if personas_data:
+                errors.extend(validate_personas_config(personas_data))
+        
+        if config_type in ("world", "all"):
+            world_data = self.load_yaml(world_name, "world.yaml")
+            if world_data:
+                errors.extend(validate_world_config(world_data))
+        
+        if config_type in ("names", "all"):
+            names_data = self.load_yaml(world_name, "names.yaml")
+            if names_data:
+                errors.extend(validate_names_config(names_data))
+        
+        return errors
+
+    def load_places(self, world_name: str) -> Dict[str, Any]:
+        """
+        Load and validate places from city.yaml.
+        Args:
+            world_name (str): Name of the world.
+        Returns:
+            Dict[str, Any]: Dictionary mapping place names to Place objects.
+        """
+        from sim.world.world import Place, Vendor
+        
+        city_data = self.load_city(world_name)
+        if not city_data:
+            logger.warning(f"No city.yaml found for world '{world_name}'")
+            return {}
+        
+        places_data = city_data.get("places", [])
+        if not places_data:
+            # Try 'features' as fallback for legacy format
+            features = city_data.get("features", [])
+            if features:
+                # Convert features list to basic places
+                places_data = [{"name": f, "neighbors": [], "capabilities": []} for f in features]
+        
+        places = {}
+        for place_cfg in places_data:
+            if not isinstance(place_cfg, dict):
+                continue
+            
+            name = place_cfg.get("name", "")
+            if not name:
+                continue
+            
+            # Parse vendor if present
+            vendor = None
+            vendor_cfg = place_cfg.get("vendor")
+            if vendor_cfg and isinstance(vendor_cfg, dict):
+                vendor = Vendor(
+                    prices=vendor_cfg.get("prices", {}),
+                    stock=vendor_cfg.get("stock", {}),
+                    buyback=vendor_cfg.get("buyback", {})
+                )
+            
+            # Parse capabilities
+            capabilities = set(place_cfg.get("capabilities", []))
+            
+            place = Place(
+                name=name,
+                neighbors=place_cfg.get("neighbors", []),
+                capabilities=capabilities,
+                vendor=vendor,
+                purpose=place_cfg.get("purpose", "")
+            )
+            places[name] = place
+        
+        return places
+
+    def load_agents_with_schedules(self, world_name: str) -> List['Agent']:
+        """
+        Load agents from personas.yaml with full schedule parsing and initialization.
+        Args:
+            world_name (str): Name of the world.
+        Returns:
+            List[Agent]: List of fully initialized Agent instances.
+        """
+        from sim.agents.agents import Agent, Persona
+        
+        personas_data = self.load_yaml(world_name, "personas.yaml")
+        if not personas_data:
+            logger.warning(f"No personas.yaml found for world '{world_name}'")
+            return []
+        
+        # Support both 'people' and 'personas' keys
+        persona_list = personas_data.get("people", personas_data.get("personas", []))
+        if not persona_list:
+            logger.warning(f"No personas found in personas.yaml for world '{world_name}'")
+            return []
+        
+        agents = []
+        for persona_cfg in persona_list:
+            if not isinstance(persona_cfg, dict):
+                continue
+            
+            name = persona_cfg.get("name", "")
+            if not name:
+                logger.warning(f"Skipping persona without name: {persona_cfg}")
+                continue
+            
+            # Create Persona object
+            persona = Persona(
+                name=name,
+                age=persona_cfg.get("age", 30),
+                job=persona_cfg.get("job", persona_cfg.get("role", "unemployed")),
+                city=persona_cfg.get("city", "unknown"),
+                bio=persona_cfg.get("bio", ""),
+                values=persona_cfg.get("values", persona_cfg.get("traits", [])),
+                goals=persona_cfg.get("goals", [])
+            )
+            
+            # Parse schedule into Appointment objects
+            schedule_data = persona_cfg.get("schedule", [])
+            calendar = []
+            for entry in schedule_data:
+                if isinstance(entry, dict):
+                    try:
+                        appt = Appointment(
+                            start_tick=entry.get("start_tick", 0),
+                            end_tick=entry.get("end_tick", 0),
+                            location=entry.get("location", ""),
+                            label=entry.get("label", "")
+                        )
+                        calendar.append(appt)
+                    except (TypeError, KeyError) as e:
+                        logger.warning(f"Invalid schedule entry for {name}: {entry}, error: {e}")
+            
+            # Get starting position
+            position = persona_cfg.get("position", persona_cfg.get("start_place", ""))
+            
+            # Create Agent
+            agent = Agent(
+                persona=persona,
+                place=position,
+                calendar=calendar
+            )
+            
+            agents.append(agent)
+            logger.debug(f"Loaded agent {name} at position '{position}' with {len(calendar)} appointments")
+        
+        return agents
 
     def list_worlds(self) -> list:
         """
@@ -258,6 +432,9 @@ class WorldManager:
         Returns:
             list: List of Agent instances.
         """
+        # Lazy import to avoid circular dependencies
+        from sim.agents.agents import Agent, Persona
+        
         personas_path = os.path.join(self.get_world_path(world_name), "personas.yaml")
         with open(personas_path, 'r') as file:
             personas_data = yaml.safe_load(file).get("people", [])
