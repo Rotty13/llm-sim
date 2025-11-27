@@ -6,6 +6,7 @@ from typing import List, Dict, Any, Optional
 from difflib import SequenceMatcher
 import json, string
 from typing import TYPE_CHECKING
+import random
 
 from ..llm.llm_ollama import AI_ASSISTANT_SYSTEM
 from ..memory.memory import MemoryStore, MemoryItem
@@ -14,6 +15,7 @@ from ..world.world import World
 from ..scheduler.scheduler import Appointment, enforce_schedule
 from ..inventory.inventory import Inventory
 from sim.llm import llm_ollama
+from sim.inventory.inventory import Item
 
 from .controllers import BaseController, LogicController
 from .memory_manager import MemoryManager
@@ -77,7 +79,15 @@ class Agent:
         Delegate depositing items to the InventoryHandler.
         Updates busy_until to reflect the time taken for the action.
         """
-        success = self.inventory_handler.deposit_item_to_place(self, world, item_id, qty)
+        place_name = world.get_agent_location(self.persona.name)
+        if not place_name:
+            return False
+
+        place = world.places.get(place_name)
+        if not place:
+            return False
+
+        success = self.inventory_handler.deposit_item_to_place(self, place, item_id, qty)
         if success:
             self.busy_until += 5  # Example: Depositing takes 5 ticks
         return success
@@ -87,7 +97,15 @@ class Agent:
         Delegate withdrawing items to the InventoryHandler.
         Updates busy_until to reflect the time taken for the action.
         """
-        success = self.inventory_handler.withdraw_item_from_place(self, world, item_id, qty)
+        place_name = world.get_agent_location(self.persona.name)
+        if not place_name:
+            return False
+
+        place = world.places.get(place_name)
+        if not place:
+            return False
+
+        success = self.inventory_handler.withdraw_item_from_place(self, place, item_id, qty)
         if success:
             self.busy_until += 5  # Example: Withdrawing takes 5 ticks
         return success
@@ -203,10 +221,40 @@ class Agent:
 
         Notes:
             - Decision logic should only reside in the controller.
+            - Enforces schedules using the enforce_schedule function.
         """
-        # Delegate decision-making entirely to the controller
-        decision = self.decision_controller.decide(self, world, obs_text, tick, start_dt)
-        return decision
+        # Check and enforce schedule
+        move_command = enforce_schedule(self.calendar, self.place, tick, self.busy_until)
+        if move_command:
+            return {"action": "MOVE", "params": {"to": move_command.split('"')[3]}, "private_thought": "I need to move to my appointment."}
+
+        # Rule-based decision-making
+        if self.physio.hunger > 0.8:
+            return {"action": "EAT", "private_thought": "I'm feeling very hungry."}
+        elif self.physio.energy < 0.3:
+            return {"action": "SLEEP", "private_thought": "I'm too tired to continue."}
+        elif self.physio.stress > 0.5:
+            return {"action": "RELAX", "private_thought": "I need to relax and reduce my stress."}
+
+        # Incorporate persona values and goals into decision-making
+        if "ambition" in self.persona.values and "achieve goal" in self.persona.goals:
+            if random.random() < 0.3:  # 30% chance to work on a goal
+                return {"action": "WORK", "private_thought": "I feel motivated to work on my goals."}
+
+        if "curiosity" in self.persona.values:
+            if random.random() < 0.4:  # 40% chance to explore
+                return {"action": "EXPLORE", "private_thought": "My curiosity drives me to explore."}
+
+        # Add more nuanced rules based on persona and environment
+        if self.physio.stress > 0.7 and "relaxation" in self.persona.values:
+            return {"action": "RELAX", "private_thought": "I value relaxation and need to reduce stress."}
+
+        # Probabilistic decision-making for exploration
+        if random.random() < 0.2:  # 20% chance to explore
+            return {"action": "EXPLORE", "private_thought": "I feel like exploring the area."}
+
+        # Default action
+        return {"action": "IDLE", "private_thought": "I have nothing to do right now."}
 
     def enforce_schedule(self, tick: int):
         """
@@ -260,8 +308,24 @@ class Agent:
         """
         return self.movement_controller.move_to(self, world, destination)
 
-    def use_item(self, item: Any) -> bool:
+    def use_item(self, item: Item) -> bool:
         """
         Use an item from the agent's inventory.
         """
-        return self.inventory_handler.use_item(item)
+        if self.inventory.has(item.id):
+            self.inventory.remove(item.id, 1)
+            if item.effects:
+                for effect, value in item.effects.items():
+                    if hasattr(self.physio, effect):
+                        current_value = getattr(self.physio, effect)
+                        setattr(self.physio, effect, max(0.0, current_value + value))
+            return True
+        return False
+
+    def initialize_schedule(self, schedule_data):
+        """
+        Initialize the agent's schedule from the provided data.
+        Args:
+            schedule_data (list): List of schedule entries.
+        """
+        self.calendar = [Appointment(**entry) for entry in schedule_data]

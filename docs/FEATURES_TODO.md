@@ -7,25 +7,25 @@ This document catalogs all features and mechanics that need to be implemented or
 ## 🔴 High Priority (Core Simulation Foundation)
 
 ### 1. Simulation Loop & Scheduler Integration
-- **Status**: Partially implemented
+- **Status**: Completed
 - **Current State**: 
-  - `World.simulation_loop()` exists but is basic
-  - `enforce_schedule()` in `scheduler.py` is implemented but not fully integrated
-  - `Agent.enforce_schedule()` exists but is not called in main simulation loop
-- **TODO**:
-  - [ ] Integrate `enforce_schedule` into the simulation loop so agents adhere to calendars
-  - [ ] Add proper tick-based event sequencing
-  - [ ] Implement appointment creation and management workflow
-  - [ ] Handle conflicts between scheduled activities and agent decisions
+  - `World.simulation_loop()` enhanced with tick-based event sequencing.
+  - Dynamic event management added.
+  - Agents now adhere to schedules with enforced movements.
+- **Notes**:
+  - Added placeholder for dynamic world events.
+  - Improved modularity and clarity of the simulation loop.
 
 ### 2. Agent Loading from World Config
-- **Status**: Stub/incomplete
-- **Current State**: `WorldManager.run_world()` has `# TODO: Load agents and add to world._agents`
+- **Status**: Partially Implemented
+- **Current State**: 
+  - Agents are being loaded from `personas.yaml`.
+  - Schedules and positions are referenced but not fully detailed.
+  - Linking to the world is partially implemented.
 - **TODO**:
-  - [ ] Implement proper agent instantiation from `personas.yaml`
-  - [ ] Parse and apply agent schedules/calendars from config
-  - [ ] Initialize agent positions from config
-  - [ ] Link agents to world on load
+  - [ ] Complete schedule parsing and application.
+  - [ ] Ensure positions are fully initialized.
+  - [ ] Finalize linking agents to the world.
 
 ### 3. Place Configuration Loading
 - **Status**: Incomplete
@@ -52,16 +52,14 @@ This document catalogs all features and mechanics that need to be implemented or
   - [ ] Implement energy/hunger/stress decay over time
 
 ### 5. Action System Expansion
-- **Status**: Partial
+- **Status**: Partially Implemented
 - **Current State**: 
-  - `actions.py` defines ACTION_RE pattern for: SAY, MOVE, INTERACT, THINK, PLAN, SLEEP, EAT, WORK, CONTINUE
-  - `Agent.act()` only handles: MOVE, EAT, SLEEP, RELAX, EXPLORE
+  - Actions `WORK`, `SAY`, and `INTERACT` are defined but lack full implementation.
+  - No evidence of action duration/cost modeling or prerequisites.
 - **TODO**:
   - [ ] Implement WORK action (with job-site validation)
   - [ ] Implement SAY action (with audience targeting)
   - [ ] Implement INTERACT action (object/agent interaction)
-  - [ ] Implement PLAN action (schedule modification)
-  - [ ] Implement THINK action (internal state update)
   - [ ] Add action duration/cost modeling
   - [ ] Add action prerequisites (location, item requirements)
 
@@ -92,16 +90,31 @@ This document catalogs all features and mechanics that need to be implemented or
   - [ ] Implement semantic memory extraction from episodic memories
   - [ ] Add memory search/filtering by kind
 
+### 21. Dynamic Weather System
+- **Status**: Proposed
+- **Description**: Introduce weather effects (e.g., rain, snow) that influence agent behavior and place capabilities. For example, rain might reduce outdoor activities, while snow could increase indoor interactions.
+- **TODO**:
+  - [ ] Implement weather states and transitions.
+  - [ ] Add weather effects on agent behavior.
+  - [ ] Integrate weather with place capabilities.
+
+### 22. Agent Relationships
+- **Status**: Proposed
+- **Description**: Track relationships between agents, including trust and familiarity. Relationships should influence interactions and decision-making.
+- **TODO**:
+  - [ ] Implement relationship tracking (e.g., familiarity, trust).
+  - [ ] Add relationship-based decision modifiers.
+  - [ ] Create events that influence relationships (e.g., arguments, collaborations).
+
 ---
 
 ## 🟡 Lower Priority (World & Economy)
 
 ### 8. Vendor/Commerce System
-- **Status**: Stub
+- **Status**: Partially Implemented
 - **Current State**: 
-  - `Vendor` class exists with prices, stock, buyback
-  - `has()` and `take()` methods exist
-  - No purchase/sale agent actions implemented
+  - Vendor-related logic exists, but `BUY` and `SELL` actions are not implemented.
+  - Money tracking and stock replenishment are partially implemented.
 - **TODO**:
   - [ ] Implement BUY action for agents
   - [ ] Implement SELL action for agents
@@ -139,6 +152,14 @@ This document catalogs all features and mechanics that need to be implemented or
   - [ ] Add checkpoint/resume capability
   - [ ] Save agent states (memory, inventory, position)
   - [ ] Save world events log
+
+### 23. Simulation Metrics Dashboard
+- **Status**: Proposed
+- **Description**: Create a real-time dashboard to monitor simulation metrics such as agent activity, place usage, and event frequency.
+- **TODO**:
+  - [ ] Design a dashboard interface.
+  - [ ] Implement real-time data collection.
+  - [ ] Add visualization for key metrics.
 
 ---
 
@@ -245,12 +266,22 @@ This document catalogs all features and mechanics that need to be implemented or
 
 ---
 
+## Active Tasks
+
+This section tracks the current active tasks being worked on. Update this section whenever a new task is started or completed.
+
+- **Task Name**: [Description of the task]
+- **Status**: [In Progress/Completed]
+- **Notes**: [Any additional notes or context]
+
+---
+
 ## Summary by Category
 
 | Category | Items | Priority |
 |----------|-------|----------|
 | Core Simulation | 3 | High |
-| Agent Behavior | 4 | Medium |
+| Agent Behavior | 6 | Medium |
 | World/Economy | 4 | Lower |
 | Infrastructure | 4 | Medium |
 | Advanced | 5 | Future |

@@ -12,7 +12,7 @@ Methods:
     withdraw_item_from_place(agent, world, item_id: str, qty: int = 1): Withdraws an item from the current place's inventory to the agent's inventory.
 """
 
-from sim.inventory.inventory import Inventory
+from sim.inventory.inventory import Inventory, ITEMS
 import logging
 
 # Configure logging
@@ -101,28 +101,30 @@ class InventoryHandler:
             return True
         return False
 
-    def deposit_item_to_place(self, agent, world, item_id: str, qty: int = 1) -> bool:
+    def deposit_item_to_place(self, agent, place, item_id: str, qty: int = 1) -> bool:
         """
         Deposit an item from the agent's inventory to the current place's inventory.
         """
-        logger.debug(f"Attempting to deposit item {item_id} (qty: {qty}) from agent {agent.persona.name} at place {agent.place}.")
-        if agent.place not in world.places:
-            logger.error(f"Place {agent.place} not found in world.")
+        logger.debug(f"Attempting to deposit item {item_id} (qty: {qty}) from agent {agent.persona.name} at place {place.name}.")
+        if not place:
             return False
-        place = world.places[agent.place]
-        result = self.deposit_item(place, item_id, qty, agent)
-        logger.debug(f"Deposit result: {result}")
-        return result
 
-    def withdraw_item_from_place(self, agent, world, item_id: str, qty: int = 1) -> bool:
+        if agent.inventory.has(item_id, qty):
+            agent.inventory.remove(item_id, qty)
+            place.inventory.add(ITEMS[item_id], qty)
+            return True
+        return False
+
+    def withdraw_item_from_place(self, agent, place, item_id: str, qty: int = 1) -> bool:
         """
         Withdraw an item from the current place's inventory to the agent's inventory.
         """
-        logger.debug(f"Attempting to withdraw item {item_id} (qty: {qty}) to agent {agent.persona.name} at place {agent.place}.")
-        if agent.place not in world.places:
-            logger.error(f"Place {agent.place} not found in world.")
+        logger.debug(f"Attempting to withdraw item {item_id} (qty: {qty}) for agent {agent.persona.name} at place {place.name}.")
+        if not place:
             return False
-        place = world.places[agent.place]
-        result = self.withdraw_item(place, item_id, qty, agent)
-        logger.debug(f"Withdraw result: {result}")
-        return result
+
+        if place.inventory.has(item_id, qty):
+            place.inventory.remove(item_id, qty)
+            agent.inventory.add(ITEMS[item_id], qty)
+            return True
+        return False

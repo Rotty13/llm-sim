@@ -7,6 +7,10 @@ import os
 import yaml
 import json
 from typing import Dict, Any, Optional
+import logging
+from sim.agents.agents import Agent, Persona
+
+logger = logging.getLogger(__name__)
 
 class WorldManager:
     def create_world(self, world_name: str, city: Optional[str] = None, year: Optional[int] = None):
@@ -72,7 +76,27 @@ class WorldManager:
         places_data = city.get('places', {}) if city else {}
         places = {p['name']: p for p in places_data} if places_data else {}
         world = World(places=places)
-        # TODO: Load agents and add to world._agents
+        # Load agents from personas.yaml
+        personas = self.load_personas(world_name)
+        if personas:
+            for persona_data in personas:
+                # Create Persona object
+                persona = Persona(
+                    name=persona_data["name"],
+                    age=persona_data.get("age", 0),
+                    job=persona_data.get("job", "unemployed"),
+                    city=persona_data.get("city", "unknown"),
+                    bio=persona_data.get("bio", ""),
+                    values=persona_data.get("values", []),
+                    goals=persona_data.get("goals", [])
+                )
+                # Initialize agent with Persona and place
+                agent = Agent(
+                    persona=persona,
+                    place=persona_data.get("position", "unknown"),
+                    calendar=persona_data.get("schedule", [])
+                )
+                world.add_agent(agent)
         # Run simulation loop
         world.simulation_loop(ticks)
         print(f"Simulation for world '{world_name}' completed.")
@@ -141,9 +165,19 @@ class WorldManager:
             Optional[list]: List of personas or empty list if not found.
         """
         personas = self.load_yaml(world_name, "personas.yaml")
-        if personas and "people" in personas:
-            return personas["people"]
-        return [] if personas is None else []
+        # Validate personas structure
+        if not isinstance(personas, dict) or "people" not in personas:
+            logger.warning(f"Invalid personas.yaml structure for world '{world_name}'. Expected a 'people' key.")
+            return []
+
+        valid_personas = []
+        for persona in personas["people"]:
+            if not all(key in persona for key in ["name", "position", "schedule"]):
+                logger.warning(f"Skipping invalid persona entry: {persona}. Missing required fields.")
+                continue
+            valid_personas.append(persona)
+
+        return valid_personas
 
     def load_names(self, world_name: str) -> Optional[list]:
         """
@@ -215,3 +249,34 @@ class WorldManager:
             return None
         with open(path, "r", encoding="utf-8") as f:
             return f.read()
+
+    def load_agents(self, world_name: str):
+        """
+        Load agents from the personas.yaml file for the specified world.
+        Args:
+            world_name (str): Name of the world.
+        Returns:
+            list: List of Agent instances.
+        """
+        personas_path = os.path.join(self.get_world_path(world_name), "personas.yaml")
+        with open(personas_path, 'r') as file:
+            personas_data = yaml.safe_load(file).get("people", [])
+
+        agents = []
+        for persona_data in personas_data:
+            persona = Persona(
+                name=persona_data["name"],
+                age=persona_data.get("age", 0),
+                job=persona_data.get("job", "unemployed"),
+                city=persona_data.get("city", "unknown"),
+                bio=persona_data.get("bio", ""),
+                values=persona_data.get("values", []),
+                goals=persona_data.get("goals", [])
+            )
+            agent = Agent(
+                persona=persona,
+                place=persona_data.get("start_place", "unknown"),
+                calendar=persona_data.get("schedule", [])
+            )
+            agents.append(agent)
+        return agents

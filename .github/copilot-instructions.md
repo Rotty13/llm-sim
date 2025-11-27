@@ -1,15 +1,9 @@
 ---
 description: Project-wide Copilot custom instructions for llm-sim workspace.
 name: llm-sim_Copilot_Instructions
-description: Project-wide Copilot custom instructions for llm-sim workspace.
-name: llm-sim_Copilot_Instructions
+
 # General Coding Guidelines
 
-# llm-sim Copilot Instructions
-
-#always refer to PROJECT_GOAL.md for overall project goals and vision.
-#next refer to goals/goal_and_next_steps.instructions.md for current goal task and upcoming features or changes with their priorities.
-# Always update goal_and_next_steps.instructions.md with current goal and new features or changes.
 
 ## Big Picture Architecture
 
@@ -25,7 +19,7 @@ name: llm-sim_Copilot_Instructions
 - **Setup:** Use `python -m venv .venv && .venv\Scripts\activate` (Windows) and `pip install -r requirements.txt`.
 - **Run Simulation:** `python scripts/run_sim.py` or use CLI: `python scripts/world_cli.py run World_0 --ticks 100`.
 - **World Management:** Use `scripts/world_cli.py` for creating, listing, info, deleting, and running worlds. Example: `python scripts/world_cli.py create World_1 --city "New City" --year 2025`.
-- **Testing:** Automated tests are planned for all core modules in `sim/` and user-facing scripts in `scripts/`. (See `.github/goals/next_steps.instructions.md` for progress.)
+- **Testing:** Automated tests are planned for all core modules in `sim/` and user-facing scripts in `scripts/`.
 - **Data Validation:** All config/data files (YAML/JSON) should have schemas enforced via logic in `WorldManager` and data loaders.
 
 ## Project-Specific Conventions
@@ -49,7 +43,6 @@ name: llm-sim_Copilot_Instructions
 - `scripts/`: CLI tools and utilities.
 - `worlds/`: Example worlds and scenario templates.
 - `configs/`: Data schemas and config files.
-- `.github/goals/next_steps.instructions.md`: Roadmap and feature progress.
 
 ---
 
@@ -60,29 +53,50 @@ name: llm-sim_Copilot_Instructions
 
 ---
 
-Please review and suggest any missing or unclear sections for further iteration.
+## Purpose of Documentation Files
 
-# Autonomous Copilot Instructions Update
+### `CURRENT_TASK.md`
+- **Purpose**: Tracks the current development goals, tasks, and priorities.
+- **Usage**: Refer to this file to understand the immediate focus of the project. Update it whenever a new task is started or completed. The file should contain a single active task or be left empty/blank.
+- **Update Frequency**: Daily or as tasks are completed.
+- **Rule Update: Task Management**: `CURRENT_TASK.md` is for active tasks only. Completed tasks must be removed immediately upon completion.
 
-- Always keep `.github/instructions/goals/goal_and_next_steps.instructions.md` updated and relevant at every development step.
-- After each change to simulation internals, data structures, or logic, append the new goal, next step, or architectural decision to the goals file (do not remove previous content).
-- Use the goals file as the authoritative source for current development focus and priorities.
-- Continue development autonomously, referring to the goals file for direction and updating it as progress is made.
+### `FEATURES_TODO.md`
+- **Purpose**: Catalogs all features and mechanics that need to be implemented or further defined.
+- **Usage**: Use this file to identify long-term goals and features. It serves as a backlog for the project.
+- **Update Frequency**: As new features are proposed or existing ones are completed.
 
-- The global outline/roadmap file is `.github/roadmap.md`. All current, future, and completed features, goals, and tasks must be tracked here with their creation and/or completion dates.
-- Update `.github/roadmap.md` at every major development step, ensuring it reflects the latest project state and priorities.
+### `DEFFERED_PROBLEMS.md`
+- **Purpose**: Logs unresolved issues or problems that require further investigation.
+- **Usage**: Add entries here for any blockers or unresolved issues encountered during development. Periodically review to check if they can be resolved.
+- **Update Frequency**: Whenever a new problem is identified or resolved.
 
-# Hierarchical Goals and Tasks Organization
+## Development Process Flow
 
-- Organize all goals and tasks in `.github/instructions/goals/goal_and_next_steps.instructions.md` hierarchically, using nested lists and headings for main goals, subgoals, and actionable steps.
-- Each major goal should have clearly defined subgoals and tasks beneath it, with indentation or bullet points to show structure.
-- When updating, always append new steps or changes under the appropriate section, maintaining the hierarchy.
-- Use the hierarchical structure to clarify dependencies, priorities, and progress.
-- Each major goal should have an emoji prefix to enhance visual scanning and organization. Checkmarks (✅) for completed goals, empty boxes (⬜) for current goals, and other relevant emojis for future or suspended goals.
-- Completed goals should be moved to a "Completed Development Tasks/Goals" section at the bottom, with dates and brief descriptions of what was accomplished.
-- NEVER remove data from this file; always append new information or reorder/update current information to maintain a full history of development progress and decisions.
+### General Workflow
 
-- Always ensure goal hygiene by removing outdated goals and modifying them to reference and use current code, systems, and classes.
+1. **Choose Task**:
+   - Select a task to begin or continue development on.
+   - Refer to `FEATURES_TODO.md` for long-term goals and features.
+   - Refer to `DEFERRED_PROBLEMS.md` for unresolved issues that need attention.
 
-- ONLY if an error cannot be resolved within 5 steps, document it in `.github/instructions/problems.md` and move on to the next task or goal. Apply the same hygiene rules to the problems file (remove outdated problems, modify them to reflect current systems/code).
-- Periodically review documented problems to check if they have become more tractable or solvable due to recent development progress.
+2. **Set Current Task**:
+   - Update `CURRENT_TASK.md` to reflect the task you are working on.
+   - Clearly define the task, its goals, and any dependencies.
+
+3. **Begin Development**:
+   - Autonomously work on the task until completion or until encountering multiple task failures.
+
+4. **Task Completion**:
+   - If the task is a feature:
+     - Mark the feature as complete in `FEATURES_TODO.md`.
+   - If the task resolves a deferred problem:
+     - Remove the problem from `DEFERRED_PROBLEMS.md`.
+
+5. **Task Failure**:
+   - If the task cannot be completed:
+     - Document the issue in `DEFERRED_PROBLEMS.md`.
+     - Include details about the failure and any blockers encountered.
+
+6. **Repeat**:
+   - Return to Step 1 and select the next task to work on.

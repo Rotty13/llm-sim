@@ -15,12 +15,25 @@ import os, json, requests, random
 from typing import Any, Dict, List
 import requests, json
 import math
+import logging
+from time import sleep
+import uuid
 
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 GEN_MODEL  = os.environ.get("GEN_MODEL", "llama3.1:8b-instruct-q8_0")
 GEN_MODEL_FAST  = os.environ.get("GEN_MODEL_FAST", "llama3.1:8b-instruct-q4_0")
 EMB_MODEL  = os.environ.get("EMB_MODEL", "nomic-embed-text")
+
+# Configure logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s [%(levelname)s] [%(request_id)s] %(message)s",
+    handlers=[
+        logging.FileHandler("ollama_debug.log"),
+        logging.StreamHandler()
+    ]
+)
 
 # generic ai assistant system prompt
 
@@ -111,14 +124,36 @@ class LLM:
     def _post(self, path: str, payload: dict, timeout: Optional[int] = None) -> dict:
         url = f"{self.base}{path}"
         t = self._get_timeout(payload, timeout)
-        r = requests.post(url, json=payload, timeout=t)
-        # Print raw body on non-200 so you can see Ollama's error text
-        if r.status_code != 200:
-            raise RuntimeError(f"Ollama {path} HTTP {r.status_code}: {r.text}")
-        try:
-            return r.json()
-        except Exception as e:
-            raise RuntimeError(f"Ollama {path} returned non-JSON: {r.text[:500]}") from e
+        retries = 3
+        backoff = 1  # Initial backoff in seconds
+        request_id = str(uuid.uuid4())
+
+        for attempt in range(retries):
+            try:
+                logging.debug({"request_id": request_id, "message": f"POST {url} with payload {payload}"})
+                r = requests.post(url, json=payload, timeout=t)
+
+                if r.status_code != 200:
+                    logging.error({"request_id": request_id, "message": f"HTTP {r.status_code}: {r.text}"})
+                    raise RuntimeError(f"Ollama {path} HTTP {r.status_code}: {r.text}")
+
+                try:
+                    return r.json()
+                except Exception as e:
+                    logging.error({"request_id": request_id, "message": f"Non-JSON response: {r.text[:500]}"})
+                    raise RuntimeError(f"Ollama {path} returned non-JSON: {r.text[:500]}") from e
+
+            except Exception as e:
+                logging.warning({"request_id": request_id, "message": f"Attempt {attempt + 1} failed: {e}"})
+                if attempt < retries - 1:
+                    sleep(backoff)
+                    backoff *= 2  # Exponential backoff
+                else:
+                    logging.critical({"request_id": request_id, "message": f"All retries failed for POST {url}"})
+                    raise
+
+        # Ensure a return value exists for all code paths
+        return {}  # Return an empty dictionary as a fallback
 
     def chat(self, prompt: str, system: str = AI_ASSISTANT_SYSTEM, max_tokens: int = 256, seed=1, messages: Optional[list] = None, timeout: int = 250, log=True) -> str:
         """
@@ -162,16 +197,18 @@ class LLM:
         if self.caller and not self.logfile:
             self.initialize_logging(self.caller)
         if self.logfile:
+            timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+            request_id = str(uuid.uuid4())
 
             if system_prompt != self.last_system_prompt_logged:
-                self.logfile.write(f"System: {system_prompt}\n\n")
+                self.logfile.write(f"[{timestamp}] [Request ID: {request_id}] System: {system_prompt}\n\n")
                 self.last_system_prompt_logged = system_prompt
-            
-            self.logfile.write(f"User: {prompt}\n\n")
+
+            self.logfile.write(f"[{timestamp}] [Request ID: {request_id}] User: {prompt}\n\n")
             if json:
-                self.logfile.write(f"LLM (JSON): {txt}\n\n")
+                self.logfile.write(f"[{timestamp}] [Request ID: {request_id}] LLM (JSON): {txt}\n\n")
             else:
-                self.logfile.write(f"LLM: {txt}\n\n")
+                self.logfile.write(f"[{timestamp}] [Request ID: {request_id}] LLM: {txt}\n\n")
 
             self.logfile.write("="*40 + "\n\n\n\n")
             self.logfile.flush()

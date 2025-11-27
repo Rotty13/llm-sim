@@ -5,6 +5,8 @@ Scenario and integration tests for llm-sim simulation engine.
 Covers agent movement, item transfer, and basic world interactions.
 """
 import unittest
+import logging
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 from sim.world.world import World, Place
 from sim.agents.agents import Agent, Persona, Physio
 from sim.inventory.inventory import Item
@@ -22,7 +24,7 @@ class TestSimulationScenarios(unittest.TestCase):
         self.world.set_agent_location(self.agent, "Cafe")
         self.place_a.add_agent(self.agent)
         # Create item
-        self.coffee = Item(id="coffee", name="Coffee", tags={"food"}, weight=0.2)
+        self.coffee = Item(id="coffee", name="Coffee", tags={"food"}, weight=0.2, effects={"hunger": -0.1})
         self.agent.inventory.add(self.coffee, 1)
 
     def test_agent_move(self):
