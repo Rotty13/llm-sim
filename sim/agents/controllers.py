@@ -1,13 +1,15 @@
-from typing import Dict, Any, Optional, List
-from sim.world.world import World
+from typing import Dict, Any, Optional, List, TYPE_CHECKING
 import json
 from sim.utils.utils import now_str
+
+if TYPE_CHECKING:
+    from sim.world.world import World
 
 class BaseController:
     """
     Base class for agent controllers. Subclasses should implement decision-making logic.
     """
-    def decide(self, agent: Any, world: World, obs_text: str, tick: int, start_dt) -> Dict[str, Any]:
+    def decide(self, agent: Any, world: 'World', obs_text: str, tick: int, start_dt) -> Dict[str, Any]:
         raise NotImplementedError("Subclasses must implement the `decide` method.")
 
 class LogicController(BaseController):
@@ -17,7 +19,7 @@ class LogicController(BaseController):
     Notes:
         - All decision logic should reside in the controller, not in the agent.
     """
-    def decide(self, agent: Any, world: World, obs_text: str, tick: int, start_dt) -> Dict[str, Any]:
+    def decide(self, agent: Any, world: 'World', obs_text: str, tick: int, start_dt) -> Dict[str, Any]:
         if tick < agent.busy_until:
             return self._continue_action()
 
@@ -46,7 +48,7 @@ class LogicController(BaseController):
                 relevant.append(f"[{now_str(memory.t, start_dt)}] {memory.kind}: {memory.text}")
         return relevant
 
-    def _get_roster(self, agent: Any, world: World) -> str:
+    def _get_roster(self, agent: Any, world: 'World') -> str:
         if hasattr(world, "_agents"):
             return ", ".join(sorted(a.persona.name for a in world._agents))
         return "NEARBY"

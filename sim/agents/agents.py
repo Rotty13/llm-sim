@@ -279,25 +279,100 @@ class Agent:
     def act(self, world: World, decision: Dict[str, Any], tick: int):
         """
         Perform the action decided by the agent.
+        Supports actions: MOVE, EAT, SLEEP, RELAX, EXPLORE, WORK, SAY, INTERACT, THINK, CONTINUE.
         """
-        action = decision.get("action", "")
+        from sim.actions.actions import get_action_duration, get_action_effects, ACTION_DURATIONS
+        
+        action = decision.get("action", "").upper()
         params = decision.get("params", {})
+        
+        # Get action duration and effects
+        duration = get_action_duration(action, params)
+        effects = get_action_effects(action, params)
 
         if action == "MOVE":
             destination = params.get("to")
             if destination:
                 self.movement_controller.move_to(self, world, destination)
+            self.busy_until = tick + duration
+            
         elif action == "EAT":
-            self.physio.hunger = max(0.0, self.physio.hunger - 0.5)
-            self.busy_until = tick + 1
+            self.physio.hunger = max(0.0, self.physio.hunger + effects.get("hunger", -0.5))
+            self.physio.energy = min(1.0, self.physio.energy + effects.get("energy", 0.1))
+            self.busy_until = tick + duration
+            
         elif action == "SLEEP":
-            self.physio.energy = min(1.0, self.physio.energy + 0.5)
-            self.busy_until = tick + 3
+            self.physio.energy = min(1.0, self.physio.energy + effects.get("energy", 0.8))
+            self.physio.stress = max(0.0, self.physio.stress + effects.get("stress", -0.3))
+            self.busy_until = tick + duration
+            
         elif action == "RELAX":
-            self.physio.stress = max(0.0, self.physio.stress - 0.2)
-            self.busy_until = tick + 1
+            self.physio.stress = max(0.0, self.physio.stress + effects.get("stress", -0.2))
+            self.physio.energy = min(1.0, self.physio.energy + effects.get("energy", 0.05))
+            self.busy_until = tick + duration
+            
         elif action == "EXPLORE":
-            self.busy_until = tick + 2
+            self.physio.energy = max(0.0, self.physio.energy + effects.get("energy", -0.1))
+            self.physio.stress = max(0.0, self.physio.stress + effects.get("stress", -0.05))
+            self.busy_until = tick + duration
+            
+        elif action == "WORK":
+            # Validate work location
+            if self._work_allowed_here(world):
+                self.physio.energy = max(0.0, self.physio.energy + effects.get("energy", -0.15))
+                self.physio.stress = min(1.0, self.physio.stress + effects.get("stress", 0.1))
+                self.physio.hunger = min(1.0, self.physio.hunger + effects.get("hunger", 0.1))
+                self.busy_until = tick + duration
+                # Add work reward (money)
+                from sim.inventory.inventory import ITEMS
+                money_item = ITEMS.get("money")
+                if money_item:
+                    reward = params.get("reward", 10)
+                    self.inventory.add(money_item, reward)
+            else:
+                # Cannot work here, reduce to think action
+                action = "THINK"
+                self.busy_until = tick + 1
+                
+        elif action == "SAY":
+            text = params.get("text", "")
+            target = params.get("to")
+            self.physio.energy = max(0.0, self.physio.energy + effects.get("energy", -0.01))
+            self.busy_until = tick + duration
+            # Record in memory
+            if text:
+                self.memory_manager.write_memory(MemoryItem(
+                    t=tick, 
+                    kind="episodic", 
+                    text=f"I said '{text}'" + (f" to {target}" if target else ""),
+                    importance=0.3
+                ))
+                
+        elif action == "INTERACT":
+            target = params.get("target", "")
+            action_type = params.get("action_type", "observe")
+            self.physio.energy = max(0.0, self.physio.energy + effects.get("energy", -0.02))
+            self.busy_until = tick + duration
+            # Record interaction in memory
+            if target:
+                self.memory_manager.write_memory(MemoryItem(
+                    t=tick,
+                    kind="episodic",
+                    text=f"I {action_type}d {target}",
+                    importance=0.4
+                ))
+                
+        elif action == "THINK":
+            self.physio.energy = max(0.0, self.physio.energy + effects.get("energy", -0.01))
+            self.busy_until = tick + duration
+            
+        elif action == "CONTINUE":
+            # Do nothing, maintain current state
+            pass
+        
+        else:
+            # Unknown action, default to think
+            self.busy_until = tick + 1
 
         # Broadcast the action to the world
         world.broadcast(self.place, {"actor": self.persona.name, "action": action, "params": params, "tick": tick})
@@ -326,6 +401,20 @@ class Agent:
         """
         Initialize the agent's schedule from the provided data.
         Args:
-            schedule_data (list): List of schedule entries.
+            schedule_data (list): List of schedule entries (dicts or Appointment objects).
         """
-        self.calendar = [Appointment(**entry) for entry in schedule_data]
+        self.calendar = []
+        for entry in schedule_data:
+            if isinstance(entry, Appointment):
+                self.calendar.append(entry)
+            elif isinstance(entry, dict):
+                try:
+                    appt = Appointment(
+                        start_tick=entry.get("start_tick", 0),
+                        end_tick=entry.get("end_tick", 0),
+                        location=entry.get("location", ""),
+                        label=entry.get("label", "")
+                    )
+                    self.calendar.append(appt)
+                except (TypeError, KeyError):
+                    pass  # Skip invalid entries

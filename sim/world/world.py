@@ -1,11 +1,14 @@
 from __future__ import annotations
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, TYPE_CHECKING
 from collections import deque
 # Import Inventory for item storage in places
 from sim.inventory.inventory import Inventory, ITEMS
 from dataclasses import dataclass, field
 import logging
-from sim.agents.agents import Agent, Persona
+
+# Use TYPE_CHECKING to avoid circular imports
+if TYPE_CHECKING:
+    from sim.agents.agents import Agent, Persona
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -227,6 +230,9 @@ class World:
         Args:
             config (dict): Configuration data containing agent details.
         """
+        # Lazy import to avoid circular dependency
+        from sim.agents.agents import Agent, Persona
+        
         for agent_data in config.get("agents", []):
             persona = Persona(
                 name=agent_data["name"],
@@ -260,7 +266,7 @@ class World:
                 self.set_agent_location(agent, default_place)
                 logger.info(f"Agent {agent.persona.name} moved to default place: {default_place}.")
 
-    def implement_work_action(self, agent: Agent):
+    def implement_work_action(self, agent: 'Agent'):
         """
         Implement the WORK action for an agent, with job-site validation and prerequisites.
         """
@@ -297,7 +303,7 @@ class World:
 
         return False
 
-    def consolidate_decision_logic(self, agent: Agent, context: dict):
+    def consolidate_decision_logic(self, agent: 'Agent', context: dict):
         """
         Consolidate decision logic for agents.
         """
