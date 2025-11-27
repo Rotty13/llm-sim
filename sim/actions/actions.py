@@ -182,16 +182,18 @@ def execute_work_action(agent: Any, world: Any, params: Dict = None) -> ActionRe
     
     place = world.places[agent.place]
     
-    # Check for work capability
-    if "work" not in place.capabilities:
-        # Check if job matches location
-        from sim.agents.agents import JOB_SITE
-        expected_site = JOB_SITE.get(agent.persona.job)
-        if not expected_site or agent.place != expected_site:
+    # Check for work capability - use agent's own validation method if available
+    if hasattr(agent, '_work_allowed_here'):
+        if not agent._work_allowed_here(world):
             return ActionResult(
                 success=False,
-                message=f"Cannot work at {agent.place}. Job '{agent.persona.job}' requires {expected_site or 'unknown location'}"
+                message=f"Cannot work at {agent.place}. Job '{agent.persona.job}' does not match this location"
             )
+    elif "work" not in place.capabilities:
+        return ActionResult(
+            success=False,
+            message=f"Cannot work at {agent.place}. Location lacks work capability"
+        )
     
     duration = get_action_duration("WORK", params)
     effects = get_action_effects("WORK", params)
@@ -274,13 +276,20 @@ def execute_interact_action(agent: Any, world: Any, params: Dict = None) -> Acti
         
         # Target could be an agent or an object
         if target not in agents_here:
-            # Check if it's an object in the place
-            items_here = place.get_items()
+            # Check if it's an object/item in the place by ID or name
+            items_here = place.get_items()  # Returns dict of item_id -> quantity
+            # Check by item ID
             if target not in items_here:
-                return ActionResult(
-                    success=False,
-                    message=f"Target '{target}' not found at {agent.place}"
-                )
+                # Also check by item name for user-friendly matching
+                item_names = []
+                for stack in place.inventory.stacks:
+                    item_names.append(stack.item.name.lower())
+                    item_names.append(stack.item.id.lower())
+                if target.lower() not in item_names:
+                    return ActionResult(
+                        success=False,
+                        message=f"Target '{target}' not found at {agent.place}"
+                    )
     
     return ActionResult(
         success=True,
