@@ -1,15 +1,19 @@
 from __future__ import annotations
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, TYPE_CHECKING
 from collections import deque
 # Import Inventory for item storage in places
 from sim.inventory.inventory import Inventory, ITEMS
 from dataclasses import dataclass, field
 import logging
-from sim.agents.agents import Agent, Persona
+from sim.utils.metrics import SimulationMetrics
+from ..agents.agents import Persona
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+if TYPE_CHECKING:
+    from ..agents.agents import Agent
 
 @dataclass
 class Vendor:
@@ -23,6 +27,58 @@ class Vendor:
     def take(self, item_id: str, qty: int = 1) -> bool:
         if not self.has(item_id, qty): return False
         self.stock[item_id] -= qty
+        return True
+
+    def buy(self, item_id: str, qty: int, agent) -> bool:
+        """
+        Allow an agent to buy items from the vendor.
+        Args:
+            item_id (str): ID of the item to buy.
+            qty (int): Quantity to buy.
+            agent: The agent making the purchase.
+        Returns:
+            bool: True if the purchase is successful, False otherwise.
+        """
+        if not self.has(item_id, qty):
+            logger.warning(f"Vendor does not have enough stock of item {item_id}.")
+            return False
+
+        price = self.prices.get(item_id, 0) * qty
+        if not agent.inventory.has("money", price):
+            logger.warning(f"Agent {agent.persona.name} does not have enough money to buy {qty} of {item_id}.")
+            return False
+
+        # Process the transaction
+        agent.inventory.remove("money", price)
+        agent.inventory.add(ITEMS[item_id], qty)
+        self.take(item_id, qty)
+        logger.info(f"Agent {agent.persona.name} bought {qty} of {item_id} for {price} units.")
+        return True
+
+    def sell(self, item_id: str, qty: int, agent) -> bool:
+        """
+        Allow an agent to sell items to the vendor.
+        Args:
+            item_id (str): ID of the item to sell.
+            qty (int): Quantity to sell.
+            agent: The agent making the sale.
+        Returns:
+            bool: True if the sale is successful, False otherwise.
+        """
+        if not agent.inventory.has(item_id, qty):
+            logger.warning(f"Agent {agent.persona.name} does not have enough of item {item_id} to sell.")
+            return False
+
+        buyback_price = self.buyback.get(item_id, 0) * qty
+        if buyback_price <= 0:
+            logger.warning(f"Vendor does not offer buyback for item {item_id}.")
+            return False
+
+        # Process the transaction
+        agent.inventory.remove(item_id, qty)
+        agent.inventory.add(ITEMS["money"], buyback_price)
+        self.stock[item_id] = self.stock.get(item_id, 0) + qty
+        logger.info(f"Agent {agent.persona.name} sold {qty} of {item_id} for {buyback_price} units.")
         return True
 
 @dataclass
@@ -70,6 +126,34 @@ class World:
 
     agent_locations: dict = field(default_factory=dict)  # Maps agent names to place names
     item_ownership: dict = field(default_factory=dict)  # Maps item IDs to agent/place names
+    metrics: SimulationMetrics = field(default_factory=SimulationMetrics)  # Tracks simulation metrics
+
+    def log_agent_action(self, agent: Agent, action: str):
+        """
+        Log an agent's action in the simulation metrics.
+        Args:
+            agent (Agent): The agent performing the action.
+            action (str): The action performed.
+        """
+        self.metrics.log_agent_action(agent.persona.name, action)
+
+    def log_resource_flow(self, entity: str, item_id: str, qty: int):
+        """
+        Log a resource flow in the simulation metrics.
+        Args:
+            entity (str): The entity involved in the resource flow (agent or place).
+            item_id (str): The ID of the item involved.
+            qty (int): The quantity of the item.
+        """
+        self.metrics.log_resource_flow(entity, item_id, qty)
+
+    def log_world_event(self, event: str):
+        """
+        Log a world event in the simulation metrics.
+        Args:
+            event (str): The event to log.
+        """
+        self.metrics.log_world_event(event)
 
     def set_agent_location(self, agent: Any, place_name: str):
         """Set the location of an agent in the world."""
@@ -130,7 +214,9 @@ class World:
         return self.item_ownership.get(item_id)
 
     def simulation_loop(self, ticks: int = 100):
-        """Run the simulation for a number of ticks."""
+        """
+        Run the simulation for a number of ticks.
+        """
         from sim.scheduler.scheduler import enforce_schedule
         events = []  # Placeholder for tick-based events
 
@@ -140,11 +226,11 @@ class World:
             # Process scheduled events for the current tick
             for event in [e for e in events if e['tick'] == tick]:
                 event['action'](self)
+                self.log_world_event(f"Event triggered: {event['action'].__name__}")
 
             for agent in self._agents:
                 # Enforce schedules dynamically
                 forced_move = enforce_schedule(agent.calendar, agent.place, tick, agent.busy_until)
-                # Ensure enforce_schedule handles overlapping appointments
                 if forced_move:
                     try:
                         import json
@@ -152,12 +238,14 @@ class World:
                         dest = payload.get("to")
                         if dest:
                             agent.move_to(self, dest)
+                            self.log_agent_action(agent, f"Moved to {dest}")
                     except (json.JSONDecodeError, AttributeError) as e:
                         print(f"Error processing schedule for agent {agent.persona.name}: {e}")
 
                 # Allow agents to interact with the world
                 if hasattr(agent, 'step_interact'):
                     agent.step_interact(self, [a for a in self._agents if a != agent], '', tick, None, None)
+                    self.log_agent_action(agent, "Interacted with world")
 
             # Example: Add dynamic events (e.g., world events)
             if tick % 10 == 0:  # Example condition for adding an event
@@ -170,6 +258,9 @@ class World:
             for agent in self._agents:
                 location = self.get_agent_location(agent.persona.name)
                 print(f"Agent {agent.persona.name} is at {location}")
+
+            # Log tick completion
+            self.log_world_event(f"Tick {tick} completed")
 
     def get_all_places(self) -> list:
         """Return a list of all place names in the world."""
@@ -241,13 +332,51 @@ class World:
 
             # Initialize agent schedule if provided
             if "schedule" in agent_data:
-                agent.initialize_schedule(agent_data["schedule"])
+                try:
+                    agent.initialize_schedule(agent_data["schedule"])
+                except Exception as e:
+                    logger.error(f"Failed to initialize schedule for agent {agent.persona.name}: {e}")
+
+            # Ensure the agent's position is valid
+            if agent.place not in self.places:
+                logger.warning(f"Invalid place '{agent.place}' for agent {agent.persona.name}. Assigning default place.")
+                agent.place = next(iter(self.places))  # Assign the first place as default
 
             # Add agent to the world
             self.add_agent(agent)
             self.set_agent_location(agent, agent.place)
 
             logger.debug(f"Loaded agent {agent.persona.name} into the world at {agent.place}.")
+
+    def load_places_from_config(self, config: dict):
+        """
+        Load places from a configuration dictionary.
+        Args:
+            config (dict): Configuration data containing place details.
+        """
+        for place_data in config.get("places", []):
+            # Parse vendor details if present
+            vendor = None
+            if "vendor" in place_data:
+                vendor_data = place_data["vendor"]
+                vendor = Vendor(
+                    prices=vendor_data.get("prices", {}),
+                    stock=vendor_data.get("stock", {}),
+                    buyback=vendor_data.get("buyback", {})
+                )
+
+            # Create the Place object
+            place = Place(
+                name=place_data["name"],
+                neighbors=place_data.get("neighbors", []),
+                capabilities=set(place_data.get("capabilities", [])),
+                vendor=vendor
+            )
+
+            # Add the place to the world
+            self.places[place.name] = place
+
+            logger.debug(f"Loaded place {place.name} with capabilities {place.capabilities} and neighbors {place.neighbors}.")
 
     def validate_agent_positions(self):
         """
@@ -259,6 +388,17 @@ class World:
                 default_place = next(iter(self.places))  # Pick the first place as default
                 self.set_agent_location(agent, default_place)
                 logger.info(f"Agent {agent.persona.name} moved to default place: {default_place}.")
+
+    def validate_place_connectivity(self):
+        """
+        Validate that all places have valid neighbor relationships.
+        """
+        for place_name, place in self.places.items():
+            invalid_neighbors = [neighbor for neighbor in place.neighbors if neighbor not in self.places]
+            if invalid_neighbors:
+                logger.warning(f"Place '{place_name}' has invalid neighbors: {invalid_neighbors}")
+            else:
+                logger.debug(f"Place '{place_name}' has valid neighbors: {place.neighbors}")
 
     def implement_work_action(self, agent: Agent):
         """
@@ -314,4 +454,48 @@ class World:
 
         logger.info(f"Agent {agent.persona.name} decision: {decision}")
         return decision
+
+    def agent_buy(self, agent: Agent, place_name: str, item_id: str, qty: int) -> bool:
+        """
+        Facilitate an agent buying items from a vendor at a specific place.
+        Args:
+            agent (Agent): The agent making the purchase.
+            place_name (str): The name of the place where the vendor is located.
+            item_id (str): The ID of the item to buy.
+            qty (int): The quantity to buy.
+        Returns:
+            bool: True if the transaction is successful, False otherwise.
+        """
+        if place_name not in self.places:
+            logger.error(f"Place '{place_name}' does not exist in the world.")
+            return False
+
+        place = self.places[place_name]
+        if not place.vendor:
+            logger.warning(f"Place '{place_name}' does not have a vendor.")
+            return False
+
+        return place.vendor.buy(item_id, qty, agent)
+
+    def agent_sell(self, agent: Agent, place_name: str, item_id: str, qty: int) -> bool:
+        """
+        Facilitate an agent selling items to a vendor at a specific place.
+        Args:
+            agent (Agent): The agent making the sale.
+            place_name (str): The name of the place where the vendor is located.
+            item_id (str): The ID of the item to sell.
+            qty (int): The quantity to sell.
+        Returns:
+            bool: True if the transaction is successful, False otherwise.
+        """
+        if place_name not in self.places:
+            logger.error(f"Place '{place_name}' does not exist in the world.")
+            return False
+
+        place = self.places[place_name]
+        if not place.vendor:
+            logger.warning(f"Place '{place_name}' does not have a vendor.")
+            return False
+
+        return place.vendor.sell(item_id, qty, agent)
 

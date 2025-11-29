@@ -76,6 +76,7 @@ class WorldManager:
         places_data = city.get('places', {}) if city else {}
         places = {p['name']: p for p in places_data} if places_data else {}
         world = World(places=places)
+
         # Load agents from personas.yaml
         personas = self.load_personas(world_name)
         if personas:
@@ -96,7 +97,16 @@ class WorldManager:
                     place=persona_data.get("position", "unknown"),
                     calendar=persona_data.get("schedule", [])
                 )
+
+                # Validate agent's position
+                if agent.place not in world.places:
+                    logger.warning(f"Invalid place '{agent.place}' for agent {agent.persona.name}. Assigning default place.")
+                    agent.place = next(iter(world.places))  # Assign the first place as default
+
+                # Add agent to the world
                 world.add_agent(agent)
+                world.set_agent_location(agent, agent.place)
+
         # Run simulation loop
         world.simulation_loop(ticks)
         print(f"Simulation for world '{world_name}' completed.")
@@ -175,7 +185,31 @@ class WorldManager:
             if not all(key in persona for key in ["name", "position", "schedule"]):
                 logger.warning(f"Skipping invalid persona entry: {persona}. Missing required fields.")
                 continue
-            valid_personas.append(persona)
+
+            # Parse and validate schedule
+            schedule = persona.get("schedule", [])
+            if not isinstance(schedule, list):
+                logger.warning(f"Invalid schedule for persona {persona['name']}. Expected a list.")
+                schedule = []
+
+            # Validate position
+            position = persona.get("position", "unknown")
+            if not isinstance(position, str):
+                logger.warning(f"Invalid position for persona {persona['name']}. Expected a string.")
+                position = "unknown"
+
+            # Add validated persona
+            valid_personas.append({
+                "name": persona["name"],
+                "position": position,
+                "schedule": schedule,
+                "age": persona.get("age", 0),
+                "job": persona.get("job", "unemployed"),
+                "city": persona.get("city", "unknown"),
+                "bio": persona.get("bio", ""),
+                "values": persona.get("values", []),
+                "goals": persona.get("goals", [])
+            })
 
         return valid_personas
 
@@ -280,3 +314,45 @@ class WorldManager:
             )
             agents.append(agent)
         return agents
+
+    def validate_config(self, world_name: str, filename: str, schema: Dict[str, Any]) -> bool:
+        """
+        Validate a configuration file against a schema.
+        Args:
+            world_name (str): Name of the world.
+            filename (str): Configuration filename to validate.
+            schema (Dict[str, Any]): Schema to validate against.
+        Returns:
+            bool: True if valid, False otherwise.
+        """
+        data = self.load_yaml(world_name, filename)
+        if not data:
+            logger.error(f"Failed to load {filename} for validation.")
+            return False
+
+        from sim.utils.schema_validation import validate_nested_schema
+        if not validate_nested_schema(data, schema):
+            logger.error(f"Validation failed for {filename} in world '{world_name}'.")
+            return False
+
+        logger.info(f"Validation passed for {filename} in world '{world_name}'.")
+        return True
+
+    def load_places(self, world_name: str) -> Optional[Dict[str, Any]]:
+        """
+        Load and validate places from a world's places.yaml file.
+        Args:
+            world_name (str): Name of the world.
+        Returns:
+            Optional[Dict[str, Any]]: Validated places data or None if invalid.
+        """
+        from sim.utils.schema_validation import validate_nested_schema
+        schema_path = os.path.join("configs", "yaml", "schemas", "places.yaml")
+        with open(schema_path, "r", encoding="utf-8") as schema_file:
+            schema = yaml.safe_load(schema_file)
+
+        if not self.validate_config(world_name, "places.yaml", schema):
+            logger.error(f"Failed to validate places.yaml for world '{world_name}'.")
+            return None
+
+        return self.load_yaml(world_name, "places.yaml")

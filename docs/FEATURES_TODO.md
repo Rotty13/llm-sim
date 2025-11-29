@@ -57,9 +57,6 @@ This document catalogs all features and mechanics that need to be implemented or
   - Actions `WORK`, `SAY`, and `INTERACT` are defined but lack full implementation.
   - No evidence of action duration/cost modeling or prerequisites.
 - **TODO**:
-  - [ ] Implement WORK action (with job-site validation)
-  - [ ] Implement SAY action (with audience targeting)
-  - [ ] Implement INTERACT action (object/agent interaction)
   - [ ] Add action duration/cost modeling
   - [ ] Add action prerequisites (location, item requirements)
 
@@ -90,21 +87,94 @@ This document catalogs all features and mechanics that need to be implemented or
   - [ ] Implement semantic memory extraction from episodic memories
   - [ ] Add memory search/filtering by kind
 
-### 21. Dynamic Weather System
+### 24. Needs System
+- **Status**: Not Implemented
+- **Description**: Introduce a system to manage agent needs such as hunger, energy, fun, social, etc., to drive behavior.
+- **TODO**:
+  - [ ] Implement hunger, energy, and other needs.
+  - [ ] Add decay rates for needs over time.
+  - [ ] Integrate needs into agent decision-making.
+
+### 25. Personality Modeling
+- **Status**: Not Implemented
+- **Description**: Add traits, aspirations, and emotional modifiers to differentiate agent behavior.
+- **TODO**:
+  - [ ] Define personality traits and aspirations.
+  - [ ] Implement emotional modifiers and their effects on decisions.
+  - [ ] Integrate personality into agent decision logic.
+
+### 26. Mood and Emotions
+- **Status**: Not Implemented
+- **Description**: Implement moodlets and emotional states to influence agent behavior.
+- **TODO**:
+  - [ ] Add moodlets based on agent experiences.
+  - [ ] Implement emotional states derived from moodlets.
+  - [ ] Integrate emotions into decision-making.
+
+### 27. Aging and Life Stages
+- **Status**: Not Implemented
+- **Description**: Enable agents to progress through life stages (child, teen, adult, elder).
+- **TODO**:
+  - [ ] Define life stages and transitions.
+  - [ ] Implement effects of aging on agent behavior.
+  - [ ] Add age-based decision modifiers.
+
+### 28. Death and Consequences
+- **Status**: Not Implemented
+- **Description**: Introduce mechanics for agent death and its consequences (e.g., mourning).
+- **TODO**:
+  - [ ] Implement death conditions for agents.
+  - [ ] Add mourning reactions for other agents.
+  - [ ] Track legacy or memory of deceased agents.
+
+### 29. Careers and Economy
+- **Status**: Not Implemented
+- **Description**: Add a job system, income mechanics, and economic interactions.
+- **TODO**:
+  - [ ] Implement job roles and workplaces.
+  - [ ] Add income and money tracking.
+  - [ ] Integrate economic decisions into agent behavior.
+
+### 30. Social Memory and Relationships
+- **Status**: Not Implemented
+- **Description**: Track relationships between agents, including familiarity and trust.
+- **TODO**:
+  - [ ] Implement relationship tracking.
+  - [ ] Add social memory for past interactions.
+  - [ ] Integrate relationships into decision-making.
+
+### 31. Dynamic Weather System
 - **Status**: Proposed
-- **Description**: Introduce weather effects (e.g., rain, snow) that influence agent behavior and place capabilities. For example, rain might reduce outdoor activities, while snow could increase indoor interactions.
+- **Description**: Introduce weather effects (e.g., rain, snow) that influence agent behavior and place capabilities.
 - **TODO**:
   - [ ] Implement weather states and transitions.
   - [ ] Add weather effects on agent behavior.
   - [ ] Integrate weather with place capabilities.
 
-### 22. Agent Relationships
-- **Status**: Proposed
-- **Description**: Track relationships between agents, including trust and familiarity. Relationships should influence interactions and decision-making.
+### 32. World Events
+- **Status**: Minimal
+- **Description**: Add random and scheduled world events with effects on agents and places.
 - **TODO**:
-  - [ ] Implement relationship tracking (e.g., familiarity, trust).
-  - [ ] Add relationship-based decision modifiers.
-  - [ ] Create events that influence relationships (e.g., arguments, collaborations).
+  - [ ] Implement random world events (e.g., weather, accidents, festivals).
+  - [ ] Add event triggers (time-based, action-based).
+  - [ ] Implement event effects on agents/places.
+
+### 33. World State Persistence
+- **Status**: Not Implemented
+- **Description**: Enable saving and loading of the simulation state.
+- **TODO**:
+  - [ ] Implement world state serialization.
+  - [ ] Add checkpoint/resume capability.
+  - [ ] Save agent states (memory, inventory, position).
+  - [ ] Save world events log.
+
+### 34. Simulation Metrics Dashboard
+- **Status**: Proposed
+- **Description**: Create a real-time dashboard to monitor simulation metrics such as agent activity, place usage, and event frequency.
+- **TODO**:
+  - [ ] Design a dashboard interface.
+  - [ ] Implement real-time data collection.
+  - [ ] Add visualization for key metrics.
 
 ---
 
@@ -152,14 +222,6 @@ This document catalogs all features and mechanics that need to be implemented or
   - [ ] Add checkpoint/resume capability
   - [ ] Save agent states (memory, inventory, position)
   - [ ] Save world events log
-
-### 23. Simulation Metrics Dashboard
-- **Status**: Proposed
-- **Description**: Create a real-time dashboard to monitor simulation metrics such as agent activity, place usage, and event frequency.
-- **TODO**:
-  - [ ] Design a dashboard interface.
-  - [ ] Implement real-time data collection.
-  - [ ] Add visualization for key metrics.
 
 ---
 
@@ -254,16 +316,6 @@ This document catalogs all features and mechanics that need to be implemented or
   - [ ] Implement time-based capability changes (stores open/close)
   - [ ] Add weather/seasonal effects
 
-### 20. World Events
-- **Status**: Minimal
-- **Current State**: 
-  - `world.events` deque exists for logging
-  - No random/scheduled world events
-- **TODO**:
-  - [ ] Implement random world events (weather, accidents, festivals)
-  - [ ] Add event triggers (time-based, action-based)
-  - [ ] Implement event effects on agents/places
-
 ---
 
 ## Active Tasks
@@ -291,15 +343,11 @@ This section tracks the current active tasks being worked on. Update this sectio
 ## Next Steps (Recommended Order)
 
 1. **Agent Loading** - Complete WorldManager agent loading from config
-2. **Simulation Loop Integration** - Wire up enforce_schedule properly
-3. **Action System** - Implement missing actions (WORK, SAY, INTERACT)
-4. **Decision Logic Consolidation** - Merge LogicController/DecisionController
-5. **Schema Validation** - Add proper config validation
-6. **Vendor System** - Enable commerce mechanics
-7. **Metrics Integration** - Enable simulation analytics
-8. **Test Coverage** - Add comprehensive tests
+2. **Schema Validation** - Add proper config validation
+3. **Vendor System** - Enable commerce mechanics
+4. **Metrics Integration** - Enable simulation analytics
+5. **Test Coverage** - Add comprehensive tests
 
 ---
 
-*Last updated: 2025-11-26*
-*Generated from codebase analysis*
+*Last updated: 2025-11-29*

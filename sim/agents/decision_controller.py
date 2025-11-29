@@ -5,18 +5,18 @@ Classes:
     DecisionController: Centralizes decision-making logic.
 
 Methods:
-    decide(agent: Any, world: World, obs_text: str, tick: int, start_dt):
+    decide(agent: Any, world: WorldInterface, obs_text: str, tick: int, start_dt):
         Makes a decision based on the agent's state and observations.
 """
 
 from typing import Dict, Any
-from sim.world.world import World
+from sim.world.world_interface import WorldInterface
 
 class DecisionController:
     """
     Handles decision-making logic for an agent.
     """
-    def decide(self, agent: Any, world: World, obs_text: str, tick: int, start_dt) -> Dict[str, Any]:
+    def decide(self, agent: Any, world: WorldInterface, obs_text: str, tick: int, start_dt) -> Dict[str, Any]:
         """
         Make a decision based on the agent's state and observations.
         """

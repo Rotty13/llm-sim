@@ -5,8 +5,6 @@
     "version": "0.2.0",
     "configurations": [
 
-
-
         {
             "name": "Python Debugger: Python File",
             "type": "debugpy",
@@ -16,5 +14,6 @@
             "pathMappings": [],
             "env": {"PYTHONPATH": "e:\\ProjectSourceCodes\\TestPythonProject\\llm-projects\\llm-sim"}
         }
+
     ]
 }
