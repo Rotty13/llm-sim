@@ -6,7 +6,7 @@ Classes:
     rule-based and probabilistic decision strategies.
 
 Methods:
-    decide(agent: Any, world: World, obs_text: str, tick: int, start_dt):
+    decide(agent: Any, world: WorldInterface, obs_text: str, tick: int, start_dt):
         Makes a decision based on the agent's state and observations.
 """
 
