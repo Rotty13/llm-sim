@@ -21,7 +21,7 @@ class TestLLM(unittest.TestCase):
     @patch("sim.llm.llm_ollama.requests.post")
     def test_chat_json(self, mock_post):
         mock_post.return_value.status_code = 200
-        mock_post.return_value.json.return_value = {"message": {"content": "{"key": "value"}"}}
+        mock_post.return_value.json.return_value = {"message": {"content": '{"key": "value"}'}}
 
         response = self.llm.chat_json("Hi")
         self.assertEqual(response, {"key": "value"})
