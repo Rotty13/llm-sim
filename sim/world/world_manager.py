@@ -2,6 +2,19 @@
 world_manager.py
 
 Provides WorldManager class for handling file I/O, data loading, and management of simulation worlds. Supports loading world configs, personas, names, and logs from compartmentalized world directories. Intended for use by other scripts to access world data in a unified way.
+
+Key classes:
+    WorldManager: Main class for world file operations and data loading.
+
+Key methods:
+    load_personas: Load and validate personas from personas.yaml
+    load_agents: Load fully configured Agent instances
+    load_city: Load city configuration with validation
+    load_world: Load world configuration with validation
+
+LLM Usage: None
+
+CLI Arguments: None (library module)
 """
 import os
 import yaml
@@ -68,12 +81,14 @@ class WorldManager:
             raise FileNotFoundError(f"World '{world_name}' does not exist.")
         shutil.rmtree(world_path)
 
-    def run_world(self, world_name: str, ticks: int = 100):
+    def run_world(self, world_name: str, ticks: int = 100, validate: bool = True):
         """
         Run a simulation for the given world using the simulation loop.
+        
         Args:
             world_name (str): Name of the world to run.
             ticks (int): Number of simulation ticks to run.
+            validate (bool): Whether to validate configs before running.
         """
         print(f"Running simulation for world '{world_name}' for {ticks} ticks...")
         # Lazy imports to avoid circular dependencies
@@ -81,39 +96,27 @@ class WorldManager:
         from sim.agents.agents import Agent, Persona
         # Example: create empty world with loaded places
         city = self.load_city(world_name)
-        places_data = city.get('places', {}) if city else {}
-        places = {p['name']: p for p in places_data} if places_data else {}
+        places_data = city.get('places', []) if city else []
+        
+        # Convert place dictionaries to Place objects
+        places = {}
+        for place_dict in places_data:
+            if isinstance(place_dict, dict) and 'name' in place_dict:
+                place = Place(
+                    name=place_dict['name'],
+                    neighbors=place_dict.get('neighbors', []),
+                    capabilities=set(place_dict.get('capabilities', [])),
+                    purpose=place_dict.get('purpose', '')
+                )
+                places[place.name] = place
+        
+        # Create world with places
         world = World(places=places)
 
-        # Load agents from personas.yaml
-        personas = self.load_personas(world_name)
-        if personas:
-            for persona_data in personas:
-                # Create Persona object
-                persona = Persona(
-                    name=persona_data["name"],
-                    age=persona_data.get("age", 0),
-                    job=persona_data.get("job", "unemployed"),
-                    city=persona_data.get("city", "unknown"),
-                    bio=persona_data.get("bio", ""),
-                    values=persona_data.get("values", []),
-                    goals=persona_data.get("goals", [])
-                )
-                # Initialize agent with Persona and place
-                agent = Agent(
-                    persona=persona,
-                    place=persona_data.get("position", "unknown"),
-                    calendar=persona_data.get("schedule", [])
-                )
-
-                # Validate agent's position
-                if agent.place not in world.places:
-                    logger.warning(f"Invalid place '{agent.place}' for agent {agent.persona.name}. Assigning default place.")
-                    agent.place = next(iter(world.places))  # Assign the first place as default
-
-                # Add agent to the world
-                world.add_agent(agent)
-                world.set_agent_location(agent, agent.place)
+        # Load agents with full initialization and link to world
+        agents = self.load_agents(world_name, world=world)
+        
+        print(f"Loaded {len(agents)} agents into world with {len(places)} places")
 
         # Run simulation loop
         world.simulation_loop(ticks)
@@ -340,43 +343,64 @@ class WorldManager:
         with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    def load_personas(self, world_name: str) -> Optional[list]:
+    def load_personas(self, world_name: str, validate: bool = True) -> Optional[list]:
         """
-        Load personas from a world's personas.yaml file.
+        Load personas from a world's personas.yaml file with complete schedule parsing.
+        
         Args:
             world_name (str): Name of the world.
+            validate (bool): Whether to validate the config against schema.
+        
         Returns:
-            Optional[list]: List of personas or empty list if not found.
+            Optional[list]: List of validated persona dictionaries or empty list if not found.
         """
         personas = self.load_yaml(world_name, "personas.yaml")
-        # Validate personas structure
-        if not isinstance(personas, dict) or "people" not in personas:
-            logger.warning(f"Invalid personas.yaml structure for world '{world_name}'. Expected a 'people' key.")
+        
+        # Validate structure
+        if not isinstance(personas, dict):
+            logger.warning(f"Invalid personas.yaml structure for world '{world_name}'. Expected dict.")
+            return []
+        
+        # Schema validation if requested
+        if validate:
+            result = validate_personas_config(personas)
+            if not result.is_valid:
+                for error in result.errors:
+                    logger.warning(f"Validation warning: {error}")
+        
+        # Get people list - support both 'people' and 'personas' keys
+        people_list = personas.get("people", personas.get("personas", []))
+        if not isinstance(people_list, list):
+            logger.warning(f"Invalid personas.yaml structure for world '{world_name}'. Expected 'people' list.")
             return []
 
         valid_personas = []
-        for persona in personas["people"]:
-            if not all(key in persona for key in ["name", "position", "schedule"]):
-                logger.warning(f"Skipping invalid persona entry: {persona}. Missing required fields.")
+        for persona in people_list:
+            if not isinstance(persona, dict):
+                logger.warning(f"Skipping invalid persona entry (not a dict): {persona}")
+                continue
+                
+            # Name is required
+            name = persona.get("name")
+            if not name:
+                logger.warning(f"Skipping persona without name: {persona}")
                 continue
 
-            # Parse and validate schedule
-            schedule = persona.get("schedule", [])
-            if not isinstance(schedule, list):
-                logger.warning(f"Invalid schedule for persona {persona['name']}. Expected a list.")
-                schedule = []
+            # Parse schedule - convert to Appointment objects if dict entries
+            raw_schedule = persona.get("schedule", [])
+            parsed_schedule = self._parse_schedule(raw_schedule, name)
 
-            # Validate position
-            position = persona.get("position", "unknown")
+            # Get position - support both 'position' and 'start_place'
+            position = persona.get("position") or persona.get("start_place", "unknown")
             if not isinstance(position, str):
-                logger.warning(f"Invalid position for persona {persona['name']}. Expected a string.")
+                logger.warning(f"Invalid position for persona {name}. Expected a string, using 'unknown'.")
                 position = "unknown"
 
-            # Add validated persona
+            # Build validated persona data
             valid_personas.append({
-                "name": persona["name"],
+                "name": name,
                 "position": position,
-                "schedule": schedule,
+                "schedule": parsed_schedule,
                 "age": persona.get("age", 0),
                 "job": persona.get("job", "unemployed"),
                 "city": persona.get("city", "unknown"),
@@ -386,6 +410,53 @@ class WorldManager:
             })
 
         return valid_personas
+
+    def _parse_schedule(self, raw_schedule: Any, persona_name: str) -> List[Appointment]:
+        """
+        Parse a raw schedule into a list of Appointment objects.
+        
+        Args:
+            raw_schedule: Raw schedule data (list of dicts or Appointments).
+            persona_name: Name of the persona for error logging.
+        
+        Returns:
+            List[Appointment]: Parsed schedule as Appointment objects.
+        """
+        if not isinstance(raw_schedule, list):
+            logger.warning(f"Invalid schedule for persona {persona_name}. Expected a list.")
+            return []
+        
+        appointments = []
+        for i, entry in enumerate(raw_schedule):
+            if isinstance(entry, Appointment):
+                appointments.append(entry)
+            elif isinstance(entry, dict):
+                # Validate required fields
+                required_fields = ["start_tick", "end_tick", "location", "label"]
+                if all(field in entry for field in required_fields):
+                    try:
+                        appt = Appointment(
+                            start_tick=int(entry["start_tick"]),
+                            end_tick=int(entry["end_tick"]),
+                            location=str(entry["location"]),
+                            label=str(entry["label"])
+                        )
+                        appointments.append(appt)
+                    except (ValueError, TypeError) as e:
+                        logger.warning(
+                            f"Invalid schedule entry {i} for persona {persona_name}: {e}"
+                        )
+                else:
+                    missing = [f for f in required_fields if f not in entry]
+                    logger.warning(
+                        f"Schedule entry {i} for persona {persona_name} missing fields: {missing}"
+                    )
+            else:
+                logger.warning(
+                    f"Invalid schedule entry {i} for persona {persona_name}: expected dict or Appointment"
+                )
+        
+        return appointments
 
     def load_names(self, world_name: str) -> Optional[list]:
         """
@@ -458,13 +529,21 @@ class WorldManager:
         with open(path, "r", encoding="utf-8") as f:
             return f.read()
 
-    def load_agents(self, world_name: str):
+    def load_agents(self, world_name: str, world: Optional[Any] = None) -> List[Agent]:
         """
-        Load agents from the personas.yaml file for the specified world.
+        Load fully initialized Agent instances from the personas.yaml file.
+        
+        Completes:
+        - Schedule parsing and application (as Appointment objects)
+        - Position initialization with validation
+        - Linking agents to the world if provided
+        
         Args:
             world_name (str): Name of the world.
+            world (Optional[World]): World instance to link agents to.
+        
         Returns:
-            list: List of Agent instances.
+            List[Agent]: List of fully initialized Agent instances.
         """
         # Lazy import to avoid circular dependencies
         from sim.agents.agents import Agent, Persona
@@ -475,6 +554,7 @@ class WorldManager:
 
         agents = []
         for persona_data in personas_data:
+            # Create Persona object
             persona = Persona(
                 name=persona_data["name"],
                 age=persona_data.get("age", 0),
@@ -484,36 +564,119 @@ class WorldManager:
                 values=persona_data.get("values", []),
                 goals=persona_data.get("goals", [])
             )
+            
+            # Get position - support both 'position' and 'start_place'
+            initial_place = persona_data.get("position") or persona_data.get("start_place", "unknown")
+            
+            # Get parsed schedule (already Appointment objects from load_personas)
+            calendar = persona_data.get("schedule", [])
+            
+            # Create Agent with fully initialized data
             agent = Agent(
                 persona=persona,
-                place=persona_data.get("start_place", "unknown"),
-                calendar=persona_data.get("schedule", [])
+                place=initial_place,
+                calendar=calendar
             )
+            
+            # Validate and link to world if provided
+            if world is not None:
+                # Validate agent's position against world places
+                if hasattr(world, 'places') and agent.place not in world.places:
+                    if world.places:
+                        default_place = next(iter(world.places))
+                        logger.warning(
+                            f"Invalid place '{agent.place}' for agent {agent.persona.name}. "
+                            f"Assigning default place '{default_place}'."
+                        )
+                        agent.place = default_place
+                    else:
+                        logger.warning(
+                            f"No places available in world for agent {agent.persona.name}."
+                        )
+                
+                # Add agent to the world
+                if hasattr(world, 'add_agent'):
+                    world.add_agent(agent)
+                if hasattr(world, 'set_agent_location'):
+                    try:
+                        world.set_agent_location(agent, agent.place)
+                    except ValueError as e:
+                        logger.warning(f"Could not set location for agent {agent.persona.name}: {e}")
+            
             agents.append(agent)
+            logger.debug(
+                f"Loaded agent {agent.persona.name} at {agent.place} "
+                f"with {len(calendar)} scheduled appointments"
+            )
+        
         return agents
 
-    def validate_config(self, world_name: str, filename: str, schema: Dict[str, Any]) -> bool:
+    def validate_config(self, world_name: str, filename: str, schema: Optional[Dict[str, Any]] = None) -> Tuple[bool, List[str]]:
         """
         Validate a configuration file against a schema.
+        
         Args:
             world_name (str): Name of the world.
             filename (str): Configuration filename to validate.
-            schema (Dict[str, Any]): Schema to validate against.
+            schema (Optional[Dict[str, Any]]): Custom schema or None to use built-in.
+        
         Returns:
-            bool: True if valid, False otherwise.
+            Tuple[bool, List[str]]: (is_valid, list of error messages)
         """
         data = self.load_yaml(world_name, filename)
-        if not data:
-            logger.error(f"Failed to load {filename} for validation.")
-            return False
+        if data is None:
+            error = f"Failed to load {filename} for validation."
+            logger.error(error)
+            return False, [error]
 
-        from sim.utils.schema_validation import validate_nested_schema
-        if not validate_nested_schema(data, schema):
-            logger.error(f"Validation failed for {filename} in world '{world_name}'.")
-            return False
+        # Use built-in validators for known config files
+        result: Optional[ValidationResult] = None
+        if filename == "personas.yaml":
+            result = validate_personas_config(data)
+        elif filename == "city.yaml":
+            result = validate_city_config(data)
+        elif filename == "world.yaml":
+            result = validate_world_config(data)
+        elif filename == "names.yaml":
+            result = validate_names_config(data)
+        elif schema is not None:
+            # Fall back to nested schema validation
+            from sim.utils.schema_validation import validate_nested_schema
+            is_valid = validate_nested_schema(data, schema)
+            return is_valid, [] if is_valid else [f"Schema validation failed for {filename}"]
+        else:
+            logger.warning(f"No schema available for {filename}")
+            return True, []
+        
+        if result.is_valid:
+            logger.info(f"Validation passed for {filename} in world '{world_name}'.")
+        else:
+            for error in result.errors:
+                logger.error(f"Validation error in {filename}: {error}")
+        
+        return result.is_valid, result.errors
 
-        logger.info(f"Validation passed for {filename} in world '{world_name}'.")
-        return True
+    def validate_all_configs(self, world_name: str) -> Tuple[bool, Dict[str, List[str]]]:
+        """
+        Validate all configuration files for a world.
+        
+        Args:
+            world_name (str): Name of the world.
+        
+        Returns:
+            Tuple[bool, Dict[str, List[str]]]: (all_valid, dict of filename -> errors)
+        """
+        all_errors: Dict[str, List[str]] = {}
+        all_valid = True
+        
+        configs = ["world.yaml", "city.yaml", "personas.yaml", "names.yaml"]
+        for config in configs:
+            is_valid, errors = self.validate_config(world_name, config)
+            if not is_valid:
+                all_valid = False
+                all_errors[config] = errors
+        
+        return all_valid, all_errors
 
     def load_places(self, world_name: str) -> Optional[Dict[str, Any]]:
         """

@@ -1,0 +1,63 @@
+# City Configuration Schema
+# This schema defines the structure for city configurations in the simulation.
+
+city:
+  type: object
+  properties:
+    name:
+      type: string
+      description: The name of the city.
+    year:
+      type: integer
+      description: The year of the simulation.
+    places:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: The name of the place.
+          category:
+            type: string
+            description: Category of the place (e.g., government, public_space).
+          purpose:
+            type: string
+            description: The purpose of the place.
+          description:
+            type: string
+            description: A description of the place.
+          roles:
+            type: array
+            items:
+              type: array
+              description: Role name and description pair.
+          capabilities:
+            type: array
+            items:
+              type: string
+            description: A list of capabilities the place offers.
+          vendor:
+            type: object
+            properties:
+              prices:
+                type: object
+                additionalProperties:
+                  type: number
+              stock:
+                type: object
+                additionalProperties:
+                  type: integer
+              buyback:
+                type: object
+                additionalProperties:
+                  type: number
+          neighbors:
+            type: array
+            items:
+              type: string
+            description: A list of neighboring place names.
+        required:
+          - name
+  required:
+    - places

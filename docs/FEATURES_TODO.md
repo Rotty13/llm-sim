@@ -250,15 +250,16 @@ This document catalogs all features and mechanics that need to be implemented or
   - [x] Add helpful error messages for validation failures
 
 ### 13. Metrics & Logging Integration
-- **Status**: Partial
+- **Status**: Completed
 - **Current State**: 
-  - `SimulationMetrics` class exists but not integrated
-  - `monitor.py` has logging hooks but they're not used
-- **TODO**:
-  - [ ] Integrate SimulationMetrics into simulation loop
-  - [ ] Call monitor hooks during simulation
-  - [ ] Add configurable logging levels
-  - [ ] Implement metrics export (JSON/CSV)
+  - SimulationMetrics fully integrated into simulation loop
+  - Monitor hooks called during simulation with configurable logging
+  - Metrics export available in JSON and CSV formats
+- **Implementation Details**:
+  - [x] Integrate SimulationMetrics into simulation loop
+  - [x] Call monitor hooks during simulation
+  - [x] Add configurable logging levels
+  - [x] Implement metrics export (JSON/CSV)
 
 ### 14. Test Coverage
 - **Status**: Improved
@@ -357,12 +358,12 @@ This section tracks the current active tasks being worked on. Update this sectio
 
 ## Next Steps (Recommended Order)
 
-1. **Agent Loading** - Complete WorldManager agent loading from config
-2. **Schema Validation** - Add proper config validation
+1. ~~**Agent Loading** - Complete WorldManager agent loading from config~~ ✅ COMPLETED
+2. ~~**Schema Validation** - Add proper config validation~~ ✅ COMPLETED
 3. **Vendor System** - Enable commerce mechanics
-4. **Metrics Integration** - Enable simulation analytics
+4. ~~**Metrics Integration** - Enable simulation analytics~~ ✅ COMPLETED
 5. **Test Coverage** - Add comprehensive tests
 
 ---
 
-*Last updated: 2025-11-29*
+*Last updated: 2025-11-30*
