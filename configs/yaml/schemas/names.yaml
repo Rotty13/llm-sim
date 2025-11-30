@@ -1,0 +1,29 @@
+# Names Configuration Schema
+# This schema defines the structure for names configurations in the simulation.
+
+names:
+  type: object
+  properties:
+    names:
+      type: array
+      description: List of first names with sex information.
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: The first name.
+          sex:
+            type: string
+            enum:
+              - male
+              - female
+              - unisex
+            description: The sex associated with the name.
+        required:
+          - name
+    last_names:
+      type: array
+      description: List of last names.
+      items:
+        type: string

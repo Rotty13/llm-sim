@@ -9,14 +9,16 @@ Methods:
         Moves the agent to a new location if valid.
 """
 
-from sim.world.world import World
-from typing import Any
+from typing import Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from sim.world.world import World
 
 class MovementController:
     """
     Handles movement and location updates for an agent.
     """
-    def move_to(self, agent: Any, world: World, destination: str) -> bool:
+    def move_to(self, agent: Any, world: 'World', destination: str) -> bool:
         """
         Move the agent to a new location if valid.
         """
