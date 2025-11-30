@@ -19,44 +19,54 @@ This document catalogs all features and mechanics that need to be implemented or
 ### 2. Agent Loading from World Config
 - **Status**: Completed
 - **Current State**: 
-  - Agents are fully loaded from `personas.yaml` with complete schedule parsing.
-  - Schedules are converted to Appointment objects with validation.
-  - Positions are fully initialized and validated against world places.
-  - Agents are properly linked to the world on load.
-- **Implementation Details**:
+  - Agents are loaded from `personas.yaml` with full schedule parsing.
+  - Positions are fully initialized.
+  - Agents are linked to the world via `WorldManager.load_agents_with_schedules()`.
+- **Completed**:
   - [x] Complete schedule parsing and application.
   - [x] Ensure positions are fully initialized.
   - [x] Finalize linking agents to the world.
 
 ### 3. Place Configuration Loading
-- **Status**: Incomplete
-- **Current State**: World loading doesn't properly parse places from city.yaml
-- **TODO**:
-  - [ ] Define and document place configuration schema
-  - [ ] Implement proper place loading with capabilities, vendors, and neighbors
-  - [ ] Validate place connectivity (neighbor relationships)
+- **Status**: Completed
+- **Current State**: 
+  - Place configuration schema defined in `schema_validation.py`.
+  - Proper place loading implemented with capabilities, vendors, and neighbors.
+  - Place connectivity validation implemented.
+- **Completed**:
+  - [x] Define and document place configuration schema
+  - [x] Implement proper place loading with capabilities, vendors, and neighbors
+  - [x] Validate place connectivity (neighbor relationships)
 
 ---
 
 ## 🟠 Medium Priority (Agent Behavior & Interaction)
 
 ### 4. Agent Decision Logic Enhancement
-- **Status**: Basic implementation
+- **Status**: Completed
 - **Current State**: 
-  - `DecisionController` has basic rule-based and probabilistic decisions
-  - `LogicController` has similar logic but separate implementation
+  - `DecisionController` now consolidates all decision logic.
+  - Includes rule-based, probabilistic, goal-driven, and context-aware decisions.
+  - Time-of-day, location context, and social context are considered.
+- **Completed**:
+  - [x] Consolidate decision logic (merged `LogicController` and `DecisionController`)
+  - [x] Add more nuanced rule-based triggers (time of day, location context, social context)
+  - [x] Implement goal-driven decision making based on `persona.goals`
+  - [x] Add personality-based decision modifiers using `persona.values`
 - **TODO**:
-  - [ ] Consolidate decision logic (currently split between `LogicController` and `DecisionController`)
-  - [ ] Add more nuanced rule-based triggers (time of day, location context, social context)
-  - [ ] Implement goal-driven decision making based on `persona.goals`
-  - [ ] Add personality-based decision modifiers using `persona.values`
   - [ ] Implement energy/hunger/stress decay over time
 
 ### 5. Action System Expansion
-- **Status**: Partially Implemented
+- **Status**: Completed
 - **Current State**: 
-  - Actions `WORK`, `SAY`, and `INTERACT` are defined but lack full implementation.
-  - No evidence of action duration/cost modeling or prerequisites.
+  - Actions `WORK`, `SAY`, `INTERACT` fully implemented.
+  - Action duration/cost modeling added via `ACTION_DURATIONS` and `ACTION_COSTS`.
+  - Job-site validation for WORK action.
+- **Completed**:
+  - [x] Implement WORK action (with job-site validation)
+  - [x] Implement SAY action (with audience targeting)
+  - [x] Implement INTERACT action (object/agent interaction)
+  - [x] Add action duration/cost modeling
 - **TODO**:
   - [ ] Add action duration/cost modeling
   - [ ] Add action prerequisites (location, item requirements)
@@ -231,10 +241,10 @@ This document catalogs all features and mechanics that need to be implemented or
 ### 12. Schema Validation
 - **Status**: Completed
 - **Current State**: 
-  - Complete schema definitions exist for city.yaml, personas.yaml, world.yaml, and names.yaml
-  - Schema validation integrated into WorldManager load methods
-  - Helpful error messages with field-level validation details
-- **Implementation Details**:
+  - Complete schema definitions for city.yaml, personas.yaml, world.yaml, names.yaml
+  - Validation integrated into WorldManager via `validate_config()` method
+  - Helpful error messages with context for validation failures
+- **Completed**:
   - [x] Define complete schemas for city.yaml, personas.yaml, world.yaml, names.yaml
   - [x] Integrate validation into WorldManager load methods
   - [x] Add helpful error messages for validation failures
@@ -252,15 +262,18 @@ This document catalogs all features and mechanics that need to be implemented or
   - [x] Implement metrics export (JSON/CSV)
 
 ### 14. Test Coverage
-- **Status**: Minimal
+- **Status**: Improved
 - **Current State**: 
-  - Basic tests exist for agent behavior and scenarios
-  - Many modules have no tests
+  - Tests added for schema validation, actions, and decision controller
+  - 42 tests total, all passing
+- **Completed**:
+  - [x] Add tests for schema validation
+  - [x] Add tests for actions module
+  - [x] Add tests for decision controller
 - **TODO**:
   - [ ] Add tests for scheduler module
   - [ ] Add tests for memory recall/write
   - [ ] Add tests for inventory operations
-  - [ ] Add tests for WorldManager
   - [ ] Add integration tests for full simulation runs
   - [ ] Add LLM mocking for offline tests
 
