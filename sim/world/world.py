@@ -213,20 +213,48 @@ class World:
         """Get the owner of an item by ID."""
         return self.item_ownership.get(item_id)
 
-    def simulation_loop(self, ticks: int = 100):
+    def simulation_loop(self, ticks: int = 100, enable_metrics: bool = True,
+                        log_level: Optional[int] = None):
         """
-        Run the simulation for a number of ticks.
+        Run the simulation for a number of ticks with integrated metrics.
+        
+        Args:
+            ticks: Number of simulation ticks to run
+            enable_metrics: Whether to track detailed metrics
+            log_level: Optional logging level override
         """
         from sim.scheduler.scheduler import enforce_schedule
+        from sim.utils import monitor
+        
+        # Configure logging level if provided
+        if log_level is not None:
+            monitor.configure_logging(log_level)
+        
         events = []  # Placeholder for tick-based events
+        
+        # Start metrics tracking
+        if enable_metrics:
+            monitor.log_simulation_start(self.metrics)
 
         for tick in range(ticks):
-            print(f"Tick {tick}: Simulation running...")  # Debugging output
+            # Log tick start
+            if enable_metrics:
+                monitor.log_tick_start(tick, len(self._agents), self.metrics)
+            
+            logger.debug(f"Tick {tick}: Simulation running...")
 
             # Process scheduled events for the current tick
+            active_events = 0
             for event in [e for e in events if e['tick'] == tick]:
                 event['action'](self)
-                self.log_world_event(f"Event triggered: {event['action'].__name__}")
+                active_events += 1
+                if enable_metrics:
+                    monitor.log_world_event(
+                        f"Event triggered: {event['action'].__name__}",
+                        tick, self.metrics
+                    )
+                else:
+                    self.log_world_event(f"Event triggered: {event['action'].__name__}")
 
             for agent in self._agents:
                 # Enforce schedules dynamically
@@ -238,29 +266,48 @@ class World:
                         dest = payload.get("to")
                         if dest:
                             agent.move_to(self, dest)
-                            self.log_agent_action(agent, f"Moved to {dest}")
+                            if enable_metrics:
+                                monitor.log_agent_action(
+                                    agent, f"MOVE to {dest}", tick, self.metrics,
+                                    details={"destination": dest}
+                                )
+                            else:
+                                self.log_agent_action(agent, f"Moved to {dest}")
                     except (json.JSONDecodeError, AttributeError) as e:
-                        print(f"Error processing schedule for agent {agent.persona.name}: {e}")
+                        logger.warning(f"Error processing schedule for agent {agent.persona.name}: {e}")
 
                 # Allow agents to interact with the world
                 if hasattr(agent, 'step_interact'):
                     agent.step_interact(self, [a for a in self._agents if a != agent], '', tick, None, None)
-                    self.log_agent_action(agent, "Interacted with world")
+                    if enable_metrics:
+                        monitor.log_agent_action(
+                            agent, "INTERACT", tick, self.metrics
+                        )
+                    else:
+                        self.log_agent_action(agent, "Interacted with world")
 
             # Example: Add dynamic events (e.g., world events)
             if tick % 10 == 0:  # Example condition for adding an event
                 events.append({
                     'tick': tick + 5,
-                    'action': lambda world: print(f"Dynamic event triggered at tick {tick + 5}")
+                    'action': lambda world, t=tick: logger.debug(f"Dynamic event triggered at tick {t + 5}")
                 })
 
-            # Debugging: Print agent locations
+            # Log agent locations at debug level
             for agent in self._agents:
                 location = self.get_agent_location(agent.persona.name)
-                print(f"Agent {agent.persona.name} is at {location}")
+                logger.debug(f"Agent {agent.persona.name} is at {location}")
 
             # Log tick completion
-            self.log_world_event(f"Tick {tick} completed")
+            if enable_metrics:
+                monitor.log_tick_end(tick, self.metrics, len(self._agents), active_events)
+                monitor.log_world_event(f"Tick {tick} completed", tick, self.metrics)
+            else:
+                self.log_world_event(f"Tick {tick} completed")
+        
+        # Stop metrics tracking
+        if enable_metrics:
+            monitor.log_simulation_end(self.metrics)
 
     def get_all_places(self) -> list:
         """Return a list of all place names in the world."""
@@ -498,4 +545,32 @@ class World:
             return False
 
         return place.vendor.sell(item_id, qty, agent)
+
+    def export_metrics(self, filepath: str, format: str = "json") -> bool:
+        """
+        Export simulation metrics to a file.
+        
+        Args:
+            filepath: Path to the output file
+            format: Export format ('json' or 'csv')
+        
+        Returns:
+            True if export succeeded, False otherwise
+        """
+        if format == "json":
+            return self.metrics.export_json(filepath)
+        elif format == "csv":
+            return self.metrics.export_csv(filepath)
+        else:
+            logger.error(f"Unknown export format: {format}")
+            return False
+
+    def get_metrics_summary(self) -> Dict[str, Any]:
+        """
+        Get a summary of current simulation metrics.
+        
+        Returns:
+            Dictionary containing metrics summary
+        """
+        return self.metrics.summary()
 
