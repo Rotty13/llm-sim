@@ -41,7 +41,7 @@ from sim.agents.decision_controller import DecisionController
 from sim.agents.movement_controller import MovementController
 
 if TYPE_CHECKING:
-    from sim.world.world import World
+    pass
 
 # LLM instance for agent conversations
 llm = llm_ollama.LLM()
