@@ -17,6 +17,9 @@ Supported Actions:
     - EXPLORE: Agent explores the area
     - BUY: Agent buys from vendor (params: item, qty)
     - SELL: Agent sells to vendor (params: item, qty)
+    - WASH: Agent washes to restore hygiene
+    - REST: Agent rests to restore comfort
+    - USE_BATHROOM: Agent uses bathroom to relieve bladder
 """
 from __future__ import annotations
 import json
@@ -24,7 +27,7 @@ import re
 from typing import Any, Dict, Optional
 from dataclasses import dataclass
 
-ACTION_RE = re.compile(r'^(SAY|MOVE|INTERACT|THINK|PLAN|SLEEP|EAT|WORK|CONTINUE|RELAX|EXPLORE|BUY|SELL|TRADE)(\((.*)\))?$')
+ACTION_RE = re.compile(r'^(SAY|MOVE|INTERACT|THINK|PLAN|SLEEP|EAT|WORK|CONTINUE|RELAX|EXPLORE|BUY|SELL|TRADE|WASH|REST|USE_BATHROOM)(\((.*)\))?$')
 
 # Action duration in ticks (5 minutes per tick)
 ACTION_DURATIONS = {
@@ -42,6 +45,9 @@ ACTION_DURATIONS = {
     "BUY": 1,
     "SELL": 1,
     "TRADE": 2,  # Agent-to-agent trade
+    "WASH": 4,   # 20 minutes
+    "REST": 6,   # 30 minutes
+    "USE_BATHROOM": 2, # 10 minutes
 }
 
 # Action costs (physio effects)
@@ -60,6 +66,9 @@ ACTION_COSTS = {
     "BUY": {"energy": -0.01},
     "SELL": {"energy": -0.01},
     "TRADE": {"energy": -0.02, "stress": 0.01},
+    "WASH": {"hygiene": 0.8, "energy": -0.02},
+    "REST": {"comfort": 0.7, "energy": 0.05, "stress": -0.1},
+    "USE_BATHROOM": {"bladder": 1.0, "energy": -0.01},
 }
 def execute_trade_action(agent: Any, world: Any, params: Dict = None) -> ActionResult:
     """

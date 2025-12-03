@@ -1,15 +1,19 @@
 """
 monitor.py
 
-Provides hooks for monitoring agent behavior, resource flows, and world events during simulation runs.
+Provides hooks for monitoring agent behavior, resource flows, and world events during simulation runs in llm-sim.
 
-Key functions:
-    log_agent_action: Log agent actions to console and metrics
-    log_resource_flow: Log resource movements
-    log_world_event: Log world events
-    configure_logging: Set up logging level
+Key Functions:
+- log_agent_action: Log agent actions to console and metrics.
+- log_resource_flow: Log resource movements.
+- log_world_event: Log world events.
+- configure_logging: Set up logging level.
 
-LLM Usage: None
+LLM Usage:
+- None directly; monitoring logic may be used by modules that interact with LLMs.
+
+CLI Arguments:
+- None directly; monitoring is managed by simulation scripts and world configs.
 """
 import logging
 from typing import Any, Optional, Dict, TYPE_CHECKING

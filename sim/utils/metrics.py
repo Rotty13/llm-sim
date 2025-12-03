@@ -2,20 +2,25 @@
 metrics.py
 
 Simulation metrics and logging utilities for llm-sim.
-Tracks agent actions, resource flows, and world events for analysis.
+Tracks agent actions, resource flows, and world events for analysis and export.
 
-Key classes:
-    SimulationMetrics: Main metrics tracking class
+Key Classes:
+- SimulationMetrics: Main metrics tracking class for simulation runs.
 
-Key methods:
-    log_agent_action: Track agent actions
-    log_resource_flow: Track resource movements
-    log_world_event: Track world events
-    export_json: Export metrics to JSON file
-    export_csv: Export metrics to CSV file
+Key Methods:
+- log_agent_action: Track agent actions.
+- log_resource_flow: Track resource movements.
+- log_world_event: Track world events.
+- export_json: Export metrics to JSON file.
+- export_csv: Export metrics to CSV file.
 
-LLM Usage: None
+LLM Usage:
+- None directly; metrics logic may be used by modules that interact with LLMs.
+
+CLI Arguments:
+- None directly; metrics are managed by simulation scripts and world configs.
 """
+
 import json
 import csv
 import logging

@@ -5,6 +5,17 @@ This document catalogs all features and mechanics that need to be implemented or
 
 ---
 
+## Feature-File Pairing Policy
+
+For every feature marked as "in progress" (including skeleton or stub implementations), the feature entry must be explicitly paired with its main implementation file(s) in this document. This ensures traceability and clarity for ongoing work. Example:
+
+- **Status**: In Progress
+- **Main File(s)**: `sim/agents/needs.py`, `sim/agents/agents.py`
+
+Update the feature entry as soon as work begins, and keep the file references current as the implementation evolves.
+
+---
+
 ## 🚩 Top 10 Highest Priority Features (Recommended Order)
 
 The following features are prioritized for efficient development, with foundational systems first and dependent features following:
@@ -104,75 +115,83 @@ See detailed descriptions in the sections below.
   - [ ] Add conversation topic tracking
   - [ ] Implement social influence on agent decisions
 
+
 ### 7. Memory System Enhancement
-- **Status**: Basic implementation
+- **Status**: Completed (ToM deferred)
+- **Main File(s)**: `sim/memory/memory.py`, `sim/agents/agents.py`
 - **Current State**: 
-  - MemoryStore supports episodic, semantic, autobio, tom kinds
-  - Recall uses embedding similarity + recency decay
-  - `compress_nightly()` is a stub
-- **TODO**:
-  - [ ] Implement proper memory consolidation (compress_nightly)
-  - [ ] Add memory importance calculation from context
-  - [ ] Implement Theory of Mind (ToM) memory usage
-  - [ ] Add memory forgetting curve
-  - [ ] Implement semantic memory extraction from episodic memories
-  - [ ] Add memory search/filtering by kind
+  - MemoryStore supports episodic, semantic, autobio kinds (ToM removed)
+  - Rule-based importance calculation, forgetting curve, and search/filter by kind implemented
+  - Memory consolidation (compress_nightly) and semantic extraction from episodic implemented
+  - ToM memory usage deferred to future LLM integration
+- **Completed**:
+  - [x] Implement proper memory consolidation (compress_nightly)
+  - [x] Add memory importance calculation from context
+  - [x] Add memory forgetting curve
+  - [x] Implement semantic memory extraction from episodic memories
+  - [x] Add memory search/filtering by kind
+- **Deferred**:
+  - [ ] Implement Theory of Mind (ToM) memory usage (defer to LLM)
 
 ### 24. Needs System
-- **Status**: Not Implemented
-- **Description**: Introduce a system to manage agent needs such as hunger, energy, fun, social, etc., to drive behavior.
+- **Status**: Skeleton Implemented
+- **Main File(s)**: `sim/agents/needs.py`, `sim/agents/agents.py`
+- **Description**: System to manage agent needs such as hunger, energy, fun, social, etc., to drive behavior. (Skeleton: core data structures, decay, and rule-based logic implemented.)
 - **TODO**:
-  - [ ] Implement hunger, energy, and other needs.
-  - [ ] Add decay rates for needs over time.
-  - [ ] Integrate needs into agent decision-making.
+  - [ ] Expand need types and effects
+  - [ ] Add advanced need-driven behaviors
+  - [ ] Integrate with more complex decision logic
 
 ### 25. Personality Modeling
-- **Status**: Not Implemented
-- **Description**: Add traits, aspirations, and emotional modifiers to differentiate agent behavior.
+- **Status**: Skeleton Implemented
+- **Main File(s)**: `sim/agents/personality.py`, `sim/agents/agents.py`
+- **Description**: Traits, aspirations, and emotional modifiers added to differentiate agent behavior. (Skeleton: Big Five, aspirations, and modifiers present; basic integration in decision logic.)
 - **TODO**:
-  - [ ] Define personality traits and aspirations.
-  - [ ] Implement emotional modifiers and their effects on decisions.
-  - [ ] Integrate personality into agent decision logic.
+  - [ ] Expand trait effects
+  - [ ] Add more nuanced aspiration/emotion logic
+  - [ ] Integrate with advanced decision-making
 
 ### 26. Mood and Emotions
-- **Status**: Not Implemented
-- **Description**: Implement moodlets and emotional states to influence agent behavior.
+- **Status**: Skeleton Implemented
+- **Main File(s)**: `sim/agents/mood.py`, `sim/agents/agents.py`
+- **Description**: Moodlets and emotional states influence agent behavior. (Skeleton: moodlet/emotion structure and update logic present.)
 - **TODO**:
-  - [ ] Add moodlets based on agent experiences.
-  - [ ] Implement emotional states derived from moodlets.
-  - [ ] Integrate emotions into decision-making.
+  - [ ] Expand moodlet types and triggers
+  - [ ] Integrate mood/emotion with more behaviors
 
 ### 27. Aging and Life Stages
-- **Status**: Not Implemented
-- **Description**: Enable agents to progress through life stages (child, teen, adult, elder).
+- **Status**: Skeleton Implemented
+- **Main File(s)**: `sim/agents/aging.py`, `sim/agents/agents.py`
+- **Description**: Agents progress through life stages (child, teen, adult, elder). (Skeleton: life stage and transition logic present.)
 - **TODO**:
-  - [ ] Define life stages and transitions.
-  - [ ] Implement effects of aging on agent behavior.
-  - [ ] Add age-based decision modifiers.
+  - [ ] Add age-based effects and transitions
+  - [ ] Integrate with agent decision logic
 
 ### 28. Death and Consequences
-- **Status**: Not Implemented
-- **Description**: Introduce mechanics for agent death and its consequences (e.g., mourning).
+- **Status**: Skeleton Implemented
+- **Main File(s)**: `sim/agents/death.py`, `sim/agents/agents.py`
+- **Description**: Mechanics for agent death and consequences (e.g., mourning). (Skeleton: alive/dead status, time of death, and stubs for mourning/legacy.)
 - **TODO**:
-  - [ ] Implement death conditions for agents.
-  - [ ] Add mourning reactions for other agents.
-  - [ ] Track legacy or memory of deceased agents.
+  - [ ] Implement death conditions and triggers
+  - [ ] Add mourning/legacy logic
+  - [ ] Add effect duration (temporary vs permanent effects)
 
 ### 29. Careers and Economy
-- **Status**: Not Implemented
-- **Description**: Add a job system, income mechanics, and economic interactions.
+- **Status**: Skeleton Implemented
+- **Main File(s)**: `sim/agents/careers.py`, `sim/agents/agents.py`, `sim/inventory/economy.py`
+- **Description**: Job system, income mechanics, and economic interactions. (Skeleton: job role, income, and stubs for job logic present.)
 - **TODO**:
-  - [ ] Implement job roles and workplaces.
-  - [ ] Add income and money tracking.
-  - [ ] Integrate economic decisions into agent behavior.
+  - [ ] Implement job/career logic
+  - [ ] Expand economic interactions
+  - `interact_with_inventory()`, `interact_with_place()`, `interact_with_vendor()` are empty stubs
 
 ### 30. Social Memory and Relationships
-- **Status**: Not Implemented
-- **Description**: Track relationships between agents, including familiarity and trust.
+- **Status**: Skeleton Implemented
+- **Main File(s)**: `sim/agents/social.py`, `sim/agents/agents.py`
+- **Description**: Track relationships between agents, including familiarity and trust. (Skeleton: relationship/social memory structures and stubs present.)
 - **TODO**:
-  - [ ] Implement relationship tracking.
-  - [ ] Add social memory for past interactions.
-  - [ ] Integrate relationships into decision-making.
+  - [ ] Expand relationship types and effects
+  - [ ] Integrate with agent decision logic
 
 ### 31. Dynamic Weather System
 - **Status**: Proposed

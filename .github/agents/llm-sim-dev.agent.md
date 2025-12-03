@@ -35,3 +35,5 @@ This custom agent is designed to streamline the development process for the llm-
 - Always retrieve the next task from `FEATURES_TODO.md` and `DEFERRED_PROBLEMS.md`.
 - Prioritize tasks based on their category and urgency as outlined in `FEATURES_TODO.md`.
 - Regularly review `DEFERRED_PROBLEMS.md` for unresolved issues that may block progress.
+
+- For every feature marked as "in progress" in `FEATURES_TODO.md`, ensure the feature is paired with its main implementation file(s) in the documentation. This pairing should be explicit to maintain traceability between features and their code locations.

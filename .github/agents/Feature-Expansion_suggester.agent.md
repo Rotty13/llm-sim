@@ -1,8 +1,6 @@
 ---
-name: Feature-Expansion Suggester Agent
+name: Feature-Expansion_Suggester_Agent
 description: Agent for suggesting new features and mechanics for the llm-sim simulation project.
-author: llm-sim team
-version: 1.0
 ---
 
 ## Purpose

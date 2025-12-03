@@ -1,3 +1,26 @@
+"""
+inventory.py
+
+Defines Item, ItemStack, and Inventory classes for agent and place inventory management in llm-sim.
+Supports item addition, removal, quantity tracking, and tag-based search.
+
+Key Classes:
+- Item: Represents an individual item with id, name, tags, weight, and effects.
+- ItemStack: Associates an Item with a quantity.
+- Inventory: Manages collections of ItemStacks, supporting add/remove/check operations.
+
+Key Functions:
+- interact_with_inventory: Stub for item-inventory interaction.
+- interact_with_place: Stub for item-place interaction.
+- interact_with_vendor: Stub for item-vendor interaction.
+
+LLM Usage:
+- None directly; inventory logic may be used by agent/world modules that interact with LLMs.
+
+CLI Arguments:
+- None directly; inventory objects are managed by simulation scripts and agent logic.
+"""
+
 from typing import Any
 import logging
 
@@ -19,8 +42,26 @@ def interact_with_vendor(self, vendor: Any, qty: int = 1, buy: bool = True):
 """
 inventory.py
 
-Defines Item, ItemStack, and Inventory classes for agent inventory management. Supports item addition, removal, and tag-based search.
+Defines Item, ItemStack, and Inventory classes for agent and place inventory management in llm-sim.
+Supports item addition, removal, quantity tracking, and tag-based search.
+
+Key Classes:
+- Item: Represents an individual item with id, name, tags, weight, and effects.
+- ItemStack: Associates an Item with a quantity.
+- Inventory: Manages collections of ItemStacks, supporting add/remove/check operations.
+
+Key Functions:
+- interact_with_inventory: Stub for item-inventory interaction.
+- interact_with_place: Stub for item-place interaction.
+- interact_with_vendor: Stub for item-vendor interaction.
+
+LLM Usage:
+- None directly; inventory logic may be used by agent/world modules that interact with LLMs.
+
+CLI Arguments:
+- None directly; inventory objects are managed by simulation scripts and agent logic.
 """
+
 # Inventory classes and items
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Set

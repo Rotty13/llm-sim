@@ -1,3 +1,19 @@
+"""
+agent_interactions.py
+
+Provides functions for managing agent location and movement within the world simulation.
+
+Key Functions:
+- set_agent_location: Move an agent to a specified place, updating world state.
+- get_agent_location: Retrieve the current location of an agent by name.
+
+LLM Usage:
+- None directly; location logic may be used by agent/world modules that interact with LLMs.
+
+CLI Arguments:
+- None directly; location management is handled by simulation scripts and world configs.
+"""
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:

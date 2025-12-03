@@ -1,3 +1,24 @@
+"""
+world.py
+
+Defines core world logic for llm-sim, including Vendor class and world-level operations.
+Handles item storage, simulation metrics, and world configuration.
+
+Key Classes:
+- Vendor: Manages item prices, stock, and buyback logic for places with commerce.
+
+Key Functions:
+- fluctuate_prices: Randomly adjust item prices.
+- restock: Replenish vendor stock.
+- has/take: Check and remove items from stock.
+
+LLM Usage:
+- None directly; world logic may be used by agent/world modules that interact with LLMs.
+
+CLI Arguments:
+- None directly; world objects are managed by simulation scripts and world configs.
+"""
+
 from __future__ import annotations
 from typing import Dict, List, Optional, Any, TYPE_CHECKING
 from collections import deque

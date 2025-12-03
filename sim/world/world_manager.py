@@ -3,23 +3,25 @@ world_manager.py
 
 Provides WorldManager class for handling file I/O, data loading, and management of simulation worlds. Supports loading world configs, personas, names, and logs from compartmentalized world directories. Intended for use by other scripts to access world data in a unified way.
 
-Key classes:
-    WorldManager: Main class for world file operations and data loading.
+Key Classes:
+- WorldManager: Main class for world file operations and data loading.
 
-Key methods:
-    load_personas: Load and validate personas from personas.yaml
-    load_agents: Load fully configured Agent instances
-    load_city: Load city configuration with validation
-    load_world: Load world configuration with validation
+Key Methods:
+- load_personas: Load and validate personas from personas.yaml
+- load_agents: Load fully configured Agent instances
+- load_city: Load city configuration with validation
+- load_world: Load world configuration with validation
 
-LLM Usage: None
+LLM Usage:
+- None
 
-CLI Arguments: None (library module)
+CLI Arguments:
+- None (library module)
 """
 import os
 import yaml
 import json
-from typing import Dict, Any, Optional, List, TYPE_CHECKING
+from typing import Dict, Any, Optional, List, Tuple, TYPE_CHECKING
 import logging
 from sim.utils.schema_validation import (
     validate_city_config, validate_personas_config, validate_world_config,
@@ -92,7 +94,7 @@ class WorldManager:
         """
         print(f"Running simulation for world '{world_name}' for {ticks} ticks...")
         # Lazy imports to avoid circular dependencies
-        from sim.world.world import World
+        from sim.world.world import World, Place
         from sim.agents.agents import Agent, Persona
         # Example: create empty world with loaded places
         city = self.load_city(world_name)
@@ -130,97 +132,9 @@ class WorldManager:
         """
         self.worlds_dir = worlds_dir
 
-    def validate_config(self, world_name: str, config_type: str = "all") -> List[str]:
-        """
-        Validate configuration files for a world.
-        Args:
-            world_name (str): Name of the world.
-            config_type (str): Type of config to validate ('city', 'personas', 'world', 'names', 'all').
-        Returns:
-            List[str]: List of validation error messages.
-        """
-        errors = []
-        
-        if config_type in ("city", "all"):
-            city_data = self.load_yaml(world_name, "city.yaml")
-            if city_data:
-                errors.extend(validate_city_config(city_data))
-                # Validate place connectivity if places exist
-                if "places" in city_data and isinstance(city_data["places"], list):
-                    errors.extend(validate_place_connectivity(city_data["places"]))
-        
-        if config_type in ("personas", "all"):
-            personas_data = self.load_yaml(world_name, "personas.yaml")
-            if personas_data:
-                errors.extend(validate_personas_config(personas_data))
-        
-        if config_type in ("world", "all"):
-            world_data = self.load_yaml(world_name, "world.yaml")
-            if world_data:
-                errors.extend(validate_world_config(world_data))
-        
-        if config_type in ("names", "all"):
-            names_data = self.load_yaml(world_name, "names.yaml")
-            if names_data:
-                errors.extend(validate_names_config(names_data))
-        
-        return errors
+    # Removed duplicate validate_config method (see below for correct version)
 
-    def load_places(self, world_name: str) -> Dict[str, Any]:
-        """
-        Load and validate places from city.yaml.
-        Args:
-            world_name (str): Name of the world.
-        Returns:
-            Dict[str, Any]: Dictionary mapping place names to Place objects.
-        """
-        from sim.world.world import Place, Vendor
-        
-        city_data = self.load_city(world_name)
-        if not city_data:
-            logger.warning(f"No city.yaml found for world '{world_name}'")
-            return {}
-        
-        places_data = city_data.get("places", [])
-        if not places_data:
-            # Try 'features' as fallback for legacy format
-            features = city_data.get("features", [])
-            if features:
-                # Convert features list to basic places
-                places_data = [{"name": f, "neighbors": [], "capabilities": []} for f in features]
-        
-        places = {}
-        for place_cfg in places_data:
-            if not isinstance(place_cfg, dict):
-                continue
-            
-            name = place_cfg.get("name", "")
-            if not name:
-                continue
-            
-            # Parse vendor if present
-            vendor = None
-            vendor_cfg = place_cfg.get("vendor")
-            if vendor_cfg and isinstance(vendor_cfg, dict):
-                vendor = Vendor(
-                    prices=vendor_cfg.get("prices", {}),
-                    stock=vendor_cfg.get("stock", {}),
-                    buyback=vendor_cfg.get("buyback", {})
-                )
-            
-            # Parse capabilities
-            capabilities = set(place_cfg.get("capabilities", []))
-            
-            place = Place(
-                name=name,
-                neighbors=place_cfg.get("neighbors", []),
-                capabilities=capabilities,
-                vendor=vendor,
-                purpose=place_cfg.get("purpose", "")
-            )
-            places[name] = place
-        
-        return places
+    # Removed duplicate load_places method (see below for correct version)
 
     def load_agents_with_schedules(self, world_name: str) -> List['Agent']:
         """
@@ -611,15 +525,13 @@ class WorldManager:
         
         return agents
 
-    def validate_config(self, world_name: str, filename: str, schema: Optional[Dict[str, Any]] = None) -> Tuple[bool, List[str]]:
+    def validate_config(self, world_name: str, filename: str, schema: Optional[Dict[str, Any]] = None):
         """
         Validate a configuration file against a schema.
-        
         Args:
             world_name (str): Name of the world.
             filename (str): Configuration filename to validate.
             schema (Optional[Dict[str, Any]]): Custom schema or None to use built-in.
-        
         Returns:
             Tuple[bool, List[str]]: (is_valid, list of error messages)
         """
@@ -630,7 +542,7 @@ class WorldManager:
             return False, [error]
 
         # Use built-in validators for known config files
-        result: Optional[ValidationResult] = None
+        result = None
         if filename == "personas.yaml":
             result = validate_personas_config(data)
         elif filename == "city.yaml":
@@ -640,21 +552,19 @@ class WorldManager:
         elif filename == "names.yaml":
             result = validate_names_config(data)
         elif schema is not None:
-            # Fall back to nested schema validation
             from sim.utils.schema_validation import validate_nested_schema
             is_valid = validate_nested_schema(data, schema)
             return is_valid, [] if is_valid else [f"Schema validation failed for {filename}"]
         else:
             logger.warning(f"No schema available for {filename}")
             return True, []
-        
-        if result.is_valid:
+
+        if hasattr(result, 'is_valid') and result.is_valid:
             logger.info(f"Validation passed for {filename} in world '{world_name}'.")
-        else:
+        elif hasattr(result, 'errors'):
             for error in result.errors:
                 logger.error(f"Validation error in {filename}: {error}")
-        
-        return result.is_valid, result.errors
+        return getattr(result, 'is_valid', True), getattr(result, 'errors', [])
 
     def validate_all_configs(self, world_name: str) -> Tuple[bool, Dict[str, List[str]]]:
         """
@@ -691,8 +601,9 @@ class WorldManager:
         with open(schema_path, "r", encoding="utf-8") as schema_file:
             schema = yaml.safe_load(schema_file)
 
-        if not self.validate_config(world_name, "places.yaml", schema):
-            logger.error(f"Failed to validate places.yaml for world '{world_name}'.")
+        is_valid, errors = self.validate_config(world_name, "places.yaml", schema)
+        if not is_valid:
+            logger.error(f"Failed to validate places.yaml for world '{world_name}': {errors}")
             return None
 
         return self.load_yaml(world_name, "places.yaml")

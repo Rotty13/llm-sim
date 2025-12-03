@@ -3,21 +3,31 @@ from __future__ import annotations
 """
 llm_ollama.py
 
-Unified LLM client for the simulation project. Provides chat and embedding APIs using Ollama backend. Legacy interfaces for Llama.cpp and TensorRT/ONNX redirect to Ollama.
+Unified LLM client for llm-sim simulation project. Provides chat and embedding APIs using Ollama backend. Legacy interfaces for Llama.cpp and TensorRT/ONNX redirect to Ollama.
+
+Key Features:
+- Chat and embedding API wrappers for Ollama.
+- System prompt for AI assistant.
+- Logging configuration for LLM interactions.
+
+LLM Usage:
+- All LLM calls use Ollama backend. No fallback.
+
+CLI Arguments:
+- None directly; LLM client is used by simulation modules and scripts.
 """
+
 import sys
 import time
-from pyparsing import Opt
-import requests
-import json
-from typing import Optional
-import os, json, requests, random
-from typing import Any, Dict, List
-import requests, json
+import os
+import random
 import math
 import logging
-from time import sleep
 import uuid
+from time import sleep
+from typing import Optional, Any, Dict, List
+import requests
+import json
 
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")

@@ -110,7 +110,7 @@ class DecisionController:
         return None
     
     def _check_critical_needs(self, agent: Any, world: 'World', place: Any) -> Optional[Dict[str, Any]]:
-        """Check and respond to critical physiological needs."""
+        """Check and respond to critical physiological needs, including expanded needs."""
         # Hunger check
         if agent.physio.hunger > 0.8:
             if place and "food" in place.capabilities:
@@ -119,7 +119,6 @@ class DecisionController:
                     "params": {"location": agent.place},
                     "private_thought": "I'm starving, I need to eat now."
                 }
-            # Find nearest food location
             food_places = [p for p in world.places.values() if "food" in p.capabilities]
             if food_places:
                 return {
@@ -129,13 +128,13 @@ class DecisionController:
                 }
         elif agent.physio.hunger > 0.6:
             if place and "food" in place.capabilities:
-                if random.random() < 0.5:  # 50% chance to eat when moderately hungry
+                if random.random() < 0.5:
                     return {
                         "action": "EAT",
                         "params": {},
                         "private_thought": "I'm getting hungry, I should eat something."
                     }
-        
+
         # Energy check
         if agent.physio.energy < 0.2:
             home_places = [p for p in world.places.values() if "home" in p.capabilities or p.name.lower() == "home"]
@@ -151,7 +150,7 @@ class DecisionController:
                     "params": {"to": home_places[0].name},
                     "private_thought": "I'm too tired, I need to go home and rest."
                 }
-        
+
         # Stress check
         if agent.physio.stress > 0.8:
             if place and "relax" in place.capabilities:
@@ -165,7 +164,55 @@ class DecisionController:
                 "params": {},
                 "private_thought": "I'm overwhelmed, I need to calm down."
             }
-        
+
+        # Hygiene check
+        if hasattr(agent.physio, "hygiene") and agent.physio.hygiene < 0.2:
+            if place and "wash" in place.capabilities:
+                return {
+                    "action": "WASH",
+                    "params": {},
+                    "private_thought": "I feel dirty, I need to wash up."
+                }
+            wash_places = [p for p in world.places.values() if "wash" in p.capabilities]
+            if wash_places:
+                return {
+                    "action": "MOVE",
+                    "params": {"to": wash_places[0].name},
+                    "private_thought": "I need to find a place to wash."
+                }
+
+        # Comfort check
+        if hasattr(agent.physio, "comfort") and agent.physio.comfort < 0.2:
+            if place and "rest" in place.capabilities:
+                return {
+                    "action": "REST",
+                    "params": {},
+                    "private_thought": "I'm uncomfortable, I need to rest."
+                }
+            rest_places = [p for p in world.places.values() if "rest" in p.capabilities]
+            if rest_places:
+                return {
+                    "action": "MOVE",
+                    "params": {"to": rest_places[0].name},
+                    "private_thought": "I need to find a comfortable place to rest."
+                }
+
+        # Bladder check
+        if hasattr(agent.physio, "bladder") and agent.physio.bladder < 0.2:
+            if place and "bathroom" in place.capabilities:
+                return {
+                    "action": "USE_BATHROOM",
+                    "params": {},
+                    "private_thought": "I really need to use the bathroom."
+                }
+            bathroom_places = [p for p in world.places.values() if "bathroom" in p.capabilities]
+            if bathroom_places:
+                return {
+                    "action": "MOVE",
+                    "params": {"to": bathroom_places[0].name},
+                    "private_thought": "I need to find a bathroom quickly."
+                }
+
         return None
     
     def _goal_driven_decision(self, agent: Any, world: 'World', tick: int) -> Optional[Dict[str, Any]]:
@@ -274,22 +321,41 @@ class DecisionController:
         return None
     
     def _probabilistic_decision(self, agent: Any) -> Optional[Dict[str, Any]]:
-        """Make random decisions for variety."""
+        """Make random decisions for variety, modulated by personality traits and aspirations."""
+        traits = agent.persona.traits
+        aspirations = getattr(agent.persona, 'aspirations', [])
         roll = random.random()
-        
-        if roll < 0.1:  # 10% chance to think
+        # Extraversion increases chance to interact, openness to explore, conscientiousness to work
+        if roll < 0.1 + 0.2 * traits.get("extraversion",0.5):
             return {
-                "action": "THINK",
+                "action": "SAY",
                 "params": {},
-                "private_thought": "Let me think about my situation."
+                "private_thought": "I feel like talking to someone."
             }
-        elif roll < 0.2:  # 10% chance to explore
+        elif roll < 0.2 + 0.2 * traits.get("openness",0.5):
             return {
                 "action": "EXPLORE",
                 "params": {},
                 "private_thought": "I feel like exploring the area."
             }
-        
+        elif roll < 0.3 + 0.2 * traits.get("conscientiousness",0.5):
+            return {
+                "action": "WORK",
+                "params": {},
+                "private_thought": "I feel like working on something."
+            }
+        elif "wealth" in aspirations and roll < 0.5:
+            return {
+                "action": "WORK",
+                "params": {},
+                "private_thought": "My aspiration for wealth motivates me to work."
+            }
+        elif "exploration" in aspirations and roll < 0.5:
+            return {
+                "action": "EXPLORE",
+                "params": {},
+                "private_thought": "My aspiration for exploration motivates me to explore."
+            }
         return None
     
     def _default_decision(self) -> Dict[str, Any]:

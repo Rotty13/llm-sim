@@ -1,8 +1,18 @@
-# Utility functions
 """
 utils.py
 
-Provides shared utility functions for time formatting and vector similarity, used throughout the simulation modules.
+Provides shared utility functions for time formatting and vector similarity in llm-sim.
+Used throughout simulation modules for time calculations and mathematical operations.
+
+Key Functions:
+- now_str: Format simulation time from tick and start datetime.
+- cosine: Calculate cosine similarity between two vectors.
+
+LLM Usage:
+- None directly; utility functions may be used by modules that interact with LLMs.
+
+CLI Arguments:
+- None directly; utilities are used by simulation modules and scripts.
 """
 # Utility functions
 import math

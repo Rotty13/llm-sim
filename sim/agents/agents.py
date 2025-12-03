@@ -1,111 +1,129 @@
-from __future__ import annotations
-
-from dataclasses import dataclass, field
-from datetime import datetime
-from typing import List, Dict, Any, Optional
-from difflib import SequenceMatcher
-import json, string
-from typing import TYPE_CHECKING
-import random
-
-from ..llm.llm_ollama import AI_ASSISTANT_SYSTEM
-from ..memory.memory import MemoryStore, MemoryItem
-from ..actions.actions import normalize_action
-from ..scheduler.scheduler import Appointment, enforce_schedule
-from ..inventory.inventory import Inventory
-from sim.llm import llm_ollama
-from sim.inventory.inventory import Item
-
-from .controllers import BaseController, LogicController
-from .memory_manager import MemoryManager
-from .inventory_handler import InventoryHandler
-from .decision_controller import DecisionController
-from .movement_controller import MovementController
-
-llm = llm_ollama.LLM()
-
-def now_str(tick: int, start_dt=None) -> str:
-    """
-    Returns a formatted time string for the given tick and start_dt.
-    If start_dt is None, returns local time as HH:MM.
-    """
-    if start_dt is not None:
-        from sim.utils.utils import now_str
-        return now_str(tick, start_dt)
-    return f"{(tick * 5) // 60:02d}:{(tick * 5) % 60:02d}"
-
-@dataclass
-class Persona:
-    name: str
-    age: int
-    job: str
-    city: str
-    bio: str
-    values: List[str]
-    goals: List[str]
-    # Career/job role
-    job_role: str = "unemployed"
-    # Income per tick (or per work action)
-    income: float = 0.0
-    # Life stage: e.g., 'child', 'teen', 'adult', 'elder'
-    life_stage: str = "adult"
-    # Age transitions: mapping of stage to age threshold
-    age_transitions: Dict[str, int] = field(default_factory=lambda: {"child": 0, "teen": 13, "adult": 18, "elder": 65})
-    # Big Five personality traits (0.0-1.0 scale)
-    traits: Dict[str, float] = field(default_factory=lambda: {
-        "openness": 0.5,
-        "conscientiousness": 0.5,
-        "extraversion": 0.5,
-        "agreeableness": 0.5,
-        "neuroticism": 0.5
-    })
-    # Aspirations: structured long-term motivators
-    aspirations: List[str] = field(default_factory=list)
-    # Emotional modifiers: e.g., baseline mood, reactivity
-    emotional_modifiers: Dict[str, float] = field(default_factory=lambda: {
-        "baseline_mood": 0.0,  # -1.0 (negative) to 1.0 (positive)
-        "emotional_reactivity": 0.5  # 0.0 (stoic) to 1.0 (very reactive)
-    })
-
-@dataclass
-class Physio:
-    energy: float = 1.0
-    hunger: float = 0.2
-    stress: float = 0.2
-    fun: float = 1.0
-    social: float = 1.0
-    mood: str = "neutral"
-    # Moodlets: temporary mood modifiers (e.g., "happy", "bored", "lonely")
-    moodlets: Dict[str, int] = field(default_factory=dict)  # moodlet name -> ticks remaining
-    # Emotional state: e.g., "happy", "sad", "angry", "calm"
-    emotional_state: str = "neutral"
-
-    def decay_needs(self, decay: Optional[Dict[str, float]] = None):
-        """
-        Decay physiological and psychological needs each tick.
-        """
-        if decay is None:
-            decay = {
-                "energy": -0.01,
-                "hunger": 0.01,
-                "stress": 0.01,
-                "fun": -0.01,
-                "social": -0.01,
-            }
-        self.energy = max(0.0, min(1.0, self.energy + decay["energy"]))
-        self.hunger = max(0.0, min(1.0, self.hunger + decay["hunger"]))
-        self.stress = max(0.0, min(1.0, self.stress + decay["stress"]))
-        self.fun = max(0.0, min(1.0, self.fun + decay["fun"]))
-        self.social = max(0.0, min(1.0, self.social + decay["social"]))
-
-JOB_SITE = {"barista":"Cafe", "junior dev":"Office", "developer":"Office", "engineer":"Office"}
-
-
-
 @dataclass
 class Agent:
-    persona: Persona
-    place: str
+    # ...existing fields...
+
+    def tick_update(self, world, tick: int):
+        """
+        Update agent state each tick: decay needs (with trait effects), update mood, and check aspirations.
+        """
+        self.physio.decay_needs(traits=self.persona.traits)
+        # Mood logic: baseline + emotional reactivity + stress
+        base = self.persona.emotional_modifiers.get("baseline_mood", 0.0)
+        react = self.persona.emotional_modifiers.get("emotional_reactivity", 0.5)
+        mood_val = base + react * (0.5 - self.physio.stress)
+        if mood_val > 0.3:
+            self.physio.mood = "positive"
+        elif mood_val < -0.3:
+            self.physio.mood = "negative"
+        else:
+            self.physio.mood = "neutral"
+        # Aspirations: if agent has a long-term goal, nudge plan
+        if self.persona.aspirations:
+            for asp in self.persona.aspirations:
+                if asp == "wealth" and self.physio.energy > 0.5:
+                    if "WORK" not in self.plan:
+                        self.plan.append("WORK")
+                if asp == "friendship" and self.physio.social < 0.7:
+                    if "SAY" not in self.plan:
+                        self.plan.append("SAY")
+                if asp == "exploration" and self.physio.energy > 0.3:
+                    if "EXPLORE" not in self.plan:
+                        self.plan.append("EXPLORE")
+
+    def perform_action(self, action: str, world: Any, tick: int):
+        """
+        Stub: Perform the given action in the simulation context.
+        Args:
+            action: Action string (e.g., 'MOVE', 'EAT', etc.)
+            world: The simulation world object
+            tick: Current simulation tick
+        """
+        # For now, just log the action and update place if MOVE
+        if action.startswith("MOVE"):
+            import json
+            payload = json.loads(action[action.find("(")+1:action.rfind(")")])
+            dest = payload.get("to")
+            if dest:
+                self.place = dest
+            # Extend with more action handling as needed
+            # Optionally: print or log action
+            print(f"Agent {self.persona.name} performs action: {action} at tick {tick}")
+
+    def serialize_state(self) -> dict:
+        """Stub: Serialize agent state for saving."""
+        # Placeholder for future serialization logic
+        return {}
+
+    def load_state(self, state: dict):
+        """Stub: Load agent state from saved data."""
+        # Placeholder for future loading logic
+        pass
+
+    def checkpoint_stub(self):
+        """Stub for checkpoint/resume logic."""
+        # Placeholder for future checkpoint logic
+        pass
+
+    def die(self, tick: int):
+        """Mark the agent as deceased and record time of death."""
+        self.alive = False
+        self.time_of_death = tick
+
+    def mourn_stub(self, deceased_name: str):
+        """Stub for mourning/legacy logic when another agent dies."""
+        # Placeholder for future mourning/legacy logic
+        pass
+
+    def receive_income(self, amount: float):
+        """Add income to the agent's inventory as money."""
+        from sim.inventory.inventory import ITEMS
+        self.inventory.add(ITEMS["money"], int(amount))
+
+    def perform_job_stub(self):
+        """Stub for job/career action logic."""
+        # Placeholder for future job/career logic
+        pass
+
+    def update_life_stage(self):
+        """Update the agent's life stage based on age and persona's age_transitions."""
+        for stage, threshold in sorted(self.persona.age_transitions.items(), key=lambda x: x[1], reverse=True):
+            if self.persona.age >= threshold:
+                self.persona.life_stage = stage
+                break
+
+    @property
+    def money_balance(self) -> int:
+        """Return the agent's current money balance (as quantity of 'money' in inventory)."""
+        return self.inventory.get_quantity("money")
+
+    def add_money(self, amount: int):
+        """Add money to the agent's inventory."""
+        from sim.inventory.inventory import ITEMS
+        self.inventory.add(ITEMS["money"], amount)
+
+    def remove_money(self, amount: int) -> bool:
+        """Remove money from the agent's inventory. Returns True if successful."""
+        return self.inventory.remove("money", amount)
+
+    def step_interact(self, world, participants: list, obs: str, tick: int, start_dt, incoming_message: Optional[dict], loglist: Optional[list] = None):
+        """
+        Cohesive step: agent converses, decays needs, updates moodlets, decides, and acts in the world.
+        Returns the conversation decision dict.
+        """
+        # Decay needs at each tick
+        self.physio.decay_needs()
+        # Update moodlets
+        self.tick_moodlets()
+        # Conversation step
+        conv_decision = self.decide_conversation(participants, obs, tick, incoming_message, start_dt=start_dt, loglist=loglist)
+        if conv_decision and "new_mood" in conv_decision:
+            self.physio.mood = conv_decision["new_mood"]
+        if conv_decision and "memory_write" in conv_decision and conv_decision["memory_write"]:
+            self.memory_manager.write_memory(MemoryItem(t=tick, kind="episodic", text=conv_decision["memory_write"], importance=0.5))
+        # Action step
+        action_decision = self.decide(world, obs, tick, start_dt)
+        self.act(world, action_decision, tick)
+        return conv_decision
     calendar: List[Appointment] = field(default_factory=list)
     controller: Any = field(default_factory=lambda: LogicController())
     memory: MemoryStore = field(default_factory=MemoryStore)
@@ -483,6 +501,36 @@ class Agent:
         duration = get_action_duration(action, params)
         effects = get_action_effects(action, params)
 
+        # Modulate action effects by personality traits
+        traits = self.persona.traits
+        if action == "RELAX":
+            # More extraverted/agreeable agents relax more efficiently
+            relax_boost = 0.1 * (traits.get("extraversion",0.5) + traits.get("agreeableness",0.5) - 1.0)
+            self.physio.stress = max(0.0, self.physio.stress + effects.get("stress", -0.2) + relax_boost)
+        elif action == "WORK":
+            # Conscientiousness increases work energy cost, neuroticism increases stress
+            work_penalty = 0.05 * (traits.get("conscientiousness",0.5) - 0.5)
+            stress_penalty = 0.05 * (traits.get("neuroticism",0.5) - 0.5)
+            self.physio.energy = max(0.0, self.physio.energy + effects.get("energy", -0.15) - work_penalty)
+            self.physio.stress = min(1.0, self.physio.stress + effects.get("stress", 0.1) + stress_penalty)
+        elif action == "SAY":
+            # Extraversion increases social gain
+            social_boost = 0.1 * (traits.get("extraversion",0.5) - 0.5)
+            self.physio.social = min(1.0, self.physio.social + social_boost)
+        # ...existing code for other actions...
+            def personality_memory_importance(self, item: MemoryItem) -> float:
+                """
+                Adjust memory importance by personality traits (e.g., neuroticism boosts negative, openness boosts novel).
+                """
+                traits = self.persona.traits
+                importance = item.importance
+                if "sad" in item.text or "failure" in item.text:
+                    importance += 0.2 * traits.get("neuroticism",0.5)
+                if "new" in item.text or "explore" in item.text:
+                    importance += 0.2 * traits.get("openness",0.5)
+                if "friend" in item.text or "talk" in item.text:
+                    importance += 0.2 * traits.get("extraversion",0.5)
+                return max(0.0, min(1.0, importance))
         if action == "MOVE":
             destination = params.get("to")
             if destination:

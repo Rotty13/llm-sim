@@ -10,6 +10,48 @@ from sim.scheduler.scheduler import Appointment
 
 
 class TestDecisionController(unittest.TestCase):
+    def test_critical_hygiene(self):
+        """Test that low hygiene triggers WASH or MOVE decision."""
+        # Add a wash place
+        wash_place = Place(name="Bathhouse", neighbors=["Home"], capabilities={"wash"})
+        self.world.places["Bathhouse"] = wash_place
+        # Agent at Bathhouse, low hygiene
+        self.agent.place = "Bathhouse"
+        self.agent.physio.hygiene = 0.1
+        decision = self.controller.decide(self.agent, self.world, "", tick=10, start_dt=None)
+        self.assertIn(decision["action"], ["WASH", "MOVE"])
+        # Agent not at Bathhouse, low hygiene
+        self.agent.place = "Home"
+        decision = self.controller.decide(self.agent, self.world, "", tick=10, start_dt=None)
+        self.assertIn(decision["action"], ["MOVE"])
+
+    def test_critical_comfort(self):
+        """Test that low comfort triggers REST or MOVE decision."""
+        # Add a rest place
+        rest_place = Place(name="Lounge", neighbors=["Home"], capabilities={"rest"})
+        self.world.places["Lounge"] = rest_place
+        self.agent.place = "Lounge"
+        self.agent.physio.comfort = 0.1
+        decision = self.controller.decide(self.agent, self.world, "", tick=10, start_dt=None)
+        self.assertIn(decision["action"], ["REST", "MOVE"])
+        # Agent not at Lounge, low comfort
+        self.agent.place = "Home"
+        decision = self.controller.decide(self.agent, self.world, "", tick=10, start_dt=None)
+        self.assertIn(decision["action"], ["MOVE"])
+
+    def test_critical_bladder(self):
+        """Test that low bladder triggers USE_BATHROOM or MOVE decision."""
+        # Add a bathroom place
+        bathroom_place = Place(name="Restroom", neighbors=["Home"], capabilities={"bathroom"})
+        self.world.places["Restroom"] = bathroom_place
+        self.agent.place = "Restroom"
+        self.agent.physio.bladder = 0.1
+        decision = self.controller.decide(self.agent, self.world, "", tick=10, start_dt=None)
+        self.assertIn(decision["action"], ["USE_BATHROOM", "MOVE"])
+        # Agent not at Restroom, low bladder
+        self.agent.place = "Home"
+        decision = self.controller.decide(self.agent, self.world, "", tick=10, start_dt=None)
+        self.assertIn(decision["action"], ["MOVE"])
 
     def setUp(self):
         """Set up test fixtures."""

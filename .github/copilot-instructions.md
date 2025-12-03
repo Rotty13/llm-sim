@@ -80,6 +80,9 @@ name: llm-sim_Copilot_Instructions
    - Refer to `FEATURES_TODO.md` for long-term goals and features.
    - Refer to `DEFERRED_PROBLEMS.md` for unresolved issues that need attention.
 
+2. **Feature-File Pairing Requirement**:
+   - For every feature marked as "in progress" in `FEATURES_TODO.md`, always pair the feature entry with its corresponding main implementation file (or files) in the documentation. This ensures traceability and clarity for ongoing work.
+
 2. **Set Current Task**:
    - Update `CURRENT_TASK.md` to reflect the task you are working on.
    - Clearly define the task, its goals, and any dependencies.
