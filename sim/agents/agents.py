@@ -355,7 +355,7 @@ class Agent:
             "You are not being simulated or in a simulation. "
             "You are yourself and your memories are real.\n"
             "If you must recall something in your distant past or childhood, "
-            "you may invent it. don't reference specific names or places.\n"
+            "you may invent it. Don't reference specific names or places.\n"
             "Respond as naturally as possible, considering your persona, "
             "context, and conversation history. 1-3 sentences only.\n"
             "Return ONLY JSON with keys: reply, private_thought, memory_write (nullable).\n"
