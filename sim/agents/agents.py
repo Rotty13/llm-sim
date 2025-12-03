@@ -159,7 +159,7 @@ class Agent:
 
     # Optional fields with defaults
     calendar: List[Appointment] = field(default_factory=list)
-    controller: Any = field(default_factory=lambda: LogicController())
+    controller: Any = field(default_factory=LogicController)
     memory: MemoryStore = field(default_factory=MemoryStore)
     physio: Physio = field(default_factory=Physio)
     plan: List[str] = field(default_factory=list)
