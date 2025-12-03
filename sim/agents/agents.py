@@ -79,6 +79,7 @@ def parse_action_payload(action_str: str) -> Optional[Dict[str, Any]]:
         if start != -1 and end != -1 and end > start:
             return json.loads(action_str[start + 1:end])
     except (json.JSONDecodeError, ValueError):
+        # Parsing failed; return None as documented in the function docstring.
         pass
     return None
 
