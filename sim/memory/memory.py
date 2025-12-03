@@ -40,22 +40,24 @@ class MemoryItem:
 
 @dataclass
 class MemoryStore:
-        def apply_forgetting_curve(self, current_tick: int, decay_rate: float = 0.98, min_importance: float = 0.05):
-            """
-            Apply a forgetting curve to all memories, decaying importance over time.
-            Memories with importance below min_importance are pruned.
-            """
-            for m in self.items:
-                # Decay importance based on age (in ticks)
-                age = max(0, current_tick - m.t)
-                m.importance *= decay_rate ** (age / 24)  # decay per 24 ticks (2 hours)
-            # Prune memories below threshold
-            before = len(self.items)
-            self.items = [m for m in self.items if m.importance >= min_importance]
-            after = len(self.items)
-            print(f"DEBUG: Forgetting curve applied. Pruned {before - after} memories.")
+    """Store for agent memories with recall and compression capabilities."""
     items: List[MemoryItem] = field(default_factory=list)
     _single_word_cache: dict = field(default_factory=dict, init=False, repr=False)
+
+    def apply_forgetting_curve(self, current_tick: int, decay_rate: float = 0.98, min_importance: float = 0.05):
+        """
+        Apply a forgetting curve to all memories, decaying importance over time.
+        Memories with importance below min_importance are pruned.
+        """
+        for m in self.items:
+            # Decay importance based on age (in ticks)
+            age = max(0, current_tick - m.t)
+            m.importance *= decay_rate ** (age / 24)  # decay per 24 ticks (2 hours)
+        # Prune memories below threshold
+        before = len(self.items)
+        self.items = [m for m in self.items if m.importance >= min_importance]
+        after = len(self.items)
+        print(f"DEBUG: Forgetting curve applied. Pruned {before - after} memories.")
 
     def write(self, item: MemoryItem):
         # Normalize text to lowercase for consistency

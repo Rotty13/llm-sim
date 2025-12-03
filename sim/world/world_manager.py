@@ -443,7 +443,7 @@ class WorldManager:
         with open(path, "r", encoding="utf-8") as f:
             return f.read()
 
-    def load_agents(self, world_name: str, world: Optional[Any] = None) -> List[Agent]:
+    def load_agents(self, world_name: str, world: Optional[Any] = None) -> List["Agent"]:
         """
         Load fully initialized Agent instances from the personas.yaml file.
         
