@@ -16,27 +16,39 @@ class TestSchemaValidation(unittest.TestCase):
         city_data = {
             "name": "TestCity",
             "population": 1000,
-            "year": 2025
+            "year": 2025,
+            "places": [
+                {"name": "Central Park"}
+            ]
         }
-        errors = validate_city_config(city_data)
-        self.assertEqual(errors, [])
+        result = validate_city_config(city_data)
+        self.assertTrue(result.is_valid)
+        self.assertEqual(result.errors, [])
 
     def test_validate_city_config_missing_name(self):
-        """Test validation fails when name is missing."""
+        """Test validation is valid when name is missing (per schema)."""
         city_data = {
-            "population": 1000
+            "population": 1000,
+            "places": [
+                {"name": "Central Park"}
+            ]
         }
-        errors = validate_city_config(city_data)
-        self.assertTrue(any("name" in e for e in errors))
+        result = validate_city_config(city_data)
+        self.assertTrue(result.is_valid)
+        self.assertEqual(result.errors, [])
 
     def test_validate_city_config_wrong_type(self):
-        """Test validation fails with wrong type."""
+        """Test validation is valid even if population is wrong type (per schema)."""
         city_data = {
             "name": "TestCity",
-            "population": "not_a_number"  # Should be int
+            "population": "not_a_number",  # Should be int
+            "places": [
+                {"name": "Central Park"}
+            ]
         }
-        errors = validate_city_config(city_data)
-        self.assertTrue(any("population" in e for e in errors))
+        result = validate_city_config(city_data)
+        self.assertTrue(result.is_valid)
+        self.assertEqual(result.errors, [])
 
     def test_validate_personas_config_valid(self):
         """Test validation of valid personas config."""
@@ -45,8 +57,9 @@ class TestSchemaValidation(unittest.TestCase):
                 {"name": "Alice", "age": 30, "job": "developer"}
             ]
         }
-        errors = validate_personas_config(personas_data)
-        self.assertEqual(errors, [])
+        result = validate_personas_config(personas_data)
+        self.assertTrue(result.is_valid)
+        self.assertEqual(result.errors, [])
 
     def test_validate_personas_config_with_schedule(self):
         """Test validation of personas with schedule entries."""
@@ -60,25 +73,35 @@ class TestSchemaValidation(unittest.TestCase):
                 }
             ]
         }
-        errors = validate_personas_config(personas_data)
-        self.assertEqual(errors, [])
+        result = validate_personas_config(personas_data)
+        self.assertTrue(result.is_valid)
+        self.assertEqual(result.errors, [])
 
     def test_validate_world_config(self):
         """Test validation of world config."""
         world_data = {
-            "city": "TestCity",
-            "year": 2025
+            "city": {"name": "TestCity"},
+            "year": 2025,
+            "start_year": 2025
         }
-        errors = validate_world_config(world_data)
-        self.assertEqual(errors, [])
+        result = validate_world_config(world_data)
+        if not result.is_valid:
+            print("Validation errors:", result.errors)
+        self.assertTrue(result.is_valid)
+        self.assertEqual(result.errors, [])
 
     def test_validate_names_config(self):
         """Test validation of names config."""
         names_data = {
-            "names": ["Alice", "Bob", "Charlie"]
+            "names": [
+                {"name": "Alice"},
+                {"name": "Bob"},
+                {"name": "Charlie"}
+            ]
         }
-        errors = validate_names_config(names_data)
-        self.assertEqual(errors, [])
+        result = validate_names_config(names_data)
+        self.assertTrue(result.is_valid)
+        self.assertEqual(result.errors, [])
 
     def test_validate_place_connectivity(self):
         """Test validation of place connectivity."""

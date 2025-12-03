@@ -1,3 +1,15 @@
+### 8. Vendor/Commerce System
+- **Status**: Completed
+- **Completed Date**: 2025-12-02
+- **Current State**: 
+  - Vendor-related logic, agent BUY/SELL actions, money tracking, vendor stock replenishment, price fluctuation, and agent-to-agent trading are fully implemented and integrated into agent/world logic.
+- **Key Changes**:
+  - Added BUY/SELL actions for agents and vendors
+  - Implemented money as inventory item with helpers
+  - Vendor stock replenishment and price fluctuation
+  - Agent-to-agent trading (TRADE action) and logic integration
+  - All commerce/trading logic is now part of the simulation loop
+
 # Completed Features & Mechanics
 
 This document catalogs all features and mechanics that have been completed for the llm-sim project. Items are organized by category and priority.

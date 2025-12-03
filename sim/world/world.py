@@ -3,6 +3,7 @@ from typing import Dict, List, Optional, Any, TYPE_CHECKING
 from collections import deque
 # Import Inventory for item storage in places
 from sim.inventory.inventory import Inventory, ITEMS
+from sim.utils.metrics import SimulationMetrics
 from dataclasses import dataclass, field
 import logging
 
@@ -19,6 +20,33 @@ if TYPE_CHECKING:
 
 @dataclass
 class Vendor:
+
+    def fluctuate_prices(self, fluctuation: float = 0.1, min_price: float = 0.01):
+        """
+        Randomly fluctuate prices for all items by up to ±fluctuation (as a fraction of current price).
+        Prices will not drop below min_price.
+        """
+        import random
+        for item_id, price in self.prices.items():
+            change = price * random.uniform(-fluctuation, fluctuation)
+            new_price = max(min_price, price + change)
+            self.prices[item_id] = round(new_price, 2)
+
+        def restock(self, restock_dict: Optional[Dict[str, int]] = None, default_qty: int = 10):
+            """
+            Replenish vendor stock. If restock_dict is provided, set stock to at least the specified quantity for each item.
+            Otherwise, restock all items in prices to at least default_qty.
+            """
+            if restock_dict:
+                for item_id, qty in restock_dict.items():
+                    current = self.stock.get(item_id, 0)
+                    if current < qty:
+                        self.stock[item_id] = qty
+            else:
+                for item_id in self.prices:
+                    current = self.stock.get(item_id, 0)
+                    if current < default_qty:
+                        self.stock[item_id] = default_qty
     prices: Dict[str, float] = field(default_factory=dict)   # item_id -> price
     stock: Dict[str, int] = field(default_factory=dict)      # item_id -> qty
     buyback: Dict[str, float] = field(default_factory=dict)  # item_id -> price
@@ -215,101 +243,14 @@ class World:
         """Get the owner of an item by ID."""
         return self.item_ownership.get(item_id)
 
-    def simulation_loop(self, ticks: int = 100, enable_metrics: bool = True,
-                        log_level: Optional[int] = None):
+    def simulation_loop(self, ticks: int = 100):
         """
-        Run the simulation for a number of ticks with integrated metrics.
-        
+        Run the simulation for a number of ticks using the modular agent scheduler loop.
         Args:
             ticks: Number of simulation ticks to run
-            enable_metrics: Whether to track detailed metrics
-            log_level: Optional logging level override
         """
-        from sim.scheduler.scheduler import enforce_schedule
-        from sim.utils import monitor
-        
-        # Configure logging level if provided
-        if log_level is not None:
-            monitor.configure_logging(log_level)
-        
-        events = []  # Placeholder for tick-based events
-        
-        # Start metrics tracking
-        if enable_metrics:
-            monitor.log_simulation_start(self.metrics)
-
-        for tick in range(ticks):
-            # Log tick start
-            if enable_metrics:
-                monitor.log_tick_start(tick, len(self._agents), self.metrics)
-            
-            logger.debug(f"Tick {tick}: Simulation running...")
-
-            # Process scheduled events for the current tick
-            active_events = 0
-            for event in [e for e in events if e['tick'] == tick]:
-                event['action'](self)
-                active_events += 1
-                if enable_metrics:
-                    monitor.log_world_event(
-                        f"Event triggered: {event['action'].__name__}",
-                        tick, self.metrics
-                    )
-                else:
-                    self.log_world_event(f"Event triggered: {event['action'].__name__}")
-
-            for agent in self._agents:
-                # Enforce schedules dynamically
-                forced_move = enforce_schedule(agent.calendar, agent.place, tick, agent.busy_until)
-                if forced_move:
-                    try:
-                        import json
-                        payload = json.loads(forced_move[forced_move.find("(")+1:forced_move.rfind(")")])
-                        dest = payload.get("to")
-                        if dest:
-                            agent.move_to(self, dest)
-                            if enable_metrics:
-                                monitor.log_agent_action(
-                                    agent, f"MOVE to {dest}", tick, self.metrics,
-                                    details={"destination": dest}
-                                )
-                            else:
-                                self.log_agent_action(agent, f"Moved to {dest}")
-                    except (json.JSONDecodeError, AttributeError) as e:
-                        logger.warning(f"Error processing schedule for agent {agent.persona.name}: {e}")
-
-                # Allow agents to interact with the world
-                if hasattr(agent, 'step_interact'):
-                    agent.step_interact(self, [a for a in self._agents if a != agent], '', tick, None, None)
-                    if enable_metrics:
-                        monitor.log_agent_action(
-                            agent, "INTERACT", tick, self.metrics
-                        )
-                    else:
-                        self.log_agent_action(agent, "Interacted with world")
-
-            # Example: Add dynamic events (e.g., world events)
-            if tick % 10 == 0:  # Example condition for adding an event
-                events.append({
-                    'tick': tick + 5,
-                    'action': lambda world, t=tick: logger.debug(f"Dynamic event triggered at tick {t + 5}")
-                })
-
-            # Log agent locations at debug level
-            for agent in self._agents:
-                location = self.get_agent_location(agent.persona.name)
-                logger.debug(f"Agent {agent.persona.name} is at {location}")
-
-            # Log tick completion
-            if enable_metrics:
-                monitor.log_tick_end(tick, self.metrics, len(self._agents), active_events)
-                monitor.log_world_event(f"Tick {tick} completed", tick, self.metrics)
-            else:
-                self.log_world_event(f"Tick {tick} completed")
-        
-        # Stop metrics tracking
-        if enable_metrics:
-            monitor.log_simulation_end(self.metrics)
+        from sim.scheduler.scheduler import run_agent_loop
+        run_agent_loop(self, ticks)
 
     def get_all_places(self) -> list:
         """Return a list of all place names in the world."""
@@ -567,4 +508,6 @@ class World:
             Dictionary containing metrics summary
         """
         return self.metrics.summary()
+
+from sim.utils.metrics import SimulationMetrics
 

@@ -43,15 +43,63 @@ class Persona:
     bio: str
     values: List[str]
     goals: List[str]
+    # Career/job role
+    job_role: str = "unemployed"
+    # Income per tick (or per work action)
+    income: float = 0.0
+    # Life stage: e.g., 'child', 'teen', 'adult', 'elder'
+    life_stage: str = "adult"
+    # Age transitions: mapping of stage to age threshold
+    age_transitions: Dict[str, int] = field(default_factory=lambda: {"child": 0, "teen": 13, "adult": 18, "elder": 65})
+    # Big Five personality traits (0.0-1.0 scale)
+    traits: Dict[str, float] = field(default_factory=lambda: {
+        "openness": 0.5,
+        "conscientiousness": 0.5,
+        "extraversion": 0.5,
+        "agreeableness": 0.5,
+        "neuroticism": 0.5
+    })
+    # Aspirations: structured long-term motivators
+    aspirations: List[str] = field(default_factory=list)
+    # Emotional modifiers: e.g., baseline mood, reactivity
+    emotional_modifiers: Dict[str, float] = field(default_factory=lambda: {
+        "baseline_mood": 0.0,  # -1.0 (negative) to 1.0 (positive)
+        "emotional_reactivity": 0.5  # 0.0 (stoic) to 1.0 (very reactive)
+    })
 
 @dataclass
 class Physio:
     energy: float = 1.0
     hunger: float = 0.2
     stress: float = 0.2
+    fun: float = 1.0
+    social: float = 1.0
     mood: str = "neutral"
+    # Moodlets: temporary mood modifiers (e.g., "happy", "bored", "lonely")
+    moodlets: Dict[str, int] = field(default_factory=dict)  # moodlet name -> ticks remaining
+    # Emotional state: e.g., "happy", "sad", "angry", "calm"
+    emotional_state: str = "neutral"
+
+    def decay_needs(self, decay: Optional[Dict[str, float]] = None):
+        """
+        Decay physiological and psychological needs each tick.
+        """
+        if decay is None:
+            decay = {
+                "energy": -0.01,
+                "hunger": 0.01,
+                "stress": 0.01,
+                "fun": -0.01,
+                "social": -0.01,
+            }
+        self.energy = max(0.0, min(1.0, self.energy + decay["energy"]))
+        self.hunger = max(0.0, min(1.0, self.hunger + decay["hunger"]))
+        self.stress = max(0.0, min(1.0, self.stress + decay["stress"]))
+        self.fun = max(0.0, min(1.0, self.fun + decay["fun"]))
+        self.social = max(0.0, min(1.0, self.social + decay["social"]))
 
 JOB_SITE = {"barista":"Cafe", "junior dev":"Office", "developer":"Office", "engineer":"Office"}
+
 
 
 @dataclass
@@ -70,14 +118,175 @@ class Agent:
     inventory_handler: InventoryHandler = field(default_factory=InventoryHandler)
     decision_controller: DecisionController = field(default_factory=DecisionController)
     movement_controller: MovementController = field(default_factory=MovementController)
+    busy_until: int = 0  # Tick until which the agent is busy
+    alive: bool = True
+    time_of_death: Optional[int] = None
+    relationships: Dict[str, float] = field(default_factory=dict)
+    social_memory: List[Dict[str, Any]] = field(default_factory=list)
+
+    def perform_action(self, action: str, world: Any, tick: int):
+        """
+        Stub: Perform the given action in the simulation context.
+        Args:
+            action: Action string (e.g., 'MOVE', 'EAT', etc.)
+            world: The simulation world object
+            tick: Current simulation tick
+        """
+        # For now, just log the action and update place if MOVE
+        if action.startswith("MOVE"):
+            import json
+            payload = json.loads(action[action.find("(")+1:action.rfind(")")])
+            dest = payload.get("to")
+            if dest:
+                    self.place = dest
+            # Extend with more action handling as needed
+            # Optionally: print or log action
+            print(f"Agent {self.persona.name} performs action: {action} at tick {tick}")
+    persona: Persona
+    place: str
+    calendar: List[Appointment] = field(default_factory=list)
+    controller: Any = field(default_factory=lambda: LogicController())
+    memory: MemoryStore = field(default_factory=MemoryStore)
+    physio: Physio = field(default_factory=Physio)
+    plan: List[str] = field(default_factory=list)
+    inventory: Inventory = field(default_factory=lambda: Inventory(capacity_weight=5.0))
+    obs_list: List[str] = field(default_factory=list)
+    conversation_history: List[Dict[str, Any]] = field(default_factory=list)
+    memory_manager: MemoryManager = field(default_factory=MemoryManager)
+    inventory_handler: InventoryHandler = field(default_factory=InventoryHandler)
+    decision_controller: DecisionController = field(default_factory=DecisionController)
+    movement_controller: MovementController = field(default_factory=MovementController)
+    busy_until: int = 0  # Tick until which the agent is busy
+    alive: bool = True
+    time_of_death: Optional[int] = None
+    relationships: Dict[str, float] = field(default_factory=dict)
+    social_memory: List[Dict[str, Any]] = field(default_factory=list)
+
+    def serialize_state(self) -> dict:
+        """Stub: Serialize agent state for saving."""
+        # Placeholder for future serialization logic
+        return {}
+
+    def load_state(self, state: dict):
+        """Stub: Load agent state from saved data."""
+        # Placeholder for future loading logic
+        pass
+
+    def checkpoint_stub(self):
+        """Stub for checkpoint/resume logic."""
+        # Placeholder for future checkpoint logic
+        pass
+
+    def die(self, tick: int):
+        """Mark the agent as deceased and record time of death."""
+        self.alive = False
+        self.time_of_death = tick
+
+    def mourn_stub(self, deceased_name: str):
+        """Stub for mourning/legacy logic when another agent dies."""
+        # Placeholder for future mourning/legacy logic
+        pass
+
+    def receive_income(self, amount: float):
+        """Add income to the agent's inventory as money."""
+        from sim.inventory.inventory import ITEMS
+        self.inventory.add(ITEMS["money"], int(amount))
+
+    def perform_job_stub(self):
+        """Stub for job/career action logic."""
+        # Placeholder for future job/career logic
+        pass
+
+    def update_life_stage(self):
+        """Update the agent's life stage based on age and persona's age_transitions."""
+        for stage, threshold in sorted(self.persona.age_transitions.items(), key=lambda x: x[1], reverse=True):
+            if self.persona.age >= threshold:
+                self.persona.life_stage = stage
+                break
+
+
+    @property
+    def money_balance(self) -> int:
+        """Return the agent's current money balance (as quantity of 'money' in inventory)."""
+        return self.inventory.get_quantity("money")
+
+    def add_money(self, amount: int):
+        """Add money to the agent's inventory."""
+        from sim.inventory.inventory import ITEMS
+        self.inventory.add(ITEMS["money"], amount)
+
+    def remove_money(self, amount: int) -> bool:
+        """Remove money from the agent's inventory. Returns True if successful."""
+        return self.inventory.remove("money", amount)
+
+    def update_relationship(self, other: str, delta: float):
+        """Update relationship score with another agent."""
+        self.relationships[other] = self.relationships.get(other, 0.0) + delta
+
+    def remember_social_interaction(self, interaction: Dict[str, Any]):
+        """Add a social interaction to social memory."""
+        self.social_memory.append(interaction)
+
+    def group_conversation_stub(self, participants: list, topic: str):
+        """Stub for group conversation mechanics."""
+        # Placeholder for future group conversation logic
+        pass
+    # ...existing code...
+    def add_moodlet(self, moodlet: str, duration: int):
+        """Add or refresh a moodlet for a given duration (in ticks)."""
+        self.physio.moodlets[moodlet] = duration
+
+    def tick_moodlets(self):
+        """Decrement moodlet durations and remove expired ones."""
+        expired = [k for k, v in self.physio.moodlets.items() if v <= 1]
+        for k in expired:
+            del self.physio.moodlets[k]
+        for k in self.physio.moodlets:
+            self.physio.moodlets[k] -= 1
+
+    def set_emotional_state(self, state: str):
+        """Set the agent's current emotional state."""
+        self.physio.emotional_state = state
+
+        @property
+        def money_balance(self) -> int:
+            """Return the agent's current money balance (as quantity of 'money' in inventory)."""
+            return self.inventory.get_quantity("money")
+
+        def add_money(self, amount: int):
+            """Add money to the agent's inventory."""
+            from sim.inventory.inventory import ITEMS
+            self.inventory.add(ITEMS["money"], amount)
+
+        def remove_money(self, amount: int) -> bool:
+            """Remove money from the agent's inventory. Returns True if successful."""
+            return self.inventory.remove("money", amount)
+    persona: Persona
+    place: str
+    calendar: List[Appointment] = field(default_factory=list)
+    controller: Any = field(default_factory=lambda: LogicController())
+    memory: MemoryStore = field(default_factory=MemoryStore)
+    physio: Physio = field(default_factory=Physio)
+    plan: List[str] = field(default_factory=list)
+    inventory: Inventory = field(default_factory=lambda: Inventory(capacity_weight=5.0))
+    obs_list: List[str] = field(default_factory=list)
+    conversation_history: List[Dict[str, Any]] = field(default_factory=list)
+    memory_manager: MemoryManager = field(default_factory=MemoryManager)
+    inventory_handler: InventoryHandler = field(default_factory=InventoryHandler)
+    decision_controller: DecisionController = field(default_factory=DecisionController)
+    movement_controller: MovementController = field(default_factory=MovementController)
 
     busy_until: int = 0  # Tick until which the agent is busy
 
-    def step_interact(self, world: 'World', participants: list, obs: str, tick: int, start_dt, incoming_message: Optional[dict], loglist: Optional[list] = None):
+    def step_interact(self, world, participants: list, obs: str, tick: int, start_dt, incoming_message: Optional[dict], loglist: Optional[list] = None):
         """
-        Cohesive step: agent converses, decides, and acts in the world.
+        Cohesive step: agent converses, decays needs, updates moodlets, decides, and acts in the world.
         Returns the conversation decision dict.
         """
+        # Decay needs at each tick
+        self.physio.decay_needs()
+        # Update moodlets
+        self.tick_moodlets()
         # Conversation step
         conv_decision = self.decide_conversation(participants, obs, tick, incoming_message, start_dt=start_dt, loglist=loglist)
         if conv_decision and "new_mood" in conv_decision:
@@ -170,15 +379,15 @@ class Agent:
             self.memory_manager.write_memory(MemoryItem(t=tick, kind="autobio", text=text, importance=0.6))
             self._last_diary, self._last_diary_tick = text, tick
 
-    def _work_allowed_here(self, world:World) -> bool:
+    def _work_allowed_here(self, world) -> bool:
         expected = JOB_SITE.get(self.persona.job)
         return bool(expected) and self.place == expected
 
-    def _eat_allowed_here(self, world:World) -> bool:
+    def _eat_allowed_here(self, world) -> bool:
         p = world.places[self.place]
         return "food" in p.capabilities or "food_home" in p.capabilities
 
-    def decide(self, world: World, obs_text: str, tick: int, start_dt) -> Dict[str, Any]:
+    def decide(self, world, obs_text: str, tick: int, start_dt) -> Dict[str, Any]:
         """
         Enhanced decision-making logic for agents, including rule-based and probabilistic choices.
 
@@ -191,6 +400,7 @@ class Agent:
         if move_command:
             return {"action": "MOVE", "params": {"to": move_command.split('"')[3]}, "private_thought": "I need to move to my appointment."}
 
+
         # Rule-based decision-making
         if self.physio.hunger > 0.8:
             return {"action": "EAT", "private_thought": "I'm feeling very hungry."}
@@ -198,22 +408,42 @@ class Agent:
             return {"action": "SLEEP", "private_thought": "I'm too tired to continue."}
         elif self.physio.stress > 0.5:
             return {"action": "RELAX", "private_thought": "I need to relax and reduce my stress."}
+        elif self.physio.fun < 0.3:
+            return {"action": "EXPLORE", "private_thought": "I'm bored and need to have some fun."}
+        elif self.physio.social < 0.3:
+            return {"action": "SAY", "private_thought": "I'm feeling lonely and want to talk to someone.", "params": {}}
 
-        # Incorporate persona values and goals into decision-making
+
+        # Incorporate persona values, goals, and traits into decision-making
+        traits = self.persona.traits if hasattr(self.persona, 'traits') else {}
+        # Conscientiousness: more likely to work
+        if traits.get("conscientiousness", 0.5) > 0.7 and random.random() < traits["conscientiousness"]:
+            return {"action": "WORK", "private_thought": "My conscientiousness drives me to work diligently."}
+        # Openness: more likely to explore
+        if traits.get("openness", 0.5) > 0.6 and random.random() < traits["openness"]:
+            return {"action": "EXPLORE", "private_thought": "My openness makes me want to explore new things."}
+        # Extraversion: more likely to socialize
+        if traits.get("extraversion", 0.5) > 0.6 and random.random() < traits["extraversion"]:
+            return {"action": "SAY", "private_thought": "I feel like socializing with others.", "params": {}}
+        # Neuroticism: more likely to relax
+        if traits.get("neuroticism", 0.5) > 0.6 and random.random() < traits["neuroticism"]:
+            return {"action": "RELAX", "private_thought": "I need to relax and manage my stress."}
+        # Agreeableness: more likely to help/interact
+        if traits.get("agreeableness", 0.5) > 0.6 and random.random() < traits["agreeableness"]:
+            return {"action": "INTERACT", "private_thought": "I want to help or interact with others.", "params": {"action_type": "help"}}
+
+        # Existing value/goal-based logic
         if "ambition" in self.persona.values and "achieve goal" in self.persona.goals:
-            if random.random() < 0.3:  # 30% chance to work on a goal
+            if random.random() < 0.3:
                 return {"action": "WORK", "private_thought": "I feel motivated to work on my goals."}
-
         if "curiosity" in self.persona.values:
-            if random.random() < 0.4:  # 40% chance to explore
+            if random.random() < 0.4:
                 return {"action": "EXPLORE", "private_thought": "My curiosity drives me to explore."}
-
-        # Add more nuanced rules based on persona and environment
         if self.physio.stress > 0.7 and "relaxation" in self.persona.values:
             return {"action": "RELAX", "private_thought": "I value relaxation and need to reduce stress."}
 
         # Probabilistic decision-making for exploration
-        if random.random() < 0.2:  # 20% chance to explore
+        if random.random() < 0.2:
             return {"action": "EXPLORE", "private_thought": "I feel like exploring the area."}
 
         # Default action
@@ -232,14 +462,14 @@ class Agent:
                 self.busy_until = appointment.end_tick
                 break
 
-    def update_relationships(self, world: World):
+    def update_relationships(self, world):
         """
         Updates item ownership using the world's `item_ownership` dictionary.
         """
         for item_stack in self.inventory.stacks:
             world.item_ownership[item_stack.item.id] = self.persona.name
 
-    def act(self, world: World, decision: Dict[str, Any], tick: int):
+    def act(self, world, decision: Dict[str, Any], tick: int):
         """
         Perform the action decided by the agent.
         Supports actions: MOVE, EAT, SLEEP, RELAX, EXPLORE, WORK, SAY, INTERACT, THINK, CONTINUE.
@@ -248,7 +478,7 @@ class Agent:
         
         action = decision.get("action", "").upper()
         params = decision.get("params", {})
-        
+
         # Get action duration and effects
         duration = get_action_duration(action, params)
         effects = get_action_effects(action, params)
@@ -258,27 +488,27 @@ class Agent:
             if destination:
                 self.movement_controller.move_to(self, world, destination)
             self.busy_until = tick + duration
-            
+
         elif action == "EAT":
             self.physio.hunger = max(0.0, self.physio.hunger + effects.get("hunger", -0.5))
             self.physio.energy = min(1.0, self.physio.energy + effects.get("energy", 0.1))
             self.busy_until = tick + duration
-            
+
         elif action == "SLEEP":
             self.physio.energy = min(1.0, self.physio.energy + effects.get("energy", 0.8))
             self.physio.stress = max(0.0, self.physio.stress + effects.get("stress", -0.3))
             self.busy_until = tick + duration
-            
+
         elif action == "RELAX":
             self.physio.stress = max(0.0, self.physio.stress + effects.get("stress", -0.2))
             self.physio.energy = min(1.0, self.physio.energy + effects.get("energy", 0.05))
             self.busy_until = tick + duration
-            
+
         elif action == "EXPLORE":
             self.physio.energy = max(0.0, self.physio.energy + effects.get("energy", -0.1))
             self.physio.stress = max(0.0, self.physio.stress + effects.get("stress", -0.05))
             self.busy_until = tick + duration
-            
+
         elif action == "WORK":
             # Validate work location
             if self._work_allowed_here(world):
@@ -294,9 +524,8 @@ class Agent:
                     self.inventory.add(money_item, reward)
             else:
                 # Cannot work here, reduce to think action
-                action = "THINK"
                 self.busy_until = tick + 1
-                
+
         elif action == "SAY":
             text = params.get("text", "")
             target = params.get("to")
@@ -305,12 +534,12 @@ class Agent:
             # Record in memory
             if text:
                 self.memory_manager.write_memory(MemoryItem(
-                    t=tick, 
-                    kind="episodic", 
+                    t=tick,
+                    kind="episodic",
                     text=f"I said '{text}'" + (f" to {target}" if target else ""),
                     importance=0.3
                 ))
-                
+
         elif action == "INTERACT":
             target = params.get("target", "")
             action_type = params.get("action_type", "observe")
@@ -324,15 +553,15 @@ class Agent:
                     text=f"I {action_type}d {target}",
                     importance=0.4
                 ))
-                
+
         elif action == "THINK":
             self.physio.energy = max(0.0, self.physio.energy + effects.get("energy", -0.01))
             self.busy_until = tick + duration
-            
+
         elif action == "CONTINUE":
             # Do nothing, maintain current state
             pass
-        
+
         else:
             # Unknown action, default to think
             self.busy_until = tick + 1
@@ -340,7 +569,7 @@ class Agent:
         # Broadcast the action to the world
         world.broadcast(self.place, {"actor": self.persona.name, "action": action, "params": params, "tick": tick})
 
-    def move_to(self, world: World, destination: str) -> bool:
+    def move_to(self, world, destination: str) -> bool:
         """
         Move the agent to a new location if valid.
         """
@@ -381,3 +610,29 @@ class Agent:
                     self.calendar.append(appt)
                 except (TypeError, KeyError):
                     pass  # Skip invalid entries
+
+    def deposit_item_to_place(self, world, item_name, quantity):
+        """
+        Deposit an item from agent's inventory to the current place's inventory.
+        """
+        from sim.inventory.inventory import ITEMS
+        if self.inventory.get_quantity(item_name) >= quantity:
+            self.inventory.remove(item_name, quantity)
+            place_obj = world.places[self.place]
+            item_obj = ITEMS[item_name]
+            place_obj.inventory.add(item_obj, quantity)
+            return True
+        return False
+
+    def withdraw_item_from_place(self, world, item_name, quantity):
+        """
+        Withdraw an item from the current place's inventory to agent's inventory.
+        """
+        from sim.inventory.inventory import ITEMS
+        place_obj = world.places[self.place]
+        if place_obj.inventory.get_quantity(item_name) >= quantity:
+            place_obj.inventory.remove(item_name, quantity)
+            item_obj = ITEMS[item_name]
+            self.inventory.add(item_obj, quantity)
+            return True
+        return False

@@ -27,6 +27,15 @@ class TestSimulationScenarios(unittest.TestCase):
         self.coffee = Item(id="coffee", name="Coffee", tags={"food"}, weight=0.2, effects={"hunger": -0.1})
         self.agent.inventory.add(self.coffee, 1)
 
+    def test_agent_scheduler_loop(self):
+        # Run the simulation loop for 5 ticks
+        self.world.simulation_loop(ticks=5)
+        # After loop, agent should still be alive and in a valid place
+        self.assertTrue(self.agent.alive)
+        self.assertIn(self.agent.place, ["Cafe", "Office"])
+        # Optionally check metrics or other state changes
+        self.assertIsInstance(self.world.metrics.summary(), dict)
+
     def test_agent_move(self):
         self.assertTrue(self.agent.move_to(self.world, "Office"))
         self.assertEqual(self.agent.place, "Office")
@@ -45,6 +54,65 @@ class TestSimulationScenarios(unittest.TestCase):
         hunger_before = self.agent.physio.hunger
         self.assertTrue(self.agent.use_item(self.coffee))
         self.assertLess(self.agent.physio.hunger, hunger_before)
+
+class TestAgentIntegrationSkeleton(unittest.TestCase):
+    def setUp(self):
+        # Minimal agent and world setup
+        persona = Persona(
+            name="Bob", age=20, job="barista", city="TestCity", bio="Test bio",
+            values=["curiosity"], goals=["explore"],
+            traits={"openness": 0.9, "conscientiousness": 0.2, "extraversion": 0.8, "agreeableness": 0.5, "neuroticism": 0.3},
+            aspirations=["learn"], emotional_modifiers={"baseline_mood": 0.2, "emotional_reactivity": 0.7}
+        )
+        self.agent = Agent(persona=persona, place="Cafe")
+        self.agent.physio.hunger = 0.9
+        self.agent.physio.fun = 0.2
+        self.agent.physio.social = 0.2
+
+    def test_needs_decay(self):
+        hunger_before = self.agent.physio.hunger
+        self.agent.physio.decay_needs()
+        self.assertGreater(self.agent.physio.hunger, hunger_before)
+
+    def test_personality_decision(self):
+        # Openness and extraversion should bias toward EXPLORE or SAY
+        decision = self.agent.decide(None, "", 0, None)
+        self.assertIn(decision["action"], ["EXPLORE", "SAY", "EAT"])
+
+    def test_moodlet_emotion(self):
+        self.agent.add_moodlet("happy", 3)
+        self.agent.set_emotional_state("happy")
+        self.agent.tick_moodlets()
+        self.assertIn("happy", self.agent.physio.moodlets)
+        self.assertEqual(self.agent.physio.emotional_state, "happy")
+
+    def test_life_stage_transition(self):
+        self.agent.persona.age = 70
+        self.agent.update_life_stage()
+        self.assertEqual(self.agent.persona.life_stage, "elder")
+
+    def test_death_and_consequences(self):
+        self.agent.die(100)
+        self.assertFalse(self.agent.alive)
+        self.assertEqual(self.agent.time_of_death, 100)
+
+    def test_job_income(self):
+        balance_before = self.agent.money_balance
+        self.agent.receive_income(10)
+        self.assertGreater(self.agent.money_balance, balance_before)
+
+    def test_relationship_social_memory(self):
+        self.agent.update_relationship("Alice", 0.5)
+        self.agent.remember_social_interaction({"with": "Alice", "type": "talk"})
+        self.assertIn("Alice", self.agent.relationships)
+        self.assertEqual(self.agent.relationships["Alice"], 0.5)
+        self.assertEqual(self.agent.social_memory[0]["with"], "Alice")
+
+    def test_persistence_stubs(self):
+        state = self.agent.serialize_state()
+        self.agent.load_state(state)
+        self.agent.checkpoint_stub()  # Should not raise
+
 
 if __name__ == "__main__":
     unittest.main()

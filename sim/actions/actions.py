@@ -24,7 +24,7 @@ import re
 from typing import Any, Dict, Optional
 from dataclasses import dataclass
 
-ACTION_RE = re.compile(r'^(SAY|MOVE|INTERACT|THINK|PLAN|SLEEP|EAT|WORK|CONTINUE|RELAX|EXPLORE|BUY|SELL)(\((.*)\))?$')
+ACTION_RE = re.compile(r'^(SAY|MOVE|INTERACT|THINK|PLAN|SLEEP|EAT|WORK|CONTINUE|RELAX|EXPLORE|BUY|SELL|TRADE)(\((.*)\))?$')
 
 # Action duration in ticks (5 minutes per tick)
 ACTION_DURATIONS = {
@@ -41,6 +41,7 @@ ACTION_DURATIONS = {
     "EXPLORE": 6, # 30 minutes
     "BUY": 1,
     "SELL": 1,
+    "TRADE": 2,  # Agent-to-agent trade
 }
 
 # Action costs (physio effects)
@@ -58,7 +59,56 @@ ACTION_COSTS = {
     "EXPLORE": {"energy": -0.1, "stress": -0.05},
     "BUY": {"energy": -0.01},
     "SELL": {"energy": -0.01},
+    "TRADE": {"energy": -0.02, "stress": 0.01},
 }
+def execute_trade_action(agent: Any, world: Any, params: Dict = None) -> ActionResult:
+    """
+    Execute TRADE action for agent-to-agent trading.
+    Args:
+        agent: The agent initiating the trade.
+        world: The world context.
+        params: Dict with keys: 'partner' (agent name), 'give' (dict: item, qty), 'receive' (dict: item, qty)
+    Returns:
+        ActionResult with success status and effects.
+    """
+    params = params or {}
+    partner_name = params.get("partner")
+    give = params.get("give", {})
+    receive = params.get("receive", {})
+    if not partner_name or not give or not receive:
+        return ActionResult(False, "Invalid TRADE parameters.")
+    # Find partner agent in world
+    partner = None
+    for a in getattr(world, '_agents', []):
+        if getattr(a.persona, 'name', None) == partner_name:
+            partner = a
+            break
+    if not partner:
+        return ActionResult(False, f"Trade partner '{partner_name}' not found.")
+    # Both agents must be in the same place
+    if getattr(agent, 'place', None) != getattr(partner, 'place', None):
+        return ActionResult(False, f"Both agents must be in the same place to trade.")
+    # Validate agent has items to give
+    give_item = give.get("item")
+    give_qty = give.get("qty", 1)
+    if not agent.inventory.has(give_item, give_qty):
+        return ActionResult(False, f"You do not have enough {give_item} to trade.")
+    # Validate partner has items to give
+    receive_item = receive.get("item")
+    receive_qty = receive.get("qty", 1)
+    if not partner.inventory.has(receive_item, receive_qty):
+        return ActionResult(False, f"Partner does not have enough {receive_item} to trade.")
+    # Perform trade
+    agent.inventory.remove(give_item, give_qty)
+    partner.inventory.add(world.places[agent.place].inventory.ITEMS[give_item], give_qty)
+    partner.inventory.remove(receive_item, receive_qty)
+    agent.inventory.add(world.places[agent.place].inventory.ITEMS[receive_item], receive_qty)
+    return ActionResult(
+        True,
+        f"Traded {give_qty} {give_item} for {receive_qty} {receive_item} with {partner_name}.",
+        duration=get_action_duration("TRADE"),
+        effects=get_action_effects("TRADE")
+    )
 
 
 @dataclass
@@ -296,4 +346,112 @@ def execute_interact_action(agent: Any, world: Any, params: Dict = None) -> Acti
         message=f"Interacting with {target}: {action_type}",
         duration=get_action_duration("INTERACT"),
         effects=get_action_effects("INTERACT")
+    )
+
+
+def execute_buy_action(agent: Any, world: Any, params: Dict = None) -> ActionResult:
+    def execute_sell_action(agent: Any, world: Any, params: Dict = None) -> ActionResult:
+        """
+        Execute SELL action for an agent.
+        Args:
+            agent: The agent performing the action.
+            world: The world context.
+            params: Action parameters (item, qty).
+        Returns:
+            ActionResult with success status and effects.
+        """
+        params = params or {}
+        item_id = params.get("item")
+        qty = params.get("qty", 1)
+        place = world.places.get(agent.place)
+        if not place or not getattr(place, "vendor", None):
+            return ActionResult(
+                success=False,
+                message=f"No vendor at current location: {getattr(agent, 'place', None)}"
+            )
+        vendor = place.vendor
+        if not item_id or not isinstance(qty, int) or qty <= 0:
+            return ActionResult(
+                success=False,
+                message="Invalid item or quantity for SELL action"
+            )
+        if not agent.inventory.has(item_id, qty):
+            return ActionResult(
+                success=False,
+                message=f"Not enough {item_id} to sell (need {qty})"
+            )
+        buyback_price = vendor.buyback.get(item_id, 0) * qty
+        if buyback_price <= 0:
+            return ActionResult(
+                success=False,
+                message=f"Vendor does not buy {item_id}"
+            )
+        # Attempt sale
+        success = vendor.sell(item_id, qty, agent)
+        if not success:
+            return ActionResult(
+                success=False,
+                message=f"Sale failed for {qty} of {item_id}"
+            )
+        return ActionResult(
+            success=True,
+            message=f"Sold {qty} of {item_id} for {buyback_price}",
+            duration=get_action_duration("SELL"),
+            effects=get_action_effects("SELL")
+        )
+    """
+    Execute BUY action for an agent.
+    Args:
+        agent: The agent performing the action.
+        world: The world context.
+        params: Action parameters (item, qty).
+    Returns:
+        ActionResult with success status and effects.
+    """
+    params = params or {}
+    item_id = params.get("item")
+    qty = params.get("qty", 1)
+    place = world.places.get(agent.place)
+    if not place or not getattr(place, "vendor", None):
+        return ActionResult(
+            success=False,
+            message=f"No vendor at current location: {getattr(agent, 'place', None)}"
+        )
+    vendor = place.vendor
+    if not item_id or not isinstance(qty, int) or qty <= 0:
+        return ActionResult(
+            success=False,
+            message="Invalid item or quantity for BUY action"
+        )
+    if not vendor.has(item_id, qty):
+        return ActionResult(
+            success=False,
+            message=f"Vendor does not have enough stock of {item_id}"
+        )
+    price = vendor.prices.get(item_id, 0) * qty
+    if agent.money_balance < price:
+        return ActionResult(
+            success=False,
+            message=f"Not enough money to buy {qty} of {item_id} (need {price})"
+        )
+    # Attempt purchase
+    removed = agent.remove_money(price)
+    if not removed:
+        return ActionResult(
+            success=False,
+            message=f"Failed to deduct money for {qty} of {item_id}"
+        )
+    success = vendor.buy(item_id, qty, agent)
+    if not success:
+        # Refund money if vendor.buy fails
+        agent.add_money(price)
+        return ActionResult(
+            success=False,
+            message=f"Purchase failed for {qty} of {item_id}"
+        )
+    return ActionResult(
+        success=True,
+        message=f"Bought {qty} of {item_id} for {price}",
+        duration=get_action_duration("BUY"),
+        effects=get_action_effects("BUY")
     )
