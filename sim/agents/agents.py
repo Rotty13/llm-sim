@@ -59,6 +59,29 @@ JOB_SITE: Dict[str, str] = {
     "librarian": "Library",
 }
 
+# Default age transitions for life stages
+DEFAULT_AGE_TRANSITIONS: Dict[str, int] = {
+    "child": 0,
+    "teen": 13,
+    "adult": 18,
+    "elder": 65
+}
+
+
+def parse_action_payload(action_str: str) -> Optional[Dict[str, Any]]:
+    """
+    Parse the JSON payload from an action string like 'MOVE({"to":"Office"})'.
+    Returns None if parsing fails.
+    """
+    try:
+        start = action_str.find("(")
+        end = action_str.rfind(")")
+        if start != -1 and end != -1 and end > start:
+            return json.loads(action_str[start + 1:end])
+    except (json.JSONDecodeError, ValueError):
+        pass
+    return None
+
 
 @dataclass
 class Persona:
@@ -195,14 +218,12 @@ class Agent:
             tick: Current simulation tick
         """
         if action.startswith("MOVE"):
-            try:
-                payload = json.loads(action[action.find("(")+1:action.rfind(")")])
+            payload = parse_action_payload(action)
+            if payload:
                 dest = payload.get("to")
                 if dest:
                     self.place = dest
                 print(f"Agent {self.persona.name} performs action: {action} at tick {tick}")
-            except (json.JSONDecodeError, ValueError):
-                pass
 
     def serialize_state(self) -> dict:
         """Serialize agent state for saving."""
@@ -277,12 +298,7 @@ class Agent:
     def update_life_stage(self):
         """Update the agent's life stage based on age and persona's age_transitions."""
         # Use persona's age_transitions if defined, otherwise use defaults
-        age_transitions = self.persona.age_transitions if self.persona.age_transitions else {
-            "child": 0,
-            "teen": 13,
-            "adult": 18,
-            "elder": 65
-        }
+        age_transitions = self.persona.age_transitions if self.persona.age_transitions else DEFAULT_AGE_TRANSITIONS
         for stage, threshold in sorted(age_transitions.items(), key=lambda x: x[1], reverse=True):
             if self.persona.age >= threshold:
                 self.persona.life_stage = stage
@@ -429,11 +445,9 @@ class Agent:
         # Check and enforce schedule
         move_command = enforce_schedule(self.calendar, self.place, tick, self.busy_until)
         if move_command:
-            try:
-                dest = json.loads(move_command[move_command.find("(")+1:move_command.rfind(")")])
-                return {"action": "MOVE", "params": {"to": dest.get("to", "")}, "private_thought": "I need to move to my appointment."}
-            except (json.JSONDecodeError, ValueError):
-                pass
+            payload = parse_action_payload(move_command)
+            if payload:
+                return {"action": "MOVE", "params": {"to": payload.get("to", "")}, "private_thought": "I need to move to my appointment."}
 
         # Rule-based decision-making
         if self.physio.hunger > 0.8:
@@ -495,14 +509,18 @@ class Agent:
                 self.busy_until = appointment.end_tick
                 break
 
-    def update_relationships(self, world: Any):
+    def update_item_ownership(self, world: Any):
         """
         Updates item ownership using the world's `item_ownership` dictionary.
+        Records which items this agent owns.
         """
         if not hasattr(world, 'item_ownership'):
             return
         for item_stack in self.inventory.stacks:
             world.item_ownership[item_stack.item.id] = self.persona.name
+
+    # Alias for backward compatibility
+    update_relationships = update_item_ownership
 
     def act(self, world: Any, decision: Dict[str, Any], tick: int):
         """
