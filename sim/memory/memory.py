@@ -72,12 +72,13 @@ class MemoryStore:
         self.items.append(item)
         print(f"DEBUG: Memory written: {item.text}, importance: {item.importance}")
 
-    def calculate_importance(self, item: MemoryItem) -> float:
+    def calculate_importance(self, item: MemoryItem, persona=None) -> float:
         """
-        Rule-based importance calculation from context:
+        Rule-based importance calculation from context, plus personality trait adjustment:
         - High for emotional/urgent/goal-related words
         - Medium for social or novel events
         - Low for routine or repeated events
+        - Personality traits boost importance for certain types of memories
         """
         high_keywords = ["urgent", "danger", "love", "hate", "goal", "success", "failure", "fear", "excited", "angry", "happy", "sad", "important", "critical"]
         medium_keywords = ["talked", "met", "new", "learned", "helped", "shared", "discussed", "explored", "found", "lost"]
@@ -93,6 +94,15 @@ class MemoryStore:
         for word in low_keywords:
             if word in text:
                 score -= 0.2
+        # Personality trait adjustment (if persona provided)
+        if persona and hasattr(persona, 'traits'):
+            traits = persona.traits
+            if "sad" in text or "failure" in text:
+                score += 0.2 * traits.get("neuroticism", 0.5)
+            if "new" in text or "explore" in text:
+                score += 0.2 * traits.get("openness", 0.5)
+            if "friend" in text or "talk" in text:
+                score += 0.2 * traits.get("extraversion", 0.5)
         # Clamp between 0.0 and 1.0
         score = max(0.0, min(1.0, score))
         # Optionally, boost importance for rare/unique events

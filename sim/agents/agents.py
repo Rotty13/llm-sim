@@ -64,40 +64,12 @@ from sim.agents.movement_controller import MovementController
 from sim.agents.interaction import preference_to_interact
 from sim.actions.actions import parse_action
 from sim.llm.llm_ollama import LLM
-
 # Create a module-level LLM instance for conversation
 llm = LLM()
 
-# Dictionary mapping job names to expected work locations
-JOB_SITE = {
-    "chef": "Restaurant",
-    "teacher": "School",
-    "doctor": "Hospital",
-    "nurse": "Hospital",
-    "engineer": "Office",
-    "programmer": "Office",
-    "artist": "Studio",
-    "musician": "Studio",
-    "writer": "Home",
-    "farmer": "Farm",
-    "clerk": "Store",
-    "shopkeeper": "Store",
-    "baker": "Bakery",
-    "bartender": "Bar",
-    "librarian": "Library",
-    "mechanic": "Garage",
-}
+# Import centralized simulation constants
+from sim.configs.constants import JOB_SITE
 
-def parse_action_payload(action_str: str) -> Optional[Dict[str, Any]]:
-    """
-    Parse an action string and return its payload/params.
-    Wrapper around parse_action for backward compatibility.
-    """
-    try:
-        _, params = parse_action(action_str)
-        return params if params else None
-    except (TypeError, ValueError):
-        return None
 
 
 @dataclass
@@ -162,9 +134,6 @@ class Agent:
         if self.inventory:
             self.inventory.add_item("money", amount)
 
-    def checkpoint_stub(self):
-        """Stub for persistence checkpointing."""
-        pass
 
     def __post_init__(self):
         # If config is provided, enable/disable modules accordingly
@@ -474,19 +443,6 @@ class Agent:
 
     # ...existing code...
 
-    def personality_memory_importance(self, item: MemoryItem) -> float:
-        """
-        Adjust memory importance by personality traits (e.g., neuroticism boosts negative, openness boosts novel).
-        """
-        traits = self.persona.traits
-        importance = item.importance
-        if "sad" in item.text or "failure" in item.text:
-            importance += 0.2 * traits.get("neuroticism", 0.5)
-        if "new" in item.text or "explore" in item.text:
-            importance += 0.2 * traits.get("openness", 0.5)
-        if "friend" in item.text or "talk" in item.text:
-            importance += 0.2 * traits.get("extraversion", 0.5)
-        return max(0.0, min(1.0, importance))
 
     def apply_moodlet_triggers(self):
         """Delegate moodlet triggers to AgentPhysio."""
