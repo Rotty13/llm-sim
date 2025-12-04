@@ -1,3 +1,47 @@
+# ONNX models
 onnx_model(don't use)/Llama-3.2-3B-Instruct-ONNX/
+
+# Python
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs and debug files
+*.log
+llm_log_*.txt
+
+# Temporary files
+tmp_*.py
+*.tmp
+*.temp
+
+# Test/coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Output files (generated data, logs, results)
+outputs/
 
