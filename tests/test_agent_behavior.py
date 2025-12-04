@@ -24,7 +24,7 @@ class TestAgentBehavior(unittest.TestCase):
         self.place.add_agent(self.agent)
         self.coffee = ITEMS["coffee"]
         logger.debug(f"Test coffee item: {self.coffee}")
-            self.agent.inventory.add_item(self.coffee, 2)
+        self.agent.inventory.add_item(self.coffee, 2)
 
     def test_agent_memory_write(self):
         memory_item = MemoryItem(t=0, kind="episodic", text="Test memory", importance=0.5)

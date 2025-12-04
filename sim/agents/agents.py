@@ -32,8 +32,67 @@ from sim.inventory.inventory import Inventory, Item, ITEMS
 from sim.memory.memory import MemoryItem, MemoryStore
 from sim.scheduler.scheduler import Appointment, enforce_schedule
 from sim.utils.utils import now_str
+from sim.agents.controllers import LogicController
+from sim.agents.physio import Physio
+from sim.agents.persona import Persona
+from sim.agents.modules.agent_mood import AgentMood
+from sim.agents.modules.agent_inventory import AgentInventory
+from sim.agents.modules.agent_memory import AgentMemory
+from sim.agents.modules.agent_actions import AgentActions
+from sim.agents.modules.agent_social import AgentSocial
+from sim.agents.modules.agent_serialization import AgentSerialization
+from sim.agents.modules.agent_relationships import AgentRelationships
+from sim.agents.memory_manager import MemoryManager
+from sim.agents.inventory_handler import InventoryHandler
+from sim.agents.decision_controller import DecisionController
+from sim.agents.movement_controller import MovementController
+from sim.agents.interaction import preference_to_interact
+from sim.actions.actions import parse_action
+from sim.llm.llm_ollama import LLM
 
+# Create a module-level LLM instance for conversation
+llm = LLM()
+
+# Dictionary mapping job names to expected work locations
+JOB_SITE = {
+    "chef": "Restaurant",
+    "teacher": "School",
+    "doctor": "Hospital",
+    "nurse": "Hospital",
+    "engineer": "Office",
+    "programmer": "Office",
+    "artist": "Studio",
+    "musician": "Studio",
+    "writer": "Home",
+    "farmer": "Farm",
+    "clerk": "Store",
+    "shopkeeper": "Store",
+    "baker": "Bakery",
+    "bartender": "Bar",
+    "librarian": "Library",
+    "mechanic": "Garage",
+}
+
+def parse_action_payload(action_str: str) -> Optional[Dict[str, Any]]:
+    """
+    Parse an action string and return its payload/params.
+    Wrapper around parse_action for backward compatibility.
+    """
+    try:
+        _, params = parse_action(action_str)
+        return params if params else None
+    except (TypeError, ValueError):
+        return None
+
+
+@dataclass
 class Agent:
+    # Required fields (no defaults - must be provided)
+    persona: Persona
+    
+    # Optional fields with defaults
+    place: str = "Home"
+    config: Optional[Dict[str, bool]] = None
     calendar: List[Appointment] = field(default_factory=list)
     controller: Any = field(default_factory=LogicController)
     mood: Optional[AgentMood] = field(default_factory=AgentMood)
@@ -201,7 +260,7 @@ class Agent:
                 if hasattr(self.physio, key):
                     setattr(self.physio, key, value)
 
-    # ...existing code...
+    def add_money(self, amount: int):
         """Add money to the agent's inventory."""
         if self.inventory:
             self.inventory.add_item("money", amount)
