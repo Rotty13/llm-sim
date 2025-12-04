@@ -39,3 +39,12 @@ class AgentInventory:
 
     def all_items(self):
         return self.items.copy()
+
+    def serialize(self):
+        """Return a serializable copy of inventory items."""
+        return self.items.copy()
+
+    def load(self, data):
+        """Load inventory items from a dict."""
+        if isinstance(data, dict):
+            self.items = data.copy()

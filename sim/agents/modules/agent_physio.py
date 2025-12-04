@@ -7,6 +7,32 @@ class AgentPhysio:
     def __init__(self, physio=None):
         self.physio = physio
 
+    def set_emotional_state(self, state: str):
+        """Set the agent's current emotional state."""
+        if self.physio:
+            self.physio.emotional_state = state
+
+    def set_mood(self, mood: str):
+        """Set the agent's mood."""
+        if self.physio:
+            self.physio.mood = mood
+
+
+    def add_moodlet(self, moodlet: str, duration: int):
+        """Add or refresh a moodlet for a given duration (in ticks)."""
+        if self.physio and hasattr(self.physio, 'moodlets'):
+            self.physio.moodlets[moodlet] = duration
+
+    def update_tick(self, agent, world, tick):
+        """
+        Perform all per-tick physiological updates for the agent.
+        """
+        personality = agent.persona.get_personality() if hasattr(agent.persona, 'get_personality') else None
+        traits = personality.traits if personality and hasattr(personality, 'traits') else None
+        self.decay_needs(traits=traits)
+        self.apply_moodlet_triggers()
+        self.tick_moodlets()
+
     def decay_needs(self, traits=None):
         if self.physio and hasattr(self.physio, 'decay_needs'):
             self.physio.decay_needs(traits=traits)

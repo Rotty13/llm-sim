@@ -22,3 +22,16 @@ class AgentMemory:
 
     def all_semantic(self):
         return self.semantic.copy()
+
+    def serialize(self):
+        """Return a serializable dict of episodic and semantic memory."""
+        return {
+            "episodic": self.episodic.copy(),
+            "semantic": self.semantic.copy()
+        }
+
+    def load(self, data):
+        """Load episodic and semantic memory from a dict."""
+        if isinstance(data, dict):
+            self.episodic = data.get("episodic", []).copy()
+            self.semantic = data.get("semantic", {}).copy()

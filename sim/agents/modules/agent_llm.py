@@ -10,7 +10,7 @@ class AgentLLM:
         self.agent = agent
         self.llm = llm_ollama.LLM()
 
-    def decide_conversation(self, participants, obs, tick, incoming_message, start_dt=None, loglist=None):
+    def decide_conversation(self, agent, participants, obs, tick, incoming_message, start_dt=None, loglist=None):
         system_prompt = (
             "You are a human engaged in a conversation. "
             "You are not being simulated or in a simulation. "

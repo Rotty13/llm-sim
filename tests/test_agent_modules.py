@@ -57,9 +57,11 @@ class TestAgentModules(unittest.TestCase):
         if self.agent.actions is None:
             self.skipTest("AgentActions module is disabled.")
         self.assertIsInstance(self.agent.actions, AgentActions)
-        result = self.agent.actions.perform_action("SAY")
-        self.assertEqual(result, "Action performed: SAY")
-        self.assertEqual(self.agent.actions.get_last_action(), "SAY")
+        result = self.agent.actions.execute(self.agent, None, "SAY", {}, 0)
+        self.assertTrue(result)
+        last_action = self.agent.actions.get_last_action()
+        self.assertIsNotNone(last_action)
+        self.assertEqual(last_action["action"], "SAY")
 
     def test_social_module(self):
         if self.agent.social is None:
