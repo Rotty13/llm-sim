@@ -65,6 +65,7 @@ def run_agent_loop(world, ticks: int = 100):
         world: The simulation world object containing agents and places.
         ticks: Number of simulation ticks to run.
     """
+    from sim.actions.actions import parse_action
     for tick in range(ticks):
         # Advance time in world (if needed)
         if hasattr(world, 'metrics'):
@@ -75,8 +76,10 @@ def run_agent_loop(world, ticks: int = 100):
             # Enforce schedule if needed
             forced_action = enforce_schedule(getattr(agent, 'calendar', []), agent.place, tick, getattr(agent, 'busy_until', -1))
             if forced_action:
-                agent.perform_action(forced_action, world, tick)
+                # Normalize forced_action DSL string to dict
+                action_dict = parse_action(forced_action)
+                agent.perform_action(action_dict, world, tick)
             else:
                 decision = agent.decide(world, agent.place, tick, None)
-                agent.perform_action(decision["action"], world, tick)
+                agent.perform_action(decision, world, tick)
         # Optionally: log tick summary, update world state, etc.

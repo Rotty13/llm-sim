@@ -387,10 +387,19 @@ class Agent:
 
     def use_item(self, item: Item) -> bool:
         """
-        Use an item from the agent's inventory (delegated).
+        Use an item from the agent's inventory and apply its effects to physio.
         """
-        if self.inventory:
-            return self.inventory.remove(item, 1)
+        if self.inventory and self.inventory.remove(item, 1):
+            # Apply item effects to physio
+            if self.physio and hasattr(item, "effects") and isinstance(item.effects, dict):
+                for effect, value in item.effects.items():
+                    if hasattr(self.physio, effect):
+                        old_val = getattr(self.physio, effect)
+                        try:
+                            setattr(self.physio, effect, old_val + value)
+                        except Exception:
+                            pass
+            return True
         return False
 
     def initialize_schedule(self, schedule_data: List[Any]):

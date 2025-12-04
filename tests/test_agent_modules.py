@@ -55,7 +55,9 @@ def test_actions_module(agent):
     if agent.actions is None:
         pytest.skip("AgentActions module is disabled.")
     assert isinstance(agent.actions, AgentActions)
-    result = agent.actions.execute(agent, "SAY", {}, 0)
+    decision = {"action": "SAY", "params": {}}
+    # Use correct argument order: agent, world, decision, tick
+    result = agent.actions.execute(agent, agent.place, decision, 0)
     assert result
     last_action = agent.actions.get_last_action()
     assert last_action is not None
