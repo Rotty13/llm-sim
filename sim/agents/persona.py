@@ -15,7 +15,15 @@ from sim.agents.personality import Personality
 
 @dataclass
 class Persona:
-    """Represents an agent's identity, personality, and life characteristics."""
+    """
+    Represents an agent's identity, personality, and life characteristics.
+    Career attributes:
+        - job: Current job title
+        - job_level: Career stage (entry, mid, senior, retired)
+        - job_experience: Years/months in current job
+        - income: Current income
+        - career_history: List of previous jobs
+    """
     name: str
     age: int
     job: str
@@ -23,6 +31,10 @@ class Persona:
     bio: str
     values: List[str]
     goals: List[str]
+    job_level: str = "entry"
+    job_experience: int = 0
+    income: float = 0.0
+    career_history: List[str] = field(default_factory=list)
     traits: Dict[str, float] = field(default_factory=dict)
     aspirations: List[str] = field(default_factory=list)
     emotional_modifiers: Dict[str, float] = field(default_factory=dict)

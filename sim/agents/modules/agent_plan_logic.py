@@ -12,55 +12,84 @@ class AgentPlanLogic:
         personality = getattr(agent, 'persona', None)
         physio = getattr(agent, 'physio', None)
         traits = getattr(personality, 'traits', {}) if personality else {}
+        # Life stage modifiers
+        stage = getattr(personality, 'life_stage', 'adult') if personality else 'adult'
+        # Example: restrict actions for infants/toddlers/elders
+        restricted_actions = set()
+        if stage in ('infant', 'toddler'):
+            restricted_actions.update(['WORK', 'EXPLORE', 'SAY', 'CLEAN', 'INTERACT'])
+        elif stage == 'elder':
+            restricted_actions.update(['WORK'])
         # Trait-driven actions
         if traits.get('conscientiousness', 0) > 0.8:
-            agent.plan.append("WORK")
+            if "WORK" not in restricted_actions:
+                agent.plan.append("WORK")
         if traits.get('openness', 0) > 0.8:
-            agent.plan.append("EXPLORE")
+            if "EXPLORE" not in restricted_actions:
+                agent.plan.append("EXPLORE")
         if traits.get('extraversion', 0) > 0.8 and getattr(physio, 'social', 1) < 0.5:
-            agent.plan.append("SAY")
+            if "SAY" not in restricted_actions:
+                agent.plan.append("SAY")
         # Needs-driven actions
         if getattr(physio, 'hunger', 0) > 0.8:
-            agent.plan.append("EAT")
+            if "EAT" not in restricted_actions:
+                agent.plan.append("EAT")
         if getattr(physio, 'energy', 1) < 0.2:
-            agent.plan.append("REST")
+            if "REST" not in restricted_actions:
+                agent.plan.append("REST")
         if getattr(physio, 'stress', 0) > 0.7:
-            agent.plan.append("RELAX")
+            if "RELAX" not in restricted_actions:
+                agent.plan.append("RELAX")
         if getattr(physio, 'fun', 1) < 0.3:
-            agent.plan.append("EXPLORE")
+            if "EXPLORE" not in restricted_actions:
+                agent.plan.append("EXPLORE")
         if getattr(physio, 'social', 1) < 0.3:
-            agent.plan.append("SAY")
+            if "SAY" not in restricted_actions:
+                agent.plan.append("SAY")
         if getattr(physio, 'hygiene', 1) < 0.3:
-            agent.plan.append("CLEAN")
+            if "CLEAN" not in restricted_actions:
+                agent.plan.append("CLEAN")
         if getattr(physio, 'comfort', 1) < 0.3:
-            agent.plan.append("RELAX")
+            if "RELAX" not in restricted_actions:
+                agent.plan.append("RELAX")
         if getattr(physio, 'bladder', 1) < 0.2:
-            agent.plan.append("TOILET")
+            if "TOILET" not in restricted_actions:
+                agent.plan.append("TOILET")
         # Moodlet-driven actions
         moodlets = getattr(physio, 'moodlets', []) if physio else []
         for moodlet in moodlets:
             if moodlet == "starving":
-                agent.plan.append("EAT")
+                if "EAT" not in restricted_actions:
+                    agent.plan.append("EAT")
             elif moodlet == "exhausted":
-                agent.plan.append("REST")
+                if "REST" not in restricted_actions:
+                    agent.plan.append("REST")
             elif moodlet == "lonely":
-                agent.plan.append("SAY")
+                if "SAY" not in restricted_actions:
+                    agent.plan.append("SAY")
             elif moodlet == "bored":
-                agent.plan.append("EXPLORE")
+                if "EXPLORE" not in restricted_actions:
+                    agent.plan.append("EXPLORE")
             elif moodlet == "dirty":
-                agent.plan.append("CLEAN")
+                if "CLEAN" not in restricted_actions:
+                    agent.plan.append("CLEAN")
             elif moodlet == "uncomfortable":
-                agent.plan.append("RELAX")
+                if "RELAX" not in restricted_actions:
+                    agent.plan.append("RELAX")
             elif moodlet == "urgent_bladder":
-                agent.plan.append("TOILET")
+                if "TOILET" not in restricted_actions:
+                    agent.plan.append("TOILET")
             elif moodlet == "stressed":
-                agent.plan.append("RELAX")
+                if "RELAX" not in restricted_actions:
+                    agent.plan.append("RELAX")
         # Emotional state triggers
         emotional_state = getattr(physio, 'emotional_state', None) if physio else None
         if emotional_state == "angry":
-            agent.plan.append("SAY")
+            if "SAY" not in restricted_actions:
+                agent.plan.append("SAY")
         if emotional_state == "happy":
-            agent.plan.append("EXPLORE")
+            if "EXPLORE" not in restricted_actions:
+                agent.plan.append("EXPLORE")
     @staticmethod
     def decide(agent, world, obs_text, tick, start_dt):
         """

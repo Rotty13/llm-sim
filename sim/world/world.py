@@ -27,6 +27,7 @@ from sim.inventory.inventory import Inventory, ITEMS
 from sim.utils.metrics import SimulationMetrics
 from dataclasses import dataclass, field
 import logging
+import yaml
 
 # Use TYPE_CHECKING to avoid circular imports
 if TYPE_CHECKING:
@@ -421,15 +422,16 @@ class World:
                     reward = 10  # Default reward if not defined
 
                 # Simulate work by reducing agent's energy and adding a reward
-                agent.physio.energy -= 0.1
+                if agent.physio and hasattr(agent.physio, 'energy'):
+                    agent.physio.energy -= 0.1
 
                 # Ensure the money item exists in ITEMS
                 money_item = ITEMS.get("money")
-                if money_item:
+                if money_item and agent.inventory:
                     agent.inventory.add(money_item, reward)
                     logger.info(f"Agent {agent.persona.name} earned {reward} units for working.")
                 else:
-                    logger.warning("Money item not found in ITEMS. Reward not added.")
+                    logger.warning("Money item not found in ITEMS or agent inventory missing. Reward not added.")
 
                 return True
 
@@ -448,7 +450,7 @@ class World:
         if agent.persona.values and "kindness" in agent.persona.values:
             decision["action"] = "help"
             decision["reason"] = "Agent values kindness."
-        elif agent.physio.hunger > 0.8:
+        elif agent.physio and hasattr(agent.physio, 'hunger') and agent.physio.hunger > 0.8:
             decision["action"] = "eat"
             decision["reason"] = "Agent is very hungry."
         else:
@@ -530,5 +532,96 @@ class World:
         """
         return self.metrics.summary()
 
-from sim.utils.metrics import SimulationMetrics
+    def serialize_state(self) -> dict:
+        """Serialize the entire world state to a dict suitable for YAML export."""
+        return {
+            "places": {
+                name: {
+                    "neighbors": place.neighbors,
+                    "capabilities": list(place.capabilities),
+                    "vendor": {
+                        "prices": place.vendor.prices if place.vendor else {},
+                        "stock": place.vendor.stock if place.vendor else {},
+                        "buyback": place.vendor.buyback if place.vendor else {},
+                    } if place.vendor else None,
+                    "inventory": place.inventory.serialize() if hasattr(place.inventory, 'serialize') else {},
+                    "agents": [agent.persona.name for agent in place.agents],
+                    "purpose": place.purpose,
+                }
+                for name, place in self.places.items()
+            },
+            "agents": [agent.serialize_state() for agent in self._agents],
+            "events": list(self.events),
+            "agent_locations": self.agent_locations,
+            "item_ownership": self.item_ownership,
+            "metrics": self.metrics.serialize() if hasattr(self.metrics, 'serialize') else {},
+        }
+
+    def save_state_yaml(self, filepath: str):
+        """Save the world state to a YAML file."""
+        with open(filepath, 'w', encoding='utf-8') as f:
+            yaml.dump(self.serialize_state(), f, default_flow_style=False, allow_unicode=True)
+
+    @classmethod
+    def load_state_yaml(cls, filepath: str):
+        """Load world state from a YAML file and return a World instance."""
+        with open(filepath, 'r', encoding='utf-8') as f:
+            state = yaml.safe_load(f)
+        # Reconstruct places
+        places = {}
+        for name, pdata in state.get('places', {}).items():
+            vendor = None
+            if pdata.get('vendor'):
+                vendor = Vendor(
+                    prices=pdata['vendor'].get('prices', {}),
+                    stock=pdata['vendor'].get('stock', {}),
+                    buyback=pdata['vendor'].get('buyback', {})
+                )
+            place = Place(
+                name=name,
+                neighbors=pdata.get('neighbors', []),
+                capabilities=set(pdata.get('capabilities', [])),
+                vendor=vendor,
+                purpose=pdata.get('purpose', "")
+            )
+            # Optionally restore inventory if needed
+            if 'inventory' in pdata and hasattr(place.inventory, 'load'):
+                place.inventory.load(pdata['inventory'])
+            places[name] = place
+        # Reconstruct agents
+        from sim.agents.agents import Agent, Persona
+        agents = []
+        for agent_data in state.get('agents', []):
+            persona_data = agent_data.get("persona", {})
+            persona = Persona(
+                name=persona_data.get("name", ""),
+                age=persona_data.get("age", 0),
+                job=persona_data.get("job", "unemployed"),
+                city=persona_data.get("city", "Unknown"),
+                bio=persona_data.get("bio", ""),
+                values=persona_data.get("values", []),
+                goals=persona_data.get("goals", []),
+                job_level=persona_data.get("job_level", "entry"),
+                job_experience=persona_data.get("job_experience", 0),
+                income=persona_data.get("income", 0.0),
+                career_history=persona_data.get("career_history", []),
+                traits=persona_data.get("traits", {}),
+                aspirations=persona_data.get("aspirations", []),
+                emotional_modifiers=persona_data.get("emotional_modifiers", {}),
+                age_transitions=persona_data.get("age_transitions", {}),
+                life_stage=persona_data.get("life_stage", "adult")
+            )
+            agent = Agent(persona=persona)
+            agent.load_state(agent_data)
+            agents.append(agent)
+        # Create World instance
+        world = cls(places=places)
+        world._agents = agents
+        world.events = deque(state.get('events', []))
+        world.agent_locations = state.get('agent_locations', {})
+        world.item_ownership = state.get('item_ownership', {})
+        # Optionally restore metrics
+        if 'metrics' in state and hasattr(world.metrics, 'load'):
+            world.metrics.load(state['metrics'])
+        return world
 

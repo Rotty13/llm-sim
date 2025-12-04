@@ -4,6 +4,20 @@ Handles needs decay, moodlet triggers, and moodlet ticking.
 """
 
 class AgentPhysio:
+    def get_life_stage_modifiers(self, agent):
+        """Return physiological modifiers based on agent's life stage."""
+        stage = getattr(agent.persona, 'life_stage', 'adult')
+        # Example: hunger decay, energy decay, stress sensitivity, etc.
+        modifiers = {
+            'infant':    {'hunger_decay': 1.5, 'energy_decay': 2.0, 'stress_sensitivity': 1.2},
+            'toddler':   {'hunger_decay': 1.3, 'energy_decay': 1.7, 'stress_sensitivity': 1.1},
+            'child':     {'hunger_decay': 1.1, 'energy_decay': 1.3, 'stress_sensitivity': 1.0},
+            'teen':      {'hunger_decay': 1.0, 'energy_decay': 1.1, 'stress_sensitivity': 1.0},
+            'young adult': {'hunger_decay': 1.0, 'energy_decay': 1.0, 'stress_sensitivity': 1.0},
+            'adult':     {'hunger_decay': 1.0, 'energy_decay': 1.0, 'stress_sensitivity': 1.0},
+            'elder':     {'hunger_decay': 0.9, 'energy_decay': 0.8, 'stress_sensitivity': 1.3},
+        }
+        return modifiers.get(stage, modifiers['adult'])
     def __init__(self, physio=None):
         self.physio = physio
 

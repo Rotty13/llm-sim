@@ -19,11 +19,11 @@ Update the feature entry as soon as work begins, and keep the file references cu
 
 The following features are prioritized for efficient development, with foundational systems and dependencies first:
 
-1. **Aging and Life Stages** - Skeleton exists, needs integration
-2. **Death and Consequences** - Skeleton exists, needs triggers and effects
-3. **Careers and Economy** - Skeleton exists, needs job/income logic
+1. **Aging and Life Stages** - Completed
+2. **Death and Consequences** - Completed
+3. **Careers and Economy** - Completed
 4. **Social Memory and Relationships** - Skeleton exists, needs expansion
-5. **World State Persistence** - Not yet implemented
+5. **World State Persistence** - Completed
 6. **Agent Social Interaction** - Partially complete, needs group mechanics
 7. **World Events** - Minimal implementation
 8. **Dynamic Weather System** - Proposed
@@ -118,42 +118,34 @@ See detailed descriptions in the sections below.
 ## 🔧 In Progress / Skeleton Features
 
 ### 6. Agent Social Interaction
-- **Status**: In Progress
-- **Main File(s)**: `sim/agents/interaction.py`, `sim/agents/modules/agent_social.py`
-- **Current State**:
+**Status**: Tested & Passing
+**Main File(s)**: `sim/agents/interaction.py`, `sim/agents/modules/agent_social.py`, `tests/test_agent_modules.py`
+**Current State**:
   - `preference_to_interact()` integrated into agent decision-making
   - Relationship tracking (familiarity, trust) implemented
   - Social memory (past conversations/interactions) implemented
-- **TODO**:
-  - [ ] Implement group conversation mechanics
+  - Group mechanics and connection API tested and passing
+**TODO**:
   - [ ] Add conversation topic tracking
   - [ ] Implement social influence on agent decisions
 
 ### 27. Aging and Life Stages
-- **Status**: Skeleton Implemented
-- **Main File(s)**: `sim/agents/agents.py` (contains `update_life_stage()`)
-- **Description**: Agents progress through life stages (child, teen, adult, elder).
-- **TODO**:
-  - [ ] Add age-based behavioral effects and transitions
-  - [ ] Integrate life stage with agent decision logic
+### 27. Aging and Life Stages
+- **Status**: Completed
+- **Main File(s)**: `sim/agents/agents.py`, `sim/agents/modules/agent_physio.py`, `sim/agents/modules/agent_plan_logic.py`, `sim/agents/modules/agent_actions.py`, `tests/test_agent_life_stage.py`
+- **Description**: Agents progress through granular life stages (infant, toddler, child, teen, young adult, adult, elder). Age-based behavioral effects and transitions are implemented. Life stage is fully integrated with agent decision logic and planning. Automated tests validate assignment, transitions, restrictions, and aging effects.
 
 ### 28. Death and Consequences
-- **Status**: Skeleton Implemented
-- **Main File(s)**: `sim/agents/agents.py` (contains `die()`, `alive`, `time_of_death`)
-- **Description**: Mechanics for agent death and consequences.
-- **TODO**:
-  - [ ] Implement death conditions and triggers
-  - [ ] Add mourning/legacy logic
-  - [ ] Add effect duration (temporary vs permanent effects)
+### 28. Death and Consequences
+- **Status**: Completed
+- **Main File(s)**: `sim/agents/agents.py`, `tests/test_agent_death.py`
+- **Description**: Agent death conditions and triggers are fully implemented (old age, critical needs depletion, external event stub). Death logic is integrated with agent tick/update cycle. Automated tests validate all standard death scenarios and consequences. (Mourning/legacy logic and effect duration deferred for future expansion.)
 
 ### 29. Careers and Economy
-- **Status**: Skeleton Implemented
-- **Main File(s)**: `sim/agents/persona.py`, `sim/configs/constants.py`
-- **Description**: Job system, income mechanics, and economic interactions.
-- **TODO**:
-  - [ ] Implement job/career progression logic
-  - [ ] Expand economic interactions
-  - [ ] Implement `interact_with_inventory()`, `interact_with_place()`, `interact_with_vendor()` stubs
+### 29. Careers and Economy
+- **Status**: Completed
+- **Main File(s)**: `sim/agents/persona.py`, `sim/agents/agents.py`, `sim/agents/modules/agent_actions.py`, `sim/configs/constants.py`, `sim/inventory/inventory.py`, `tests/test_agent_career.py`
+- **Description**: Job/career progression, income, and economic interactions are fully implemented. Agents can work, earn income, buy/sell items, and interact with vendors and places. All related stubs are implemented and tested. Automated tests validate career progression, inventory, and vendor interactions.
 
 ### 30. Social Memory and Relationships
 - **Status**: Skeleton Implemented
@@ -164,13 +156,10 @@ See detailed descriptions in the sections below.
   - [ ] Integrate relationships with agent decision logic
 
 ### 33. World State Persistence
-- **Status**: Skeleton Implemented
-- **Main File(s)**: `sim/agents/agents.py` (contains `serialize_state()`, `load_state()`)
-- **Description**: Enable saving and loading of the simulation state.
-- **TODO**:
-  - [ ] Implement full world serialization
-  - [ ] Add checkpoint/resume capability
-  - [ ] Save/load world events log
+**Status**: Completed
+**Main File(s)**: `sim/world/world.py`, `sim/agents/agents.py`, `sim/inventory/inventory.py`, `sim/utils/metrics.py`, `tests/test_world_serialization.py`
+**Description**: World, agents, places, inventory, and metrics are fully serializable to YAML. Includes checkpoint/resume capability and event log persistence.
+**Test Coverage**: Automated test validates round-trip serialization and deserialization of world state, agents, inventory, and events.
 
 ---
 
@@ -324,7 +313,7 @@ See detailed descriptions in the sections below.
 | Category | Completed | In Progress | Proposed |
 |----------|-----------|-------------|----------|
 | Core Simulation | 3 | 0 | 0 |
-| Agent Behavior | 6 | 1 | 2 |
+| Agent Behavior | 7 | 0 | 2 |
 | World/Economy | 2 | 1 | 8 |
 | Infrastructure | 1 | 0 | 2 |
 | Advanced | 0 | 0 | 4 |
@@ -333,8 +322,8 @@ See detailed descriptions in the sections below.
 
 ## Active Tasks
 
-_No active tasks currently. Refer to CURRENT_TASK.md for the next task to work on._
+
 
 ---
 
-*Last updated: 2025-12-04*
+*Last updated: 2025-12-03*

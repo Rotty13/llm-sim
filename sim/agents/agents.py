@@ -3,6 +3,7 @@ from __future__ import annotations
 """
 agents.py
 
+
 Defines agent classes and data structures for llm-sim simulation.
 Contains Persona, Physio, and Agent dataclasses for modeling agent behavior,
 physiological state, and decision-making.
@@ -18,6 +19,8 @@ Modular Delegation:
 - Action execution is delegated to AgentActions (sim.agents.modules.agent_actions).
 - Inventory management is delegated to AgentInventory (sim.agents.modules.agent_inventory).
 - Other concerns (memory, social, serialization, relationships) are handled by respective modules.
+  
+**Any extension of agent functionality—including life stage logic, behavioral modifiers, new capabilities, or decision logic—should be delegated to appropriate modules (e.g., AgentPhysio, AgentPlanLogic, AgentActions, AgentInventory, AgentMemory, etc.) whenever possible. This ensures modularity, maintainability, and clarity.**
 
 Key Constants:
 - JOB_SITE: Dictionary mapping job names to expected work locations.
@@ -73,9 +76,104 @@ from sim.configs.constants import JOB_SITE
 
 @dataclass
 class Agent:
+    def get_recent_conversation_topics(self, limit=10, agent_name=None):
+        """Return recent conversation topics from AgentSocial."""
+        if self.social:
+            return self.social.get_recent_topics(agent_name or self.persona.name, limit)
+        return []
+    def update_affinity(self, other: str, delta: float):
+        if self.social:
+            self.social.update_affinity(other, delta)
+
+    def update_rivalry(self, other: str, delta: float):
+        if self.social:
+            self.social.update_rivalry(other, delta)
+
+    def update_influence(self, other: str, delta: float):
+        if self.social:
+            self.social.update_influence(other, delta)
+    # General interaction methods
+    def work_at_place(self, place: Any, world: Any, tick: int) -> bool:
+        """Delegate work action to AgentActions."""
+        if self.actions:
+            return self.actions.work_at_place(self, place, world, tick)
+        return False
+
+    def buy_from_vendor(self, vendor: Any, item_id: str, qty: int = 1) -> bool:
+        """Delegate buy action to AgentActions."""
+        if self.actions:
+            return self.actions.buy_from_vendor(self, vendor, item_id, qty)
+        return False
+
+    def sell_to_vendor(self, vendor: Any, item_id: str, qty: int = 1) -> bool:
+        """Delegate sell action to AgentActions."""
+        if self.actions:
+            return self.actions.sell_to_vendor(self, vendor, item_id, qty)
+        return False
+
+    def interact_with_inventory(self, inventory: Any, item_id: str, qty: int = 1) -> bool:
+        """Delegate inventory interaction to AgentActions."""
+        if self.actions:
+            return self.actions.interact_with_inventory(self, inventory, item_id, qty)
+        return False
+
+    def interact_with_place(self, place: Any, item_id: str, qty: int = 1) -> bool:
+        """Delegate place interaction to AgentActions."""
+        if self.actions:
+            return self.actions.interact_with_place(self, place, item_id, qty)
+        return False
     # Required fields (no defaults - must be provided)
     persona: Persona
     place: str = "Home"
+    config: Optional[Dict[str, bool]] = None
+    calendar: List[Appointment] = field(default_factory=list)
+    controller: Any = field(default_factory=LogicController)
+    mood: Optional[AgentMood] = field(default_factory=AgentMood)
+    physio: Optional[Physio] = field(default_factory=Physio)
+    inventory: Optional[AgentInventory] = field(default_factory=AgentInventory)
+    memory: Optional[AgentMemory] = field(default_factory=AgentMemory)
+    actions: Optional[AgentActions] = field(default_factory=AgentActions)
+    social: Optional[AgentSocial] = field(default_factory=AgentSocial)
+    serialization: Optional[AgentSerialization] = field(default_factory=AgentSerialization)
+    relationships: Optional[AgentRelationships] = field(default_factory=AgentRelationships)
+    plan: List[str] = field(default_factory=list)
+    obs_list: List[str] = field(default_factory=list)
+    conversation_history: List[Dict[str, Any]] = field(default_factory=list)
+    memory_manager: Optional[MemoryManager] = field(default_factory=MemoryManager)
+    inventory_handler: Optional[InventoryHandler] = field(default_factory=InventoryHandler)
+    decision_controller: Optional[DecisionController] = field(default_factory=DecisionController)
+    movement_controller: Optional[MovementController] = field(default_factory=MovementController)
+    busy_until: int = 0
+    alive: bool = True
+    time_of_death: Optional[int] = None
+    social_memory: List[Dict[str, Any]] = field(default_factory=list)
+    # Runtime fields (not serialized)
+    _last_say_tick: int = field(default=-999, repr=False)
+    _last_diary_tick: int = field(default=-999, repr=False)
+    _last_diary: str = field(default="", repr=False)
+
+    def assign_job(self, job: str, job_level: str = "entry", income: float = 0.0):
+        """Assign a new job to the agent, updating career history and resetting experience."""
+        if self.persona.job:
+            self.persona.career_history.append(self.persona.job)
+        self.persona.job = job
+        self.persona.job_level = job_level
+        self.persona.job_experience = 0
+        self.persona.income = income
+
+    def promote(self, new_level: str, income_increase: float = 0.0):
+        """Promote agent to a new job level and optionally increase income."""
+        self.persona.job_level = new_level
+        if income_increase:
+            self.persona.income += income_increase
+
+    def increment_job_experience(self, amount: int = 1):
+        """Increment job experience by amount (default 1)."""
+        self.persona.job_experience += amount
+
+    def update_income(self):
+        """Add current income to agent's money balance."""
+        self.receive_income(int(self.persona.income))
     config: Optional[Dict[str, bool]] = None
     calendar: List[Appointment] = field(default_factory=list)
     controller: Any = field(default_factory=LogicController)
@@ -109,13 +207,19 @@ class Agent:
         self.time_of_death = tick
 
     def update_life_stage(self):
-        """Update life stage based on age."""
+        """Update life stage based on age with granular transitions."""
         age = getattr(self.persona, 'age', None)
         if age is not None:
-            if age < 13:
+            if age < 3:
+                self.persona.life_stage = "infant"
+            elif age < 6:
+                self.persona.life_stage = "toddler"
+            elif age < 13:
                 self.persona.life_stage = "child"
             elif age < 20:
                 self.persona.life_stage = "teen"
+            elif age < 36:
+                self.persona.life_stage = "young adult"
             elif age < 65:
                 self.persona.life_stage = "adult"
             else:
@@ -171,7 +275,35 @@ class Agent:
         self.agent_plan_logic = AgentPlanLogic()
 
 
-
+    def check_death_conditions(self, tick: int, world: Any = None):
+        """Check if agent meets any death conditions and trigger death if so."""
+        # Old age death threshold (can be customized)
+        MAX_AGE = 100
+        age = getattr(self.persona, 'age', None)
+        if age is not None and age >= MAX_AGE:
+            self.die(tick)
+            return 'old_age'
+        # Critical needs depletion
+        if self.agent_physio and self.agent_physio.physio:
+            physio = self.agent_physio.physio
+            if getattr(physio, 'hunger', 1) <= 0:
+                self.die(tick)
+                return 'starvation'
+            if getattr(physio, 'energy', 1) <= 0:
+                self.die(tick)
+                return 'exhaustion'
+            if getattr(physio, 'stress', 0) >= 1:
+                self.die(tick)
+                return 'stress'
+            if getattr(physio, 'bladder', 1) <= 0:
+                self.die(tick)
+                return 'bladder_failure'
+        # External event stub (for future expansion)
+        # if world and hasattr(world, 'external_death_event'):
+        #     if world.external_death_event(self):
+        #         self.die(tick)
+        #         return 'external_event'
+        return None
 
     def get_relationship(self, other: str) -> Dict[str, float]:
         if self.relationships:
@@ -194,12 +326,26 @@ class Agent:
     def tick_update(self, world: Any, tick: int):
         """
         Update agent state each tick by delegating to modules, including per-tick plan update.
+        Also checks for death conditions and triggers death if needed.
         """
+        if not self.alive:
+            return
+        # Check death conditions BEFORE updating physio, so agents with critical needs die immediately
+        death_reason = self.check_death_conditions(tick, world)
+        if not self.alive:
+            return
         if self.agent_physio:
             self.agent_physio.update_tick(self, world, tick)
-        # Restore per-tick plan update
-        from sim.agents.modules.agent_plan_logic import AgentPlanLogic
-        AgentPlanLogic.update_plan(self)
+        # Check death conditions again in case needs changed during update
+        death_reason = self.check_death_conditions(tick, world)
+        if self.alive:
+            # Restore per-tick plan update
+            from sim.agents.modules.agent_plan_logic import AgentPlanLogic
+            AgentPlanLogic.update_plan(self)
+        # Career progression: increment experience and pay income if agent has a job
+        if self.persona.job:
+            self.increment_job_experience()
+            self.update_income()
 
     def perform_action(self, decision: Dict[str, Any], world: Any, tick: int):
         """
@@ -235,11 +381,23 @@ class Agent:
         if self.memory:
             memory_state = self.memory.serialize()
         plan_state = self.plan.copy() if self.plan else []
+        # Serialize relationships as a plain dict
+        relationships_state = {}
+        if self.relationships and hasattr(self.relationships, 'serialize'):
+            relationships_state = self.relationships.serialize()
+        elif self.relationships and hasattr(self.relationships, '__dict__'):
+            relationships_state = dict(self.relationships.__dict__)
+        else:
+            relationships_state = {}
         return {
             "persona": {
                 "name": self.persona.name,
                 "age": self.persona.age,
                 "job": self.persona.job,
+                "job_level": self.persona.job_level,
+                "job_experience": self.persona.job_experience,
+                "income": self.persona.income,
+                "career_history": self.persona.career_history,
                 "city": self.persona.city,
                 "bio": self.persona.bio,
                 "values": self.persona.values,
@@ -257,7 +415,7 @@ class Agent:
             "plan": plan_state,
             "alive": self.alive,
             "time_of_death": self.time_of_death,
-            "relationships": self.relationships,
+            "relationships": relationships_state,
         }
 
     def load_state(self, state: dict):
@@ -316,7 +474,20 @@ class Agent:
         Delegate conversation decision logic to AgentLLM module.
         """
         if self.agent_llm:
-            return self.agent_llm.decide_conversation(self, participants, obs, tick, incoming_message, start_dt, loglist)
+            result = self.agent_llm.decide_conversation(self, participants, obs, tick, incoming_message, start_dt, loglist)
+            # Topic extraction: try 'topic' in result, else from incoming_message
+            topic = None
+            if isinstance(result, dict):
+                topic = result.get('topic')
+            if not topic and isinstance(incoming_message, dict):
+                topic = incoming_message.get('topic')
+            # Log topic in AgentSocial
+            if topic and self.social:
+                # Log interaction with all participants except self
+                for p in participants:
+                    if p != self:
+                        self.social.log_interaction(p.persona.name, 'conversation', topic)
+            return result
         return {}
 
     # ...existing code...
@@ -336,7 +507,11 @@ class Agent:
     def decide(self, world: Any, obs_text: str, tick: int, start_dt: Optional[datetime]) -> Dict[str, Any]:
         """
         Delegate decision-making logic to AgentPlanLogic module.
+        Relationship effects can be integrated here for future expansion.
         """
+        # Example: use affinity/rivalry/influence in decision logic
+        # relationships = self.relationships
+        # TODO: Integrate relationship effects into decision-making
         if self.agent_plan_logic:
             return self.agent_plan_logic.decide(self, world, obs_text, tick, start_dt)
         return {"action": "IDLE", "private_thought": "I have nothing to do right now."}

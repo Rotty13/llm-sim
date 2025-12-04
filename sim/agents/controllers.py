@@ -54,13 +54,21 @@ class LogicController(BaseController):
         return "NEARBY"
 
     def _rule_based_decision(self, agent: Any) -> Optional[Dict[str, Any]]:
-        if agent.physio.hunger > 0.7:
+        # Integrate life stage modifiers
+        stage = getattr(agent.persona, 'life_stage', 'adult')
+        restricted_actions = set()
+        if stage in ('infant', 'toddler'):
+            restricted_actions.update(['EAT', 'RELAX', 'EXPLORE', 'WORK', 'SAY', 'CLEAN', 'INTERACT'])
+        elif stage == 'elder':
+            restricted_actions.update(['WORK'])
+        # Example: infants/toddlers can't perform most actions, elders can't work
+        if agent.physio.hunger > 0.7 and 'EAT' not in restricted_actions:
             return {
                 "action": "EAT()",
                 "private_thought": "I need to eat something.",
                 "memory_write": "I decided to eat due to hunger."
             }
-        if agent.physio.stress > 0.8:
+        if agent.physio.stress > 0.8 and 'RELAX' not in restricted_actions:
             return {
                 "action": "RELAX()",
                 "private_thought": "I need to reduce my stress.",
@@ -70,7 +78,13 @@ class LogicController(BaseController):
 
     def _probabilistic_decision(self, agent: Any) -> Optional[Dict[str, Any]]:
         import random
-        if random.random() < 0.3:  # 30% chance to explore
+        stage = getattr(agent.persona, 'life_stage', 'adult')
+        restricted_actions = set()
+        if stage in ('infant', 'toddler'):
+            restricted_actions.update(['EXPLORE', 'WORK', 'SAY', 'CLEAN', 'INTERACT'])
+        elif stage == 'elder':
+            restricted_actions.update(['WORK'])
+        if random.random() < 0.3 and 'EXPLORE' not in restricted_actions:
             return {
                 "action": "EXPLORE()",
                 "private_thought": "I feel like exploring.",

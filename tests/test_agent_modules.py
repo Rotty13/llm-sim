@@ -69,7 +69,8 @@ def test_social_module(agent):
         pytest.skip("AgentSocial module is disabled.")
     assert isinstance(agent.social, AgentSocial)
     agent.social.add_connection("Bob", "friend")
-    assert agent.social.get_connection("Bob") == "friend"
+    conn = agent.social.get_connection("Bob")
+    assert conn is not None and conn["type"] == "friend"
     agent.social.log_interaction("Bob", "greeted")
     assert ("Bob", "greeted") in agent.social.get_interactions()
 

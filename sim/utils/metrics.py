@@ -32,6 +32,33 @@ logger = logging.getLogger(__name__)
 
 
 class SimulationMetrics:
+    def serialize(self) -> dict:
+        """
+        Serialize metrics for persistence.
+        """
+        return self.summary()
+
+    def load(self, data: dict):
+        """
+        Load metrics from a dict (basic restoration).
+        """
+        self.agent_actions.clear()
+        self.resource_flows.clear()
+        self.world_events.clear()
+        # Restore agent_actions
+        for k, v in data.get("agent_actions", {}).items():
+            agent, action = k.split(":", 1)
+            self.agent_actions[(agent, action)] = v
+        # Restore resource_flows
+        for k, v in data.get("resource_flows", {}).items():
+            entity, item_id = k.split(":", 1)
+            self.resource_flows[(entity, item_id)] = v
+        # Restore world_events
+        for k, v in data.get("world_events", {}).items():
+            self.world_events[k] = v
+        # Restore simulation_info
+        info = data.get("simulation_info", {})
+        self._current_tick = info.get("total_ticks", 0)
     """
     Tracks simulation metrics including agent actions, resource flows, and world events.
     

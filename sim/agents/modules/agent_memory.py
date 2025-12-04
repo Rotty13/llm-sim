@@ -8,6 +8,20 @@ class AgentMemory:
         self.episodic = []
         self.semantic = {}
 
+    def add_social_interaction(self, agent_id, interaction):
+        """Add a social interaction to episodic memory with agent reference."""
+        self.episodic.append({"agent_id": agent_id, "interaction": interaction})
+
+    def get_social_interactions(self, agent_id=None):
+        """Retrieve social interactions, optionally filtered by agent_id."""
+        if agent_id is None:
+            return [e for e in self.episodic if "agent_id" in e]
+        return [e for e in self.episodic if e.get("agent_id") == agent_id]
+
+    def search_social_memory(self, query):
+        """Search social interactions for a keyword or phrase."""
+        return [e for e in self.episodic if "interaction" in e and query in str(e["interaction"])]
+
     def add_episodic(self, event):
         self.episodic.append(event)
 

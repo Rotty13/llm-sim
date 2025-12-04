@@ -80,6 +80,22 @@ class ItemStack:
     qty: int = 1
 
 class Inventory:
+    def serialize(self) -> list:
+        """
+        Serialize inventory to a list of dicts: [{"item_id": ..., "qty": ...}, ...]
+        """
+        return [{"item_id": s.item.id, "qty": s.qty} for s in self.stacks]
+
+    def load(self, data: list):
+        """
+        Load inventory from a list of dicts: [{"item_id": ..., "qty": ...}, ...]
+        """
+        self.stacks.clear()
+        for entry in data:
+            item_id = entry.get("item_id")
+            qty = entry.get("qty", 1)
+            if item_id in ITEMS:
+                self.stacks.append(ItemStack(ITEMS[item_id], qty))
     def __init__(self, capacity_weight: float = 9999.0):
         self.stacks: List[ItemStack] = []
         self.capacity_weight = capacity_weight
