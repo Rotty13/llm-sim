@@ -1,17 +1,23 @@
 """
-llm_conversation_agent.py
-Agent for direct LLM-based conversation with protopersonas loaded from city.yaml.
+llm_persona_chat.py
+
+Purpose: Agent for direct LLM-based conversation with protopersonas loaded from city.yaml.
+Key Classes:
+- LLMPersonaChat: Loads people and enables persona chat via Ollama LLM.
+LLM Usage: Uses Ollama backend via sim.llm.llm_ollama.llm. No fallback; raises error if not configured.
+CLI Args: None (class-based usage).
 """
+
 import yaml
 import os
-from sim.llm.llm_ollama import llm
+from sim.llm.llm_ollama import LLM
 
 class LLMPersonaChat:
     def __init__(self, city_yaml_path, model_path=None):
         self.city_yaml_path = city_yaml_path
         self.model_path = model_path
         self.people = self._load_people()
-        self.llm = llm
+        self.llm = LLM()
 
     def _load_people(self):
         with open(self.city_yaml_path, 'r', encoding='utf-8') as f:
@@ -21,7 +27,7 @@ class LLMPersonaChat:
     def converse_with_persona(self, persona, prompt, **llm_kwargs):
         persona_context = self._build_persona_context(persona)
         full_prompt = f"{persona_context}\n\n{prompt}"
-        response = self.llm.generate(full_prompt, **llm_kwargs)
+        response = self.llm.chat(full_prompt, **llm_kwargs)
         return response
 
     def _build_persona_context(self, persona):

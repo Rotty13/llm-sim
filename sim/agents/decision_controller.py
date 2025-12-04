@@ -253,17 +253,31 @@ class DecisionController:
                 }
         
         if "social" in values or "kindness" in values:
-            # Look for other agents to interact with
+            # Look for other agents to interact with, using relationship effects
             if agent.place in world.places:
                 place = world.places[agent.place]
                 other_agents = [a for a in place.agents_present if a != agent]
-                if other_agents and random.random() < 0.3:
-                    target = random.choice(other_agents)
-                    return {
-                        "action": "SAY",
-                        "params": {"to": target.persona.name, "text": "Hello!"},
-                        "private_thought": f"I should talk to {target.persona.name}."
-                    }
+                # Prioritize agents with positive relationship effect
+                candidates = []
+                for other in other_agents:
+                    if hasattr(agent, "relationships"):
+                        effect = agent.relationships.relationship_effect_on_decision(other.persona.name)
+                        candidates.append((other, effect))
+                    else:
+                        candidates.append((other, 0.0))
+                # Sort by effect descending
+                candidates.sort(key=lambda x: x[1], reverse=True)
+                if candidates:
+                    top = candidates[0]
+                    # Higher effect increases chance to interact
+                    prob = 0.2 + 0.5 * max(0.0, top[1])
+                    if random.random() < prob:
+                        target = top[0]
+                        return {
+                            "action": "SAY",
+                            "params": {"to": target.persona.name, "text": "Hello!"},
+                            "private_thought": f"I feel drawn to talk to {target.persona.name} due to our relationship."
+                        }
         
         return None
     

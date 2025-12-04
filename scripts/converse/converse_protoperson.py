@@ -1,7 +1,12 @@
-# interrogate_protoperson.py
 """
-Spin up an agent instance as a protopersona and set up a chat loop with the user.
-Uses the decide_conversation function.
+converse_protoperson.py
+
+Purpose: Spin up an agent instance as a protopersona and set up a chat loop with the user.
+Key Functions:
+- CreatePersonaFromProto: Converts proto dict to Persona.
+- load_people: Loads people from city.yaml.
+LLM Usage: No direct LLM calls; if added, must use Ollama backend only.
+CLI Args: Accepts protopersona name as argument.
 """
 
 from hmac import new

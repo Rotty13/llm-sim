@@ -179,6 +179,26 @@ class World:
     agent_locations: dict = field(default_factory=dict)  # Maps agent names to place names
     item_ownership: dict = field(default_factory=dict)  # Maps item IDs to agent/place names
     metrics: SimulationMetrics = field(default_factory=SimulationMetrics)  # Tracks simulation metrics
+    weather_manager: Any = None  # Will be set to WeatherManager instance
+
+    def __init__(self, places: Dict[str, Place], events=None, _agents=None, agent_locations=None, item_ownership=None, metrics=None):
+        self.places = places
+        self.events = events if events is not None else deque()
+        self._agents = _agents if _agents is not None else []
+        self.agent_locations = agent_locations if agent_locations is not None else {}
+        self.item_ownership = item_ownership if item_ownership is not None else {}
+        self.metrics = metrics if metrics is not None else SimulationMetrics()
+        # WeatherManager integration
+        try:
+            from sim.world.weather import WeatherManager
+            self.weather_manager = WeatherManager()
+        except ImportError:
+            self.weather_manager = None
+        # Register agent weather hooks if available
+        if self.weather_manager:
+            for agent in self._agents:
+                if hasattr(agent, 'on_weather_update'):
+                    self.weather_manager.register_agent_hook(agent.on_weather_update)
 
     def log_agent_action(self, agent: Agent, action: str):
         """
@@ -272,7 +292,12 @@ class World:
             ticks: Number of simulation ticks to run
         """
         from sim.scheduler.scheduler import run_agent_loop
-        run_agent_loop(self, ticks)
+        for tick in range(ticks):
+            # Update weather each tick
+            if self.weather_manager:
+                self.weather_manager.update_weather()
+            # Run agent loop for this tick
+            run_agent_loop(self, 1)
 
     def get_all_places(self) -> list:
         """Return a list of all place names in the world."""

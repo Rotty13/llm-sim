@@ -14,6 +14,19 @@ class ProtopersonaInterrogator:
         self.city_yaml_path = city_yaml_path
         self.results = []
         self.people = self._load_people()
+        def _build_prompt(self, persona):
+            """
+            Builds the initial interrogation prompt for a persona.
+            """
+            return (
+                f"You are {persona.get('name')}, working as a {persona.get('job_title')} at {persona.get('workplace')}.\n"
+                "I am gathering information about your daily life for city planning.\n"
+                "Please reply in JSON format with the following keys: 'workplace', 'home'.\n"
+                "For 'workplace', include: rooms (names and purposes), items (type, minimal number, locality in room), and how your workplace fits into the local neighborhood.\n"
+                "For 'home', include: rooms (count and category), household members (name, age, employment status), and a general visual description of the outside and interior of your house.\n"
+                "If you don't know, make reasonable assumptions based on your role and address.\n"
+                "If any information is missing, state your assumptions.\n"
+            )
 
     def _load_people(self):
         with open(self.city_yaml_path, 'r', encoding='utf-8') as f:
@@ -28,50 +41,6 @@ class ProtopersonaInterrogator:
             while retries <= max_retries:
                 if llm_agent:
                     response = llm_agent.chat_json(prompt, max_tokens=1024)
-                if self._is_valid_response(response):
-                    break
-                prompt = self._build_followup_prompt(persona, response)
-                retries += 1
-            result = {
-                "name": persona.get("name"),
-                "response": response
-            }
-            #print result
-            print(f"Interrogated {persona.get('name')}: {response}")
-            self.results.append(result)
-        return self.results
-
-    def _build_prompt(self, persona):
-        return (
-            f"You are {persona.get('name')}, working as a {persona.get('job_title')} at {persona.get('workplace')}.\n"
-            "I am gathering information about your daily life for city planning.\n"
-            "Please reply in JSON format with the following keys: 'workplace', 'home'.\n"
-            "For 'workplace', include: rooms (names and purposes), items (type, minimal number, locality in room), and how your workplace fits into the local neighborhood.\n"
-            "For 'home', include: rooms (count and category), household members (name, age, employment status), and a general visual description of the outside and interior of your house.\n"
-            "If you don't know, make reasonable assumptions based on your role and address.\n"
-            "If any information is missing, state your assumptions.\n"
-        )
-
-    def _is_valid_response(self, response:dict|str):
-        if not response:
-            return False
-        import json
-        if isinstance(response, str):
-            try:
-                response = json.loads(response)
-            except json.JSONDecodeError:
-                return False
-        if isinstance(response, dict) and 'failedjson' not in response:
-            return True
-        return False
-
-
-    def _build_followup_prompt(self, persona, prev_response):
-        return (
-            f"Your previous response was incomplete or unclear: {prev_response}.\n"
-            "Please provide a more detailed and structured JSON answer as described before.\n"
-            "Remember to make reasonable assumptions if needed, and include local context.\n"
-        )
 
     def _interrogate_workplace(self, persona):
         # Only basic info available from YAML
@@ -100,8 +69,9 @@ if __name__ == "__main__":
     # Example usage
     city_yaml_path = os.path.join(os.path.dirname(__file__), "..", "configs", "city.yaml")
     interrogator = ProtopersonaInterrogator(city_yaml_path)
-    from sim.llm.llm_ollama import llm
-    results = interrogator.interrogate(llm_agent=llm)
+    # Removed redundant import
+    llm_agent = LLM()
+    results = interrogator.interrogate(llm_agent=llm_agent)
     # Save results to a timestamped YAML file   
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

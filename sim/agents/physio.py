@@ -27,6 +27,20 @@ class Physio:
     comfort: float = 0.8
     bladder: float = 0.8
 
+    def on_weather_update(self, weather_state: str):
+        """
+        Update energy based on weather state. Uses basic effect mapping.
+        """
+        effects = {
+            "sunny": 0.05,
+            "rainy": -0.02,
+            "stormy": -0.1,
+            "snowy": -0.05,
+            "foggy": -0.01
+        }
+        delta = effects.get(weather_state, 0.0)
+        self.energy = max(0.0, min(1.0, self.energy + delta))
+
     def decay_needs(self, traits: Optional[Dict[str, float]] = None):
         """
         Decay physiological needs over time, modulated by personality traits.

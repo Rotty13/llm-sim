@@ -1,7 +1,17 @@
 """
-Script: protopersona_recall_day.py
-Description: Spins up a persona LLM, prompts it to recall its day. If the LLM outputs 'Recall(subject)', extract the subject, generate a vivid memory via a second LLM, and inject it into the persona prompt as 'I remember...'.
+protopersona_recall_day.py
+
+Purpose: Spins up a persona LLM, prompts it to recall its day. If the LLM outputs 'Recall(subject)', extract the subject, generate a vivid memory via a second LLM, and inject it into the persona prompt as 'I remember...'.
+
+Key Functions:
+- extract_recall_subject: Extracts recall subject from LLM output.
+- generate_vivid_memory: Uses Ollama LLM to generate vivid memory.
+- persona_recall_day: Orchestrates recall and memory injection.
+
+LLM Usage: Uses Ollama backend via sim.llm.llm_ollama.LLM. No fallback; raises error if not configured.
+CLI Args: None (function-based usage).
 """
+
 import re
 import yaml
 import random

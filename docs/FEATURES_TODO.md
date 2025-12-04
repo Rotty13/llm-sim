@@ -130,30 +130,26 @@ See detailed descriptions in the sections below.
   - [ ] Implement social influence on agent decisions
 
 ### 27. Aging and Life Stages
-### 27. Aging and Life Stages
 - **Status**: Completed
 - **Main File(s)**: `sim/agents/agents.py`, `sim/agents/modules/agent_physio.py`, `sim/agents/modules/agent_plan_logic.py`, `sim/agents/modules/agent_actions.py`, `tests/test_agent_life_stage.py`
 - **Description**: Agents progress through granular life stages (infant, toddler, child, teen, young adult, adult, elder). Age-based behavioral effects and transitions are implemented. Life stage is fully integrated with agent decision logic and planning. Automated tests validate assignment, transitions, restrictions, and aging effects.
 
-### 28. Death and Consequences
+
 ### 28. Death and Consequences
 - **Status**: Completed
 - **Main File(s)**: `sim/agents/agents.py`, `tests/test_agent_death.py`
 - **Description**: Agent death conditions and triggers are fully implemented (old age, critical needs depletion, external event stub). Death logic is integrated with agent tick/update cycle. Automated tests validate all standard death scenarios and consequences. (Mourning/legacy logic and effect duration deferred for future expansion.)
 
-### 29. Careers and Economy
+
 ### 29. Careers and Economy
 - **Status**: Completed
 - **Main File(s)**: `sim/agents/persona.py`, `sim/agents/agents.py`, `sim/agents/modules/agent_actions.py`, `sim/configs/constants.py`, `sim/inventory/inventory.py`, `tests/test_agent_career.py`
 - **Description**: Job/career progression, income, and economic interactions are fully implemented. Agents can work, earn income, buy/sell items, and interact with vendors and places. All related stubs are implemented and tested. Automated tests validate career progression, inventory, and vendor interactions.
 
 ### 30. Social Memory and Relationships
-- **Status**: Skeleton Implemented
-- **Main File(s)**: `sim/agents/modules/agent_relationships.py`, `sim/agents/agents.py`
-- **Description**: Track relationships between agents, including familiarity and trust.
-- **TODO**:
-  - [ ] Expand relationship types and effects
-  - [ ] Integrate relationships with agent decision logic
+- **Status**: Completed
+- **Main File(s)**: `sim/agents/modules/agent_relationships.py`, `sim/agents/agents.py`, `tests/test_agent_relationships.py`
+- **Description**: Relationship types (friend, family, colleague, rival, acquaintance) and effects are fully implemented. Decision logic now uses relationship modifiers. Automated tests validate relationship type logic and decision effects.
 
 ### 33. World State Persistence
 **Status**: Completed
@@ -184,12 +180,9 @@ See detailed descriptions in the sections below.
   - [ ] Implement retry logic for transient failures
 
 ### 31. Dynamic Weather System
-- **Status**: Proposed
-- **Description**: Introduce weather effects that influence agent behavior and place capabilities.
-- **TODO**:
-  - [ ] Implement weather states and transitions
-  - [ ] Add weather effects on agent behavior
-  - [ ] Integrate weather with place capabilities
+**Status**: Completed
+**Main File(s)**: `sim/world/weather.py`, `sim/world/world.py`, `sim/agents/agents.py`
+**Description**: Weather effects influence agent behavior and are delegated via hooks. WeatherManager supports realistic transitions, agent modules respond to weather, and tests validate the system. Place capability integration deferred.
 
 ### 32. World Events
 - **Status**: Minimal

@@ -81,6 +81,21 @@ class Agent:
         if self.social:
             return self.social.get_recent_topics(agent_name or self.persona.name, limit)
         return []
+
+    def on_weather_update(self, weather_state: str):
+        """
+        Respond to weather updates. Delegates logic to appropriate modules if available.
+        """
+        # Example: delegate to physio, mood, or plan logic modules
+        if hasattr(self, 'physio') and self.physio:
+            if hasattr(self.physio, 'on_weather_update'):
+                self.physio.on_weather_update(weather_state)
+        if hasattr(self, 'mood') and self.mood:
+            if hasattr(self.mood, 'on_weather_update'):
+                self.mood.on_weather_update(weather_state)
+        # Add more delegation as needed
+        # Placeholder: print for debug
+        print(f"Agent {self.persona.name} received weather update: {weather_state}")
     def update_affinity(self, other: str, delta: float):
         if self.social:
             self.social.update_affinity(other, delta)

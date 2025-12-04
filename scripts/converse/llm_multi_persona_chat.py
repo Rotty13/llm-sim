@@ -3,20 +3,11 @@ llm_multi_persona_chat.py
 
 Facilitates a multi-persona chat session using LLM-based personas. Each persona is loaded and interacts in a turn-based chat loop. Used for simulating group conversations and persona interactions.
 
-Usage:
-    python scripts/converse/llm_multi_persona_chat.py [n_personas] [n_turns]
 """
-import sys
-import os
-import importlib
-from typing import List
-import argparse
 
 # Adjust the path if llm_persona_chat.py is in a different directory
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from llm_persona_chat import LLMPersonaChat
-
-def load_persona(persona_id: int):
     # Assuming llm_persona_chat.py exposes a Persona class or similar
     return LLMPersonaChat(f"Persona_{persona_id}")
 

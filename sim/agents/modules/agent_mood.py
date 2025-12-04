@@ -7,6 +7,20 @@ class AgentMood:
     def __init__(self, initial_mood=None):
         self.mood = initial_mood or {}
 
+    def on_weather_update(self, weather_state: str):
+        """
+        Update mood based on weather state. Uses basic effect mapping.
+        """
+        effects = {
+            "sunny": 0.1,
+            "rainy": -0.05,
+            "stormy": -0.15,
+            "snowy": 0.05,
+            "foggy": -0.02
+        }
+        delta = effects.get(weather_state, 0.0)
+        self.update_mood("weather", delta)
+
     def set_mood(self, mood_type, value):
         self.mood[mood_type] = value
 

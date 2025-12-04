@@ -3,7 +3,8 @@ import argparse
 import json
 import os
 import yaml
-from sim.llm.llm_ollama import llm
+from sim.llm.llm_ollama import LLM
+llm = LLM()
 chat_json = llm.chat_json
 
 
@@ -11,18 +12,22 @@ chat_json = llm.chat_json
 #Uses an llm(json) to chat with the personification of an object with the goal of extracting behaviour and interactions
 def converse_with_object(object_name, persona,  prompt, system_prompt=None):
     """
-    Uses an LLM to chat with the personification of an object.
+    Uses Ollama LLM to chat with the personification of an object.
     Args:
         object_name (str): Name of the object.
         persona (str): Persona description for the object.
         prompt (str): User prompt/question.
     Returns:
         dict: LLM response as structured JSON.
+    Raises:
+        RuntimeError: If LLM is not configured.
     """
+    if not hasattr(llm, "chat_json"):
+        raise RuntimeError("Ollama LLM is not configured. Please set up Ollama backend in sim/llm/llm_ollama.py.")
     system_prompt = (
         f"Your name is {object_name} and you are a {persona}. "
         f"Your persona is {persona}. "
-        " Respond with json only."
+        "Respond with json only."
     )
     response = chat_json(prompt=prompt, system=system_prompt, max_tokens=2048)
     return response
