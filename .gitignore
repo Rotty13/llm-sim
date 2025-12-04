@@ -26,6 +26,7 @@ ENV/
 
 # Logs and debug files
 *.log
+llm_log_*.txt
 
 # Temporary files
 tmp_*.py
