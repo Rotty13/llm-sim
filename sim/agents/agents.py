@@ -34,7 +34,6 @@ Recent Refactor Notes:
 - Inventory logic is now delegated to AgentInventory.
 - Agent class is slimmer and more modular, focusing on orchestration and high-level decision-making.
 """
-from __future__ import annotations
 
 import json
 import random
