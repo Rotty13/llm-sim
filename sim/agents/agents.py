@@ -78,8 +78,11 @@ def parse_action_payload(action_str: str) -> Optional[Dict[str, Any]]:
     Parse an action string and return its payload/params.
     Wrapper around parse_action for backward compatibility.
     """
-    _, params = parse_action(action_str)
-    return params if params else None
+    try:
+        _, params = parse_action(action_str)
+        return params if params else None
+    except (TypeError, ValueError):
+        return None
 
 
 @dataclass
