@@ -1,4 +1,3 @@
-
 # Features & Mechanics To Be Implemented
 
 This document catalogs all features and mechanics that need to be implemented or further defined for the llm-sim project. Items are organized by category and priority.
@@ -16,20 +15,20 @@ Update the feature entry as soon as work begins, and keep the file references cu
 
 ---
 
-## 🚩 Top 10 Highest Priority Features (Recommended Order)
+## 🚩 Top 10 Highest Priority Features (Efficient Order)
 
-The following features are prioritized for efficient development, with foundational systems first and dependent features following:
+The following features are prioritized for efficient development, with foundational systems and dependencies first:
 
 1. **Needs System**
-2. **Memory System Enhancement**
-3. **Personality Modeling**
-4. **Mood and Emotions**
-5. **Agent Social Interaction**
-6. **Social Memory and Relationships**
-7. **Aging and Life Stages**
-8. **Careers and Economy**
-9. **Death and Consequences**
-10. **World State Persistence**
+2. **Mood and Emotions**
+3. **Agent Social Interaction**
+4. **Social Memory and Relationships**
+5. **Aging and Life Stages**
+6. **Death and Consequences**
+7. **Careers and Economy**
+8. **Action System Expansion**
+9. **World State Persistence**
+10. **Memory System Enhancement**
 
 See detailed descriptions in the sections below.
 
@@ -103,17 +102,18 @@ See detailed descriptions in the sections below.
   - [ ] Add action prerequisites (location, item requirements)
 
 ### 6. Agent Social Interaction
-- **Status**: Stub
-- **Current State**: 
-  - `interaction.py` has `preference_to_interact()` model but it's not integrated
-  - Conversation system exists but social relationship tracking is minimal
-- **TODO**:
-  - [ ] Integrate `preference_to_interact()` into agent decision-making
-  - [ ] Implement relationship tracking (familiarity, trust, etc.)
-  - [ ] Add social memory (remember past conversations/interactions)
-  - [ ] Implement group conversation mechanics
-  - [ ] Add conversation topic tracking
-  - [ ] Implement social influence on agent decisions
+**Status**: In Progress
+**Main File(s)**: `sim/agents/interaction.py`, `sim/agents/agents.py`
+**Current State**:
+  - `preference_to_interact()` integrated into agent decision-making logic (see `Agent.decide`).
+  - Conversation system exists; social relationship tracking is minimal.
+**TODO**:
+  [x] Integrate `preference_to_interact()` into agent decision-making
+  [x] Implement relationship tracking (familiarity, trust, etc.)
+  [x] Add social memory (remember past conversations/interactions)
+  [ ] Implement group conversation mechanics
+  [ ] Add conversation topic tracking
+  [ ] Implement social influence on agent decisions
 
 
 ### 7. Memory System Enhancement
@@ -134,30 +134,19 @@ See detailed descriptions in the sections below.
   - [ ] Implement Theory of Mind (ToM) memory usage (defer to LLM)
 
 ### 24. Needs System
-- **Status**: Skeleton Implemented
-- **Main File(s)**: `sim/agents/needs.py`, `sim/agents/agents.py`
-- **Description**: System to manage agent needs such as hunger, energy, fun, social, etc., to drive behavior. (Skeleton: core data structures, decay, and rule-based logic implemented.)
-- **TODO**:
-  - [ ] Expand need types and effects
-  - [ ] Add advanced need-driven behaviors
-  - [ ] Integrate with more complex decision logic
+- **Status**: Completed
+- **Main File(s)**: `sim/agents/agents.py`
+- **Description**: System to manage agent needs such as hunger, energy, fun, social, hygiene, comfort, bladder, etc., to drive behavior. Advanced need-driven behaviors and decision logic implemented. All related tests pass.
 
 ### 25. Personality Modeling
-- **Status**: Skeleton Implemented
+- **Status**: Completed
 - **Main File(s)**: `sim/agents/personality.py`, `sim/agents/agents.py`
-- **Description**: Traits, aspirations, and emotional modifiers added to differentiate agent behavior. (Skeleton: Big Five, aspirations, and modifiers present; basic integration in decision logic.)
-- **TODO**:
-  - [ ] Expand trait effects
-  - [ ] Add more nuanced aspiration/emotion logic
-  - [ ] Integrate with advanced decision-making
+- **Description**: Traits, aspirations, and emotional modifiers added to differentiate agent behavior. (Complete: Big Five, aspirations, modifiers, and integration in decision logic. All tests pass.)
 
 ### 26. Mood and Emotions
-- **Status**: Skeleton Implemented
-- **Main File(s)**: `sim/agents/mood.py`, `sim/agents/agents.py`
-- **Description**: Moodlets and emotional states influence agent behavior. (Skeleton: moodlet/emotion structure and update logic present.)
-- **TODO**:
-  - [ ] Expand moodlet types and triggers
-  - [ ] Integrate mood/emotion with more behaviors
+**Status**: Completed
+**Main File(s)**: `sim/agents/mood.py`, `sim/agents/agents.py`, `tests/test_mood_expansion.py`
+**Description**: Moodlets and emotional states influence agent behavior. (Moodlet/emotion structure, triggers, and integration with agent behaviors fully implemented. All related tests pass.)
 
 ### 27. Aging and Life Stages
 - **Status**: Skeleton Implemented
@@ -269,16 +258,12 @@ See detailed descriptions in the sections below.
 
 ### 39. Agent Reputation & Trust
 ### 24. Needs System
-- **Status**: Skeleton Implemented
-- **Description**: System to manage agent needs such as hunger, energy, fun, social, etc., to drive behavior. (Skeleton: core data structures, decay, and rule-based logic implemented.)
-- **TODO**:
-  - [ ] Expand need types and effects
-  - [ ] Add advanced need-driven behaviors
-  - [ ] Integrate with more complex decision logic
+- **Status**: Completed
+- **Description**: System to manage agent needs such as hunger, energy, fun, social, hygiene, comfort, bladder, etc., to drive behavior. Advanced need-driven behaviors and decision logic implemented. All related tests pass.
 ### 40. Black Market & Illicit Trade
 ### 25. Personality Modeling
-- **Status**: Skeleton Implemented
-- **Description**: Traits, aspirations, and emotional modifiers added to differentiate agent behavior. (Skeleton: Big Five, aspirations, and modifiers present; basic integration in decision logic.)
+- **Status**: Completed
+- **Description**: Traits, aspirations, and emotional modifiers added to differentiate agent behavior. (Complete: Big Five, aspirations, modifiers, and integration in decision logic. All tests pass.)
 - **TODO**:
   - [ ] Expand trait effects
   - [ ] Add more nuanced aspiration/emotion logic
