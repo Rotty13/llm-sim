@@ -26,8 +26,6 @@ ENV/
 
 # Logs and debug files
 *.log
-*.txt
-!requirements.txt
 
 # Temporary files
 tmp_*.py
@@ -42,4 +40,7 @@ htmlcov/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Output files (generated data, logs, results)
+outputs/
 
