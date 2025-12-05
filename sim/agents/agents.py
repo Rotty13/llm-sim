@@ -362,7 +362,7 @@ class Agent:
             self.increment_job_experience()
             self.update_income()
 
-    def perform_action(self, decision: Dict[str, Any], world: Any, tick: int):
+    def perform_action(self, decision: Dict[str, Any], world: Any, tick: int, **kwargs):
         """
         Perform the given action in the simulation context by delegating to AgentActions.
         Args:
@@ -371,7 +371,7 @@ class Agent:
             tick: Current simulation tick
         """
         if self.actions:
-            self.actions.execute(self, world, decision, tick)
+            self.actions.execute(self, world, decision, tick, **kwargs)
 
     def serialize_state(self) -> dict:
         """Serialize agent state for saving."""

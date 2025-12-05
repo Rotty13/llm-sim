@@ -224,6 +224,7 @@ class WorldManager:
             )
             agents.append(agent)
             if self.sim_logger:
+                self.sim_logger.info(f"Agent activated: {name} at position '{position}'", extra={"agent": name, "place": position})
                 self.sim_logger.debug(f"Loaded agent {name} at position '{position}' with {len(calendar)} appointments")
         return agents
 

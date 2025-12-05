@@ -68,8 +68,7 @@ def run_agent_loop(world: world.World, ticks: int = 100, metrics=None, sim_logge
         metrics: The SimulationMetrics object to record metrics (explicitly passed)
     """
     from sim.actions.actions import parse_action
-    if sim_logger is not None:
-        sim_logger.info(f"Agent loop started for world: {getattr(world, 'name', None)}", extra={"world": getattr(world, 'name', None)})
+    # Removed repetitive agent loop started log; see world_manager for agent activation logs
     # This function now processes a single tick; tick value must be provided by the caller
     tick = getattr(world, 'current_tick', None)
     if tick is None:
@@ -85,8 +84,8 @@ def run_agent_loop(world: world.World, ticks: int = 100, metrics=None, sim_logge
         if forced_action:
             # Normalize forced_action DSL string to dict
             action_dict = parse_action(forced_action)
-            agent.perform_action(action_dict, world, tick)
+            agent.perform_action(action_dict, world, tick, sim_logger=sim_logger)
         else:
             decision = agent.decide(world, agent.place, tick, None)
-            agent.perform_action(decision, world, tick)
+            agent.perform_action(decision, world, tick, sim_logger=sim_logger)
     # Optionally: log tick summary, update world state, etc.

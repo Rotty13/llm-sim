@@ -106,7 +106,7 @@ class AgentActions:
     def __init__(self):
         self.action_history = []
 
-    def execute(self, agent, world, decision, tick):
+    def execute(self, agent, world, decision, tick, **kwargs):
         """
         Execute the given action for the agent in the simulation context.
         Accepts a decision dict as delegated from Agent.act.
@@ -153,6 +153,17 @@ class AgentActions:
                 "effects": effects
             }
         else:
+            # Log unknown action to sim.log using sim_logger from context if available
+            # Try to get agent's persona name, fallback to agent.name, else 'Unknown'
+            if agent:
+                agent_name = getattr(getattr(agent, 'persona', None), 'name', None)
+                if not agent_name:
+                    agent_name = getattr(agent, 'name', 'Unknown')
+            else:
+                agent_name = 'Unknown'
+            sim_logger = kwargs.get('sim_logger', None)
+            if sim_logger:
+                sim_logger.warning(f"Unknown action encountered: {action} by Agent {agent_name} at tick {tick}")
             result = {"success": False, "message": f"Unknown action: {action}"}
 
         # Record action history with details
