@@ -2,7 +2,7 @@ from tests.utils.scenario_runner import load_scenario
 from sim.agents.decision_controller import DecisionController
 
 def test_agent_eats_apple_in_kitchen():
-    world, agents = load_scenario('tests/scenarios/eat_apple_scenario.yaml')
+    world, agents = load_scenario('tests/scenarios/tier1_simple/eat_apple_scenario.yaml')
     agent = agents[0]
     controller = DecisionController()
     result = controller.decide(agent, world, '', 0, None)
