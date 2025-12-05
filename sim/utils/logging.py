@@ -15,24 +15,37 @@ Usage:
     sim_logger.info("Agent moved", extra={"agent_id": "A1", "to": "Market"})
 
 """
+
 import logging
 import os
 from datetime import datetime
 
-LOG_DIR = os.path.join(os.path.dirname(__file__), '../../outputs/llm_logs')
-LOG_FILE = os.path.join(LOG_DIR, f'sim_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log')
+def get_log_dir(world_name=None, session_datetime=None):
+    # Use provided session_datetime for folder: YYYY-MM-DD_HHMMSS
+    if session_datetime is None:
+        raise ValueError("session_datetime must be provided and fixed for the entire simulation run.")
+    if world_name:
+        log_dir = os.path.join(os.path.dirname(__file__), f'../../outputs/{world_name}/{session_datetime}')
+    else:
+        log_dir = os.path.join(os.path.dirname(__file__), f'../../outputs/unknown_world/{session_datetime}')
+    os.makedirs(log_dir, exist_ok=True)
+    return log_dir
 
-os.makedirs(LOG_DIR, exist_ok=True)
+def get_log_file(world_name=None, session_datetime=None):
+    log_dir = get_log_dir(world_name, session_datetime)
+    # Always use sim.log for the session
+    return os.path.join(log_dir, 'sim.log')
+
 
 class SimLogger:
-    def __init__(self, name='llm-sim'):
+    def __init__(self, name='llm-sim', world_name=None, session_datetime=None):
         self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.DEBUG)
         formatter = logging.Formatter(
             '[%(asctime)s] %(levelname)s %(module)s %(message)s %(extra)s',
             datefmt='%Y-%m-%d %H:%M:%S'
         )
-        fh = logging.FileHandler(LOG_FILE)
+        fh = logging.FileHandler(get_log_file(world_name, session_datetime))
         fh.setLevel(logging.DEBUG)
         fh.setFormatter(formatter)
         ch = logging.StreamHandler()
@@ -53,9 +66,10 @@ class SimLogger:
     def error(self, msg, extra=None):
         self.logger.error(msg, extra={'extra': extra or {}})
 
-# Singleton logger instance
-sim_logger = SimLogger().logger
 
-# Example API for logging simulation events
-# sim_logger.info("Agent moved", extra={"agent_id": "A1", "to": "Market"})
-# sim_logger.error("LLM call failed", extra={"agent_id": "A2", "error": "Timeout"})
+
+# Usage:
+#   from sim.utils.logging import SimLogger
+#   sim_logger = SimLogger(world_name="World_0").logger
+#   sim_logger.info("Agent moved", extra={"agent_id": "A1", "to": "Market"})
+#   sim_logger.error("LLM call failed", extra={"agent_id": "A2", "error": "Timeout"})

@@ -1,7 +1,0 @@
-{
-    "name": "Flask",
-    "weight": 0.5,
-    "portable": true,
-    "category": "Container",
-    "description": "A standard drinking flask used to hold liquids."
-}

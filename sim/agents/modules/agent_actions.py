@@ -110,21 +110,68 @@ class AgentActions:
         """
         Execute the given action for the agent in the simulation context.
         Accepts a decision dict as delegated from Agent.act.
+        Handles all canonical actions and logs them with details.
         """
-        action = decision.get("action", "")
+        import sim.actions.actions as actions_mod
+        action = decision.get("action", "").upper()
         params = decision.get("params", {})
+        result = None
+
+        # Canonical action routing
         if action == "MOVE" and agent.movement_controller:
             destination = params.get("to")
             if destination:
                 agent.movement_controller.move_to(agent, world, destination)
-        # Add more action handling as needed, e.g., EAT, SLEEP, etc.
+                result = {"success": True, "message": f"Moved to {destination}"}
+            else:
+                result = {"success": False, "message": "No destination provided"}
+        elif action == "SAY":
+            result_obj = actions_mod.execute_say_action(agent, world, params)
+            result = result_obj.__dict__
+        elif action == "INTERACT":
+            result_obj = actions_mod.execute_interact_action(agent, world, params)
+            result = result_obj.__dict__
+        elif action == "WORK":
+            result_obj = actions_mod.execute_work_action(agent, world, params)
+            result = result_obj.__dict__
+        elif action == "TRADE":
+            result_obj = actions_mod.execute_trade_action(agent, world, params)
+            result = result_obj.__dict__
+        elif action == "BUY" or action == "SELL":
+            # execute_buy_action in actions.py implements both BUY and SELL logic
+            result_obj = actions_mod.execute_buy_action(agent, world, params)
+            result = result_obj.__dict__
+        # Generic actions (THINK, PLAN, SLEEP, EAT, CONTINUE, RELAX, EXPLORE, WASH, REST, USE_BATHROOM)
+        elif action in actions_mod.ACTION_DURATIONS:
+            # Simulate effects and duration
+            duration = actions_mod.get_action_duration(action, params)
+            effects = actions_mod.get_action_effects(action, params)
+            result = {
+                "success": True,
+                "message": f"Performed {action}",
+                "duration": duration,
+                "effects": effects
+            }
+        else:
+            result = {"success": False, "message": f"Unknown action: {action}"}
+
+        # Record action history with details
         self.action_history.append({
             "agent": agent.persona.name,
             "action": action,
             "params": params,
-            "tick": tick
+            "tick": tick,
+            "result": result
         })
-        return True
+
+        # Log the action to world metrics with details
+        if hasattr(world, "log_agent_action"):
+            # Pass details if supported (agent_name, action, details)
+            if hasattr(world, "metrics") and hasattr(world.metrics, "log_agent_action"):
+                world.metrics.log_agent_action(agent.persona.name, action, {"params": params, "result": result})
+            else:
+                world.log_agent_action(agent, action)
+        return result
 
     def perform_action(self, *args, **kwargs):
         """Alias for execute method for compatibility with tests."""

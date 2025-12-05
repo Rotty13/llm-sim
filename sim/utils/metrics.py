@@ -94,9 +94,13 @@ class SimulationMetrics:
         self.start_time = datetime.now()
         logger.info(f"Simulation metrics started at {self.start_time}")
 
-    def stop(self):
-        """Mark the end of a simulation run."""
+    def stop(self, total_ticks: Optional[int] = None):
+        """Mark the end of a simulation run and set total ticks."""
         self.end_time = datetime.now()
+        if total_ticks is not None:
+            self._total_ticks = total_ticks
+        else:
+            self._total_ticks = self._current_tick + 1
         logger.info(f"Simulation metrics stopped at {self.end_time}")
 
     def set_tick(self, tick: int):
@@ -173,7 +177,7 @@ class SimulationMetrics:
         duration = None
         if self.start_time and self.end_time:
             duration = (self.end_time - self.start_time).total_seconds()
-        
+        total_ticks = getattr(self, '_total_ticks', self._current_tick + 1)
         return {
             "agent_actions": {f"{k[0]}:{k[1]}": v for k, v in self.agent_actions.items()},
             "resource_flows": {f"{k[0]}:{k[1]}": v for k, v in self.resource_flows.items()},
@@ -182,7 +186,7 @@ class SimulationMetrics:
                 "start_time": self.start_time.isoformat() if self.start_time else None,
                 "end_time": self.end_time.isoformat() if self.end_time else None,
                 "duration_seconds": duration,
-                "total_ticks": self._current_tick
+                "total_ticks": total_ticks
             }
         }
 

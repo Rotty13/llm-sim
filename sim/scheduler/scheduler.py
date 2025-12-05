@@ -23,6 +23,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import List, Optional
 from sim.utils.utils import TICK_MINUTES
+from sim.world import world
 
 @dataclass
 class Appointment:
@@ -57,35 +58,35 @@ def enforce_schedule(calendar: List[Appointment], place: str, tick: int, busy_un
                 return f'MOVE({{"to":"{appt.location}"}})'
     return None
 
-def run_agent_loop(world, ticks: int = 100):
+def run_agent_loop(world: world.World, ticks: int = 100, metrics=None, sim_logger=None):
     """
     Run the main agent loop for the simulation.
     Iterates over all agents for a given number of ticks, invoking their decision/action methods.
     Args:
         world: The simulation world object containing agents and places.
         ticks: Number of simulation ticks to run.
+        metrics: The SimulationMetrics object to record metrics (explicitly passed)
     """
-    from sim.utils.logging import sim_logger
-    from sim.utils.metrics import metrics
     from sim.actions.actions import parse_action
-    sim_logger.info(f"Agent loop started for world: {getattr(world, 'name', None)} with ticks={ticks}", extra={"world": getattr(world, 'name', None), "ticks": ticks})
-    metrics.start()
-    for tick in range(ticks):
+    if sim_logger is not None:
+        sim_logger.info(f"Agent loop started for world: {getattr(world, 'name', None)}", extra={"world": getattr(world, 'name', None)})
+    # This function now processes a single tick; tick value must be provided by the caller
+    tick = getattr(world, 'current_tick', None)
+    if tick is None:
+        raise ValueError("Current tick must be provided via world.current_tick for centralized time management.")
+    if metrics is not None:
         metrics.set_tick(tick)
         metrics.record_tick_snapshot(agent_count=len(getattr(world, '_agents', [])))
-        # Advance time in world (if needed)
-        if hasattr(world, 'metrics'):
-            world.metrics.set_tick(tick)
-        for agent in getattr(world, '_agents', []):
-            if not getattr(agent, 'alive', True):
-                continue
-            # Enforce schedule if needed
-            forced_action = enforce_schedule(getattr(agent, 'calendar', []), agent.place, tick, getattr(agent, 'busy_until', -1))
-            if forced_action:
-                # Normalize forced_action DSL string to dict
-                action_dict = parse_action(forced_action)
-                agent.perform_action(action_dict, world, tick)
-            else:
-                decision = agent.decide(world, agent.place, tick, None)
-                agent.perform_action(decision, world, tick)
-        # Optionally: log tick summary, update world state, etc.
+    for agent in getattr(world, '_agents', []):
+        if not getattr(agent, 'alive', True):
+            continue
+        # Enforce schedule if needed
+        forced_action = enforce_schedule(getattr(agent, 'calendar', []), agent.place, tick, getattr(agent, 'busy_until', -1))
+        if forced_action:
+            # Normalize forced_action DSL string to dict
+            action_dict = parse_action(forced_action)
+            agent.perform_action(action_dict, world, tick)
+        else:
+            decision = agent.decide(world, agent.place, tick, None)
+            agent.perform_action(decision, world, tick)
+    # Optionally: log tick summary, update world state, etc.

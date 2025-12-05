@@ -1,5 +1,5 @@
 import sim.utils.metrics
-from sim.utils.logging import sim_logger
+import logging  # Use standard logging for now; TODO: inject world-specific logger
 import random
 """
 AgentSocial module for managing agent social interactions and networks.
@@ -103,7 +103,7 @@ class AgentSocial:
         self.interactions.append((agent_id, interaction, topic))
         if topic:
             self.topic_history.append((agent_id, topic))
-        sim_logger.info(
+        logging.getLogger("llm-sim").info(
             f"AgentSocial interaction: agent_id={agent_id}, interaction={interaction}, topic={topic}",
             extra={"agent_id": agent_id, "interaction": interaction, "topic": topic}
         )

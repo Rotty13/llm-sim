@@ -1,5 +1,5 @@
 {
-    "explorer.excludeGitIgnore": true,
+    "explorer.excludeGitIgnore": false,
     "python.analysis.extraPaths": [
         "${userHome}\\**"
     ],
@@ -16,12 +16,10 @@
             "packageManager": "ms-python.python:pip"
         }
     ],
-    "files.watcherExclude": {
-        "/outputs": true
-    },
-    "workbench.localHistory.exclude": {
-        "/outputs": true
-    },
+    "files.watcherExclude": {},
+    "workbench.localHistory.exclude": {},
+    "explorer.exclude": {},
+    "files.exclude": {},
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.testing.pytestEnabled": true,
     "python.useEnvironmentsExtension": true,

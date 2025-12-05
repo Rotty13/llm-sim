@@ -26,6 +26,7 @@ from collections import deque
 from sim.inventory.inventory import Inventory, ITEMS
 from sim.utils.metrics import SimulationMetrics
 from dataclasses import dataclass, field
+from sim.utils.time_manager import TimeManager
 import logging
 import yaml
 
@@ -172,25 +173,38 @@ class Place:
         """
         return getattr(self, "agents", [])
 
+
 @dataclass
 class World:
-    time: int = 0  # Simulation time (tick)
+    name: str = ""
+    time_manager: TimeManager = field(default_factory=lambda: TimeManager(ticks_per_day=144, minutes_per_tick=10))
 
     def get_time_of_day(self) -> str:
         """
         Return the time of day based on the current tick.
         Example: 'morning', 'afternoon', 'evening', 'night'.
         """
-        # Simple logic: 0-5 morning, 6-11 afternoon, 12-17 evening, 18-23 night
-        hour = self.time % 24
-        if 0 <= hour < 6:
-            return 'morning'
-        elif 6 <= hour < 12:
-            return 'afternoon'
-        elif 12 <= hour < 18:
-            return 'evening'
-        else:
-            return 'night'
+        return self.time_manager.get_time_of_day()
+
+    @property
+    def time(self) -> int:
+        return self.time_manager.tick
+
+    @time.setter
+    def time(self, value: int):
+        self.time_manager.set_tick(value)
+
+    @property
+    def hour(self) -> int:
+        return self.time_manager.hour
+
+    @property
+    def minutes(self) -> int:
+        return self.time_manager.minutes
+
+    @property
+    def day(self) -> int:
+        return self.time_manager.day
     def register_event_handlers(self):
         """
         Register subsystem event handlers with the dispatcher.
@@ -283,13 +297,16 @@ class World:
     weather_manager: Any = None  # Will be set to WeatherManager instance
     event_dispatcher: Any = None  # Will be set to WorldEventDispatcher instance
 
-    def __init__(self, places: Dict[str, Place], events=None, _agents=None, agent_locations=None, item_ownership=None, metrics=None):
+    def __init__(self, places: Dict[str, Place], name: str = "", events=None, _agents=None, agent_locations=None, item_ownership=None, metrics=None, time_manager=None, sim_logger=None):
+        self.name = name
         self.places = places
         self.events = events if events is not None else deque()
         self._agents = _agents if _agents is not None else []
         self.agent_locations = agent_locations if agent_locations is not None else {}
         self.item_ownership = item_ownership if item_ownership is not None else {}
         self.metrics = metrics if metrics is not None else SimulationMetrics()
+        self.time_manager = time_manager if time_manager is not None else TimeManager(ticks_per_day=144, minutes_per_tick=10)
+        self.sim_logger = sim_logger
         # WeatherManager integration
         try:
             from sim.world.weather import WeatherManager
@@ -401,14 +418,26 @@ class World:
         """
         from sim.scheduler.scheduler import run_agent_loop
         self.register_event_handlers()
-        for tick in range(ticks):
+        for i in range(ticks):
+            # Advance world time
+            self.time_manager.set_tick(self.time_manager.tick + 1)
+            # Set current_tick for centralized time management
+            self.current_tick = self.time_manager.tick
             # Update weather each tick
             if self.weather_manager:
                 self.weather_manager.update_weather()
             # Dispatch random/scheduled events
-            self.dispatch_random_event(tick)
-            # Run agent loop for this tick
-            run_agent_loop(self, 1)
+            self.dispatch_random_event(self.time_manager.tick)
+            # Update metrics tick
+            if hasattr(self, 'metrics'):
+                self.metrics.set_tick(self.time_manager.tick)
+            # Run agent loop for this tick, pass metrics and sim_logger explicitly
+            run_agent_loop(self, 1, metrics=self.metrics if hasattr(self, 'metrics') else None, sim_logger=self.sim_logger)
+            # Record metrics snapshot for this tick
+            if hasattr(self, 'metrics'):
+                agent_count = len(self._agents)
+                active_events = len(self.events) if hasattr(self, 'events') else 0
+                self.metrics.record_tick_snapshot(agent_count=agent_count, active_events=active_events)
 
     def get_all_places(self) -> list:
         """Return a list of all place names in the world."""
@@ -478,7 +507,16 @@ class World:
                 city=agent_data.get("city", "Unknown"),
                 bio=agent_data.get("bio", ""),
                 values=agent_data.get("values", []),
-                goals=agent_data.get("goals", [])
+                goals=agent_data.get("goals", []),
+                job_level=agent_data.get("job_level", "entry"),
+                job_experience=agent_data.get("job_experience", 0),
+                income=agent_data.get("income", 0.0),
+                career_history=agent_data.get("career_history", []),
+                traits=agent_data.get("traits", {}),
+                aspirations=agent_data.get("aspirations", []),
+                emotional_modifiers=agent_data.get("emotional_modifiers", {}),
+                age_transitions=agent_data.get("age_transitions", {}),
+                life_stage=agent_data.get("life_stage", "adult")
             )
             agent = Agent(persona=persona, place=agent_data.get("place", ""))
 
@@ -746,7 +784,8 @@ class World:
                 aspirations=persona_data.get("aspirations", []),
                 emotional_modifiers=persona_data.get("emotional_modifiers", {}),
                 age_transitions=persona_data.get("age_transitions", {}),
-                life_stage=persona_data.get("life_stage", "adult")
+                life_stage=persona_data.get("life_stage", "adult"),
+                personality=None
             )
             agent = Agent(persona=persona)
             agent.load_state(agent_data)
