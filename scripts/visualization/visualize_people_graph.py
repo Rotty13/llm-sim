@@ -77,13 +77,24 @@ def visualize_people_graph(G, city_name):
     plt.show()
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--world", default="World_0")
+    parser = argparse.ArgumentParser(description="Visualize relationships between people and places in a city world.")
+    parser.add_argument("--world", default="World_0", help="World name (folder) to visualize")
     args = parser.parse_args()
     city_data = load_city(args.world)
     people = load_personas(args.world)
-    G = build_people_graph(city_data, people)
-    visualize_people_graph(G, city_data.get("city", "City"))
+    if city_data:
+        if "name" in city_data:
+            city_name = city_data["name"]
+        elif isinstance(city_data.get("city"), str):
+            city_name = city_data["city"]
+        elif isinstance(city_data.get("city"), dict):
+            city_name = city_data["city"].get("name", "City")
+        else:
+            city_name = "City"
+    else:
+        city_name = "City"
+    G = build_people_graph(city_data if city_data else {"places": [], "connections": []}, people)
+    visualize_people_graph(G, city_name)
 
 if __name__ == "__main__":
     main()

@@ -69,8 +69,19 @@ def main():
     parser.add_argument("--world", default="World_0")
     args = parser.parse_args()
     city_data = load_city(args.world)
-    G = build_graph(city_data)
-    visualize_graph(G, city_data.get("city", "City"))
+    if city_data:
+        if "name" in city_data:
+            city_name = city_data["name"]
+        elif isinstance(city_data.get("city"), str):
+            city_name = city_data["city"]
+        elif isinstance(city_data.get("city"), dict):
+            city_name = city_data["city"].get("name", "City")
+        else:
+            city_name = "City"
+    else:
+        city_name = "City"
+    G = build_graph(city_data if city_data else {"places": [], "streets": [], "houses": [], "connections": []})
+    visualize_graph(G, city_name)
 
 if __name__ == "__main__":
     main()

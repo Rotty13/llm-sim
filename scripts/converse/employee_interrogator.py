@@ -14,19 +14,19 @@ class ProtopersonaInterrogator:
         self.city_yaml_path = city_yaml_path
         self.results = []
         self.people = self._load_people()
-        def _build_prompt(self, persona):
-            """
-            Builds the initial interrogation prompt for a persona.
-            """
-            return (
-                f"You are {persona.get('name')}, working as a {persona.get('job_title')} at {persona.get('workplace')}.\n"
-                "I am gathering information about your daily life for city planning.\n"
-                "Please reply in JSON format with the following keys: 'workplace', 'home'.\n"
-                "For 'workplace', include: rooms (names and purposes), items (type, minimal number, locality in room), and how your workplace fits into the local neighborhood.\n"
-                "For 'home', include: rooms (count and category), household members (name, age, employment status), and a general visual description of the outside and interior of your house.\n"
-                "If you don't know, make reasonable assumptions based on your role and address.\n"
-                "If any information is missing, state your assumptions.\n"
-            )
+    def _build_prompt(self, persona):
+        """
+        Builds the initial interrogation prompt for a persona.
+        """
+        return (
+            f"You are {persona.get('name')}, working as a {persona.get('job_title')} at {persona.get('workplace')}.\n"
+            "I am gathering information about your daily life for city planning.\n"
+            "Please reply in JSON format with the following keys: 'workplace', 'home'.\n"
+            "For 'workplace', include: rooms (names and purposes), items (type, minimal number, locality in room), and how your workplace fits into the local neighborhood.\n"
+            "For 'home', include: rooms (count and category), household members (name, age, employment status), and a general visual description of the outside and interior of your house.\n"
+            "If you don't know, make reasonable assumptions based on your role and address.\n"
+            "If any information is missing, state your assumptions.\n"
+        )
 
     def _load_people(self):
         with open(self.city_yaml_path, 'r', encoding='utf-8') as f:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+from typing import Any, Dict, Optional
 """
 actions.py
 
@@ -21,7 +23,6 @@ Supported Actions:
     - REST: Agent rests to restore comfort
     - USE_BATHROOM: Agent uses bathroom to relieve bladder
 """
-from __future__ import annotations
 import json
 import re
 from typing import Any, Dict, Optional
@@ -70,7 +71,7 @@ ACTION_COSTS = {
     "REST": {"comfort": 0.7, "energy": 0.05, "stress": -0.1},
     "USE_BATHROOM": {"bladder": 1.0, "energy": -0.01},
 }
-def execute_trade_action(agent: Any, world: Any, params: Dict = None) -> ActionResult:
+def execute_trade_action(agent: Any, world: Any, params: Optional[Dict] = None) -> ActionResult:
     """
     Execute TRADE action for agent-to-agent trading.
     Args:
@@ -126,7 +127,7 @@ class ActionResult:
     success: bool
     message: str
     duration: int = 0
-    effects: Dict[str, float] = None
+    effects: Optional[Dict[str, float]] = None
     
     def __post_init__(self):
         if self.effects is None:
@@ -218,7 +219,7 @@ def get_action_effects(action_type: str, params: Optional[Dict] = None) -> Dict[
     return ACTION_COSTS.get(action_type.upper(), {}).copy()
 
 
-def execute_work_action(agent: Any, world: Any, params: Dict = None) -> ActionResult:
+def execute_work_action(agent: Any, world: Any, params: Optional[Dict] = None) -> ActionResult:
     """
     Execute WORK action for an agent.
     
@@ -268,7 +269,7 @@ def execute_work_action(agent: Any, world: Any, params: Dict = None) -> ActionRe
     )
 
 
-def execute_say_action(agent: Any, world: Any, params: Dict = None) -> ActionResult:
+def execute_say_action(agent: Any, world: Any, params: Optional[Dict] = None) -> ActionResult:
     """
     Execute SAY action for an agent.
     
@@ -306,7 +307,7 @@ def execute_say_action(agent: Any, world: Any, params: Dict = None) -> ActionRes
     )
 
 
-def execute_interact_action(agent: Any, world: Any, params: Dict = None) -> ActionResult:
+def execute_interact_action(agent: Any, world: Any, params: Optional[Dict] = None) -> ActionResult:
     """
     Execute INTERACT action for an agent.
     
@@ -358,56 +359,55 @@ def execute_interact_action(agent: Any, world: Any, params: Dict = None) -> Acti
     )
 
 
-def execute_buy_action(agent: Any, world: Any, params: Dict = None) -> ActionResult:
-    def execute_sell_action(agent: Any, world: Any, params: Dict = None) -> ActionResult:
-        """
-        Execute SELL action for an agent.
-        Args:
-            agent: The agent performing the action.
-            world: The world context.
-            params: Action parameters (item, qty).
-        Returns:
-            ActionResult with success status and effects.
-        """
-        params = params or {}
-        item_id = params.get("item")
-        qty = params.get("qty", 1)
-        place = world.places.get(agent.place)
-        if not place or not getattr(place, "vendor", None):
-            return ActionResult(
-                success=False,
-                message=f"No vendor at current location: {getattr(agent, 'place', None)}"
-            )
-        vendor = place.vendor
-        if not item_id or not isinstance(qty, int) or qty <= 0:
-            return ActionResult(
-                success=False,
-                message="Invalid item or quantity for SELL action"
-            )
-        if not agent.inventory.has(item_id, qty):
-            return ActionResult(
-                success=False,
-                message=f"Not enough {item_id} to sell (need {qty})"
-            )
-        buyback_price = vendor.buyback.get(item_id, 0) * qty
-        if buyback_price <= 0:
-            return ActionResult(
-                success=False,
-                message=f"Vendor does not buy {item_id}"
-            )
-        # Attempt sale
-        success = vendor.sell(item_id, qty, agent)
-        if not success:
-            return ActionResult(
-                success=False,
-                message=f"Sale failed for {qty} of {item_id}"
-            )
+def execute_buy_action(agent: Any, world: Any, params: Optional[Dict] = None) -> ActionResult:
+    """
+    Execute SELL action for an agent.
+    Args:
+        agent: The agent performing the action.
+        world: The world context.
+        params: Action parameters (item, qty).
+    Returns:
+        ActionResult with success status and effects.
+    """
+    params = params or {}
+    item_id = params.get("item")
+    qty = params.get("qty", 1)
+    place = world.places.get(agent.place)
+    if not place or not getattr(place, "vendor", None):
         return ActionResult(
-            success=True,
-            message=f"Sold {qty} of {item_id} for {buyback_price}",
-            duration=get_action_duration("SELL"),
-            effects=get_action_effects("SELL")
+            success=False,
+            message=f"No vendor at current location: {getattr(agent, 'place', None)}"
         )
+    vendor = place.vendor
+    if not item_id or not isinstance(qty, int) or qty <= 0:
+        return ActionResult(
+            success=False,
+            message="Invalid item or quantity for SELL action"
+        )
+    if not agent.inventory.has(item_id, qty):
+        return ActionResult(
+            success=False,
+            message=f"Not enough {item_id} to sell (need {qty})"
+        )
+    buyback_price = vendor.buyback.get(item_id, 0) * qty
+    if buyback_price <= 0:
+        return ActionResult(
+            success=False,
+            message=f"Vendor does not buy {item_id}"
+        )
+    # Attempt sale
+    success = vendor.sell(item_id, qty, agent)
+    if not success:
+        return ActionResult(
+            success=False,
+            message=f"Sale failed for {qty} of {item_id}"
+        )
+    return ActionResult(
+        success=True,
+        message=f"Sold {qty} of {item_id} for {buyback_price}",
+        duration=get_action_duration("SELL"),
+        effects=get_action_effects("SELL")
+    )
     """
     Execute BUY action for an agent.
     Args:

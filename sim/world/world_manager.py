@@ -38,12 +38,12 @@ class WorldManager:
     def create_world(self, world_name: str, city: Optional[str] = None, year: Optional[int] = None):
         """
         Create a new world directory with default config files.
-                sim_logger.warning(f"No personas.yaml found for world '{world_name}'")
+        Args:
             world_name (str): Name of the world to create.
             city (Optional[str]): City name for the world.
             year (Optional[int]): Year for the world.
         Raises:
-                sim_logger.warning(f"No personas found in personas.yaml for world '{world_name}'")
+            FileExistsError: If the world already exists.
         """
         import shutil
         world_path = self.get_world_path(world_name)
@@ -52,7 +52,7 @@ class WorldManager:
         os.makedirs(world_path)
         # Create default city.yaml
         city_data = {"name": city or "New City", "year": year or 2025}
-                    sim_logger.warning(f"Skipping persona without name: {persona_cfg}")
+        with open(os.path.join(world_path, "city.yaml"), "w", encoding="utf-8") as f:
             yaml.safe_dump(city_data, f)
         # Create default personas.yaml
         personas_data = {"people": []}
@@ -79,11 +79,11 @@ class WorldManager:
             FileNotFoundError: If the world does not exist.
         """
         import shutil
-                            sim_logger.warning(f"Invalid schedule entry for {name}: {entry}, error: {e}")
+        world_path = self.get_world_path(world_name)
         if not os.path.exists(world_path):
             raise FileNotFoundError(f"World '{world_name}' does not exist.")
         shutil.rmtree(world_path)
-        sim_logger.warning(f"Deleted world: {world_name}", extra={"world_name": world_name})
+        sim_logger.info(f"Deleted world: {world_name}", extra={"world_name": world_name})
 
     def run_world(self, world_name: str, ticks: int = 100, validate: bool = True):
         """
@@ -111,26 +111,22 @@ class WorldManager:
         # Convert place dictionaries to Place objects
         places = {}
         for place_dict in places_data:
-                sim_logger.warning(f"Invalid personas.yaml structure for world '{world_name}'. Expected dict.")
-                place = Place(
-                    name=place_dict['name'],
-                    neighbors=place_dict.get('neighbors', []),
-                    capabilities=set(place_dict.get('capabilities', [])),
-                    purpose=place_dict.get('purpose', '')
-                )
-                places[place.name] = place
-                        sim_logger.warning(f"Validation warning: {error}")
+            place = Place(
+                name=place_dict['name'],
+                neighbors=place_dict.get('neighbors', []),
+                capabilities=set(place_dict.get('capabilities', [])),
+                purpose=place_dict.get('purpose', '')
+            )
+            places[place.name] = place
         # Create world with places
         world = World(places=places)
 
         # Load agents with full initialization and link to world
-                sim_logger.warning(f"Invalid personas.yaml structure for world '{world_name}'. Expected 'people' list.")
-        
+        agents = self.load_agents(world_name, world)
         print(f"Loaded {len(agents)} agents into world with {len(places)} places")
 
         # Run simulation loop
         world.simulation_loop(ticks)
-                    sim_logger.warning(f"Skipping invalid persona entry (not a dict): {persona}")
 
     def __init__(self, worlds_dir: str = "worlds"):
         """
@@ -157,27 +153,23 @@ class WorldManager:
         
         personas_data = self.load_yaml(world_name, "personas.yaml")
         if not personas_data:
-            logger.warning(f"No personas.yaml found for world '{world_name}'")
+            sim_logger.warning(f"No personas.yaml found for world '{world_name}'")
             return []
-        
         # Support both 'people' and 'personas' keys
         persona_list = personas_data.get("people", personas_data.get("personas", []))
         if not persona_list:
-            logger.warning(f"No personas found in personas.yaml for world '{world_name}'")
+            sim_logger.warning(f"No personas found in personas.yaml for world '{world_name}'")
             return []
-        
         agents = []
         for persona_cfg in persona_list:
             if not isinstance(persona_cfg, dict):
                 continue
-            
             name = persona_cfg.get("name", "")
             if not name:
-                logger.warning(f"Skipping persona without name: {persona_cfg}")
+                sim_logger.warning(f"Skipping persona without name: {persona_cfg}")
                 continue
-            
             # Create Persona object
-                sim_logger.error(error)
+            persona = Persona(
                 name=name,
                 age=persona_cfg.get("age", 30),
                 job=persona_cfg.get("job", persona_cfg.get("role", "unemployed")),
@@ -186,7 +178,6 @@ class WorldManager:
                 values=persona_cfg.get("values", persona_cfg.get("traits", [])),
                 goals=persona_cfg.get("goals", [])
             )
-            
             # Parse schedule into Appointment objects
             schedule_data = persona_cfg.get("schedule", [])
             calendar = []
@@ -195,27 +186,21 @@ class WorldManager:
                     try:
                         appt = Appointment(
                             start_tick=entry.get("start_tick", 0),
-                sim_logger.warning(f"No schema available for {filename}")
+                            end_tick=entry.get("end_tick", 0),
                             location=entry.get("location", ""),
                             label=entry.get("label", "")
                         )
-                sim_logger.info(f"Validation passed for {filename} in world '{world_name}'.")
+                        calendar.append(appt)
                     except (TypeError, KeyError) as e:
-                        logger.warning(f"Invalid schedule entry for {name}: {entry}, error: {e}")
-                    sim_logger.error(f"Validation error in {filename}: {error}")
-            # Get starting position
+                        sim_logger.warning(f"Invalid schedule entry for {name}: {entry}, error: {e}")
             position = persona_cfg.get("position", persona_cfg.get("start_place", ""))
-            
-            # Create Agent
             agent = Agent(
                 persona=persona,
                 place=position,
                 calendar=calendar
             )
-            
             agents.append(agent)
-            logger.debug(f"Loaded agent {name} at position '{position}' with {len(calendar)} appointments")
-        
+            sim_logger.debug(f"Loaded agent {name} at position '{position}' with {len(calendar)} appointments")
         return agents
 
     def list_worlds(self) -> list:
@@ -281,7 +266,7 @@ class WorldManager:
         
         # Validate structure
         if not isinstance(personas, dict):
-            logger.warning(f"Invalid personas.yaml structure for world '{world_name}'. Expected dict.")
+            sim_logger.warning(f"Invalid personas.yaml structure for world '{world_name}'. Expected dict.")
             return []
         
         # Schema validation if requested
@@ -289,24 +274,24 @@ class WorldManager:
             result = validate_personas_config(personas)
             if not result.is_valid:
                 for error in result.errors:
-                    logger.warning(f"Validation warning: {error}")
+                    sim_logger.warning(f"Validation warning: {error}")
         
         # Get people list - support both 'people' and 'personas' keys
         people_list = personas.get("people", personas.get("personas", []))
         if not isinstance(people_list, list):
-            logger.warning(f"Invalid personas.yaml structure for world '{world_name}'. Expected 'people' list.")
+            sim_logger.warning(f"Invalid personas.yaml structure for world '{world_name}'. Expected 'people' list.")
             return []
 
         valid_personas = []
         for persona in people_list:
             if not isinstance(persona, dict):
-                logger.warning(f"Skipping invalid persona entry (not a dict): {persona}")
+                sim_logger.warning(f"Skipping invalid persona entry (not a dict): {persona}")
                 continue
                 
             # Name is required
             name = persona.get("name")
             if not name:
-                logger.warning(f"Skipping persona without name: {persona}")
+                sim_logger.warning(f"Skipping persona without name: {persona}")
                 continue
 
             # Parse schedule - convert to Appointment objects if dict entries
@@ -316,7 +301,7 @@ class WorldManager:
             # Get position - support both 'position' and 'start_place'
             position = persona.get("position") or persona.get("start_place", "unknown")
             if not isinstance(position, str):
-                logger.warning(f"Invalid position for persona {name}. Expected a string, using 'unknown'.")
+                sim_logger.warning(f"Invalid position for persona {name}. Expected a string, using 'unknown'.")
                 position = "unknown"
 
             # Build validated persona data
@@ -346,7 +331,7 @@ class WorldManager:
             List[Appointment]: Parsed schedule as Appointment objects.
         """
         if not isinstance(raw_schedule, list):
-            logger.warning(f"Invalid schedule for persona {persona_name}. Expected a list.")
+            sim_logger.warning(f"Invalid schedule for persona {persona_name}. Expected a list.")
             return []
         
         appointments = []
@@ -366,16 +351,16 @@ class WorldManager:
                         )
                         appointments.append(appt)
                     except (ValueError, TypeError) as e:
-                        logger.warning(
+                        sim_logger.warning(
                             f"Invalid schedule entry {i} for persona {persona_name}: {e}"
                         )
                 else:
                     missing = [f for f in required_fields if f not in entry]
-                    logger.warning(
+                    sim_logger.warning(
                         f"Schedule entry {i} for persona {persona_name} missing fields: {missing}"
                     )
             else:
-                logger.warning(
+                sim_logger.warning(
                     f"Invalid schedule entry {i} for persona {persona_name}: expected dict or Appointment"
                 )
         
@@ -507,13 +492,13 @@ class WorldManager:
                 if hasattr(world, 'places') and agent.place not in world.places:
                     if world.places:
                         default_place = next(iter(world.places))
-                        logger.warning(
+                        sim_logger.warning(
                             f"Invalid place '{agent.place}' for agent {agent.persona.name}. "
                             f"Assigning default place '{default_place}'."
                         )
                         agent.place = default_place
                     else:
-                        logger.warning(
+                        sim_logger.warning(
                             f"No places available in world for agent {agent.persona.name}."
                         )
                 
@@ -524,10 +509,10 @@ class WorldManager:
                     try:
                         world.set_agent_location(agent, agent.place)
                     except ValueError as e:
-                        logger.warning(f"Could not set location for agent {agent.persona.name}: {e}")
+                        sim_logger.warning(f"Could not set location for agent {agent.persona.name}: {e}")
             
             agents.append(agent)
-            logger.debug(
+            sim_logger.debug(
                 f"Loaded agent {agent.persona.name} at {agent.place} "
                 f"with {len(calendar)} scheduled appointments"
             )
@@ -547,7 +532,7 @@ class WorldManager:
         data = self.load_yaml(world_name, filename)
         if data is None:
             error = f"Failed to load {filename} for validation."
-            logger.error(error)
+            sim_logger.error(error)
             return False, [error]
 
         # Use built-in validators for known config files
@@ -565,14 +550,14 @@ class WorldManager:
             is_valid = validate_nested_schema(data, schema)
             return is_valid, [] if is_valid else [f"Schema validation failed for {filename}"]
         else:
-            logger.warning(f"No schema available for {filename}")
+            sim_logger.warning(f"No schema available for {filename}")
             return True, []
 
         if hasattr(result, 'is_valid') and result.is_valid:
-            logger.info(f"Validation passed for {filename} in world '{world_name}'.")
+            sim_logger.info(f"Validation passed for {filename} in world '{world_name}'.")
         elif hasattr(result, 'errors'):
             for error in result.errors:
-                logger.error(f"Validation error in {filename}: {error}")
+                sim_logger.error(f"Validation error in {filename}: {error}")
         return getattr(result, 'is_valid', True), getattr(result, 'errors', [])
 
     def validate_all_configs(self, world_name: str) -> Tuple[bool, Dict[str, List[str]]]:
@@ -612,7 +597,7 @@ class WorldManager:
 
         is_valid, errors = self.validate_config(world_name, "places.yaml", schema)
         if not is_valid:
-            logger.error(f"Failed to validate places.yaml for world '{world_name}': {errors}")
+            sim_logger.error(f"Failed to validate places.yaml for world '{world_name}': {errors}")
             return None
 
         return self.load_yaml(world_name, "places.yaml")

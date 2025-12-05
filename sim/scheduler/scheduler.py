@@ -58,13 +58,6 @@ def enforce_schedule(calendar: List[Appointment], place: str, tick: int, busy_un
     return None
 
 def run_agent_loop(world, ticks: int = 100):
-        from sim.utils.logging import sim_logger
-        from sim.utils.metrics import metrics
-        sim_logger.info(f"Agent loop started for world: {getattr(world, 'name', None)} with ticks={ticks}", extra={"world": getattr(world, 'name', None), "ticks": ticks})
-        metrics.start()
-        for tick in range(ticks):
-            metrics.set_tick(tick)
-            metrics.record_tick_snapshot(agent_count=len(getattr(world, '_agents', [])))
     """
     Run the main agent loop for the simulation.
     Iterates over all agents for a given number of ticks, invoking their decision/action methods.
@@ -72,8 +65,14 @@ def run_agent_loop(world, ticks: int = 100):
         world: The simulation world object containing agents and places.
         ticks: Number of simulation ticks to run.
     """
+    from sim.utils.logging import sim_logger
+    from sim.utils.metrics import metrics
     from sim.actions.actions import parse_action
+    sim_logger.info(f"Agent loop started for world: {getattr(world, 'name', None)} with ticks={ticks}", extra={"world": getattr(world, 'name', None), "ticks": ticks})
+    metrics.start()
     for tick in range(ticks):
+        metrics.set_tick(tick)
+        metrics.record_tick_snapshot(agent_count=len(getattr(world, '_agents', [])))
         # Advance time in world (if needed)
         if hasattr(world, 'metrics'):
             world.metrics.set_tick(tick)

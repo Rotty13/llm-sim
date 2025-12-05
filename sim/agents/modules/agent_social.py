@@ -1,10 +1,23 @@
 import sim.utils.metrics
+from sim.utils.logging import sim_logger
+import random
 """
 AgentSocial module for managing agent social interactions and networks.
 Handles social graph, connections, and interaction history.
+
+Features:
+- Social graph management (connections, affinity, rivalry, influence)
+- Interaction and topic history tracking
+- Context-aware topic generation
+- Logging and metrics integration
+- API for querying recent topics and interactions
 """
 
 class AgentSocial:
+    def __init__(self):
+        self.connections = {}
+        self.interactions = []  # List of (agent_id, interaction, topic)
+        self.topic_history = []  # List of (agent_id, topic)
 
     def get_social_influence_modifier(self, topic=None):
         """
@@ -17,8 +30,6 @@ class AgentSocial:
         # Influence: sum influence scores for agents who discussed the topic
         influence_sum = 0.0
         if topic:
-            import random
-
             for aid, t in self.topic_history[-20:]:
                 if t == topic and aid in self.connections:
                     influence_sum += self.connections[aid].get('influence', 0.0)
@@ -34,7 +45,6 @@ class AgentSocial:
         agent: the agent initiating conversation (optional)
         context: dict with keys like 'event', 'location', etc. (optional)
         """
-        import random
         # Static topic pool
         topics = ['weather', 'work', 'food', 'hobbies', 'news', 'family', 'health', 'sports', 'local_places']
         # Contextual topics
@@ -52,10 +62,6 @@ class AgentSocial:
                 topics.append('ideas')
         # Pick a topic
         return random.choice(topics)
-    def __init__(self):
-        self.connections = {}
-        self.interactions = []  # List of (agent_id, interaction, topic)
-        self.topic_history = []  # List of (agent_id, topic)
 
     def update_affinity(self, agent_id, delta):
         """Update affinity score for a connection."""
@@ -94,7 +100,6 @@ class AgentSocial:
 
     def log_interaction(self, agent_id, interaction, topic=None):
         """Log an interaction with optional topic, record to sim_logger, and update metrics."""
-        from sim.utils.logging import sim_logger
         self.interactions.append((agent_id, interaction, topic))
         if topic:
             self.topic_history.append((agent_id, topic))
@@ -103,6 +108,7 @@ class AgentSocial:
             extra={"agent_id": agent_id, "interaction": interaction, "topic": topic}
         )
         sim.utils.metrics.metrics.log_agent_action(agent_id, interaction, details={"topic": topic})
+
     def get_recent_topics(self, agent_id=None, limit=10):
         """Return recent topics overall or for a specific agent."""
         if agent_id:

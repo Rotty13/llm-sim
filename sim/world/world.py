@@ -41,8 +41,12 @@ logger = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from ..agents.agents import Agent
 
+
 @dataclass
 class Vendor:
+    prices: Dict[str, float] = field(default_factory=dict)   # item_id -> price
+    stock: Dict[str, int] = field(default_factory=dict)      # item_id -> qty
+    buyback: Dict[str, float] = field(default_factory=dict)  # item_id -> price
 
     def fluctuate_prices(self, fluctuation: float = 0.1, min_price: float = 0.01):
         """
@@ -55,24 +59,21 @@ class Vendor:
             new_price = max(min_price, price + change)
             self.prices[item_id] = round(new_price, 2)
 
-        def restock(self, restock_dict: Optional[Dict[str, int]] = None, default_qty: int = 10):
-            """
-            Replenish vendor stock. If restock_dict is provided, set stock to at least the specified quantity for each item.
-            Otherwise, restock all items in prices to at least default_qty.
-            """
-            if restock_dict:
-                for item_id, qty in restock_dict.items():
-                    current = self.stock.get(item_id, 0)
-                    if current < qty:
-                        self.stock[item_id] = qty
-            else:
-                for item_id in self.prices:
-                    current = self.stock.get(item_id, 0)
-                    if current < default_qty:
-                        self.stock[item_id] = default_qty
-    prices: Dict[str, float] = field(default_factory=dict)   # item_id -> price
-    stock: Dict[str, int] = field(default_factory=dict)      # item_id -> qty
-    buyback: Dict[str, float] = field(default_factory=dict)  # item_id -> price
+    def restock(self, restock_dict: Optional[Dict[str, int]] = None, default_qty: int = 10):
+        """
+        Replenish vendor stock. If restock_dict is provided, set stock to at least the specified quantity for each item.
+        Otherwise, restock all items in prices to at least default_qty.
+        """
+        if restock_dict:
+            for item_id, qty in restock_dict.items():
+                current = self.stock.get(item_id, 0)
+                if current < qty:
+                    self.stock[item_id] = qty
+        else:
+            for item_id in self.prices:
+                current = self.stock.get(item_id, 0)
+                if current < default_qty:
+                    self.stock[item_id] = default_qty
 
     def has(self, item_id: str, qty: int = 1) -> bool:
         return self.stock.get(item_id, 0) >= qty
