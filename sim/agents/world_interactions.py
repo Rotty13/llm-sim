@@ -17,6 +17,8 @@ def deposit_item_to_place(agent: 'Agent', world: 'World', item_id: str, qty: int
     if not place:
         return False
 
+    if agent.inventory_handler is None:
+        return False
     success = agent.inventory_handler.deposit_item_to_place(agent, place, item_id, qty)
     if success:
         agent.busy_until += 5  # Example: Depositing takes 5 ticks
@@ -35,6 +37,8 @@ def withdraw_item_from_place(agent: 'Agent', world: 'World', item_id: str, qty: 
     if not place:
         return False
 
+    if agent.inventory_handler is None:
+        return False
     success = agent.inventory_handler.withdraw_item_from_place(agent, place, item_id, qty)
     if success:
         agent.busy_until += 5  # Example: Withdrawing takes 5 ticks

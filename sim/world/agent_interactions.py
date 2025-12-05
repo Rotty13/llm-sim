@@ -38,4 +38,5 @@ def set_agent_location(world: 'World', agent: 'Agent', place_name: str):
 
 def get_agent_location(world: 'World', agent_name: str) -> str:
     """Get the location of an agent by name."""
-    return world.agent_locations.get(agent_name)
+    loc = world.agent_locations.get(agent_name)
+    return loc if isinstance(loc, str) else ""

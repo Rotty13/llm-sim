@@ -4,6 +4,27 @@ Handles action execution, logging, and queries.
 """
 
 class AgentActions:
+        def perform_social_action(self, agent, other_agent=None, world=None, action_type="SAY", context=None):
+            """
+            Perform a social action (SAY/INTERACT), generate a topic, and log the interaction.
+            """
+            # Generate topic using AgentSocial static method
+            topic = None
+            if agent.social:
+                topic = agent.social.generate_topic(agent, context)
+                # Log interaction for both agents if possible
+                agent.social.log_interaction(
+                    other_agent.persona.name if other_agent else None,
+                    action_type,
+                    topic
+                )
+                if other_agent and hasattr(other_agent, 'social') and other_agent.social:
+                    other_agent.social.log_interaction(
+                        agent.persona.name,
+                        action_type,
+                        topic
+                    )
+            return topic
     def work_at_place(self, agent, place, world, tick):
         """Perform work at the current place, earning income and producing job-related items."""
         if agent.place != place:

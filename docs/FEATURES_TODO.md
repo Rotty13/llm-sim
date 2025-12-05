@@ -118,16 +118,15 @@ See detailed descriptions in the sections below.
 ## 🔧 In Progress / Skeleton Features
 
 ### 6. Agent Social Interaction
-**Status**: Tested & Passing
-**Main File(s)**: `sim/agents/interaction.py`, `sim/agents/modules/agent_social.py`, `tests/test_agent_modules.py`
-**Current State**:
+**Status**: Completed
+**Main File(s)**: `sim/agents/interaction.py`, `sim/agents/modules/agent_social.py`, `sim/agents/modules/agent_plan_logic.py`, `tests/test_agent_modules.py`, `tests/test_social_influence.py`
+**Description**:
   - `preference_to_interact()` integrated into agent decision-making
   - Relationship tracking (familiarity, trust) implemented
   - Social memory (past conversations/interactions) implemented
   - Group mechanics and connection API tested and passing
-**TODO**:
-  - [ ] Add conversation topic tracking
-  - [ ] Implement social influence on agent decisions
+  - Conversation topic tracking implemented
+  - Social influence on agent decisions integrated and tested
 
 ### 27. Aging and Life Stages
 - **Status**: Completed
@@ -185,12 +184,9 @@ See detailed descriptions in the sections below.
 **Description**: Weather effects influence agent behavior and are delegated via hooks. WeatherManager supports realistic transitions, agent modules respond to weather, and tests validate the system. Place capability integration deferred.
 
 ### 32. World Events
-- **Status**: Minimal
-- **Description**: Add random and scheduled world events.
-- **TODO**:
-  - [ ] Implement random world events (weather, accidents, festivals)
-  - [ ] Add event triggers (time-based, action-based)
-  - [ ] Implement event effects on agents/places
+**Status**: Completed
+**Main File(s)**: `sim/world/event_dispatcher.py`, `sim/world/world.py`, `sim/scheduler/scheduler.py`
+**Description**: Modular event dispatcher routes random and scheduled events to subsystems. Accidents, festivals, store closings, and weather changes are triggered by probability and time-based logic. Event handlers visibly affect agent mood, stress, and place activity. Integration is complete and extensible for future event types.
 
 ### 34. Simulation Metrics Dashboard
 - **Status**: Proposed

@@ -1,3 +1,4 @@
+__all__ = ['metrics']
 """
 metrics.py
 
@@ -29,6 +30,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional, List
 
 logger = logging.getLogger(__name__)
+metrics = None
 
 
 class SimulationMetrics:
@@ -90,12 +92,12 @@ class SimulationMetrics:
     def start(self):
         """Mark the start of a simulation run."""
         self.start_time = datetime.now()
-        logger.log(self.log_level, f"Simulation metrics started at {self.start_time}")
+        logger.info(f"Simulation metrics started at {self.start_time}")
 
     def stop(self):
         """Mark the end of a simulation run."""
         self.end_time = datetime.now()
-        logger.log(self.log_level, f"Simulation metrics stopped at {self.end_time}")
+        logger.info(f"Simulation metrics stopped at {self.end_time}")
 
     def set_tick(self, tick: int):
         """Set the current simulation tick for metric tracking."""
@@ -111,12 +113,8 @@ class SimulationMetrics:
             details: Optional dictionary with additional action details
         """
         self.agent_actions[(agent_name, action)] += 1
-        if logger.isEnabledFor(self.log_level):
-            detail_str = f" - {details}" if details else ""
-            logger.log(
-                self.log_level, 
-                f"[Tick {self._current_tick}] Agent {agent_name} performed: {action}{detail_str}"
-            )
+        detail_str = f" - {details}" if details else ""
+        logger.info(f"[Tick {self._current_tick}] Agent {agent_name} performed: {action}{detail_str}")
 
     def log_resource_flow(self, entity: str, item_id: str, qty: int, flow_type: str = "transfer"):
         """
@@ -129,11 +127,7 @@ class SimulationMetrics:
             flow_type: Type of flow ('transfer', 'consume', 'produce')
         """
         self.resource_flows[(entity, item_id)] += qty
-        if logger.isEnabledFor(self.log_level):
-            logger.log(
-                self.log_level,
-                f"[Tick {self._current_tick}] Resource {flow_type}: {entity} -> {item_id} x{qty}"
-            )
+        logger.info(f"[Tick {self._current_tick}] Resource {flow_type}: {entity} -> {item_id} x{qty}")
 
     def log_world_event(self, event: str, details: Optional[Dict] = None):
         """
@@ -144,9 +138,8 @@ class SimulationMetrics:
             details: Optional dictionary with event details
         """
         self.world_events[event] += 1
-        if logger.isEnabledFor(self.log_level):
-            detail_str = f" - {details}" if details else ""
-            logger.log(self.log_level, f"[Tick {self._current_tick}] World event: {event}{detail_str}")
+        detail_str = f" - {details}" if details else ""
+        logger.info(f"[Tick {self._current_tick}] World event: {event}{detail_str}")
 
     def record_tick_snapshot(self, agent_count: int = 0, active_events: int = 0):
         """
@@ -246,3 +239,6 @@ class SimulationMetrics:
         self.start_time = None
         self.end_time = None
         self._current_tick = 0
+
+
+metrics = SimulationMetrics()

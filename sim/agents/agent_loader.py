@@ -10,9 +10,10 @@ Helper for loading agents from YAML config files in llm-sim.
 """
 
 from typing import Dict, Any
+from sim.agents.agents import Agent
 
 
-def load_agent_from_yaml(yaml_data: Dict[str, Any], world_manager) -> "Agent":
+def load_agent_from_yaml(yaml_data: Dict[str, Any], world_manager) -> Agent:
     """
     Parses and validates agent data from a YAML config (e.g., personas.yaml), returning an Agent object.
 

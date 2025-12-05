@@ -9,8 +9,8 @@ class AgentSerialization:
     def serialize(self, agent):
         # Recursively convert dataclass objects and replace non-serializable objects with class name
         def convert(obj):
-            if is_dataclass(obj):
-                # Convert dataclass to dict, then recursively process fields
+            # Only call asdict on dataclass instances, not types
+            if is_dataclass(obj) and not isinstance(obj, type):
                 return convert(asdict(obj))
             elif isinstance(obj, dict):
                 result = {}
@@ -26,6 +26,8 @@ class AgentSerialization:
                 return obj
             else:
                 # For non-serializable objects, use their class name as a placeholder
+                if isinstance(obj, type):
+                    return f"<{obj.__name__}>"
                 return f"<{obj.__class__.__name__}>"
         # Convert the agent's __dict__ recursively
         return json.dumps(convert(agent.__dict__))

@@ -12,6 +12,7 @@ import argparse, json
 from sim.world.world_manager import WorldManager
 import sys
 from pathlib import Path
+import yaml
 
 # Ensure project root is in sys.path for imports
 project_root = Path(__file__).resolve().parents[1]
@@ -36,50 +37,54 @@ def _parse_say_payload(text: str) -> dict:
             return {}
 
 def print_memory_summary(agent: Agent, start: datetime, max_snips: int = 5):
-    items = agent.memory.items
+    items = agent.memory.get_episodic() if agent.memory else []
     by_kind = {"autobio":0, "episodic":0, "semantic":0, "tom":0}
     for m in items:
-        by_kind[m.kind] = by_kind.get(m.kind, 0) + 1
+        kind = getattr(m, 'kind', None)
+        if kind:
+            by_kind[kind] = by_kind.get(kind, 0) + 1
     print(f"\n### {agent.persona.name} – Memory summary")
     print(f"Counts  | autobio={by_kind.get('autobio',0)}  episodic={by_kind.get('episodic',0)}  semantic={by_kind.get('semantic',0)}  tom={by_kind.get('tom',0)}")
-    recent = sorted(items, key=lambda m: m.t, reverse=True)[:max_snips]
+    recent = sorted(items, key=lambda m: getattr(m, 't', 0), reverse=True)[:max_snips]
     for m in recent:
-        print(f"  - [{now_str(m.t,start)}] {m.kind}: {m.text}")
+        print(f"  - [{now_str(getattr(m, 't', 0),start)}] {getattr(m, 'kind', '')}: {getattr(m, 'text', '')}")
 
 def load_world(world_name: str) -> World:
     wm = WorldManager()
     data = wm.load_world(world_name)
     places = {}
-    for p in data.get("places", []):
-        vendor = None
-        if "vendor" in p:
-            v = p["vendor"]
-            vendor = Vendor(prices=v.get("prices",{}), stock=v.get("stock",{}), buyback=v.get("buyback",{}))
-        places[p["name"]] = Place(
-            name=p["name"],
-            neighbors=list(p.get("neighbors",[])),
-            capabilities=set(p.get("capabilities",[])),
-            vendor=vendor,
-            purpose=p.get("purpose","")
-        )
+    if data and "places" in data:
+        for p in data["places"]:
+            vendor = None
+            if "vendor" in p:
+                v = p["vendor"]
+                vendor = Vendor(prices=v.get("prices",{}), stock=v.get("stock",{}), buyback=v.get("buyback",{}))
+            places[p["name"]] = Place(
+                name=p["name"],
+                neighbors=list(p.get("neighbors",[])),
+                capabilities=set(p.get("capabilities",[])),
+                vendor=vendor,
+                purpose=p.get("purpose","")
+            )
     return World(places=places)
 
 def load_agents(world_name: str, city: str) -> list[Agent]:
     wm = WorldManager()
     data = wm.load_personas(world_name)
     agents = []
-    for p in data:
-        persona = Persona(
-            name=p["name"], age=int(p["age"]), job=str(p["job"]),
-            city=city, bio=p.get("bio",""), values=list(p.get("values",[])), goals=list(p.get("goals",[]))
-        )
-        start = p.get("start_place","Street")
-        cal = []
-        if "dev" in persona.job:
-            cal = [Appointment(at_min=60, place="Office", label="standup")]
-        elif "barista" in persona.job:
-            cal = [Appointment(at_min=0, place="Cafe", label="shift")]
-        agents.append(Agent(persona=persona, place=start, calendar=cal))
+    if data:
+        for p in data:
+            persona = Persona(
+                name=p["name"], age=int(p["age"]), job=str(p["job"]),
+                city=city, bio=p.get("bio",""), values=list(p.get("values",[])), goals=list(p.get("goals",[]))
+            )
+            start = p.get("start_place","Street")
+            cal = []
+            if "dev" in persona.job:
+                cal = [Appointment(start_tick=60, end_tick=120, location="Office", label="standup")]
+            elif "barista" in persona.job:
+                cal = [Appointment(start_tick=0, end_tick=60, location="Cafe", label="shift")]
+            agents.append(Agent(persona=persona, place=start, calendar=cal))
     return agents
 
 def main():
@@ -90,8 +95,8 @@ def main():
     ap.add_argument("--logdir", default=str(Path(__file__).resolve().parents[1] / "data" / "logs"))
     args = ap.parse_args()
 
-    world = load_world(Path(args.world))
-    agents = load_agents(Path(args.personas), city=yaml.safe_load(Path(args.world).read_text()).get("city","City"))
+    world = load_world(str(args.world))
+    agents = load_agents(str(args.personas), city=yaml.safe_load(Path(args.world).read_text()).get("city","City"))
 
     # expose roster to prompt (simple hook)
     world._agents = agents  # used by Agent.decide() to print roster
@@ -146,14 +151,17 @@ def main():
 
         # memory summaries
         def print_mem(agent: Agent):
-            items = agent.memory.items
+            items = agent.memory.get_episodic() if agent.memory else []
             by_kind = {"autobio":0, "episodic":0, "semantic":0, "tom":0}
-            for m in items: by_kind[m.kind] = by_kind.get(m.kind, 0) + 1
+            for m in items:
+                kind = getattr(m, 'kind', None)
+                if kind:
+                    by_kind[kind] = by_kind.get(kind, 0) + 1
             f.write(f"\n### {agent.persona.name} – Memory summary\n")
             f.write(f"Counts  | autobio={by_kind.get('autobio',0)}  episodic={by_kind.get('episodic',0)}  semantic={by_kind.get('semantic',0)}  tom={by_kind.get('tom',0)}\n")
-            recent = sorted(items, key=lambda m: m.t, reverse=True)[:5]
+            recent = sorted(items, key=lambda m: getattr(m, 't', 0), reverse=True)[:5]
             for m in recent:
-                f.write(f"  - [{now_str(m.t,start)}] {m.kind}: {m.text}\n")
+                f.write(f"  - [{now_str(getattr(m, 't', 0),start)}] {getattr(m, 'kind', '')}: {getattr(m, 'text', '')}\n")
 
         f.write("\n--- Memory summaries ---\n")
         for ag in agents: print_mem(ag)
@@ -161,7 +169,11 @@ def main():
         # run summary
         f.write("\n--- Run summary ---\n")
         for ag in agents:
-            f.write(f"{ag.persona.name} — place={ag.place}, energy={ag.physio.energy:.2f}, hunger={ag.physio.hunger:.2f}, stress={ag.physio.stress:.2f}, memories={len(ag.memory.items)}\n")
+            energy = ag.physio.energy if ag.physio and hasattr(ag.physio, 'energy') else 0.0
+            hunger = ag.physio.hunger if ag.physio and hasattr(ag.physio, 'hunger') else 0.0
+            stress = ag.physio.stress if ag.physio and hasattr(ag.physio, 'stress') else 0.0
+            mem_count = len(ag.memory.get_episodic()) if ag.memory else 0
+            f.write(f"{ag.persona.name} — place={ag.place}, energy={energy:.2f}, hunger={hunger:.2f}, stress={stress:.2f}, memories={mem_count}\n")
 
     print(f"Wrote log to {outpath}")
 

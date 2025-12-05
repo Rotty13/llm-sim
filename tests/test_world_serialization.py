@@ -1,7 +1,7 @@
 """
 test_world_serialization.py
 
-Unit test for World YAML serialization and deserialization.
+Pytest function for World YAML serialization and deserialization.
 """
 import os
 import tempfile
@@ -20,6 +20,7 @@ def test_world_yaml_serialization():
     world = World(places={"Cafe": place}, events=deque(["open", "close"]))
     world.add_agent(agent)
     world.set_agent_location(agent, "Cafe")
+    assert agent.inventory is not None
     # Give agent some inventory
     agent.inventory.add(ITEMS["coffee"], 2)
     # Serialize to YAML

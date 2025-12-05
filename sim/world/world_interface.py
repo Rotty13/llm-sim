@@ -21,10 +21,10 @@ CLI Arguments:
 - None directly; interface is used by simulation modules and scripts.
 """
 
-from typing import Protocol, Dict, Any
+from typing import Protocol, Dict, Any, Optional
 
 class WorldInterface(Protocol):
-    def get_agent_location(self, agent_name: str) -> str:
+    def get_agent_location(self, agent_name: str) -> Optional[str]:
         """Get the location of an agent by name."""
         pass
 
@@ -43,9 +43,9 @@ class WorldInterface(Protocol):
     @property
     def _agents(self) -> list:
         """List of agents in the world."""
-        pass
+        ...
 
     @property
     def places(self) -> Dict[str, Any]:
         """Dictionary of places in the world."""
-        pass
+        ...

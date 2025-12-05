@@ -204,6 +204,16 @@ class LLM:
         return txt
 
     def write_log_entry(self, system_prompt, prompt, txt, json):
+        from sim.utils.logging import sim_logger
+        sim_logger.info(
+            "LLM chat interaction",
+            extra={
+                "system_prompt": system_prompt,
+                "prompt": prompt,
+                "response_txt": txt,
+                "response_json": json
+            }
+        )
         if self.caller and not self.logfile:
             self.initialize_logging(self.caller)
         if self.logfile:

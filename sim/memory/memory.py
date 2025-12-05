@@ -110,7 +110,7 @@ class MemoryStore:
             score += 0.1
         return max(0.0, min(1.0, score))
 
-    def recall(self, q: str, k: int = 5, kind: str = None) -> List[MemoryItem]:
+    def recall(self, q: str, k: int = 5, kind: Optional[str] = None) -> List[MemoryItem]:
         """
         Recall memories matching a query and/or kind, ranked by keyword, recency, and importance.
         Args:

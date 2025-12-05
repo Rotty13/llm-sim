@@ -27,7 +27,15 @@ class AgentPlanLogic:
         if traits.get('openness', 0) > 0.8:
             if "EXPLORE" not in restricted_actions:
                 agent.plan.append("EXPLORE")
-        if traits.get('extraversion', 0) > 0.8 and getattr(physio, 'social', 1) < 0.5:
+        # Social influence integration: boost likelihood of SAY if group trends favor it
+        social_modifier = 0.0
+        if hasattr(agent, 'social') and agent.social:
+            # Use most recent topic or default to 'social_life'
+            recent_topics = agent.social.get_recent_topics(limit=1)
+            topic = recent_topics[0] if recent_topics else 'social_life'
+            social_modifier = agent.social.get_social_influence_modifier(topic)
+        extraversion_score = traits.get('extraversion', 0) + social_modifier
+        if extraversion_score > 0.8 and getattr(physio, 'social', 1) < 0.5:
             if "SAY" not in restricted_actions:
                 agent.plan.append("SAY")
         # Needs-driven actions

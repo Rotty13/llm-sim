@@ -31,7 +31,8 @@ import yaml
 
 # Use TYPE_CHECKING to avoid circular imports
 if TYPE_CHECKING:
-    from sim.agents.agents import Agent, Persona
+    from sim.agents.agents import Agent
+    from sim.agents.persona import Persona
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -172,7 +173,106 @@ class Place:
 
 @dataclass
 class World:
-    places: Dict[str, Place]
+    time: int = 0  # Simulation time (tick)
+
+    def get_time_of_day(self) -> str:
+        """
+        Return the time of day based on the current tick.
+        Example: 'morning', 'afternoon', 'evening', 'night'.
+        """
+        # Simple logic: 0-5 morning, 6-11 afternoon, 12-17 evening, 18-23 night
+        hour = self.time % 24
+        if 0 <= hour < 6:
+            return 'morning'
+        elif 6 <= hour < 12:
+            return 'afternoon'
+        elif 12 <= hour < 18:
+            return 'evening'
+        else:
+            return 'night'
+    def register_event_handlers(self):
+        """
+        Register subsystem event handlers with the dispatcher.
+        """
+        if not self.event_dispatcher:
+            return
+        # Weather event handler: update weather state and notify agents
+        def weather_event_handler(event):
+            # Accept both {'type': 'weather', 'event': ...} and {'event': ...}
+            if self.weather_manager:
+                if event.get('type') == 'weather' and 'event' in event:
+                    self.weather_manager.current_state = event['event']
+                    self.weather_manager.update_weather()
+                elif 'event' in event:
+                    self.weather_manager.current_state = event['event']
+                    self.weather_manager.update_weather()
+            # Affect agent mood for weather events
+            for agent in self._agents:
+                if hasattr(agent, 'mood') and agent.mood:
+                    if event.get('event') == 'rain':
+                        agent.mood.update_mood('weather', -0.1)
+                    elif event.get('event') == 'sunny':
+                        agent.mood.update_mood('weather', 0.1)
+        self.event_dispatcher.register_handler('weather', weather_event_handler)
+
+        # Scheduler event handler: update agent schedules and place capabilities
+        def scheduler_event_handler(event):
+            if event.get('type') == 'festival':
+                for agent in self._agents:
+                    if hasattr(agent, 'mood') and agent.mood:
+                        agent.mood.update_mood('festival', 0.2)
+                # Boost activity in all places
+                for place in self.places.values():
+                    place.purpose = 'festival'
+            if event.get('type') == 'store_close':
+                place_name = event.get('place')
+                if place_name and place_name in self.places:
+                    self.places[place_name].capabilities.discard('store')
+        self.event_dispatcher.register_handler('festival', scheduler_event_handler)
+        self.event_dispatcher.register_handler('store_close', scheduler_event_handler)
+
+        # Accident event handler: update agent physio/mood for affected agents
+        def accident_event_handler(event):
+            place_name = event.get('place')
+            if place_name and place_name in self.places:
+                for agent in self.places[place_name].agents_present:
+                    if hasattr(agent, 'physio') and agent.physio:
+                        agent.physio.stress = min(1.0, agent.physio.stress + 0.3)
+                    if hasattr(agent, 'mood') and agent.mood:
+                        agent.mood.update_mood('accident', -0.2)
+                # Temporarily close the place for accidents
+                self.places[place_name].capabilities.discard('open')
+        self.event_dispatcher.register_handler('accident', accident_event_handler)
+
+    def dispatch_random_event(self, tick: int):
+        """
+        Dispatch random and scheduled events to the dispatcher.
+        """
+        import random
+        if not self.event_dispatcher:
+            return
+        # Random accident event
+        if random.random() < 0.01:
+            place = random.choice(list(self.places.keys()))
+            event = {'type': 'accident', 'place': place, 'tick': tick}
+            self.event_dispatcher.dispatch_event(event)
+        # Random weather change event (morning)
+        if hasattr(self, 'get_time_of_day') and self.get_time_of_day() == 'morning' and random.random() < 0.2:
+            weather_event = random.choice(['rain', 'sunny'])
+            event = {'type': 'weather', 'event': weather_event, 'tick': tick}
+            self.event_dispatcher.dispatch_event(event)
+        # Scheduled festival event
+        if tick == 100:
+            event = {'type': 'festival', 'name': 'Spring Festival', 'tick': tick}
+            self.event_dispatcher.dispatch_event(event)
+        # Store closing event at night (example)
+        if hasattr(self, 'get_time_of_day') and self.get_time_of_day() == 'night':
+            for place in self.places.values():
+                if 'store' in place.capabilities:
+                    event = {'type': 'store_close', 'place': place.name, 'tick': tick}
+                    self.event_dispatcher.dispatch_event(event)
+
+    places: Dict[str, Place] = field(default_factory=dict)
     events: deque = field(default_factory=deque)
     _agents: list = field(default_factory=list)  # type: ignore
 
@@ -180,6 +280,7 @@ class World:
     item_ownership: dict = field(default_factory=dict)  # Maps item IDs to agent/place names
     metrics: SimulationMetrics = field(default_factory=SimulationMetrics)  # Tracks simulation metrics
     weather_manager: Any = None  # Will be set to WeatherManager instance
+    event_dispatcher: Any = None  # Will be set to WorldEventDispatcher instance
 
     def __init__(self, places: Dict[str, Place], events=None, _agents=None, agent_locations=None, item_ownership=None, metrics=None):
         self.places = places
@@ -194,6 +295,12 @@ class World:
             self.weather_manager = WeatherManager()
         except ImportError:
             self.weather_manager = None
+        # EventDispatcher integration
+        try:
+            from sim.world.event_dispatcher import WorldEventDispatcher
+            self.event_dispatcher = WorldEventDispatcher()
+        except ImportError:
+            self.event_dispatcher = None
         # Register agent weather hooks if available
         if self.weather_manager:
             for agent in self._agents:
@@ -292,10 +399,13 @@ class World:
             ticks: Number of simulation ticks to run
         """
         from sim.scheduler.scheduler import run_agent_loop
+        self.register_event_handlers()
         for tick in range(ticks):
             # Update weather each tick
             if self.weather_manager:
                 self.weather_manager.update_weather()
+            # Dispatch random/scheduled events
+            self.dispatch_random_event(tick)
             # Run agent loop for this tick
             run_agent_loop(self, 1)
 
@@ -356,7 +466,8 @@ class World:
             config (dict): Configuration data containing agent details.
         """
         # Lazy import to avoid circular dependency
-        from sim.agents.agents import Agent, Persona
+        from sim.agents.agents import Agent
+        from sim.agents.persona import Persona
         
         for agent_data in config.get("agents", []):
             persona = Persona(

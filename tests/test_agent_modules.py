@@ -72,7 +72,7 @@ def test_social_module(agent):
     conn = agent.social.get_connection("Bob")
     assert conn is not None and conn["type"] == "friend"
     agent.social.log_interaction("Bob", "greeted")
-    assert ("Bob", "greeted") in agent.social.get_interactions()
+    assert ("Bob", "greeted", None) in agent.social.get_interactions()
 
 def test_serialization_module(agent):
     if agent.serialization is None:

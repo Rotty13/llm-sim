@@ -4,7 +4,7 @@ agent_relationships.py
 Handles agent relationship management for llm-sim agents.
 Includes familiarity and trust logic, and relationship update methods.
 """
-from typing import Dict
+from typing import Dict, Any
 
 class AgentRelationships:
     def serialize(self) -> dict:
@@ -20,7 +20,7 @@ class AgentRelationships:
         if isinstance(data, dict):
             self.relationships = {k: v.copy() for k, v in data.items()}
     def __init__(self):
-        self.relationships: Dict[str, Dict[str, float]] = {}
+        self.relationships: Dict[str, Dict[str, Any]] = {}
 
     def __contains__(self, key):
         return key in self.relationships
@@ -42,22 +42,24 @@ class AgentRelationships:
             "affinity": affinity,
             "rivalry": rivalry,
             "influence": influence,
-            "type": rel_type
+            "type": rel_type  # type is str, others are float
         }
 
-    def get_relationship(self, other: str) -> Dict[str, float]:
+    def get_relationship(self, other: str) -> Dict[str, Any]:
         rel = self.relationships.get(other)
         if isinstance(rel, dict):
             # Ensure all keys exist
             for k in ["familiarity", "trust", "affinity", "rivalry", "influence"]:
                 rel.setdefault(k, 0.0)
-            rel.setdefault("type", "acquaintance")
+                if "type" not in rel or not isinstance(rel["type"], str):
+                    rel["type"] = "acquaintance"
             return rel
         return {"familiarity": 0.0, "trust": 0.0, "affinity": 0.0, "rivalry": 0.0, "influence": 0.0, "type": "acquaintance"}
     def get_relationship_type(self, other: str) -> str:
         rel = self.relationships.get(other)
         if isinstance(rel, dict):
-            return rel.get("type", "acquaintance")
+              t = rel.get("type", "acquaintance")
+              return t if isinstance(t, str) else "acquaintance"
         return "acquaintance"
 
     def set_relationship_type(self, other: str, rel_type: str):
