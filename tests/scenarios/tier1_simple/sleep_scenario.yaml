@@ -1,0 +1,29 @@
+# Scenario: Agent is tired and sleeps in the bedroom
+world:
+  name: SleepScenarioWorld
+  year: 2025
+  places:
+    - name: Bedroom
+      capabilities: [home]
+    - name: Hallway
+      capabilities: []
+agents:
+  - name: SleepyAgent
+    place: Bedroom
+    job: None
+    values: [rest]
+    goals: [wellbeing]
+    traits:
+      extraversion: 0.3
+      openness: 0.4
+      conscientiousness: 0.5
+    physio:
+      hunger: 0.2
+      energy: 0.1
+      stress: 0.2
+      mood: tired
+      social: 0.5
+      fun: 0.5
+      hygiene: 0.8
+      comfort: 0.8
+      bladder: 0.8

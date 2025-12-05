@@ -529,7 +529,7 @@ class Agent:
         # TODO: Integrate relationship effects into decision-making
         if self.agent_plan_logic:
             return self.agent_plan_logic.decide(self, world, obs_text, tick, start_dt)
-        return {"action": "IDLE", "private_thought": "I have nothing to do right now."}
+        return {"action": "THINK", "private_thought": "I have nothing to do right now."}
 
     def enforce_schedule(self, tick: int):
         """

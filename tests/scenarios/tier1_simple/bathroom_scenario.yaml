@@ -1,0 +1,29 @@
+# Scenario: Agent needs to use the bathroom
+world:
+  name: BathroomScenarioWorld
+  year: 2025
+  places:
+    - name: Restroom
+      capabilities: [bathroom]
+    - name: Lobby
+      capabilities: []
+agents:
+  - name: NeedyAgent
+    place: Restroom
+    job: None
+    values: [comfort]
+    goals: [hygiene]
+    traits:
+      extraversion: 0.4
+      openness: 0.5
+      conscientiousness: 0.5
+    physio:
+      hunger: 0.3
+      energy: 0.7
+      stress: 0.2
+      mood: neutral
+      social: 0.5
+      fun: 0.5
+      hygiene: 0.8
+      comfort: 0.8
+      bladder: 0.05

@@ -186,4 +186,5 @@ ITEMS = {
     "salad":   Item(id="salad",   name="Salad",    tags={"edible","food"},               weight=0.3, effects={"hunger": -0.5, "stress": -0.02}),
     "beans":   Item(id="beans",   name="Coffee Beans", tags={"ingredient"},              weight=0.5, effects={}),
     "sketch":  Item(id="sketch",  name="Sketch",   tags={"art","sellable"},              weight=0.0, effects={}),
+    "apple":   Item(id="apple",   name="Apple",    tags={"edible","food","fruit"},      weight=0.15, effects={"hunger": -0.3, "energy": +0.02}),
 }

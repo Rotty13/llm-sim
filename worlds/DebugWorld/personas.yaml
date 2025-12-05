@@ -1,0 +1,11 @@
+people:
+- name: TestAgent
+  job: None
+  values:
+  - curiosity
+  goals:
+  - exploration
+  traits:
+    extraversion: 0.5
+    openness: 0.5
+    conscientiousness: 0.5

@@ -42,7 +42,7 @@ class DecisionController:
                 if pref_score >= 4:
                     return {"action": "SAY", "private_thought": f"My preference to interact is {pref_score}, I want to talk to someone.", "params": {}}
                 else:
-                    return {"action": "IDLE", "private_thought": f"My preference to interact is low ({pref_score}), so I won't socialize now."}
+                    return {"action": "THINK", "private_thought": f"My preference to interact is low ({pref_score}), so I won't socialize now."}
 
         traits = self.agent.persona.traits if hasattr(self.agent.persona, 'traits') else {}
         if traits.get("conscientiousness", 0.5) > 0.7 and random.random() < traits["conscientiousness"]:
@@ -66,4 +66,4 @@ class DecisionController:
             return {"action": "RELAX", "private_thought": "I value relaxation and need to reduce stress."}
         if random.random() < 0.2:
             return {"action": "EXPLORE", "private_thought": "I feel like exploring the area."}
-        return {"action": "IDLE", "private_thought": "I have nothing to do right now."}
+        return {"action": "THINK", "private_thought": "I have nothing to do right now."}

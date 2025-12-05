@@ -1,0 +1,6 @@
+
+name: Debug City
+year: 2025
+places:
+  - name: TestPark
+    capabilities: [food, relax]

@@ -1,0 +1,33 @@
+# Scenario: Agent is hungry and eats the apple in the kitchen
+world:
+  name: EatAppleWorld
+  year: 2025
+  places:
+    - name: Kitchen
+      capabilities: [food]
+      inventory:
+        - item_id: apple
+          qty: 1
+    - name: LivingRoom
+      capabilities: []
+
+agents:
+  - name: HungryAgent
+    place: Kitchen
+    job: None
+    values: [curiosity]
+    goals: [exploration]
+    traits:
+      extraversion: 0.5
+      openness: 0.5
+      conscientiousness: 0.5
+    physio:
+      hunger: 0.95
+      energy: 0.8
+      stress: 0.2
+      mood: neutral
+      social: 0.5
+      fun: 0.5
+      hygiene: 0.8
+      comfort: 0.8
+      bladder: 0.8

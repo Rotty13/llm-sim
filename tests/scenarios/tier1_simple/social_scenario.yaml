@@ -1,0 +1,48 @@
+# Scenario: Social agent says hello to another agent in the cafe
+world:
+  name: SocialScenarioWorld
+  year: 2025
+  places:
+    - name: Cafe
+      capabilities: [food, social]
+    - name: Street
+      capabilities: []
+agents:
+  - name: SocialAgent
+    place: Cafe
+    job: None
+    values: [social]
+    goals: [friendship]
+    traits:
+      extraversion: 0.95
+      openness: 0.5
+      conscientiousness: 0.5
+    physio:
+      hunger: 0.3
+      energy: 0.7
+      stress: 0.2
+      mood: happy
+      social: 0.2
+      fun: 0.5
+      hygiene: 0.8
+      comfort: 0.8
+      bladder: 0.8
+  - name: OtherAgent
+    place: Cafe
+    job: None
+    values: []
+    goals: []
+    traits:
+      extraversion: 0.5
+      openness: 0.5
+      conscientiousness: 0.5
+    physio:
+      hunger: 0.3
+      energy: 0.7
+      stress: 0.2
+      mood: neutral
+      social: 0.5
+      fun: 0.5
+      hygiene: 0.8
+      comfort: 0.8
+      bladder: 0.8

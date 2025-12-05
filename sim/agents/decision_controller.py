@@ -50,6 +50,7 @@ class DecisionController:
         """
         # Check if agent is still busy
         if tick < agent.busy_until:
+            print(f"[DEBUG] Agent {getattr(agent.persona, 'name', agent)}: BUSY (tick {tick} < busy_until {agent.busy_until})")
             return self._continue_action()
         
         # Retrieve context
@@ -58,29 +59,35 @@ class DecisionController:
         # Enforce schedule
         schedule_decision = self._check_schedule(agent, tick)
         if schedule_decision:
+            print(f"[DEBUG] Agent {getattr(agent.persona, 'name', agent)}: SCHEDULE decision -> {schedule_decision['action']}")
             return schedule_decision
         
         # Critical needs (highest priority after schedule)
         needs_decision = self._check_critical_needs(agent, world, place)
         if needs_decision:
+            print(f"[DEBUG] Agent {getattr(agent.persona, 'name', agent)}: CRITICAL NEED decision -> {needs_decision['action']}")
             return needs_decision
         
         # Goal-driven decisions based on persona
         goal_decision = self._goal_driven_decision(agent, world, tick)
         if goal_decision:
+            print(f"[DEBUG] Agent {getattr(agent.persona, 'name', agent)}: GOAL-DRIVEN decision -> {goal_decision['action']}")
             return goal_decision
         
         # Context-aware decisions (location, time, social)
         context_decision = self._context_aware_decision(agent, world, place, tick)
         if context_decision:
+            print(f"[DEBUG] Agent {getattr(agent.persona, 'name', agent)}: CONTEXT-AWARE decision -> {context_decision['action']}")
             return context_decision
         
         # Probabilistic decisions
         prob_decision = self._probabilistic_decision(agent)
         if prob_decision:
+            print(f"[DEBUG] Agent {getattr(agent.persona, 'name', agent)}: PROBABILISTIC decision -> {prob_decision['action']}")
             return prob_decision
         
         # Default action
+        print(f"[DEBUG] Agent {getattr(agent.persona, 'name', agent)}: DEFAULT decision -> THINK")
         return self._default_decision()
     
     def _continue_action(self) -> Dict[str, Any]:

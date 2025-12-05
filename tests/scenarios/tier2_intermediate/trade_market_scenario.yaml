@@ -1,0 +1,55 @@
+# Scenario: Two agents trade food items in the market
+world:
+  name: TradeScenarioWorld
+  year: 2025
+  places:
+    - name: Market
+      capabilities: [trade, food]
+      inventory: []
+    - name: Street
+      capabilities: []
+agents:
+  - name: AgentA
+    place: Market
+    job: None
+    values: [commerce]
+    goals: [satisfy_hunger]
+    traits:
+      extraversion: 0.6
+      openness: 0.5
+      conscientiousness: 0.5
+    physio:
+      hunger: 0.7
+      energy: 0.8
+      stress: 0.2
+      mood: neutral
+      social: 0.5
+      fun: 0.5
+      hygiene: 0.8
+      comfort: 0.8
+      bladder: 0.8
+    inventory:
+      - item_id: pastry
+        qty: 1
+  - name: AgentB
+    place: Market
+    job: None
+    values: [commerce]
+    goals: [satisfy_hunger]
+    traits:
+      extraversion: 0.6
+      openness: 0.5
+      conscientiousness: 0.5
+    physio:
+      hunger: 0.7
+      energy: 0.8
+      stress: 0.2
+      mood: neutral
+      social: 0.5
+      fun: 0.5
+      hygiene: 0.8
+      comfort: 0.8
+      bladder: 0.8
+    inventory:
+      - item_id: coffee
+        qty: 1

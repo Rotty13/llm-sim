@@ -1,0 +1,29 @@
+# Scenario: Agent is stressed and relaxes in the park
+world:
+  name: RelaxScenarioWorld
+  year: 2025
+  places:
+    - name: Park
+      capabilities: [relax]
+    - name: Street
+      capabilities: []
+agents:
+  - name: StressedAgent
+    place: Park
+    job: None
+    values: [relaxation]
+    goals: [stress_reduction]
+    traits:
+      extraversion: 0.4
+      openness: 0.5
+      conscientiousness: 0.5
+    physio:
+      hunger: 0.3
+      energy: 0.7
+      stress: 0.95
+      mood: stressed
+      social: 0.5
+      fun: 0.5
+      hygiene: 0.8
+      comfort: 0.8
+      bladder: 0.8

@@ -1,0 +1,29 @@
+# Scenario: Agent is bored and explores the plaza
+world:
+  name: ExploreScenarioWorld
+  year: 2025
+  places:
+    - name: Plaza
+      capabilities: [explore]
+    - name: Alley
+      capabilities: []
+agents:
+  - name: BoredAgent
+    place: Plaza
+    job: None
+    values: [curiosity]
+    goals: [exploration]
+    traits:
+      extraversion: 0.5
+      openness: 0.9
+      conscientiousness: 0.4
+    physio:
+      hunger: 0.3
+      energy: 0.7
+      stress: 0.2
+      mood: bored
+      social: 0.5
+      fun: 0.1
+      hygiene: 0.8
+      comfort: 0.8
+      bladder: 0.8
