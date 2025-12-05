@@ -8,8 +8,8 @@ from sim.utils.time_manager import TimeManager
 
 def test_initialization_defaults():
     tm = TimeManager()
-    assert tm.ticks_per_day == 144
-    assert tm.minutes_per_tick == 10
+    assert tm.ticks_per_day == 288
+    assert tm.minutes_per_tick == 5
     assert tm.tick == 0
 
 def test_set_and_advance_tick():

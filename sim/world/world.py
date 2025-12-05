@@ -217,10 +217,8 @@ class World:
             if self.weather_manager:
                 if event.get('type') == 'weather' and 'event' in event:
                     self.weather_manager.current_state = event['event']
-                    self.weather_manager.update_weather()
                 elif 'event' in event:
                     self.weather_manager.current_state = event['event']
-                    self.weather_manager.update_weather()
             # Affect agent mood for weather events
             for agent in self._agents:
                 if hasattr(agent, 'mood') and agent.mood:
