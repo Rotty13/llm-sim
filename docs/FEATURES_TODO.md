@@ -29,9 +29,6 @@ The following features are prioritized for efficient development, with foundatio
 8. **Dynamic Weather System** - Proposed
 
 See detailed descriptions in the sections below.
-
----
-
 ## ✅ Completed Features
 
 ### 1. Simulation Loop & Scheduler Integration
@@ -39,8 +36,6 @@ See detailed descriptions in the sections below.
 - **Main File(s)**: `sim/world/world.py`, `sim/scheduler/scheduler.py`
 - **Current State**: 
   - `World.simulation_loop()` enhanced with tick-based event sequencing
-  - Dynamic event management added
-  - Agents adhere to schedules with enforced movements
 
 ### 2. Agent Loading from World Config
 - **Status**: Completed
@@ -57,77 +52,55 @@ See detailed descriptions in the sections below.
   - Place configuration schema defined
   - Proper place loading with capabilities, vendors, and neighbors
   - Place connectivity validation implemented
-
-### 4. Agent Decision Logic Enhancement
-- **Status**: Completed
 - **Main File(s)**: `sim/agents/decision_controller.py`, `sim/agents/controllers.py`
 - **Current State**: 
   - `DecisionController` consolidates all decision logic
   - Includes rule-based, probabilistic, goal-driven, and context-aware decisions
   - Time-of-day, location context, and social context considered
-
-### 5. Action System Expansion
-- **Status**: Completed
 - **Main File(s)**: `sim/actions/actions.py`, `sim/agents/modules/agent_actions.py`
 - **Current State**: 
   - Actions `WORK`, `SAY`, `INTERACT` fully implemented
   - Action duration/cost modeling via `ACTION_DURATIONS` and `ACTION_COSTS`
-  - Job-site validation for WORK action
-
-### 7. Memory System Enhancement
 - **Status**: Completed
 - **Main File(s)**: `sim/memory/memory.py`, `sim/agents/modules/agent_memory.py`
 - **Current State**: 
   - MemoryStore supports episodic, semantic, autobio kinds
-  - Rule-based importance calculation, forgetting curve, search/filter by kind
-  - Memory consolidation (`compress_nightly`) and semantic extraction implemented
-- **Deferred**: Theory of Mind (ToM) memory usage (defer to LLM integration)
 
 ### 8. Vendor/Commerce System
 - **Status**: Completed
 - **Main File(s)**: `sim/world/world.py`, `sim/inventory/inventory.py`
-- **Current State**: 
-  - Vendor logic, BUY/SELL actions, money tracking
-  - Stock replenishment, price fluctuation, agent-to-agent trading
 
 ### 13. Metrics & Logging Integration
 - **Status**: Completed
-- **Main File(s)**: `sim/utils/metrics.py`, `sim/utils/monitor.py`
-- **Current State**: 
-  - SimulationMetrics fully integrated into simulation loop
   - Monitor hooks called during simulation with configurable logging
   - Metrics export available in JSON and CSV formats
 
 ### 24. Needs System
-- **Status**: Completed
-- **Main File(s)**: `sim/agents/physio.py`, `sim/agents/modules/agent_physio.py`
-- **Description**: System to manage agent needs (hunger, energy, fun, social, hygiene, comfort, bladder). Advanced need-driven behaviors and decision logic implemented. All related tests pass.
 
 ### 25. Personality Modeling
 - **Status**: Completed
 - **Main File(s)**: `sim/agents/personality.py`, `sim/agents/persona.py`
-- **Description**: Big Five traits, aspirations, and emotional modifiers added to differentiate agent behavior. All tests pass.
-
-### 26. Mood and Emotions
 - **Status**: Completed
 - **Main File(s)**: `sim/agents/modules/agent_mood.py`, `sim/agents/modules/agent_physio.py`
 - **Description**: Moodlets and emotional states influence agent behavior. Moodlet/emotion structure, triggers, and integration fully implemented. All related tests pass.
 
----
-
-## 🔧 In Progress / Skeleton Features
 
 ### 6. Agent Social Interaction
 **Status**: Completed
 **Main File(s)**: `sim/agents/interaction.py`, `sim/agents/modules/agent_social.py`, `sim/agents/modules/agent_plan_logic.py`, `tests/test_agent_modules.py`, `tests/test_social_influence.py`
-**Description**:
-  - `preference_to_interact()` integrated into agent decision-making
-  - Relationship tracking (familiarity, trust) implemented
   - Social memory (past conversations/interactions) implemented
   - Group mechanics and connection API tested and passing
   - Conversation topic tracking implemented
-  - Social influence on agent decisions integrated and tested
   - Logging and metrics integration complete
+### Place Subobjects/Areas (e.g., Rooms)
+- **Status**: Proposed
+- **Main File(s)**: `sim/world/world.py`, `sim/world/place.py`
+- **Description**: Extend the `Place` class to support subobjects representing areas (such as rooms within buildings). Each area can have its own inventory, agent list, and properties. Enables granular simulation of movement, interaction, and item localization within complex places.
+- **TODO**:
+  - [ ] Design area/subobject data structure
+  - [ ] Implement area management in `Place`
+  - [ ] Update agent movement/actions to support areas
+  - [ ] Add tests for area logic and agent interaction
   - API finalized and ready for production use
 
 ### 27. Aging and Life Stages

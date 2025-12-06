@@ -33,6 +33,7 @@ if TYPE_CHECKING:
     from sim.agents.agents import Agent, Persona
 
 from sim.utils.logging import SimLogger
+from sim.world.place import Area
 
 class WorldManager:
     def create_world(self, world_name: str, city: Optional[str] = None, year: Optional[int] = None):
@@ -123,6 +124,24 @@ class WorldManager:
                 capabilities=set(place_dict.get('capabilities', [])),
                 purpose=place_dict.get('purpose', '')
             )
+            # Load areas if specified
+            areas_data = place_dict.get('areas', [])
+            initial_area_name = None
+            for area_dict in areas_data:
+                area = Area(
+                    name=area_dict['name'],
+                    description=area_dict.get('description', ''),
+                    properties=area_dict.get('properties', {})
+                )
+                # Load initial inventory for area
+                inventory_data = area_dict.get('inventory', {})
+                for item_id, qty in inventory_data.items():
+                    area.add_item(item_id, qty)
+                place.add_area(area)
+                if not initial_area_name:
+                    initial_area_name = area.name  # First area is default
+            # Store initial area name for agent placement
+            place.attributes['initial_area'] = initial_area_name
             places[place.name] = place
         # Create a new SimulationMetrics instance for this run
         metrics = SimulationMetrics()
@@ -524,30 +543,23 @@ class WorldManager:
             # Validate and link to world if provided
             if world is not None:
                 # Validate agent's position against world places
-                if hasattr(world, 'places') and agent.place not in world.places:
+                if hasattr(world, 'places') and agent.place in world.places:
+                    place_obj = world.places[agent.place]
+                    initial_area = place_obj.attributes.get('initial_area') if hasattr(place_obj, 'attributes') else None
+                    if initial_area and hasattr(place_obj, 'areas') and initial_area in place_obj.areas:
+                        place_obj.areas[initial_area].add_agent(agent.persona.name)
+                elif hasattr(world, 'places') and agent.place not in world.places:
                     if world.places:
                         default_place = next(iter(world.places))
                         if self.sim_logger:
                             self.sim_logger.warning(
-                            f"Invalid place '{agent.place}' for agent {agent.persona.name}. "
-                            f"Assigning default place '{default_place}'."
-                        )
+                                f"Agent {agent.persona.name} position '{agent.place}' not found. Placing in default place '{default_place}'."
+                            )
                         agent.place = default_place
-                    else:
-                        if self.sim_logger:
-                            self.sim_logger.warning(
-                            f"No places available in world for agent {agent.persona.name}."
-                        )
-                
-                # Add agent to the world
-                if hasattr(world, 'add_agent'):
-                    world.add_agent(agent)
-                if hasattr(world, 'set_agent_location'):
-                    try:
-                        world.set_agent_location(agent, agent.place)
-                    except ValueError as e:
-                        if self.sim_logger:
-                            self.sim_logger.warning(f"Could not set location for agent {agent.persona.name}: {e}")
+                        place_obj = world.places[default_place]
+                        initial_area = place_obj.attributes.get('initial_area') if hasattr(place_obj, 'attributes') else None
+                        if initial_area and hasattr(place_obj, 'areas') and initial_area in place_obj.areas:
+                            place_obj.areas[initial_area].add_agent(agent.persona.name)
             
             agents.append(agent)
             if self.sim_logger:

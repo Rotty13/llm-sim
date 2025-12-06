@@ -567,12 +567,34 @@ class Agent:
         if hasattr(world, 'broadcast'):
             world.broadcast(self.place, {"actor": self.persona.name, "decision": decision, "tick": tick})
 
-    def move_to(self, world: Any, destination: str) -> bool:
+    def move_to(self, world: Any, destination: str, area: str = None) -> bool:
         """
-        Move the agent to a new location if valid.
+        Move the agent to a new location and optionally a specific area if valid.
         """
         if self.movement_controller:
-            return self.movement_controller.move_to(self, world, destination)
+            moved = self.movement_controller.move_to(self, world, destination)
+            if moved and area:
+                return self.move_to_area(world, destination, area)
+            return moved
+        return False
+
+    def move_to_area(self, world: Any, place_name: str, area_name: str) -> bool:
+        """
+        Move the agent to a specific area within a place if valid.
+        """
+        if hasattr(world, 'places') and place_name in world.places:
+            place_obj = world.places[place_name]
+            if hasattr(place_obj, 'areas') and area_name in place_obj.areas:
+                # Remove agent from current area if present
+                for area in place_obj.areas.values():
+                    if self.persona.name in area.agents_present:
+                        area.remove_agent(self.persona.name)
+                # Add agent to new area
+                place_obj.areas[area_name].add_agent(self.persona.name)
+                self.place = place_name
+                # Optionally track current area (add self.area attribute)
+                self.area = area_name
+                return True
         return False
 
     def use_item(self, item: Item) -> bool:

@@ -145,6 +145,8 @@ class Place:
     purpose: str = ""
     inventory: Inventory = field(default_factory=lambda: Inventory(capacity_weight=100.0))  # Item storage for the place
     agents: List[Any] = field(default_factory=list)  # List of agents currently in the place
+    areas: Dict[str, Any] = field(default_factory=dict)  # New: subobjects/areas
+    attributes: Dict[str, Any] = field(default_factory=dict)  # For initial_area and extensibility
 
     def get_items(self) -> dict:
         """Return a dict of item_id to quantity for all items stored in this place."""
@@ -165,6 +167,19 @@ class Place:
             return
 
         self.agents.append(agent)
+
+    def add_area(self, area: Any):
+        """
+        Add an area (subobject) to this place.
+        """
+        if area.name not in self.areas:
+            self.areas[area.name] = area
+
+    def get_area(self, area_name: str) -> Optional[Any]:
+        """
+        Get an area (subobject) by name.
+        """
+        return self.areas.get(area_name)
 
     @property
     def agents_present(self):
