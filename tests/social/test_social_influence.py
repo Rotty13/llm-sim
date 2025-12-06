@@ -30,6 +30,8 @@ def test_social_influence_modifier_boosts_say(agent):
     # Simulate recent topic and influential connection
     agent.social.topic_history.append(("Alice", "social_life"))
     agent.social.connections["Alice"] = {"influence": 1.0}
+    # Set social need low to trigger SAY condition (social < 0.5)
+    agent.physio.social = 0.4
     # Should boost extraversion score above threshold
     AgentPlanLogic.update_plan(agent)
     assert "SAY" in agent.plan

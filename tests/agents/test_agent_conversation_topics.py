@@ -34,13 +34,14 @@ def test_conversation_topic_logging_and_retrieval():
     tick = 1
     incoming_message = {"topic": topic, "content": "How's the weather?"}
     agent_a.decide_conversation(participants, obs, tick, incoming_message)
-    recent_topics = agent_a.get_recent_conversation_topics()
+    # Topics are logged by participant name (the other agent), so retrieve all topics without filtering
+    recent_topics = agent_a.social.get_recent_topics(limit=10)
     assert topic in recent_topics, f"Expected topic '{topic}' in recent topics: {recent_topics}"
-    assert topic not in agent_b.get_recent_conversation_topics(), "Agent B should not have topic logged yet."
+    assert topic not in agent_b.social.get_recent_topics(limit=10), "Agent B should not have topic logged yet."
     topic2 = "sports"
     incoming_message2 = {"topic": topic2, "content": "Did you watch the game?"}
     agent_b.decide_conversation(participants, obs, tick+1, incoming_message2)
-    recent_topics_b = agent_b.get_recent_conversation_topics()
+    recent_topics_b = agent_b.social.get_recent_topics(limit=10)
     assert topic2 in recent_topics_b, f"Expected topic '{topic2}' in Agent B's recent topics: {recent_topics_b}"
     assert topic not in recent_topics_b, "Agent B should not have Agent A's topic."
     assert topic2 not in recent_topics, "Agent A should not have Agent B's topic."
