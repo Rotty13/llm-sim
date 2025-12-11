@@ -18,8 +18,8 @@ class SimGraphWidget(QWidget):
     """Widget for drawing planar graphs (nodes and edges), with pan and zoom."""
     def __init__(self, parent=None):
         super().__init__(parent)
-        place_names = ["Place 1"]
-        self.city_graph = CityGraph(place_names)
+        place_names = ["Place 1", "Place 2", "Place 3", "Place 4", "Place 5"]
+        self.city_graph = CityGraph.TestSinglePlace()
         self.zoom = 1.0
         self.logical_center = (0.0, 0.0)
         self.last_mouse_pos = None
@@ -54,7 +54,7 @@ class SimGraphWidget(QWidget):
         metrics = painter.fontMetrics()
         text_width = metrics.horizontalAdvance(text)
         text_x = int(x) - text_width // 2
-        text_y = int(y) - int(radius+font.pointSize()/2) + metrics.ascent()
+        text_y = int(y) - int(radius+font.pointSize()*.75) + metrics.ascent()
         painter.drawText(text_x, text_y, text)
 
     def wheelEvent(self, event):
