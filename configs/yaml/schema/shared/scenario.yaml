@@ -1,0 +1,100 @@
+# YAML schema for llm-sim scenario files
+# Describes the structure and types for world, places, agents, persona, physio, inventory, and vendor
+
+$schema: "http://json-schema.org/draft-07/schema#"
+title: Scenario
+version: 1.0
+type: object
+required:
+  - world
+  - agents
+properties:
+  world:
+    type: object
+    required: [name, year, places]
+    properties:
+      name:
+        type: string
+      year:
+        type: integer
+      places:
+        type: array
+        items:
+          type: object
+          required: [name, capabilities]
+          properties:
+            name:
+              type: string
+            neighbors:
+              type: array
+              items: { type: string }
+              default: []
+            capabilities:
+              type: array
+              items: { type: string }
+            purpose:
+              type: string
+            inventory:
+              type: array
+              items:
+                type: object
+                required: [item_id]
+                properties:
+                  item_id: { type: string }
+                  qty: { type: integer, default: 1 }
+            vendor:
+              type: object
+              properties:
+                prices:
+                  type: object
+                  additionalProperties: { type: number }
+                stock:
+                  type: object
+                  additionalProperties: { type: integer }
+                buyback:
+                  type: object
+                  additionalProperties: { type: number }
+            areas:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  description: { type: string }
+            attributes:
+              type: object
+              additionalProperties: true
+  agents:
+    type: array
+    items:
+      type: object
+      required: [name, place]
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+        city:
+          type: string
+        bio:
+          type: string
+        job:
+          type: string
+        job_level:
+          type: string
+        job_experience:
+          type: integer
+        income:
+          type: number
+        career_history:
+          type: array
+          items: { type: string }
+        values:
+          type: array
+          items: { type: string }
+        goals:
+          type: array
+          items: { type: string }
+        traits:
+          type: object
+          additionalProperties: { type: number }
+        aspirations:

@@ -1,0 +1,17 @@
+# Agent decision/action rules
+decision_rules:
+  - condition: "life_stage == 'child' and physio.hunger < 0.3"
+    action: "EAT"
+    priority: 10
+  - condition: "life_stage == 'adult' and physio.energy < 0.2"
+    action: "REST"
+    priority: 8
+  - condition: "job and place != JOB_SITE[job]"
+    action: "MOVE"
+    params: { to: "JOB_SITE[job]" }
+    priority: 7
+action_rules:
+  - action: "EAT"
+    allowed_places: ["Home", "Cafeteria"]
+  - action: "WORK"
+    allowed_places: ["Office", "Factory"]

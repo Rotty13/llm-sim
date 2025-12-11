@@ -1,0 +1,46 @@
+# Personas Configuration Schema
+# This schema defines the structure for personas configurations in the simulation.
+
+$schema: "http://example.com/persona.schema#"
+title: Persona
+version: 1.0
+type: object
+required: [people]
+properties:
+  people:
+    type: array
+    description: List of persona definitions.
+    items:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          description: The name of the persona.
+        age:
+          type: integer
+          description: Age of the persona.
+        job:
+          type: string
+          description: Job or occupation of the persona.
+        bio:
+          type: string
+          description: Biography or description of the persona.
+        values:
+          type: array
+          items:
+            type: string
+          description: List of values the persona holds.
+        goals:
+          type: array
+          items:
+            type: string
+          description: List of goals the persona has.
+        start_place:
+          type: string
+          description: Initial location of the persona.
+        position:
+          type: string
+          description: Current position (alternative to start_place).
+        schedule:
+          $ref: "schedule.yaml"

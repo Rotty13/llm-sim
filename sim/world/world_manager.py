@@ -24,8 +24,7 @@ import json
 from typing import Dict, Any, Optional, List, Tuple, TYPE_CHECKING
 import logging
 from sim.utils.schema_validation import (
-    validate_city_config, validate_personas_config, validate_world_config,
-    validate_names_config, validate_place_connectivity
+    load_yaml_schema, validate_with_yaml_schema, validate_place_connectivity
 )
 from sim.scheduler.scheduler import Appointment
 
@@ -36,6 +35,27 @@ from sim.utils.logging import SimLogger
 from sim.world.place import Area
 
 class WorldManager:
+    def load_config_with_override(self, config_rel_path: str, world_name: Optional[str] = None) -> Optional[Dict[str, Any]]:
+        """
+        Load a config YAML file, preferring the world-specific override if present.
+        Args:
+            config_rel_path (str): Relative path to config (e.g. 'agent_rules/default_rules.yaml', 'presets/places/city_places.yaml').
+            world_name (Optional[str]): World name for override lookup.
+        Returns:
+            Optional[Dict[str, Any]]: Parsed YAML data or None if not found.
+        """
+        # World-specific config path
+        if world_name:
+            world_config_path = os.path.join(self.get_world_path(world_name), 'config', 'yaml', config_rel_path)
+            if os.path.exists(world_config_path):
+                with open(world_config_path, 'r', encoding='utf-8') as f:
+                    return yaml.safe_load(f)
+        # Global config path
+        global_config_path = os.path.join('configs', 'yaml', config_rel_path)
+        if os.path.exists(global_config_path):
+            with open(global_config_path, 'r', encoding='utf-8') as f:
+                return yaml.safe_load(f)
+        return None
     def create_world(self, world_name: str, city: Optional[str] = None, year: Optional[int] = None):
         """
         Create a new world directory with default config files.
@@ -180,7 +200,7 @@ class WorldManager:
 
     def load_agents_with_schedules(self, world_name: str) -> List['Agent']:
         """
-                    sim_logger.warning(f"Invalid position for persona {name}. Expected a string, using 'unknown'.")
+        Load agents with schedules, using world-specific agent_rules and presets if present.
         Args:
             world_name (str): Name of the world.
         Returns:
@@ -188,12 +208,19 @@ class WorldManager:
         """
         from sim.agents.agents import Agent
         from sim.agents.persona import Persona
-        
+
+        # Load personas.yaml (no override, always world-specific)
         personas_data = self.load_yaml(world_name, "personas.yaml")
         if not personas_data:
             if self.sim_logger:
                 self.sim_logger.warning(f"No personas.yaml found for world '{world_name}'")
             return []
+        # Load agent_rules (with override)
+        agent_rules = self.load_config_with_override("agent_rules/default_rules.yaml", world_name)
+        # Load presets (with override)
+        place_presets = self.load_config_with_override("presets/places/city_places.yaml", world_name)
+        entity_presets = self.load_config_with_override("presets/entities/entity.yaml", world_name)
+
         # Support both 'people' and 'personas' keys
         persona_list = personas_data.get("people", personas_data.get("personas", []))
         if not persona_list:
@@ -216,8 +243,15 @@ class WorldManager:
                 job=persona_cfg.get("job", persona_cfg.get("role", "unemployed")),
                 city=persona_cfg.get("city", "unknown"),
                 bio=persona_cfg.get("bio", ""),
-                values=persona_cfg.get("values", persona_cfg.get("traits", [])),
-                goals=persona_cfg.get("goals", [])
+                values=persona_cfg.get("values", []),
+                goals=persona_cfg.get("goals", []),
+                job_level=persona_cfg.get("job_level", "entry"),
+                job_experience=persona_cfg.get("job_experience", 0),
+                income=persona_cfg.get("income", 0.0),
+                career_history=persona_cfg.get("career_history", []),
+                traits=persona_cfg.get("traits", {}),
+                aspirations=persona_cfg.get("aspirations", []),
+                emotional_modifiers=persona_cfg.get("emotional_modifiers", {})
             )
             # Parse schedule into Appointment objects
             schedule_data = persona_cfg.get("schedule", [])
@@ -316,11 +350,14 @@ class WorldManager:
         
         # Schema validation if requested
         if validate:
-            result = validate_personas_config(personas)
-            if not result.is_valid:
-                for error in result.errors:
-                    if self.sim_logger:
-                        self.sim_logger.warning(f"Validation warning: {error}")
+            try:
+                personas_schema = load_yaml_schema(os.path.join('agent', 'persona.yaml'))
+                is_valid = validate_with_yaml_schema(personas, personas_schema)
+                if not is_valid and self.sim_logger:
+                    self.sim_logger.warning(f"Validation warning: personas.yaml does not match persona.yaml schema.")
+            except Exception as e:
+                if self.sim_logger:
+                    self.sim_logger.warning(f"Schema validation error: {e}")
         
         # Get people list - support both 'people' and 'personas' keys
         people_list = personas.get("people", personas.get("personas", []))
@@ -524,7 +561,14 @@ class WorldManager:
                 city=persona_data.get("city", "unknown"),
                 bio=persona_data.get("bio", ""),
                 values=persona_data.get("values", []),
-                goals=persona_data.get("goals", [])
+                goals=persona_data.get("goals", []),
+                job_level=persona_data.get("job_level", "entry"),
+                job_experience=persona_data.get("job_experience", 0),
+                income=persona_data.get("income", 0.0),
+                career_history=persona_data.get("career_history", []),
+                traits=persona_data.get("traits", {}),
+                aspirations=persona_data.get("aspirations", []),
+                emotional_modifiers=persona_data.get("emotional_modifiers", {})
             )
             
             # Get position - support both 'position' and 'start_place'
@@ -587,16 +631,25 @@ class WorldManager:
                 self.sim_logger.error(error)
             return False, [error]
 
-        # Use built-in validators for known config files
-        result = None
-        if filename == "personas.yaml":
-            result = validate_personas_config(data)
-        elif filename == "city.yaml":
-            result = validate_city_config(data)
-        elif filename == "world.yaml":
-            result = validate_world_config(data)
-        elif filename == "names.yaml":
-            result = validate_names_config(data)
+        # Use YAML schemas for known config files
+        schema_map = {
+            "personas.yaml": os.path.join('agent', 'persona.yaml'),
+            "city.yaml": os.path.join('world', 'city.yaml'),
+            "world.yaml": os.path.join('world', 'world.yaml'),
+            "names.yaml": os.path.join('shared', 'names.yaml'),
+            "place.yaml": os.path.join('world', 'place.yaml'),
+        }
+        schema_path = schema_map.get(filename)
+        if schema_path:
+            try:
+                yaml_schema = load_yaml_schema(schema_path)
+                is_valid = validate_with_yaml_schema(data, yaml_schema)
+                return is_valid, [] if is_valid else [f"Schema validation failed for {filename}"]
+            except Exception as e:
+                error = f"Schema validation error for {filename}: {e}"
+                if self.sim_logger:
+                    self.sim_logger.error(error)
+                return False, [error]
         elif schema is not None:
             from sim.utils.schema_validation import validate_nested_schema
             is_valid = validate_nested_schema(data, schema)

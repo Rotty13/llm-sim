@@ -1,0 +1,39 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: passage.schema.json
+title: Passage
+description: An abstract or physical passage/boundary connecting two places or areas.
+type: object
+properties:
+  tags:
+    $ref: './tags.yaml'
+    description: Tags associated with the passage
+
+  connects_pair:
+    type: tuple
+    location_id_1:
+        $ref: './locationIdentifier.yaml'
+    location_id_2:
+        $ref: './locationIdentifier.yaml'
+    description: List of two place/area identifiers this passage connects
+
+
+
+  affordances:
+    $ref: './affordances.yaml'
+    description: Actions that can be performed with this passage
+    
+  is_vertical:
+    type: boolean
+    description: True if the passage is a vertical connection (e.g., ladder, trapdoor)
+  size_limit:
+    type: number
+    description: Optional max size (in meters) for passage (e.g., for crawlspaces)
+  requires_crawl:
+    type: boolean
+    description: True if passage requires crawling or squeezing
+  locked:
+    type: boolean
+    description: True if the passage is currently locked or blocked
+required:
+- id
+- connects

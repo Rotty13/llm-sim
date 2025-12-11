@@ -1,0 +1,17 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: isPhysical.schema.json
+title: Is Physical
+type: object
+description: Has physical properties(Weight, Size, etc.) of an entity
+properties:
+
+  weight_kg:
+    type: number
+    description: Weight in kilograms
+    minimum: 0
+  volume_l:
+    type: number
+    description: Volume in liters
+    minimum: 0
+
+

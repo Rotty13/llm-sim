@@ -18,44 +18,63 @@ CLI Arguments:
 - None directly; validation is managed by simulation scripts and world configs.
 """
 
+
 import yaml
 import json
+import os
 from typing import Any, Dict, List, Optional, Union
 
-# Schema definitions for config files
-CITY_SCHEMA = {
-    "required": ["name"],
-    "optional": {
-        "population": int,
-        "year": int,
-        "features": list,
-        "places": list,
-    },
-    "types": {
-        "name": str,
-        "population": int,
-        "year": int,
-        "features": list,
-        "places": list,
-    }
-}
+# Path to the root schema directory
+SCHEMA_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'configs', 'yaml', 'schema')
 
-PLACE_SCHEMA = {
-    "required": ["name"],
-    "optional": {
-        "neighbors": list,
-        "capabilities": list,
-        "purpose": str,
-        "vendor": dict,
-    },
-    "types": {
-        "name": str,
-        "neighbors": list,
-        "capabilities": list,
-        "purpose": str,
-        "vendor": dict,
-    }
-}
+def load_yaml_schema(schema_rel_path: str) -> dict:
+    """
+    Load a YAML schema from the schema directory.
+    Args:
+        schema_rel_path (str): Relative path to the schema file (e.g. 'world/place.yaml')
+    Returns:
+        dict: Parsed YAML schema
+    """
+    schema_path = os.path.join(SCHEMA_ROOT, schema_rel_path)
+    if not os.path.exists(schema_path):
+        raise FileNotFoundError(f"Schema file not found: {schema_path}")
+    with open(schema_path, 'r', encoding='utf-8') as f:
+        return yaml.safe_load(f)
+
+def validate_with_yaml_schema(data: dict, schema: dict) -> bool:
+    """
+    Validate a data dict against a loaded YAML schema (basic type/structure check).
+    Args:
+        data (dict): Data to validate
+        schema (dict): YAML schema dict
+    Returns:
+        bool: True if valid, False otherwise
+    """
+    # This is a minimal implementation; for full JSON Schema support, use jsonschema package.
+    # Here, we check top-level keys and types only for demonstration.
+    if 'properties' in schema:
+        for key, prop in schema['properties'].items():
+            if key in data:
+                expected_type = prop.get('type')
+                if expected_type:
+                    if expected_type == 'string' and not isinstance(data[key], str):
+                        return False
+                    if expected_type == 'integer' and not isinstance(data[key], int):
+                        return False
+                    if expected_type == 'number' and not isinstance(data[key], (int, float)):
+                        return False
+                    if expected_type == 'array' and not isinstance(data[key], list):
+                        return False
+                    if expected_type == 'object' and not isinstance(data[key], dict):
+                        return False
+    return True
+
+
+# Deprecated: Python dict schemas are replaced by YAML schemas in configs/yaml/schema/.
+# Example entry point for validating a place config using the YAML schema
+def validate_place_config_with_yaml_schema(place_data: dict) -> bool:
+    schema = load_yaml_schema(os.path.join('world', 'place.yaml'))
+    return validate_with_yaml_schema(place_data, schema.get('places', {}))
 
 
 

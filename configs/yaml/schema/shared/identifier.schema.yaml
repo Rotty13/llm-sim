@@ -1,0 +1,21 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: identifier.schema.json
+title: Identifier
+type: object
+required:
+- id
+- internal_name
+properties:
+  id:
+    type: string
+    description: Internal unique guid
+  internal_name:
+    type: string
+    description: Internal human-readable name (e.g., item.mug.001, object.kettle.01, person.john_doe.01)
+  name:
+    type: string
+    description: Natural language name (e.g., "red mug", "kettle", "John Doe")
+  short_desc:
+    type: string
+    description: Short description (e.g., "A red ceramic mug", "A stainless steel kettle")
+    maxLength: 140

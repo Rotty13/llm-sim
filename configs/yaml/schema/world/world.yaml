@@ -1,0 +1,44 @@
+# World Configuration Schema
+# This schema defines the structure for world configurations in the simulation.
+
+$schema: "http://json-schema.org/draft-07/schema#"
+title: World
+type: object
+required: [name]
+properties:
+  name:
+    type: string
+    description: The name of the world.
+  time_manager:
+    type: object
+    description: Time management for the world.
+    properties:
+      ticks_per_day:
+        type: integer
+        description: Number of ticks in a day.
+      minutes_per_tick:
+        type: integer
+        description: Number of minutes per tick.
+      tick:
+        type: integer
+        description: Current tick.
+      hour:
+        type: integer
+        description: Current hour.
+      minutes:
+        type: integer
+        description: Current minutes.
+      day:
+        type: integer
+        description: Current day.
+    required: [ticks_per_day, minutes_per_tick]
+  places:
+    type: object
+    additionalProperties:
+      type: object
+      # Reference your place schema here or inline the structure
+  _agents:
+    type: array
+    items:
+      type: object
+      # Reference your agent schema here or inline the structure

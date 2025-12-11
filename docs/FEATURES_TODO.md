@@ -92,15 +92,16 @@ See detailed descriptions in the sections below.
   - Group mechanics and connection API tested and passing
   - Conversation topic tracking implemented
   - Logging and metrics integration complete
+
 ### Place Subobjects/Areas (e.g., Rooms)
-- **Status**: Proposed
+- **Status**: Completed
 - **Main File(s)**: `sim/world/world.py`, `sim/world/place.py`
 - **Description**: Extend the `Place` class to support subobjects representing areas (such as rooms within buildings). Each area can have its own inventory, agent list, and properties. Enables granular simulation of movement, interaction, and item localization within complex places.
-- **TODO**:
-  - [ ] Design area/subobject data structure
-  - [ ] Implement area management in `Place`
-  - [ ] Update agent movement/actions to support areas
-  - [ ] Add tests for area logic and agent interaction
+- **Current State**:
+  - Area/subobject data structure implemenyed
+  - Area management implemented in `Place`
+  - Agent movement/actions support areas
+  - Tests for area logic and agent interaction
   - API finalized and ready for production use
 
 ### 27. Aging and Life Stages
@@ -136,17 +137,34 @@ See detailed descriptions in the sections below.
 ## 📋 Proposed / Not Yet Implemented
 
 ### 14. Test Coverage
-- **Status**: Improved (91 tests passing)
-- **Main File(s)**: `tests/`
-- **TODO**:
   - [ ] Add tests for scheduler module
   - [ ] Add tests for memory recall/write
   - [ ] Add tests for inventory operations
   - [ ] Add integration tests for full simulation runs
   - [ ] Add LLM mocking for offline tests
 
-### 15. Error Handling & Validation
-- **Status**: Minimal
+### Basic Discourse Model
+- **Status**: Proposed
+- **Main File(s)**: `sim/agents/discourse_model.py`
+- **Description**: Implement a functional model of agentic discourse supporting conversation between a set of n agents. The model will handle statements, questions, and imperatives, map utterances to responses using the formalized tuple system (ObservableBehaviors, InternalStateChanges), and support context, reference, and basic turn-taking. Initial implementation will focus on core features needed for semi-intelligent agent conversation.
+
+### 43. Data-Driven Agent Logic Refactor
+- **Status**: Proposed
+- **Main File(s)**: `sim/agents/agents.py`, `sim/agents/persona.py`, `sim/agents/physio.py`, `sim/agents/modules/agent_plan_logic.py`, `sim/agents/modules/agent_actions.py`
+- **Description**: Refactor agent logic to use data-driven patterns for attributes, personality traits, decision logic, behaviors, and action mapping. Move static/hardcoded logic to YAML/JSON configs where possible, enabling flexible scenario design and easier extension by non-programmers. Prioritize refactoring:
+  1. Agent/Persona/Physio attribute definitions
+  2. Personality and trait assignment
+  3. Decision logic and behaviors
+  4. Agent initialization and world integration
+  5. Action mapping and DSL parsing
+  6. Memory and episodic event handling
+- **TODO**:
+  - [ ] Identify all hardcoded logic suitable for config-driven refactor
+  - [ ] Design schemas for agent/persona/physio configs
+  - [ ] Refactor initialization and assignment logic to load from configs
+  - [ ] Move decision/action rules to external data files
+  - [ ] Document new data-driven extension workflow
+
 - **TODO**:
   - [ ] Add input validation to all public APIs
   - [ ] Improve error messages with context

@@ -1,3 +1,8 @@
+#Large Name set for generating agent names
+# Format follows configs/schema/yaml/names.yaml
+#Local copy of format:
+
+
 first_names:
 - name: Abdelkader
   sex: male

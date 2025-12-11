@@ -1,0 +1,65 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: affordances.schema.json
+title: AffordanceSet
+type: array
+description: Finite set of affordances
+items:
+  type: string
+  enum:
+  - pick_up
+  - drop
+  - open
+  - close
+  - toggle
+  - use
+  - sit
+  - lie
+  - consume
+  - fill
+  - pour
+  - cook
+  - store
+  - retrieve
+  - inspect
+maxItems: 16
+
+
+
+
+
+$defs:
+  $id: predicateSignature.schema.json
+  title: Predicate Signature
+  type: object
+  description: k-ary predicate signature definition
+  properties:
+
+    tags:
+      type: array
+      description: Tags associated with the predicate
+      items:
+        type: string
+      maxItems: 5
+
+    head:
+      type: string
+      description: Head of the predicate
+
+    arguments:
+      type: object
+      description: Parameters required or accepted by the predicate
+      additionalProperties:
+        type: object
+        properties:
+          type:
+            type: string
+            description: Data type of the parameter
+          required:
+            type: boolean
+            description: True if the parameter is required
+          description:
+            type: string
+            description: Description of the parameter
+  required:
+    - head
+    - arguments

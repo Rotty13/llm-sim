@@ -1,0 +1,8 @@
+# social_rules.yaml
+# Default social interaction rules for agents in llm-sim
+
+base_friendship_gain: 0.05
+base_friendship_loss: 0.03
+max_relationships: 10
+introvert_modifier: -0.2
+extravert_modifier: 0.2

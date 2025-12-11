@@ -1,0 +1,66 @@
+# Place Configuration Schema
+# This schema defines the structure for place configurations in the simulation.
+
+places:
+  type: list
+  items:
+    type: object
+    properties:
+      name:
+        type: string
+        description: The name of the place.
+      capabilities:
+        type: array
+        items:
+          type: string
+        description: A list of capabilities the place offers (e.g., work, rest, shop).
+      vendor:
+        type: object
+        properties:
+          prices:
+            type: object
+            additionalProperties:
+              type: number
+            description: Item prices offered by the vendor.
+          stock:
+            type: object
+            additionalProperties:
+              type: integer
+            description: Stock levels for items.
+          buyback:
+            type: object
+            additionalProperties:
+              type: number
+            description: Buyback prices for items.
+      neighbors:
+        type: array
+        items:
+          type: string
+        description: A list of neighboring place names.
+      areas:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the area/room.
+            description:
+              type: string
+              description: Description of the area/room.
+            inventory:
+              type: object
+              additionalProperties:
+                type: integer
+              description: Initial inventory for the area/room (item_id: quantity).
+            properties:
+              type: object
+              additionalProperties:
+                type: string
+              description: Additional properties for the area/room.
+          required:
+            - name
+        description: List of areas/rooms within the place.
+    required:
+      - name
+      - neighbors

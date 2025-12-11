@@ -45,6 +45,14 @@ from datetime import datetime
 from difflib import SequenceMatcher
 from typing import Any, Dict, List, Optional, TYPE_CHECKING
 
+# YAML loading utility
+import yaml
+
+def load_yaml_config(path: str) -> dict:
+    """Load a YAML config file and return as dict."""
+    with open(path, 'r', encoding='utf-8') as f:
+        return yaml.safe_load(f)
+
 from sim.inventory.inventory import Inventory, Item, ITEMS
 from sim.memory.memory import MemoryItem, MemoryStore
 from sim.scheduler.scheduler import Appointment, enforce_schedule
@@ -70,12 +78,95 @@ from sim.llm.llm_ollama import LLM
 llm = LLM()
 
 # Import centralized simulation constants
-from sim.configs.constants import JOB_SITE
+from sim.utils.constants import JOB_SITE
 
 
 
 @dataclass
 class Agent:
+    # =============================
+    # Initialization & Config Loading
+    # =============================
+    @classmethod
+    def from_yaml(
+        cls,
+        agent_path: str,
+        persona_path: str,
+        physio_path: str,
+        modules_config: Optional[dict] = None,
+        decisionrules_path: Optional[str] = None,
+        physio_rules_path: Optional[str] = None,
+        inventory_rules_path: Optional[str] = None,
+        social_rules_path: Optional[str] = None,
+        schedule_rules_path: Optional[str] = None
+    ):
+        """
+        Factory method to create Agent from YAML config files.
+        Args:
+            agent_path: Path to agent YAML config
+            persona_path: Path to persona YAML config
+            physio_path: Path to physio YAML config
+            modules_config: Optional dict to override module enable/disable
+            rules_path: Optional path to agent decision/action rules YAML config
+            physio_rules_path: Optional path to physio/mood rules YAML config
+            inventory_rules_path: Optional path to inventory rules YAML config
+            social_rules_path: Optional path to social/relationship rules YAML config
+            schedule_rules_path: Optional path to schedule rules YAML config
+        """
+        agent_cfg = load_yaml_config(agent_path)
+        persona_cfg = load_yaml_config(persona_path)
+        physio_cfg = load_yaml_config(physio_path)
+
+        # Create Persona and Physio objects from config
+        persona = Persona(**persona_cfg['persona'])
+        physio = Physio(**physio_cfg['physio'])
+
+        # Compose Agent fields from config
+        modules = agent_cfg.get('modules', {})
+        if modules_config:
+            modules.update(modules_config)
+
+        # Calendar (schedule)
+        calendar = []
+        for entry in agent_cfg.get('calendar', []):
+            if isinstance(entry, dict):
+                calendar.append(Appointment(
+                    start_tick=entry.get('start_tick', 0),
+                    end_tick=entry.get('end_tick', 0),
+                    location=entry.get('location', ''),
+                    label=entry.get('label', '')
+                ))
+
+        # Traits
+        traits = agent_cfg.get('traits', persona_cfg.get('traits', []))
+        persona.traits = traits
+
+        # Place
+        place = agent_cfg.get('place', 'Home')
+
+        # Build config dict for module enable/disable
+        config = modules
+
+        # Load decision/action rules from YAML if provided
+        decision_rules = load_yaml_config(decisionrules_path) if decisionrules_path else None
+        physio_rules = load_yaml_config(physio_rules_path) if physio_rules_path else None
+        inventory_rules = load_yaml_config(inventory_rules_path) if inventory_rules_path else None
+        social_rules = load_yaml_config(social_rules_path) if social_rules_path else None
+        schedule_rules = load_yaml_config(schedule_rules_path) if schedule_rules_path else None
+
+        # Instantiate Agent
+        return cls(
+            persona=persona,
+            physio=physio,
+            place=place,
+            config=config,
+            calendar=calendar,
+            rules=decision_rules,
+            physio_rules=physio_rules,
+            inventory_rules=inventory_rules,
+            social_rules=social_rules,
+            schedule_rules=schedule_rules
+        )
     def get_recent_conversation_topics(self, limit=10, agent_name=None):
         """Return recent conversation topics from AgentSocial."""
         if self.social:
@@ -166,6 +257,47 @@ class Agent:
     _last_say_tick: int = field(default=-999, repr=False)
     _last_diary_tick: int = field(default=-999, repr=False)
     _last_diary: str = field(default="", repr=False)
+    # New fields for externalized rules/configs
+    rules: Optional[dict] = None
+    physio_rules: Optional[dict] = None
+    inventory_rules: Optional[dict] = None
+    social_rules: Optional[dict] = None
+    schedule_rules: Optional[dict] = None
+    # Utility methods to access loaded rules/configs
+    def get_physio_rules(self):
+        """Return loaded physio/mood rules from YAML."""
+        if self.physio_rules:
+            return self.physio_rules
+        return {}
+
+    def get_inventory_rules(self):
+        """Return loaded inventory rules from YAML."""
+        if self.inventory_rules:
+            return self.inventory_rules
+        return {}
+
+    def get_social_rules(self):
+        """Return loaded social/relationship rules from YAML."""
+        if self.social_rules:
+            return self.social_rules
+        return {}
+
+    def get_schedule_rules(self):
+        """Return loaded schedule rules from YAML."""
+        if self.schedule_rules:
+            return self.schedule_rules
+        return {}
+    def get_decision_rules(self):
+        """Return loaded decision rules from YAML."""
+        if self.rules and 'decision_rules' in self.rules:
+            return self.rules['decision_rules']
+        return []
+
+    def get_action_rules(self):
+        """Return loaded action rules from YAML."""
+        if self.rules and 'action_rules' in self.rules:
+            return self.rules['action_rules']
+        return []
 
     def assign_job(self, job: str, job_level: str = "entry", income: float = 0.0):
         """Assign a new job to the agent, updating career history and resetting experience."""
@@ -222,23 +354,17 @@ class Agent:
         self.time_of_death = tick
 
     def update_life_stage(self):
-        """Update life stage based on age with granular transitions."""
-        age = getattr(self.persona, 'age', None)
-        if age is not None:
-            if age < 3:
-                self.persona.life_stage = "infant"
-            elif age < 6:
-                self.persona.life_stage = "toddler"
-            elif age < 13:
-                self.persona.life_stage = "child"
-            elif age < 20:
-                self.persona.life_stage = "teen"
-            elif age < 36:
-                self.persona.life_stage = "young adult"
-            elif age < 65:
-                self.persona.life_stage = "adult"
-            else:
-                self.persona.life_stage = "elder"
+            """Update life stage based on age using config-driven transitions."""
+            age = getattr(self.persona, 'age', None)
+            transitions = getattr(self.persona, 'age_transitions', None)
+            if age is not None and transitions:
+                # transitions: {infant: 0, toddler: 3, child: 6, teen: 13, young_adult: 20, adult: 36, elder: 65}
+                stages = sorted(transitions.items(), key=lambda x: x[1])
+                for i, (stage, min_age) in enumerate(stages):
+                    next_min_age = stages[i+1][1] if i+1 < len(stages) else float('inf')
+                    if age >= min_age and age < next_min_age:
+                        self.persona.life_stage = stage
+                        break
 
     @property
     def money_balance(self):
@@ -270,9 +396,9 @@ class Agent:
                 'decision_controller': DecisionController,
                 'movement_controller': MovementController,
             }
-            for key, cls in module_map.items():
+            for key, module_cls in module_map.items():
                 enabled = self.config.get(key, True)
-                setattr(self, key, cls() if enabled else None)
+                setattr(self, key, module_cls() if enabled else None)
         # Add references to new modules for delegation
         from sim.agents.modules.agent_physio import AgentPhysio
         self.agent_physio = AgentPhysio(self.physio)
@@ -291,34 +417,38 @@ class Agent:
 
 
     def check_death_conditions(self, tick: int, world: Any = None):
-        """Check if agent meets any death conditions and trigger death if so."""
-        # Old age death threshold (can be customized)
-        MAX_AGE = 100
-        age = getattr(self.persona, 'age', None)
-        if age is not None and age >= MAX_AGE:
-            self.die(tick)
-            return 'old_age'
-        # Critical needs depletion
-        if self.agent_physio and self.agent_physio.physio:
-            physio = self.agent_physio.physio
-            if getattr(physio, 'hunger', 1) <= 0:
+            """Check if agent meets any death conditions and trigger death if so (config-driven)."""
+            # Get death thresholds from physio config
+            thresholds = getattr(self.physio, 'death_thresholds', {})
+            max_age = thresholds.get('max_age', 100)
+            min_hunger = thresholds.get('min_hunger', 0)
+            min_energy = thresholds.get('min_energy', 0)
+            max_stress = thresholds.get('max_stress', 1)
+            min_bladder = thresholds.get('min_bladder', 0)
+            age = getattr(self.persona, 'age', None)
+            if age is not None and age >= max_age:
                 self.die(tick)
-                return 'starvation'
-            if getattr(physio, 'energy', 1) <= 0:
-                self.die(tick)
-                return 'exhaustion'
-            if getattr(physio, 'stress', 0) >= 1:
-                self.die(tick)
-                return 'stress'
-            if getattr(physio, 'bladder', 1) <= 0:
-                self.die(tick)
-                return 'bladder_failure'
-        # External event stub (for future expansion)
-        # if world and hasattr(world, 'external_death_event'):
-        #     if world.external_death_event(self):
-        #         self.die(tick)
-        #         return 'external_event'
-        return None
+                return 'old_age'
+            if self.agent_physio and self.agent_physio.physio:
+                physio = self.agent_physio.physio
+                if getattr(physio, 'hunger', 1) <= min_hunger:
+                    self.die(tick)
+                    return 'starvation'
+                if getattr(physio, 'energy', 1) <= min_energy:
+                    self.die(tick)
+                    return 'exhaustion'
+                if getattr(physio, 'stress', 0) >= max_stress:
+                    self.die(tick)
+                    return 'stress'
+                if getattr(physio, 'bladder', 1) <= min_bladder:
+                    self.die(tick)
+                    return 'bladder_failure'
+            # External event stub (for future expansion)
+            # if world and hasattr(world, 'external_death_event'):
+            #     if world.external_death_event(self):
+            #         self.die(tick)
+            #         return 'external_event'
+            return None
 
     def get_relationship(self, other: str) -> Dict[str, float]:
         if self.relationships:
@@ -567,7 +697,7 @@ class Agent:
         if hasattr(world, 'broadcast'):
             world.broadcast(self.place, {"actor": self.persona.name, "decision": decision, "tick": tick})
 
-    def move_to(self, world: Any, destination: str, area: str = None) -> bool:
+    def move_to(self, world: Any, destination: str, area: Optional[str] = None) -> bool:
         """
         Move the agent to a new location and optionally a specific area if valid.
         """

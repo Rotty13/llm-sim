@@ -1,5 +1,0 @@
-places:
-- name: TestPark
-  capabilities:
-  - food
-  - relax

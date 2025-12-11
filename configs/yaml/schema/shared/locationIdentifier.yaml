@@ -1,0 +1,6 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: locationIdentifier.schema.json
+title: Location Identifier
+description: Identifier for a location in the form place.area
+type: string
+pattern: ^[A-Za-z0-9_]+\.[A-Za-z0-9_]+(\.[A-Za-z0-9_]+)

@@ -1,0 +1,5 @@
+# inventory_rules.yaml
+# Default inventory rules for agent inventory management in llm-sim
+max_weight: 20.0
+max_items: 30
+allow_duplicates: true

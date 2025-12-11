@@ -1,0 +1,5 @@
+# schedule_rules.yaml
+# Default scheduling rules for agent appointments in llm-sim
+max_appointments: 5
+min_gap_between_appointments: 2  # ticks
+allow_overlapping: false

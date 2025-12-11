@@ -1,0 +1,22 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: schedule.schema.json
+title: Schedule
+version: 1.0
+type: array
+description: Schedule of appointments.
+items:
+  type: object
+  required: [start_tick, end_tick, location, label]
+  properties:
+    start_tick:
+      type: integer
+      description: Starting tick of the appointment.
+    end_tick:
+      type: integer
+      description: Ending tick of the appointment.
+    location:
+      type: string
+      description: Location of the appointment.
+    label:
+      type: string
+      description: Label or description of the appointment.

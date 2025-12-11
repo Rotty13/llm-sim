@@ -1,0 +1,31 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: entity.schema.json
+title: Entity
+type: object
+required:
+- id
+- internal_name
+additionalProperties: false
+properties:
+
+  identifier:
+    $ref: './identifier.yaml'
+
+  tags:
+    $ref: './tags.yaml'
+
+  state:
+    type: object
+    description: Small mutable key->value map
+    additionalProperties:
+      oneOf:
+      - type: string
+      - type: number
+      - type: boolean
+      - type: 'null'
+
+  qualities:
+    $ref: './qualities.yaml'
+
+
+

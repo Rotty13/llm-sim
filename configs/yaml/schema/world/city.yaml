@@ -1,0 +1,56 @@
+# City Configuration Schema
+# This schema defines the structure for city configurations in the simulation.
+
+$schema: "http://json-schema.org/draft-07/schema#"
+title: City
+version: 1.0
+type: object
+required: [name, year, places]
+properties:
+  name:
+    type: string
+    description: The name of the city.
+  year:
+    type: integer
+    description: The year of the simulation.
+  places:
+    type: array
+    items:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        purpose:
+          type: string
+        description:
+          type: string
+        roles:
+          type: array
+          items:
+            type: array
+        capabilities:
+          type: array
+          items:
+            type: string
+        vendor:
+          type: object
+          properties:
+            prices:
+              type: object
+              additionalProperties:
+                type: number
+            stock:
+              type: object
+              additionalProperties:
+                type: integer
+            buyback:
+              type: object
+              additionalProperties:
+                type: number
+        neighbors:
+          type: array
+          items:
+            type: string

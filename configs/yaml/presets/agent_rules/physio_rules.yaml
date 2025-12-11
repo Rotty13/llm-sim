@@ -1,0 +1,11 @@
+# physio_rules.yaml
+# Default physiological rules for agent needs/decay in llm-sim
+hunger_decay: 0.02
+energy_decay: 0.01
+stress_decay: 0.01
+hygiene_decay: 0.01
+comfort_decay: 0.01
+bladder_decay: 0.02
+modifiers:
+neuroticism: 0.4
+conscientiousness: -0.3
