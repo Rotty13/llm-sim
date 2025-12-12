@@ -1,2 +1,4 @@
 requests
 PyYAML
+PyQt5
+numpy

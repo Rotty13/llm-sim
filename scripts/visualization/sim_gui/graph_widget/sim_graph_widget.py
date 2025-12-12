@@ -10,7 +10,6 @@ CLI Args: None
 
 from enum import Enum
 from math import pi
-from tkinter import CENTER
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QPainter, QPen, QColor
 from PyQt5.QtCore import Qt
