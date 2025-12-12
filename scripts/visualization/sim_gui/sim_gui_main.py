@@ -115,6 +115,10 @@ class SimMainWindow(QMainWindow):
             sim_controls.resume_btn.clicked.connect(self.on_simulation_resume)
             sim_controls.stop_btn.clicked.connect(self.on_simulation_stop)
             sim_controls.step_btn.clicked.connect(self.on_simulation_step)
+            
+            # Connect agent controls
+            agent_controls = menu_panel.get_agent_controls()
+            agent_controls.agent_selected.connect(self.on_agent_selected)
         
         # Start with sidebar-only view
         self._show_sidebar_only()
@@ -151,6 +155,11 @@ class SimMainWindow(QMainWindow):
             # Update info widgets
             self.world_info_widget.display_world(self.world_manager, world_name)
             
+            # Populate agent controls in both menu panels
+            for menu_panel in [self.sidebar_menu_panel, self.full_menu_panel]:
+                agent_controls = menu_panel.get_agent_controls()
+                agent_controls.load_agents(self.agents)
+            
             # Switch to full layout
             self._show_full_layout()
             self._append_log(f"[GUI] World '{world_name}' loaded successfully")
@@ -175,6 +184,14 @@ class SimMainWindow(QMainWindow):
             self.simulation_controller.stop()
             self.update_timer.stop()
         
+        # Clear agent controls in both menu panels
+        for menu_panel in [self.sidebar_menu_panel, self.full_menu_panel]:
+            agent_controls = menu_panel.get_agent_controls()
+            agent_controls.clear_agents()
+        
+        # Clear agent info display
+        self.agent_info_widget.display_agent(None)
+        
         self.world_is_open = False
         self.selected_world = None
         self.agents = []
@@ -182,6 +199,17 @@ class SimMainWindow(QMainWindow):
         
         self._append_log(f"[GUI] World '{world_name}' closed")
         self._show_sidebar_only()
+    
+    def on_agent_selected(self, row):
+        """Handle agent selection from agent controls."""
+        if row < 0 or not self.agents or row >= len(self.agents):
+            self.agent_info_widget.display_agent(None)
+            self._append_log("[GUI] No agent selected")
+            return
+        
+        agent = self.agents[row]
+        self.agent_info_widget.display_agent(agent)
+        self._append_log(f"[GUI] Selected agent: {agent.persona.name}")
 
     def on_simulation_start(self):
         """Start the simulation."""
