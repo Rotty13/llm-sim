@@ -28,6 +28,9 @@
        
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestPath": "pytest"
+    "python.testing.pytestPath": "pytest",
+    "python.analysis.diagnosticSeverityOverrides": {
+        
+    }
     
 }

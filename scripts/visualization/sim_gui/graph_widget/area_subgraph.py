@@ -11,7 +11,7 @@ CLI Args: None
 import stat
 import numpy as np
 from PyQt5.QtGui import QPainter, QPen, QColor
-from area_node import AreaNode
+from scripts.visualization.sim_gui.graph_widget.area_node import AreaNode
 
 class AreaSubgraph:
     def __init__(self, areas=[], edges=[], area_radius_ratio=0.09, place_radius=200):
@@ -38,7 +38,12 @@ class AreaSubgraph:
         area_infos = []  # (parent_index, depth)
         area_infos.append((-1, 0))  # root node
         for i in range(1, area_count):
-            parent_index = random.randint(0, i - 1)
+            # Compute weights inversely proportional to depth (add 1 to avoid div by zero)
+            depths = [area_infos[j][1] for j in range(i)]
+            weights = [1.0 / (d + 1) for d in depths]
+            total = sum(weights)
+            norm_weights = [w / total for w in weights]
+            parent_index = random.choices(range(i), weights=norm_weights, k=1)[0]
             parent_depth = area_infos[parent_index][1]
             area_infos.append((parent_index, parent_depth + 1))
         return area_infos
@@ -212,7 +217,7 @@ class AreaSubgraph:
         self.draw_edges(painter, area_positions)
         area_radius = subgraph_radius * area_radius_ratio
         #shrink area radius based on max depth to avoid overlap
-        area_radius *= (1.0 / (self.max_area_depth + 1))
+        #area_radius *= (1.0 / (self.max_area_depth + 1))
         self.draw_nodes(painter, area_positions, area_radius)
 
     def draw_edges(self, painter, area_positions):

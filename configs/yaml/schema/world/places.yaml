@@ -1,0 +1,15 @@
+# places.yaml schema for llm-sim
+# Validates a list of places, each with a name and category
+places:
+  type: sequence
+  required: true
+  sequence:
+    - type: map
+      required: true
+      mapping:
+        name:
+          type: str
+          required: true
+        category:
+          type: str
+          required: true

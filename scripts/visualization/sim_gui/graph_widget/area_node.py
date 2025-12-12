@@ -22,5 +22,5 @@ class AreaNode:
         color = "#e0f7fa"
         text = self.name
         # Import here to avoid circular imports if needed
-        from sim_graph_widget import SimGraphWidget
+        from scripts.visualization.sim_gui.graph_widget.sim_graph_widget import SimGraphWidget
         SimGraphWidget.draw_colored_circle_with_text_static(painter, x, y, radius, color, text)

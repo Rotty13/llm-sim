@@ -8,10 +8,13 @@ LLM Usage: None (UI only)
 CLI Args: None
 """
 
+from enum import Enum
+from math import pi
+from tkinter import CENTER
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QPainter, QPen, QColor
 from PyQt5.QtCore import Qt
-from city_graph import CityGraph
+from scripts.visualization.sim_gui.graph_widget.city_graph import CityGraph
 import numpy as np
 
 class SimGraphWidget(QWidget):
@@ -19,13 +22,13 @@ class SimGraphWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         place_names = ["Place 1", "Place 2", "Place 3", "Place 4", "Place 5"]
-        self.city_graph = CityGraph.TestSinglePlace()
+        self.city_graph = CityGraph.generate(place_names=place_names, radius=300)
         self.zoom = 1.0
         self.logical_center = (0.0, 0.0)
         self.last_mouse_pos = None
         self.setMouseTracking(True)
 
-    def paintEvent(self, event):
+    def paintEvent(self, a0):
         painter = QPainter(self)
         self.draw_border(painter)
         self.city_graph.draw(painter, self, self.zoom, self.logical_center)
@@ -35,6 +38,8 @@ class SimGraphWidget(QWidget):
         painter.setPen(border_pen)
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawRect(5, 5, self.width() - 10, self.height() - 10)
+
+
 
     @staticmethod
     def draw_colored_circle_with_text_static(painter, x, y, radius, color, text):
@@ -53,8 +58,12 @@ class SimGraphWidget(QWidget):
             return
         metrics = painter.fontMetrics()
         text_width = metrics.horizontalAdvance(text)
-        text_x = int(x) - text_width // 2
-        text_y = int(y) - int(radius+font.pointSize()*.75) + metrics.ascent()
+        text_offset_x = 0
+        text_offset_y = -int(radius * 1.5)
+        
+
+        text_x = int(x)+ text_offset_x - text_width // 2
+        text_y = int(y) + text_offset_y + metrics.ascent()
         painter.drawText(text_x, text_y, text)
 
     def wheelEvent(self, event):

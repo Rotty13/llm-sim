@@ -14,13 +14,13 @@ import stat
 import time
 import numpy as np
 from PyQt5.QtGui import QPainter, QPen, QColor
-from area_node import AreaNode
-from area_subgraph import AreaSubgraph
-from scripts.visualization.sim_gui import area_subgraph
+from scripts.visualization.sim_gui.graph_widget.area_node import AreaNode
+from scripts.visualization.sim_gui.graph_widget.area_subgraph import AreaSubgraph
+
 
 
 class PlaceNode:
-    def __init__(self, name, angle, radius, area_count=5, subgraph_radius_ratio=0.80, area_radius_ratio=0.09, area_subgraph=None, seed=None):
+    def __init__(self, name, angle, radius, area_count=5, subgraph_radius_ratio=0.80, area_radius_ratio=0.2, area_subgraph=None, seed=None):
         self.name = name
         self.angle = angle
         self.radius = radius
@@ -34,7 +34,7 @@ class PlaceNode:
     def draw(self, painter, x, y, radius):
         color = "white"
         text = self.name
-        from sim_graph_widget import SimGraphWidget
+        from scripts.visualization.sim_gui.graph_widget.sim_graph_widget import SimGraphWidget
         SimGraphWidget.draw_colored_circle_with_text_static(painter, x, y, radius, color, text)
         if radius < 20:
             return

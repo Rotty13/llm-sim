@@ -699,7 +699,7 @@ class WorldManager:
             Optional[Dict[str, Any]]: Validated places data or None if invalid.
         """
         from sim.utils.schema_validation import validate_nested_schema
-        schema_path = os.path.join("configs", "yaml", "schemas", "places.yaml")
+        schema_path = os.path.join("configs", "yaml", "schema","world", "places.yaml")
         with open(schema_path, "r", encoding="utf-8") as schema_file:
             schema = yaml.safe_load(schema_file)
 

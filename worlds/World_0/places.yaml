@@ -1,0 +1,63 @@
+# places.yaml - generated from city.yaml
+# Each place has a name and category
+places:
+- name: Lumière City Hall
+  category: government
+- name: Lumière Market Square
+  category: public_space
+- name: Lumière Church
+  category: religious
+- name: Lumière General Hospital
+  category: healthcare
+- name: Lumière Elementary School
+  category: education
+- name: Maison de la Vie
+  category: Restaurant
+- name: Le Jardin des Fleurs
+  category: Shop
+- name: Lumière Laundry
+  category: Service
+- name: La Belle Époque Salon
+  category: Shop
+- name: Le Coq d'Or Bakery
+  category: Restaurant
+- name: La Maison de la Mode
+  category: Shop
+- name: Le Petit Château Café
+  category: Restaurant
+- name: Lumière Livery
+  category: Service
+- name: Le Jardin de la Réussite
+  category: Shop
+- name: La Maison des Arts
+  category: Service
+- name: Le Coeur de la Vie
+  category: Restaurant
+- name: La Maison des Rêves
+  category: Shop
+- name: Le Jardin de la Vie
+  category: Service
+- name: La Maison des Émotions
+  category: Shop
+- name: Le Coq d'Argent Bookshop
+  category: Service
+- name: La Maison de la Vieillé
+  category: Shop
+- name: Le Petit Château Hotel
+  category: Service
+- name: La Maison de la Mode Élégance
+  category: Shop
+- name: Le Coeur de l'Art
+  category: Service
+- name: La Maison des Arts Étouffés
+  category: Shop
+- name: Le Jardin de la Vieillé
+  category: Service
+- name: La Maison des Émotions Élégantes
+  category: Shop
+- name: Le Coq d'Argent Café
+  category: Restaurant
+- name: La Maison de la Vieillé Élégance
+  category: Shop
+- name: Le Petit Château Bakery
+  category: Restaurant

@@ -1,0 +1,40 @@
+# Item Schema for Simulation World (YAML)
+# This schema defines the structure for item definitions in the simulation.
+
+id: # string, required
+name: # string, required, localizable
+description: # string, required, localizable
+type: # string, required (e.g., tool, food, furniture)
+tags: # [string], optional
+
+physical_properties:
+  location: # string or object, required (coordinates or place reference)
+  size: # object, optional (e.g., {x: float, y: float, z: float})
+  weight: # float, optional
+  material: # string, optional
+  orientation: # object, optional (e.g., {pitch: float, yaw: float, roll: float})
+  stackable: # boolean, required
+  quantity: # integer, optional (if stackable)
+  durability: # integer or enum, optional (e.g., new, worn, broken)
+
+behavior_dynamics:
+  interaction:
+    actions: # [string], required (e.g., pick up, use, consume)
+    affordances: # [string], optional (what the item enables)
+    required_attributes: # [string/object], optional (agent skills/attributes)
+    interaction_range: # float or string, optional
+    interaction_feedback: # string/object, optional (messages, sounds, animations)
+  effects:
+    effects: # [object], optional (effects on agent/world)
+    triggers: # [string/object], optional (events triggered)
+    side_effects: # [object], optional
+    cooldown: # float/integer, optional (usage limits/cooldowns)
+  lifecycle:
+    creation: # string/object, optional (rules/triggers for creation)
+    destruction: # string/object, optional (rules for removal)
+    decay: # string/object, optional (decay/expiration logic)
+
+state_ownership:
+  state: # object, required (key-value map for current state)
+  owner: # string, optional (agent or world entity)
+  accessibility: # string/object, optional (public/private/restricted or ACL)
