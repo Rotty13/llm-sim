@@ -4,7 +4,8 @@
         "${userHome}\\**"
     ],
     "python.analysis.includeAliasesFromUserFiles": true,
-    "python.terminal.useEnvFile": false,
+    "python.terminal.useEnvFile": true,
+    
     "python.analysis.include": [
     ],
     "python.analysis.enableTroubleshootMissingImports": true,

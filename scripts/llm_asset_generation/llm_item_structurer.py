@@ -1,155 +1,206 @@
 """
 llm_item_structurer.py
 
-Script to structure LLM responses according to the item schema defined in configs/yaml/schema/item_schema.yaml.
-Uses the LLM Ollama client to request a response and formats it as a Python dict matching the schema.
-"""
-
-
-"""
-llm_item_structurer.py
-
 Script to structure LLM responses according to the item schema using Pydantic and Ollama structured outputs.
+Main functionality:
+- Uses the LLM Ollama client to request a response and formats it as a Python dict matching the schema.
+- Uses the Item Pydantic model for schema validation.
+- CLI usage: Run directly to generate a structured item for a prompt.
 """
 
 
 import json
-from sim.llm.llm_ollama import LLM
-from item_schema_pydantic import Item
+from re import M
 import yaml
 from pydantic import BaseModel
+from sim.schemas.items import PhysicalProperties, Ownership, Lifecycle, Interaction, Effects
+from sim.llm.ollama_api import ErrorResponse, OllamaAPI
+from sim.llm.ollama_schemas import ChatMessage, ChatRequest, ChatResponse, ModelOptions
+
 from typing import Any, Type
+from sim.llm.llm_ollama import LLM
 
-def describe_pydantic_model(model: Type[BaseModel], prefix: str = "") -> str:
+# Composite ItemClass model using modular schema fragments
+class ItemClass(BaseModel):
+    id: str
+    name: str
+    description: str
+    type: str
+    tags: list[str] = []
+    physical: PhysicalProperties
+    lifecycle: Lifecycle
+    interaction: Interaction
+    effects: Effects
+
+
+def get_schema_json(model: Type[BaseModel]) -> str:
     """
-    Recursively describe all fields in a Pydantic model for prompt context.
+    Returns the JSON schema of a Pydantic model as a string.
     """
-    lines = []
-    for field_name, field in model.model_fields.items():
-        field_type = field.annotation
-        # Handle NoneType
-        if field_type is None:
-            field_type_str = "None"
-        elif hasattr(field_type, "__name__"):
-            field_type_str = field_type.__name__
-        else:
-            field_type_str = str(field_type)
-        field_info = f"{prefix}{field_name} ({field_type_str}): "
+    return json.dumps(model.model_json_schema(), indent=2)
 
-        # Handle nested Pydantic models
-        nested_model = None
-        if hasattr(field_type, "__fields__"):
-            nested_model = field_type
-        elif hasattr(field_type, "__origin__"):
-            # Handle generics like Optional[X], List[X], etc.
-            args = getattr(field_type, "__args__", [])
-            for arg in args:
-                if isinstance(arg, type) and issubclass(arg, BaseModel):
-                    nested_model = arg
-                    break
-        if nested_model and isinstance(nested_model, type) and issubclass(nested_model, BaseModel):
-            lines.append(field_info + "(object)")
-            lines.append(describe_pydantic_model(nested_model, prefix=prefix + "  "))
-        else:
-            # Example or instruction for each type
-            if field_name == "id":
-                example = "(unique string, e.g. 'chair-wooden')"
-            elif field_name == "name":
-                example = "(short descriptive name, e.g. 'Wooden Chair')"
-            elif field_name == "description":
-                example = "(detailed description, e.g. 'A sturdy wooden chair with a cushioned seat.')"
-            elif field_name == "type":
-                example = "(category, e.g. 'furniture', 'tool', etc.)"
-            elif field_name == "tags":
-                example = "(list of relevant tags, e.g. ['furniture', 'wooden'])"
-            elif field_name == "location":
-                example = "(where the item is found, e.g. 'indoor', 'living room')"
-            elif field_name == "size":
-                example = "(dimensions, e.g. {'width': 0.5, 'depth': 0.5, 'height': 1.0})"
-            elif field_name == "weight":
-                example = "(weight in kg, e.g. 20.5)"
-            elif field_name == "material":
-                example = "(main material, e.g. 'wood', 'metal')"
-            elif field_name == "orientation":
-                example = "(orientation, e.g. {'yaw': 0, 'pitch': 0, 'roll': 0})"
-            elif field_name == "stackable":
-                example = "(true/false)"
-            elif field_name == "quantity":
-                example = "(integer, e.g. 1)"
-            elif field_name == "durability":
-                example = "(integer or enum, e.g. 100 or 'new')"
-            elif field_name == "actions":
-                example = "(list of actions, e.g. ['sit', 'stand'])"
-            elif field_name == "affordances":
-                example = "(list of affordances, e.g. ['seating'])"
-            elif field_name == "required_attributes":
-                example = "(list of required agent attributes, e.g. ['strength'])"
-            elif field_name == "interaction_range":
-                example = "(distance or context, e.g. 1.0 or 'adjacent')"
-            elif field_name == "interaction_feedback":
-                example = "(feedback, e.g. 'You sit down comfortably.')"
-            elif field_name == "effects":
-                example = "(list of effects, e.g. [{'type': 'restore_energy', 'amount': 5}])"
-            elif field_name == "triggers":
-                example = "(list of triggers, e.g. ['on_use'])"
-            elif field_name == "side_effects":
-                example = "(list of side effects, e.g. ['makes noise'])"
-            elif field_name == "cooldown":
-                example = "(cooldown in seconds, e.g. 10)"
-            elif field_name == "creation":
-                example = "(creation rule, e.g. 'crafted from wood')"
-            elif field_name == "destruction":
-                example = "(destruction rule, e.g. 'breaks after 100 uses')"
-            elif field_name == "decay":
-                example = "(decay/expiration, e.g. 'rots after 30 days')"
-            elif field_name == "state":
-                example = "(state dict, e.g. {'is_owned': true, 'owner_id': 'player'})"
-            elif field_name == "owner":
-                example = "(owner id, e.g. 'player')"
-            elif field_name == "accessibility":
-                example = "(access control, e.g. 'public', 'private')"
-            else:
-                example = "(fill with a plausible value)"
-            lines.append(field_info + example)
-    return "\n".join(lines)
+# Replace LLM with OllamaAPI
+ollama_api = OllamaAPI()
 
-def get_structured_item_from_llm(prompt: str, model: str = "llama3.1:8b-instruct-q8_0", max_tokens: int = 512) -> Item:
-    llm = LLM(gen_model=model)
-    schema = Item.model_json_schema()
-    # Build a detailed, field-by-field context for the LLM
-    schema_context = describe_pydantic_model(Item)
+MODEL_1 = "llama3.1:8b-instruct-q8_0"
+MODEL_2 = "qwen3:1.7b"
+MODEL_Default = MODEL_2
+
+def get_structured_item_from_llm(prompt: str, model: str = MODEL_Default, max_tokens: int = 2*512) -> ItemClass:
+    schema_context = get_schema_json(ItemClass)
+    system_msg = (
+        "You are an expert simulation designer. Respond ONLY with a JSON object that strictly adheres to the provided item schema. "
+        "Ensure all fields are realistic, plausible, and non-empty unless explicitly stated as optional. "
+        "Avoid null values, empty objects, or empty lists unless the field is truly inapplicable. "
+        "Here is the schema in JSON format:\n" + schema_context + "\nDo not include any explanations, comments, or extra text."
+    )
+
+    chat_request = ChatRequest(
+        model=model,
+        messages=[ChatMessage(role="system", content=system_msg), ChatMessage(role="user", content=prompt)],
+        stream=False,
+        think=True,
+        format=ItemClass.model_json_schema(),
+        options=ModelOptions(temperature=0.3, num_ctx=8192, num_predict=max_tokens)
+    )
+
+    response = ollama_api.chat(chat_request)
+
+    if isinstance(response, ChatResponse):
+        txt = response.message.content.strip()
+        think: str = response.message.thinking or ""
+        print("LLM Thinking Trace:\n", think)
+        s, e = txt.find("{"), txt.rfind("}")
+        if s != -1 and e != -1:
+            txt = txt[s:e+1]
+        try:
+            return ItemClass.model_validate_json(txt)
+        except Exception as e:
+            print("Validation error:", e)
+            print("Raw response:", txt)
+            raise
+    else:
+        raise ValueError(f"Error from Ollama API: {response.error}")
+
+def iteratively_compose_item(prompt: str, model: str = MODEL_Default, max_tokens: int = 5*512) -> ItemClass:
+    """
+    Iteratively composes an item by selecting fragments and populating fields using the LLM.
+    """
+    schema_context = get_schema_json(ItemClass)
+    system_msg = (
+        "You are an expert simulation designer. Respond ONLY with JSON objects matching the schema fragments. "
+        "Iteratively provide values for each fragment (PhysicalProperties, Ownership, Lifecycle, Interaction, Effects). "
+        "Do not use null, empty objects, or empty lists unless the value is truly unknown or inapplicable. "
+        "Here is the schema and field-by-field instructions:\n" + schema_context + "\nDo not include explanations or extra text."
+    )
+
+    fragments = {
+        "physical": PhysicalProperties,
+        "ownership": Ownership,
+        "lifecycle": Lifecycle,
+        "interaction": Interaction,
+        "effects": Effects
+    }
+
+    item_data = {}
+
+    for fragment_name, fragment_model in fragments.items():
+        fragment_prompt = (
+            f"{prompt}\n\n"
+            f"Now provide the {fragment_name} fragment. "
+            f"Use the following schema:\n{get_schema_json(fragment_model)}"
+        )
+
+        chat_request = ChatRequest(
+            model=model,
+            messages=[ChatMessage(role="system", content=system_msg),
+                      ChatMessage(role="user", content=fragment_prompt)
+            ],
+            stream=False,
+            think=True,
+            options=ModelOptions(temperature=0.6, num_ctx=8192, num_predict=max_tokens)
+        )
+
+        response = ollama_api.chat(chat_request)
+
+        if isinstance(response, ChatResponse):
+            txt = response.message.content.strip()
+            s, e = txt.find("{"), txt.rfind("}")
+            if s != -1 and e != -1:
+                txt = txt[s:e+1]
+            try:
+                item_data[fragment_name] = fragment_model.parse_raw(txt)
+            except Exception as e:
+                print(f"Validation error for {fragment_name}:", e)
+                print("Raw response:", txt)
+                raise
+        else:
+            raise ValueError(f"Error from Ollama API while processing {fragment_name}: {response.error}")
+
+    return ItemClass(**item_data)
+
+def get_structured_item_from_llm_streaming(prompt: str, model: str = MODEL_Default, max_tokens: int = 128) -> ItemClass:
+    """
+    Generates a structured item using the LLM with streaming enabled.
+    """
+    schema_context = get_schema_json(ItemClass)
     system_msg = (
         "You are an expert simulation designer. Respond ONLY with a JSON object matching this item schema. "
         "For each field, provide a realistic, plausible, and non-empty value as described below. "
         "Do not use null, empty objects, or empty lists unless the value is truly unknown or inapplicable. "
-        "Here is the schema and field-by-field instructions:\n" + schema_context + "\nDo not include explanations or extra text."
+        "Here is the schema in JSON format:\n" + schema_context + "\nDo not include any explanations, comments, or extra text."
     )
-    body = {
-        "model": model,
-        "messages": [
-            {"role": "system", "content": system_msg},
-            {"role": "user", "content": prompt}
-        ],
-        "stream": False,
-        "options": {"temperature": 500, "num_ctx": 8192, "num_predict": max_tokens},
-        "format": "json",
-        "keep_alive": "30m"
-    }
-    data = llm._post("/api/chat", body, timeout=120)
-    txt = (data.get("message") or {}).get("content", "").strip()
-    s, e = txt.find("{"), txt.rfind("}")
-    if s != -1 and e != -1:
-        txt = txt[s:e+1]
-    try:
-        item = Item.model_validate_json(txt)
-    except Exception as e:
-        print("Validation error:", e)
-        print("Raw response:", txt)
-        raise
-    return item
+
+    chat_request = ChatRequest(
+        model=model,
+        messages=[ChatMessage(role="system", content=system_msg), ChatMessage(role="user", content=prompt)],
+        stream=True,  # Enable streaming
+        format=ItemClass.model_json_schema(),
+        options=ModelOptions(temperature=0.3, num_ctx=8192, num_predict=max_tokens)
+    )
+
+    response = ollama_api.chat(chat_request, stream=True)
+
+    if  isinstance(response, ChatResponse):
+        streamed_content = ""
+        in_thinking = False
+        thinking = ""
+        content = ""
+        assert response.message is not None
+        assert response.message.content is not None
+        for chunk in response:  # Assuming content is streamed in chunks
+            assert chunk.thinking is not None
+            if chunk.thinking:
+                if not in_thinking:
+                    in_thinking = True
+                    print("Thinking:\n", end="", flush=True)
+                print(chunk.thinking, end="", flush=True)
+                thinking += chunk.thinking
+            elif chunk.content:
+                if in_thinking:
+                    in_thinking = False
+                    print("\n\nAnswer:\n", end="", flush=True)
+                print(chunk.content, end="", flush=True)
+                content += chunk.content
+
+        s, e = content.find("{"), content.rfind("}")
+        if s != -1 and e != -1:
+            content = content[s:e+1]
+        try:
+            return ItemClass.model_validate_json(content)
+        except Exception as e:
+            print("Validation error:", e)
+            print("Raw response:", content)
+            raise
+    else:
+        raise ValueError(f"Error from Ollama API: {response.error}")
 
 if __name__ == "__main__":
-    prompt = "Create a new item definition for a wooden chair."
-    item = get_structured_item_from_llm(prompt)
+    import sys
+    if len(sys.argv) > 1:
+        prompt = " ".join(sys.argv[1:])
+    else:
+        prompt = "Create a new item definition for a record player."
+    item = get_structured_item_from_llm(prompt, max_tokens=128)
     print("Structured item:")
     print(yaml.dump(item.model_dump(), allow_unicode=True, sort_keys=False))

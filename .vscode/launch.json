@@ -11,7 +11,9 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "env": {},
+            "env": {
+                "OLLAMA_NUM_PARALLEL": "3"
+            },
             "python": "${workspaceFolder}/../.venv/Scripts/python.exe"
         }
     ]
